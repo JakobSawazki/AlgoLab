@@ -23,14 +23,22 @@
       <a href="#progress" data-nav="progress" title="Mein Lernstand"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg><span class="nav-label">Mein Lernstand</span></a>
     </nav>
     <div class="sidebar-note"><span class="eyebrow">DEIN LERNWEG</span><p>Ein Schritt nach dem anderen.<br>Jeder Abschluss öffnet die nächste Einheit.</p></div>
-    <div class="profile"><span class="avatar" aria-hidden="true">A</span><div>Dein Lernstand<small id="sidebar-points">0 Punkte</small></div><progress id="sidebar-progress" value="0" max="1900" aria-label="Gesamtfortschritt"></progress></div>
+    <button type="button" class="profile" data-profile-open aria-label="Profil öffnen" aria-haspopup="dialog"><span class="avatar" aria-hidden="true">A</span><span class="profile-copy">Dein Profil<small id="sidebar-points">0 Punkte</small></span><progress id="sidebar-progress" value="0" max="1900" aria-label="Gesamtfortschritt"></progress></button>
   </aside>
   <div class="workspace">
-    <header class="topbar"><button id="sidebar-toggle" class="icon-button" aria-label="Seitenleiste einklappen" aria-expanded="true" aria-controls="main-navigation" title="Seitenleiste ein- oder ausklappen"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#panel"/></svg></button><div class="heading-copy"><span class="eyebrow">BPE7 · ALGORITHMEN UND DATENSTRUKTUREN</span><h1 id="page-title">Übersicht</h1></div><div class="toolbar"><button id="theme-toggle" class="icon-button" aria-label="Helle Darstellung aktivieren" title="Darstellung wechseln"></button><button id="backup-open" class="icon-button" aria-label="Lernstand sichern oder laden" title="Lernstand sichern oder laden"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#save"/></svg></button><span class="points-chip" id="total-points">0 Punkte</span></div></header>
+    <header class="topbar"><button id="sidebar-toggle" class="icon-button" aria-label="Seitenleiste einklappen" aria-expanded="true" aria-controls="main-navigation" title="Seitenleiste ein- oder ausklappen"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#panel"/></svg></button><div class="heading-copy"><span class="eyebrow">BPE7 · ALGORITHMEN UND DATENSTRUKTUREN</span><h1 id="page-title">Übersicht</h1></div><div class="toolbar"><span id="developer-indicator" class="developer-indicator" hidden>Entwicklermodus</span><button type="button" class="icon-button" data-profile-open aria-label="Profil öffnen" aria-haspopup="dialog" title="Profil öffnen"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#user"/></svg></button><button id="theme-toggle" class="icon-button" aria-label="Helle Darstellung aktivieren" title="Darstellung wechseln"></button><button id="backup-open" class="icon-button" aria-label="Lernstand sichern oder laden" title="Lernstand sichern oder laden"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#save"/></svg></button><span class="points-chip" id="total-points">0 Punkte</span></div></header>
     <p id="storage-warning" class="notice" role="alert" hidden></p>
     <main id="main" tabindex="-1"></main>
-    <footer>AlgoLab · 0.3.0 · Grundgerüst <span>Designed by Sawazki Electronics</span></footer>
+    <footer>AlgoLab · 0.3.1 · Grundgerüst <span>Designed by Sawazki Electronics</span></footer>
   </div>
+  <dialog id="profile-dialog" aria-labelledby="profile-title">
+    <h2 id="profile-title">Dein Profil</h2>
+    <p id="profile-summary"></p>
+    <p>Dein Lernstand wird auf diesem Gerät gespeichert.</p>
+    <button type="button" id="developer-toggle" aria-pressed="false" hidden>Entwicklermodus</button>
+    <p id="developer-status" role="status" hidden></p>
+    <form method="dialog"><button id="profile-close">Schließen</button></form>
+  </dialog>
   <dialog id="backup-dialog" aria-labelledby="backup-title"><h2 id="backup-title">Deinen Lernstand mitnehmen</h2><p>Dein Lernstand wird auf diesem Gerät gespeichert. Sichere ihn als Datei, wenn du den Rechner wechselst.</p><button id="export-progress" class="primary">Als Datei sichern</button><label class="import-label" for="import-progress">AlgoLab-Datei laden<input id="import-progress" type="file" accept=".json,application/json"></label><p id="backup-message" role="status"></p><form method="dialog"><button>Schließen</button></form></dialog>
   <noscript>Bitte aktiviere JavaScript, um den AlgoLab-Lernpfad zu verwenden.</noscript>
 </body>

@@ -5,6 +5,19 @@ const createEngine = require("../progress.js");
 const engine = createEngine(content);
 function solve(state, id) { const unit = engine.byId(id); for (const task of unit.tasks) engine.answer(state, id, task.id, task.correct); }
 
+test("Developer access opens every valid unit without changing progress or completion rules", () => {
+  const state = engine.empty();
+  const before = JSON.stringify(state);
+  for (const unit of content.units) assert.equal(engine.accessible(state, unit.id, true), true);
+  assert.equal(engine.accessible(state, "missing", true), false);
+  assert.equal(JSON.stringify(state), before);
+  assert.equal(engine.total(state), 0);
+  assert.equal(engine.finish(state, "L3.4"), false);
+  assert.equal(engine.accessible(state, "L3.4", false), false);
+  assert.equal(engine.accessible(state, "L1.1", false), true);
+  assert.deepEqual(engine.normalize({ ...state, developerMode: true }).completed, []);
+});
+
 test("A new learner can access only L1.1, including direct routes", () => {
   const state = engine.empty();
   assert.equal(engine.unlocked(state, "L1.1"), true);

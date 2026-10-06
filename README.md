@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 6. Oktober 2026. Version **0.3.0 – Blaue Bildwelt und interaktive Lernkarte**.
+Stand: 6. Oktober 2026. Version **0.3.1 – Entwicklermodus im Profil**.
 Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
 L1.1 enthält einen ersten Verständnischeck; weitere Einheiten sind in Vorbereitung.
 
@@ -36,6 +36,21 @@ Nach 100 Punkten und dem bewussten Abschluss öffnet sich L1.2. Die Regel gilt
 über alle Lernfortschritte hinweg, auch für Direktlinks. Punkte werden nicht
 ausgegeben und nicht doppelt vergeben. Noch nicht ausgearbeitete Einheiten
 können nicht abgeschlossen werden.
+
+## Entwicklermodus
+
+Öffne dein Profil unten links oder über das Profilsymbol in der Kopfzeile.
+Mit **AltGr + S** erscheint der Button **Entwicklermodus**. Er schaltet den
+Modus ein oder aus; erneutes AltGr + S verbirgt lediglich den Button.
+Die Tastenkombination funktioniert ausschließlich im geöffneten Profil.
+
+Im aktiven Modus sind alle 19 Einheiten über Lernpfad, Lernkarte, Sidebar und
+Direktlinks zugänglich. Punkte und Abschlüsse werden dadurch nicht verändert.
+Die normalen Bewertungs- und Abschlussregeln bleiben bestehen. Unfertige
+Einheiten bleiben in Vorbereitung. Der Modus bleibt beim Neuladen in diesem
+Browser-Tab aktiv, bis er ausgeschaltet oder der Tab geschlossen wird. Er wird
+nicht in Lernstandsdateien exportiert. Beim erneuten Öffnen des Profils ist der
+Button wieder verborgen; ein aktiver Modus bleibt an der Kopfzeile erkennbar.
 
 ## Lokal starten und prüfen
 

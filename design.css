@@ -205,3 +205,12 @@ main { padding-top: 36px; }
   .map-key .icon { margin-left: auto; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.profile { width: 100%; padding: 16px 10px; text-align: left; justify-content: stretch; }
+.profile-copy { min-width: 0; }
+.developer-indicator { color: var(--accent); border: 1px solid var(--accent); border-radius: 8px; padding: 7px 9px; font-size: .7rem; font-weight: 750; }
+#developer-toggle.is-active { border-color: var(--accent); color: var(--accent); box-shadow: inset 0 0 12px #56aaff25; }
+#developer-toggle.is-active::after { content: " · An"; }
+#developer-toggle:not(.is-active)::after { content: " · Aus"; }
+#developer-status { font-size: .85rem; margin-top: 16px; }
+#profile-dialog form { margin-top: 24px; }
+@media (max-width: 780px) { .toolbar { flex-wrap: wrap; } }

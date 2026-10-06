@@ -6,6 +6,45 @@
   const key = "algolab-v1";
   const esc = text => String(text).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
   let state = engine.empty();
+  const developerKey = "algolab-developer-v1";
+  let developerMode = false;
+  let developerControlRevealed = false;
+  try { developerMode = sessionStorage.getItem(developerKey) === "active"; } catch { /* In-memory mode remains available. */ }
+  const accessible = id => engine.accessible(state, id, developerMode);
+  const profileDialog = document.querySelector("#profile-dialog");
+  const developerButton = document.querySelector("#developer-toggle");
+  function syncProfile() {
+    document.querySelector("#profile-summary").textContent = `${engine.total(state)} Punkte · ${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen`;
+    developerButton.hidden = !developerControlRevealed;
+    developerButton.setAttribute("aria-pressed", String(developerMode));
+    developerButton.classList.toggle("is-active", developerMode);
+    document.querySelector("#developer-status").hidden = !developerControlRevealed && !developerMode;
+    document.querySelector("#developer-status").textContent = developerMode
+      ? "Aktiv: Alle Lerneinheiten sind zugänglich. Punkte und Abschlüsse bleiben unverändert. Der Modus gilt für diesen Browser-Tab, bis du ihn ausschaltest oder den Tab schließt."
+      : "Ausgeschaltet: Die Lerneinheiten werden wieder in Reihenfolge freigeschaltet.";
+    document.querySelector("#developer-indicator").hidden = !developerMode;
+  }
+  function openProfile() {
+    developerControlRevealed = false;
+    syncProfile();
+    profileDialog.showModal();
+  }
+  document.querySelectorAll("[data-profile-open]").forEach(button => button.addEventListener("click", openProfile));
+  profileDialog.addEventListener("close", () => { developerControlRevealed = false; syncProfile(); });
+  document.addEventListener("keydown", event => {
+    const altGraph = event.getModifierState?.("AltGraph") || (event.ctrlKey && event.altKey);
+    if (!profileDialog.open || !altGraph || !(event.code === "KeyS" || event.key.toLowerCase() === "s")) return;
+    event.preventDefault();
+    if (event.repeat) return;
+    developerControlRevealed = !developerControlRevealed;
+    syncProfile();
+    (developerControlRevealed ? developerButton : document.querySelector("#profile-close")).focus();
+  });
+  developerButton.addEventListener("click", () => {
+    developerMode = !developerMode;
+    try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
+    render();
+  });
   const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
@@ -31,7 +70,7 @@
   });
   function renderSidebarPath() {
     const expanded = [...document.querySelectorAll(".sidebar-module[open]")].map(item => item.dataset.module);
-    document.querySelector("#sidebar-path").innerHTML = content.modules.map(module => `<details class="sidebar-module" data-module="${module.id}" ${expanded.includes(module.id) ? "open" : ""}><summary><span>${module.id}</span> ${module.title}</summary><div>${module.units.map(unit => engine.unlocked(state, unit.id) ? `<a href="#unit/${unit.id}"><span>${unit.id}</span>${esc(unit.title)}</a>` : `<span class="sidebar-unit locked">${icon("lock")}<span>${unit.id} · ${esc(unit.title)}</span></span>`).join("")}</div></details>`).join("");
+    document.querySelector("#sidebar-path").innerHTML = content.modules.map(module => `<details class="sidebar-module" data-module="${module.id}" ${expanded.includes(module.id) ? "open" : ""}><summary><span>${module.id}</span> ${module.title}</summary><div>${module.units.map(unit => accessible(unit.id) ? `<a href="#unit/${unit.id}"><span>${unit.id}</span>${esc(unit.title)}</a>` : `<span class="sidebar-unit locked">${icon("lock")}<span>${unit.id} · ${esc(unit.title)}</span></span>`).join("")}</div></details>`).join("");
     updateSidebar();
   }
   function storageWarning(message) { const warning = document.querySelector("#storage-warning"); warning.textContent = message; warning.hidden = false; }
@@ -50,11 +89,11 @@
   try { setTheme(localStorage.getItem("algolab-theme-v1") === "light" ? "light" : "dark"); } catch { setTheme("dark"); }
   function status(unit) {
     if (state.completed.includes(unit.id)) return "Abgeschlossen";
-    if (!engine.unlocked(state, unit.id)) return "Gesperrt";
+    if (!accessible(unit.id)) return "Gesperrt";
     return unit.ready ? "Bereit" : "In Vorbereitung";
   }
   function card(unit) {
-    const available = engine.unlocked(state, unit.id);
+    const available = accessible(unit.id);
     const previous = engine.prerequisite(unit.id);
     const label = status(unit);
     return `<article class="unit-card ${available ? "" : "locked"}"><div class="card-top"><span class="code">${unit.id}</span><span class="status ${label === "Abgeschlossen" ? "done" : ""}">${label}</span></div><h3>${esc(unit.title)}</h3><p>${esc(unit.description)}</p><div class="unit-meta"><span>${engine.earned(state, unit.id)} / ${unit.points} Punkte</span><span>${unit.ready ? "Verständnischeck" : "Inhalte folgen"}</span></div>${available ? `<a class="unit-link" href="#unit/${unit.id}">${unit.ready ? "Einheit öffnen" : "Lernziele ansehen"} <span aria-hidden="true">↗</span></a>` : `<p class="lock-reason">Zuerst ${previous.id} abschließen (${previous.points} Punkte).</p>`}</article>`;
@@ -63,7 +102,7 @@
     document.querySelector("#page-title").textContent = "Übersicht";
     const next = content.units.find(unit => !state.completed.includes(unit.id));
     const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
-    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-workshop.webp" width="1672" height="941" fetchpriority="high" alt="Blau beleuchteter Arbeitsplatz mit Laptop, metallischen Datenwürfeln und einem verzweigten Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${engine.unlocked(state, module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => engine.unlocked(state, unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> L1.1 enthält einen ersten Verständnischeck. Die weiteren Einheiten zeigen zunächst ihre Lernziele. Sie erhalten ihre Aufgaben im nächsten Ausbau.</aside>`;
+    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-workshop.webp" width="1672" height="941" fetchpriority="high" alt="Blau beleuchteter Arbeitsplatz mit Laptop, metallischen Datenwürfeln und einem verzweigten Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> L1.1 enthält einen ersten Verständnischeck. Die weiteren Einheiten zeigen zunächst ihre Lernziele. Sie erhalten ihre Aufgaben im nächsten Ausbau.</aside>`;
     setupMap();
   }
   function setupMap() {
@@ -127,7 +166,7 @@
     if (!unit) { renderMissing(); return; }
     const module = content.modules.find(item => item.units.includes(unit));
     document.querySelector("#page-title").textContent = `${unit.id} · ${unit.title}`;
-    if (!engine.unlocked(state, id)) {
+    if (!accessible(id)) {
       const previous = engine.prerequisite(id);
       main.innerHTML = `<section class="empty-state"><span class="eyebrow">NOCH GESPERRT</span><h2>Dieser Schritt kommt später.</h2><p>Schließe zuerst <strong>${previous.id} · ${esc(previous.title)}</strong> mit ${previous.points} Punkten ab. Du hast dort bisher ${engine.earned(state, previous.id)} Punkte erreicht.</p><a class="primary" href="#path">Zu deinem Lernpfad</a></section>`;
       return;
@@ -162,6 +201,7 @@
       if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
     });
     renderSidebarPath();
+    syncProfile();
     if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
   }
   main.addEventListener("submit", event => {

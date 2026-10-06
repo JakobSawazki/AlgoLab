@@ -17,6 +17,8 @@
       const index = units.findIndex(unit => unit.id === id);
       return index >= 0 && units.slice(0, index).every(unit => state.completed.includes(unit.id) && passed(state, unit.id));
     };
+    // Developer access is separate from earned points and the completion chain.
+    const accessible = (state, id, developerMode = false) => Boolean(byId(id)) && (developerMode || unlocked(state, id));
     function normalize(raw) {
       const state = empty();
       // Derive points and validate a contiguous chain; never trust imported totals.
@@ -46,7 +48,7 @@
       state.completed.push(id);
       return true;
     }
-    return { empty, byId, earned, passed, unlocked, normalize, answer, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
+    return { empty, byId, earned, passed, unlocked, accessible, normalize, answer, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createEngine;
   else root.createAlgoLabProgress = createEngine;

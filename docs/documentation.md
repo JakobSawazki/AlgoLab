@@ -2,7 +2,7 @@
 
 Stand: 6. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.3.0 – Blaue Bildwelt und interaktive Lernkarte**
+Aktueller Stand: **0.3.1 – Entwicklermodus im Profil**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -388,6 +388,38 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.3.1 – 6. Oktober 2026
+
+Ein Profilfenster ist über das Profil unten links und das Profilsymbol in der
+Kopfzeile erreichbar. Nur im geöffneten Profil blendet AltGr + S den Button
+„Entwicklermodus“ ein oder aus. Gehaltene Tasten führen nicht zu mehrfachen
+Umschaltungen. Der Button aktiviert oder deaktiviert den Modus; Ausblenden
+beendet einen aktiven Modus nicht. Beim Schließen wird die Sichtbarkeit des
+Buttons zurückgesetzt. Der aktive Zustand ist in der Kopfzeile sichtbar.
+
+Der Modus verwendet `sessionStorage` unter `algolab-developer-v1`. Er übersteht
+Neuladen im selben Tab, wird aber nicht im dauerhaften Lernstand oder einer
+JSON-Sicherung gespeichert. Beim Ausschalten gelten sofort wieder die normalen
+Sperren, auch für eine gerade angezeigte spätere Einheit. Ohne verfügbaren
+Sitzungsspeicher funktioniert der Modus bis zum Neuladen im Arbeitsspeicher.
+
+`progress.js` trennt Entwicklerzugang (`accessible`) von regulärer Freischaltung
+(`unlocked`). Alle vorhandenen Einheiten sind im Modus zugänglich; unbekannte
+IDs bleiben ungültig. Er verändert weder Punkte noch Abschlüsse. Bewertung und
+Abschluss behalten die reguläre Reihenfolge. Der Modus dient der Vorschau und
+ist kein passwortgeschützter Administrationsbereich. Inhalte in Vorbereitung
+werden durch den Modus nicht als fertig markiert.
+
+Sieben automatisierte Tests bestanden, einschließlich Entwicklerzugang ohne
+Änderung des Lernstands und Rückkehr zu den normalen Sperren. Lokal im Browser
+geprüft: Button zunächst verborgen; AltGr + S ein/aus; Aktivierung; 19 offene
+Einheiten im Lernpfad und in der Sidebar; vier offene L3-Einheiten auf der Karte;
+L3.4 per Direktlink und nach Neuladen; sofortige Sperre nach Deaktivierung.
+Der vorhandene Testlernstand blieb bei 100 Punkten und einem Abschluss.
+Profilansichten bei 1440 und 390 Pixeln, helle und dunkle Darstellung wurden
+visuell geprüft; die Mobilansicht hatte keinen horizontalen Überlauf.
+Syntax- und Git-Diff-Prüfung bestanden.
 
 ### 0.3.0 – 6. Oktober 2026
 
