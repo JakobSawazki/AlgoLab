@@ -45,7 +45,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=0.3.1#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }

@@ -17,7 +17,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Veröffentlicht und am 6. Oktober 2026 geprüft: **0.3.0**, ausdrücklich als
+Veröffentlicht und am 6. Oktober 2026 geprüft: **0.3.1**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -420,6 +420,11 @@ Der vorhandene Testlernstand blieb bei 100 Punkten und einem Abschluss.
 Profilansichten bei 1440 und 390 Pixeln, helle und dunkle Darstellung wurden
 visuell geprüft; die Mobilansicht hatte keinen horizontalen Überlauf.
 Syntax- und Git-Diff-Prüfung bestanden.
+
+Die Laufzeitdateien und SVG-Icons erhalten Versionskennungen in ihren URLs,
+damit Browser nach dem Deployment keine alten Skripte mit dem neuen HTML
+kombinieren. Der erste Deployment-Lauf `37527229078` war erfolgreich; bei der
+Online-Abnahme wurde dieser Cache-Fall erkannt und korrigiert.
 
 ### 0.3.0 – 6. Oktober 2026
 
