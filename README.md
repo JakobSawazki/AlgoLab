@@ -2,11 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 6. Oktober 2026. Version **0.1.0 – Projektgrundlage und Konzept**.
-Eine lauffähige Homepage ist noch nicht umgesetzt.
+Stand: 6. Oktober 2026. Version **0.2.0 – Lernpfad und Freischaltung**.
+Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
+L1.1 enthält einen ersten Verständnischeck; weitere Einheiten sind in Vorbereitung.
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
-GitHub Pages wird nach Prüfung des ersten nutzbaren Prototyps eingerichtet.
+Vorgesehene Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.
+Der aktuelle Deployment- und Prüfstand steht in der Projektdokumentation.
 
 AlgoLab entsteht als eigenständige Lernumgebung mit drei Lernfortschritten:
 Daten organisieren, Sortieren und Suchen sowie dynamische Datenstrukturen.
@@ -21,5 +23,27 @@ Die Unterrichtsmaterialien unter `resources/` dienen als lokale Referenz
 und sind vom Git-Repository ausgeschlossen. Öffentliche Erklärungen und
 Übungen werden eigenständig aufbereitet.
 
-Nächster Meilenstein: eine funktionierende Übersicht mit Lernkarte und die
-erste vollständige Einheit „Datenstrukturen kennenlernen“.
+## Freischaltung
+
+Anfangs ist nur L1.1 offen. Vier bestandene Aufgaben vergeben je 25 Punkte.
+Nach 100 Punkten und dem bewussten Abschluss öffnet sich L1.2. Die Regel gilt
+über alle Lernfortschritte hinweg, auch für Direktlinks. Punkte werden nicht
+ausgegeben und nicht doppelt vergeben. Noch nicht ausgearbeitete Einheiten
+können nicht abgeschlossen werden.
+
+## Lokal starten und prüfen
+
+Im Projektordner `python -m http.server 4175 --bind 127.0.0.1` ausführen und
+`http://127.0.0.1:4175` öffnen. Für die Freischaltungstests:
+
+```text
+node --test tests/progress.test.cjs
+```
+
+Der Lernstand wird lokal gespeichert und kann über das Symbol in der Kopfzeile
+als JSON gesichert oder geladen werden. Er ist kein manipulationssicherer
+Leistungsnachweis. Der Veröffentlichungsworkflow prüft die Freischaltung und
+überträgt ausschließlich die fünf Laufzeitdateien der Homepage an GitHub Pages.
+
+Nächster Meilenstein: L1.1 um eigene Begründungen und Zuordnungen ergänzen,
+danach L1.2 mit Arraybeispielen und Python-Ausführung ausarbeiten.

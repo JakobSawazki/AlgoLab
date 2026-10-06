@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101518">
+  <title>AlgoLab · BPE7</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="learning-path.js"></script>
+  <script defer src="progress.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt</a>
+  <aside class="sidebar">
+    <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">A<span>↗</span></span><span>AlgoLab<small>Jahrgangsstufe 2</small></span></a>
+    <nav aria-label="Hauptnavigation">
+      <a href="#home" data-nav="home">◈ <span>Übersicht</span></a>
+      <a href="#path" data-nav="path">↗ <span>Lernpfad</span></a>
+      <a href="#progress" data-nav="progress">◎ <span>Mein Lernstand</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="eyebrow">DEIN LERNWEG</span><p>Ein Schritt nach dem anderen.<br>Jeder Abschluss öffnet die nächste Einheit.</p></div>
+    <div class="profile"><span class="avatar" aria-hidden="true">A</span><div>Dein Lernstand<small id="sidebar-points">0 Punkte</small></div><progress id="sidebar-progress" value="0" max="1900" aria-label="Gesamtfortschritt"></progress></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div><span class="eyebrow">BPE7 · ALGORITHMEN UND DATENSTRUKTUREN</span><h1 id="page-title">Übersicht</h1></div><div class="toolbar"><button id="theme-toggle" class="icon-button" aria-label="Helle Darstellung aktivieren" title="Darstellung wechseln">☀</button><button id="backup-open" class="icon-button" aria-label="Lernstand sichern oder laden" title="Lernstand sichern oder laden">⇅</button><span class="points-chip" id="total-points">0 Punkte</span></div></header>
+    <p id="storage-warning" class="notice" role="alert" hidden></p>
+    <main id="main" tabindex="-1"></main>
+    <footer>AlgoLab · 0.2.0 · Grundgerüst <span>Designed by Sawazki Electronics</span></footer>
+  </div>
+  <dialog id="backup-dialog" aria-labelledby="backup-title"><h2 id="backup-title">Deinen Lernstand mitnehmen</h2><p>Dein Lernstand wird auf diesem Gerät gespeichert. Sichere ihn als Datei, wenn du den Rechner wechselst.</p><button id="export-progress" class="primary">Als Datei sichern</button><label class="import-label" for="import-progress">AlgoLab-Datei laden<input id="import-progress" type="file" accept=".json,application/json"></label><p id="backup-message" role="status"></p><form method="dialog"><button>Schließen</button></form></dialog>
+  <noscript>Bitte aktiviere JavaScript, um den AlgoLab-Lernpfad zu verwenden.</noscript>
+</body>
+</html>

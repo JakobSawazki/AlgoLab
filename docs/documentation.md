@@ -2,18 +2,21 @@
 
 Stand: 6. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.1.0 – Projektgrundlage und Konzept**
+Aktueller Stand: **0.2.0 – Lernpfad und Freischaltung**
 
-Veröffentlichte Anwendung: **noch keine**. Es gibt derzeit keine fertige Homepage.
-Die unten beschriebenen Funktionen sind geplant, sofern sie nicht ausdrücklich
-als umgesetzt bezeichnet sind.
+Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
+nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
+L1.1 enthält Erklärungen und einen ersten Verständnischeck; die übrigen
+Einheiten sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
+ist noch nicht erreicht.
 
 Projektordner: `D:\Google Drive\Codex\AlgoLab`
 
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
-GitHub Pages: noch nicht eingerichtet. Die erste Veröffentlichung der
-Schülerhomepage folgt nach Prüfung des nutzbaren Prototyps.
+Vorgesehene Live-Adresse: <https://jakobsawazki.github.io/AlgoLab/>.
+GitHub Pages wird für den gekennzeichneten Grundgerüst-Prototyp eingerichtet.
+Der tatsächlich geprüfte Veröffentlichungsstand wird unten festgehalten.
 
 ## 1. Projektziel und festgelegte Entscheidungen
 
@@ -95,8 +98,9 @@ während der Umsetzung dokumentiert.
 ## 3. Geplanter Lernpfad
 
 Die drei Hauptbereiche entsprechen den Lernfortschritten der Materialien.
-Die folgende Unterteilung ist ein erster Entwurf; die endgültigen Einheiten
-werden nach dem jeweiligen Materialabgleich festgelegt.
+Die Unterteilung ist als Grundgerüst in `learning-path.js` umgesetzt:
+L1.1 bis L1.7, L2.1 bis L2.8 und L3.1 bis L3.4. Die endgültige Ausarbeitung
+erfolgt nach dem Einzelabgleich mit Informationsblättern, Aufgaben und Lösungen.
 
 | Kürzel | Schülergerechter Titel | Lernschritte im Entwurf |
 | --- | --- | --- |
@@ -174,8 +178,30 @@ Lernfortschritt erhalten die Orientierung.
 Vorgesehene Hauptnavigation: Übersicht, Lernpfad, Üben, Nachschlagen und
 Mein Lernstand. Zusätzliche Reiter werden nur eingeführt, wenn die Inhalte
 sie benötigen. Ein heller und ein dunkler Darstellungsmodus sind vorgesehen.
-Strikte Freischaltungen und eine Lehrkraftbestätigung werden nicht ungeprüft
-aus WorkbenchLab übernommen; zunächst wird eine empfohlene Reihenfolge geplant.
+Auf ausdrücklichen Nutzerwunsch gilt nun eine verbindliche Reihenfolge mit
+punktgebundener Freischaltung. Eine Lehrkraftbestätigung ist bislang nicht
+implementiert.
+
+### Freischaltung seit 0.2.0
+
+Anfangs ist ausschließlich L1.1 zugänglich. Jede Einheit besitzt aktuell ein
+Punkteziel von 100 Punkten. Die nächste Einheit wird erst zugänglich, wenn
+alle Pflichtaufgaben der vorherigen Einheit bestanden, deren volle Punktzahl
+erreicht und der Abschluss bestätigt wurde. Alle vorangehenden Einheiten
+müssen ebenfalls abgeschlossen sein. Die Regel gilt auch zwischen L1 und L2
+sowie zwischen L2 und L3 und wird beim Aufruf direkter Links geprüft.
+
+Punkte bleiben erhalten und werden nicht ausgegeben. Bereits bestandene
+Aufgaben geben bei erneuten Versuchen keine zusätzlichen Punkte. Die
+Punkteziele weiterer Einheiten sind vorläufig und werden bei ihrer fachlichen
+Ausarbeitung an die tatsächlichen Pflichtaufgaben angepasst. Unfertige
+Einheiten vergeben keine Punkte und ermöglichen keinen weiteren Abschluss.
+
+L1.1 verwendet vier Verständnisfragen mit je 25 Punkten. Richtige Antworten
+werden gespeichert; nach 100 Punkten wird „Einheit abschließen“ aktiv. Danach
+öffnet sich L1.2 mit ihren geplanten Lernzielen. Noch fehlende Inhalte werden
+klar angezeigt. Freitextbegründungen und die vollständige Umsetzung des
+Originalarbeitsauftrags folgen später.
 
 ## 6. Verbindung mit PythonLab
 
@@ -212,14 +238,15 @@ werden gezielt übernommen und an AlgoLab angepasst.
 | `README.md` | Projekteinstieg und Verweis auf diese Dokumentation | angelegt |
 | `docs/documentation.md` | zentrale Konzept-, Aufgaben- und Versionsübersicht | angelegt |
 | `.gitignore` | lokale Materialien und Entwicklungsdateien ausschließen | angelegt |
-| `index.html` | App-Rahmen, Navigation und Dialoge | geplant |
-| `styles.css` | Gestaltung, Lernkarte und responsive Ansichten | geplant |
-| `learning-path.js` | Lernfortschritte, Lernschritte und Materialbezüge | geplant |
-| `content.js` | Erklärungen, Aufgaben und Prüfkriterien | geplant |
-| `app.js` | Navigation, Rendering und Lernstand | geplant |
+| `index.html` | App-Rahmen, Navigation und Dialoge | umgesetzt |
+| `styles.css` | Gestaltung, Lernkarte und responsive Ansichten | umgesetzt |
+| `learning-path.js` | Lernfortschritte, Einheiten, Materialkürzel und erster Check | umgesetzt |
+| `progress.js` | Punkte, Abschluss, Freischaltung und Lernstandvalidierung | umgesetzt |
+| `content.js` | zusätzliche Erklärungen und Aufgaben bei weiterem Ausbau | geplant |
+| `app.js` | Navigation, Rendering und Lernstand | umgesetzt |
 | `python-worker.js` | Python-Ausführung über Pyodide im Web Worker | geplant |
 | `assets/` | eigene Bildmedien und Symbole | bei Bedarf |
-| `tests/` | gezielte fachliche und technische Prüfungen | bei Bedarf |
+| `tests/` | sechs automatisierte Freischaltungs- und Lernstandtests | umgesetzt |
 | `resources/` | lokale Referenzmaterialien | vorhanden, Git ignoriert |
 
 Die Lernpfaddaten sollen stabile IDs und einen nachvollziehbaren Bezug zum
@@ -233,10 +260,17 @@ werden verständlich übersetzt. KI-Dienste sind für den Kern nicht erforderlic
 
 ## 8. Lernstand und Rückmeldung im Entwurf
 
-Geplant sind lokale Speicherung von Abschlüssen, Antworten, Codeentwürfen
-und zuletzt geöffnetem Lernschritt sowie JSON-Export und -Import.
-Der vorgesehene Speicherschlüssel lautet `algolab-v1`; die Sicherungsdatei
-kennzeichnet ihre Herkunft eindeutig als AlgoLab.
+Umgesetzt sind lokale Speicherung von Abschlüssen und geprüften Antworten
+sowie JSON-Export und -Import. Codeentwürfe und zuletzt geöffneter Lernschritt
+folgen beim weiteren Ausbau. Der Speicherschlüssel lautet `algolab-v1`;
+die Sicherungsdatei kennzeichnet ihre Herkunft eindeutig als AlgoLab und
+verwendet `formatVersion: 1`.
+
+Punkte werden aus den gültigen Antworten berechnet. Importierte Gesamtpunkte,
+unbekannte Aufgaben und unterbrochene Abschlussketten werden nicht übernommen.
+Vor einem Import wird das Ersetzen des aktuellen Lernstands bestätigt. Diese
+Validierung verhindert inkonsistente Dateien, ist aber kein Manipulationsschutz:
+eine vollständig lokale Anwendung enthält ihre Prüfkriterien im Browser.
 
 Importe werden auf Formatversion, Größe und bekannte Inhalts-IDs geprüft.
 Lernstände von PythonLab oder WorkbenchLab werden nicht als AlgoLab-Dateien
@@ -293,6 +327,21 @@ zugänglich bleiben. Rasterbilder dienen der Bildwelt, nicht als Ersatz für
 interaktive Fachdarstellungen. Git und GitHub CLI dienen der Versionierung.
 Die bestehende GitHub-Pages-Architektur erfordert keinen Sites-Workflow.
 
+Auf Wunsch des Nutzers wurden am 6. Oktober 2026 folgende ergänzende Skills
+aus der offiziellen kuratierten Sammlung `openai/skills` installiert:
+
+| Skill | Zweck |
+| --- | --- |
+| `playwright` | reproduzierbare Browser- und Interaktionstests |
+| `gh-fix-ci` | Fehler in GitHub-Actions-Prüfungen untersuchen |
+| `gh-address-comments` | spätere GitHub-Review-Kommentare bearbeiten |
+| `security-best-practices` | gezielte Sicherheitsprüfung beim weiteren Ausbau |
+
+Die Installation erfolgt benutzerweit unter `C:\Users\Jakob\.codex\skills`,
+damit die Skills auch für spätere AlgoLab-Aufgaben verfügbar sind. Die bereits
+über Plugins vorhandenen PDF-, Documents-, Presentations-, Imagegen- und
+Computer-use-Skills wurden nicht doppelt installiert.
+
 ## 11. Aufgaben und nächste Meilensteine
 
 ### 0.1.0 Projektgrundlage
@@ -304,14 +353,15 @@ Die bestehende GitHub-Pages-Architektur erfordert keinen Sites-Workflow.
 - [x] README und Ausschluss lokaler Materialien anlegen.
 - [x] Lokales Git-Repository und öffentliches GitHub-Repository einrichten.
 
-### 0.2.0 Lokaler Prototyp
+### 0.2.0 Grundgerüst mit erstem Verständnischeck
 
 - [ ] Materialmatrix für alle drei Lernfortschritte vervollständigen.
-- [ ] Übersicht und Lernkarte mit drei Stationen entwerfen und umsetzen.
-- [ ] Navigation und mobile Listenansicht erstellen.
+- [x] Übersicht und Lernkarte mit drei Stationen entwerfen und umsetzen.
+- [x] Navigation und mobile Listenansicht erstellen.
 - [ ] L1.1 mit Erklärungen, Zuordnungsaufgaben und Begründungen umsetzen.
-- [ ] Lokale Antwortspeicherung und JSON-Sicherung einrichten.
-- [ ] Prototyp im Browser prüfen und dokumentieren.
+- [x] Lokale Antwortspeicherung und JSON-Sicherung einrichten.
+- [x] Punktegebundene Freischaltung auch für direkte Links umsetzen.
+- [x] Prototyp am Desktop und bei 390 Pixeln Breite prüfen.
 
 ### 0.3.0 Erster Online-Prototyp
 
@@ -329,6 +379,32 @@ Die bestehende GitHub-Pages-Architektur erfordert keinen Sites-Workflow.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.2.0 – 6. Oktober 2026
+
+Drei Lernfortschritte mit 19 Lerneinheiten als Grundgerüst umgesetzt. Die
+Lernkarte ist zunächst eine funktionale Darstellung mit drei Stationen;
+ein Landschaftsbild ist noch nicht enthalten. Dark-/Light-Mode, Navigation,
+Lernstandsansicht, lokale Speicherung und JSON-Sicherung wurden ergänzt.
+
+Sechs automatisierte Tests bestanden: Anfangssperren; falsche Antworten und
+Teilpunkte; genau eine neue Freischaltung nach Abschluss; kein Abschluss
+unfertiger Einheiten; Normalisierung importierter Lernstände; durchgängige
+Reihenfolge über beide Lernfortschrittsgrenzen. Der letzte Test verwendet
+ausführbare Testeinheiten und schaltet keine unfertigen Inhalte der App frei.
+
+Im Browser geprüft: gesperrter Direktlink auf L2.1; Fehlversuch ohne Punkte;
+vier richtige Antworten mit insgesamt 100 Punkten; expliziter Abschluss;
+Freischaltung von L1.2; Erhalt des Abschlusses nach Neuladen. Lerneinheit und
+Lernpfad wurden bei 390 Pixeln Breite ohne horizontalen Überlauf geprüft,
+die Übersicht zusätzlich bei 1440 Pixeln. Syntaxprüfung und Git-Diff-Prüfung
+bestanden. Der vollständige Datei-Export/-Import über die Browseroberfläche
+ist noch separat abzunehmen; die Normalisierung wurde automatisiert geprüft.
+
+Der GitHub-Workflow prüft Syntax und Freischaltung vor jedem Deployment und
+veröffentlicht ausschließlich `index.html`, `styles.css`, `app.js`,
+`learning-path.js` und `progress.js`. Originalmaterialien, Tests und lokale
+Lernstandsdateien sind kein Bestandteil der veröffentlichten Homepage.
 
 ### 0.1.0 – 6. Oktober 2026
 
