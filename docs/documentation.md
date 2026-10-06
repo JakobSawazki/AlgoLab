@@ -2,10 +2,12 @@
 
 Stand: 6. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.2.0 – Lernpfad und Freischaltung**
+Aktueller Stand: **0.3.0 – Blaue Bildwelt und interaktive Lernkarte**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
+Zusätzlich umgesetzt: metallische Bedienelemente, eigenes fotorealistisches
+Logo, Startmotiv, Landkarte mit ausklappbaren Einheiten und einklappbare Sidebar.
 L1.1 enthält Erklärungen und einen ersten Verständnischeck; die übrigen
 Einheiten sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
 ist noch nicht erreicht.
@@ -166,10 +168,14 @@ Station öffnet eine übersichtliche Liste der zugehörigen Lernschritte.
 Aktueller Schritt und Bearbeitungsstand werden durch Text und Symbole
 erkennbar; Farbe allein genügt nicht.
 
-Die konkrete Bildwelt ist noch offen. Die Karte wird zunächst funktional
-entworfen. Ein aufwendiges Landschaftsbild folgt erst, wenn Stationen,
-Beschriftungen und Bedienung feststehen. Interaktive Beschriftungen bleiben
-HTML-Elemente und werden nicht in ein Hintergrundbild eingebrannt.
+Seit 0.3.0 verwendet die Karte eine fotorealistische Bergseelandschaft mit
+drei Forschungsstationen. Logo und Startmotiv greifen blaue und metallische
+Materialien auf. Die Sidebar ist einklappbar und zeigt bei Bedarf die
+Lernfortschritte mit ihren Einheiten. Die Kartenmenüs öffnen per Maus,
+Klick und Tastatur; auf Mobilgeräten erscheint die Liste unter dem Bild.
+Interaktive Beschriftungen bleiben HTML-Elemente und werden nicht in ein
+Hintergrundbild eingebrannt. Gestaltung, Bedienung und vollständige
+Generierungsprompts stehen in [Bildwelt und Bedienung](visual-design.md).
 
 Eine gleichwertige Listenansicht ermöglicht die Navigation auf kleinen
 Bildschirmen sowie per Tastatur. Direktlinks und eine sichtbare Rückkehr zum
@@ -240,12 +246,13 @@ werden gezielt übernommen und an AlgoLab angepasst.
 | `.gitignore` | lokale Materialien und Entwicklungsdateien ausschließen | angelegt |
 | `index.html` | App-Rahmen, Navigation und Dialoge | umgesetzt |
 | `styles.css` | Gestaltung, Lernkarte und responsive Ansichten | umgesetzt |
+| `design.css` | blaue Metallgestaltung, Fotomotive und Kartenmenüs | umgesetzt |
 | `learning-path.js` | Lernfortschritte, Einheiten, Materialkürzel und erster Check | umgesetzt |
 | `progress.js` | Punkte, Abschluss, Freischaltung und Lernstandvalidierung | umgesetzt |
 | `content.js` | zusätzliche Erklärungen und Aufgaben bei weiterem Ausbau | geplant |
 | `app.js` | Navigation, Rendering und Lernstand | umgesetzt |
 | `python-worker.js` | Python-Ausführung über Pyodide im Web Worker | geplant |
-| `assets/` | eigene Bildmedien und Symbole | bei Bedarf |
+| `assets/` | drei eigene Fotomotive und SVG-Icon-System | umgesetzt |
 | `tests/` | sechs automatisierte Freischaltungs- und Lernstandtests | umgesetzt |
 | `resources/` | lokale Referenzmaterialien | vorhanden, Git ignoriert |
 
@@ -380,6 +387,30 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.3.0 – 6. Oktober 2026
+
+Die Homepage erhält ein blaues Farbsystem mit metallischen Buttons und
+eigenen skalierbaren Icons. Ein fotorealistisches Logo wurde als Sidebarlogo
+und Favicon eingebunden. Die Startseite zeigt einen blauen Programmierarbeitsplatz;
+die Lernkarte zeigt drei verbundene Forschungsstationen an einem Bergsee.
+Alle drei Motive wurden mit dem eingebauten Imagegen-Werkzeug erstellt und
+im Projekt abgelegt. Prompts und Dateizuordnung sind in `visual-design.md`
+dokumentiert.
+
+Die Sidebar ist am Desktop zu einer Icon-Leiste einklappbar. Der Lernpfad
+darin enthält aufklappbare Lernfortschritte und Einheiten. Die Kartenstationen
+zeigen beim Darüberfahren und per Klick ihre Einheiten. Tastaturbedienung,
+Escape, große Touch-Buttons und eine mobile Liste ergänzen die Mausbedienung.
+Gesperrte Einheiten sind sichtbar, erhalten aber keinen Lektionslink.
+
+Die sechs bestehenden Freischaltungstests und Syntaxprüfung bestanden.
+Lokal geprüft: Bildladung, Sidebar-Einstellung nach Neuladen, Sidebar-Einheiten,
+L2-Kartenmenü mit allen acht Einheiten, L3-Menü mit Enter/Escape, Desktop bei
+1440 Pixeln und mobile Karte mit Menü bei 390 Pixeln ohne horizontalen Überlauf.
+Der Deploy-Workflow nimmt nun `design.css` und `assets/` zusätzlich auf.
+Punkte und vorhandene Lernstände bleiben kompatibel. Der öffentliche Stand
+wird nach erfolgreichem Deployment geprüft.
 
 ### 0.2.0 – 6. Oktober 2026
 

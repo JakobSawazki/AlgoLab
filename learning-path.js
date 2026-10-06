@@ -44,7 +44,7 @@
     { id: "queue", points: 25, prompt: "Druckaufträge sollen in der Reihenfolge ihres Eingangs bearbeitet werden. Welche Datenstruktur passt?", options: ["Baum", "Stapelspeicher", "Warteschlange"], correct: 2, hint: "Der älteste Auftrag wird zuerst bearbeitet. Denke an FIFO." },
     { id: "baum", points: 25, prompt: "Eine Firma besteht aus einer Leitung, Abteilungen und untergeordneten Teams. Welches Modell bildet diese Beziehungen ab?", options: ["Baum", "Stapelspeicher", "Eine einzelne Zahl"], correct: 0, hint: "Gesucht ist eine Struktur, die über- und untergeordnete Ebenen sichtbar macht." }
   ];
-  const data = { version: "0.2.0", modules, units: modules.flatMap(m => m.units) };
+  const data = { version: "0.3.0", modules, units: modules.flatMap(m => m.units) };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

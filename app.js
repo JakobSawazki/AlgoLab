@@ -6,6 +6,34 @@
   const key = "algolab-v1";
   const esc = text => String(text).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
   let state = engine.empty();
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#${name}"/></svg>`;
+  let sidebarCollapsed = false;
+  let pathExpanded = false;
+  try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
+  function updateSidebar() {
+    document.body.classList.toggle("sidebar-collapsed", sidebarCollapsed);
+    const toggle = document.querySelector("#sidebar-toggle");
+    toggle.setAttribute("aria-expanded", String(!sidebarCollapsed));
+    toggle.setAttribute("aria-label", sidebarCollapsed ? "Seitenleiste ausklappen" : "Seitenleiste einklappen");
+    document.querySelector("#sidebar-path").hidden = !pathExpanded || sidebarCollapsed;
+    const pathToggle = document.querySelector("#path-toggle");
+    pathToggle.setAttribute("aria-expanded", String(pathExpanded && !sidebarCollapsed));
+    pathToggle.setAttribute("aria-label", pathExpanded && !sidebarCollapsed ? "Lernfortschritte ausblenden" : "Lernfortschritte einblenden");
+  }
+  document.querySelector("#sidebar-toggle").addEventListener("click", () => {
+    sidebarCollapsed = !sidebarCollapsed; updateSidebar();
+    try { localStorage.setItem("algolab-sidebar-v1", sidebarCollapsed ? "collapsed" : "expanded"); } catch { /* Session setting still works. */ }
+  });
+  document.querySelector("#path-toggle").addEventListener("click", () => {
+    if (sidebarCollapsed) { sidebarCollapsed = false; pathExpanded = true; }
+    else pathExpanded = !pathExpanded;
+    updateSidebar();
+  });
+  function renderSidebarPath() {
+    const expanded = [...document.querySelectorAll(".sidebar-module[open]")].map(item => item.dataset.module);
+    document.querySelector("#sidebar-path").innerHTML = content.modules.map(module => `<details class="sidebar-module" data-module="${module.id}" ${expanded.includes(module.id) ? "open" : ""}><summary><span>${module.id}</span> ${module.title}</summary><div>${module.units.map(unit => engine.unlocked(state, unit.id) ? `<a href="#unit/${unit.id}"><span>${unit.id}</span>${esc(unit.title)}</a>` : `<span class="sidebar-unit locked">${icon("lock")}<span>${unit.id} · ${esc(unit.title)}</span></span>`).join("")}</div></details>`).join("");
+    updateSidebar();
+  }
   function storageWarning(message) { const warning = document.querySelector("#storage-warning"); warning.textContent = message; warning.hidden = false; }
   try { state = engine.normalize(JSON.parse(localStorage.getItem(key) || "null")); }
   catch { storageWarning("Dein gespeicherter Lernstand konnte nicht geladen werden. Sichere deinen neuen Stand als Datei."); }
@@ -16,7 +44,7 @@
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     const toggle = document.querySelector("#theme-toggle");
-    toggle.textContent = theme === "light" ? "☾" : "☀";
+    toggle.innerHTML = icon(theme === "light" ? "moon" : "sun");
     toggle.setAttribute("aria-label", theme === "light" ? "Dunkle Darstellung aktivieren" : "Helle Darstellung aktivieren");
   }
   try { setTheme(localStorage.getItem("algolab-theme-v1") === "light" ? "light" : "dark"); } catch { setTheme("dark"); }
@@ -34,8 +62,59 @@
   function renderHome() {
     document.querySelector("#page-title").textContent = "Übersicht";
     const next = content.units.find(unit => !state.completed.includes(unit.id));
-    main.innerHTML = `<section class="hero"><div><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Daten ordnen.<br>Schritt für Schritt denken.</h2><p>Entdecke Datenstrukturen und entwickle Algorithmen. Dein Lernweg führt durch drei Lernfortschritte – eine Einheit nach der anderen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} <span aria-hidden="true">→</span></a></div><div class="hero-visual" aria-hidden="true"><span class="visual-label">AUS DATEN WIRD EIN WEG</span><div class="array"><span>8</span><span>3</span><span>5</span><span>1</span></div><div class="flow-arrow">↓</div><div class="array sorted"><span>1</span><span>3</span><span>5</span><span>8</span></div><small>Verstehen · Anwenden · Überprüfen</small></div></section><div class="section-heading"><div><span class="eyebrow">DREI LERNFORTSCHRITTE</span><h2>Deine Lernkarte</h2></div><a href="#path">Alle ${content.units.length} Lerneinheiten →</a></div><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten">${content.modules.map((module, index) => `<a class="station ${module.color}" href="#path/${module.id}"><span class="station-number">${module.id}</span><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><p>${module.subtitle}</p><span class="station-footer">${module.units.length} Einheiten <span>${engine.unlocked(state, module.units[0].id) ? "Start ansehen ↗" : "Noch gesperrt ◇"}</span></span></a>`).join("")}</section><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> L1.1 enthält einen ersten Verständnischeck. Die weiteren Einheiten zeigen zunächst ihre Lernziele. Sie erhalten ihre Aufgaben im nächsten Ausbau.</aside>`;
+    const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
+    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-workshop.webp" width="1672" height="941" fetchpriority="high" alt="Blau beleuchteter Arbeitsplatz mit Laptop, metallischen Datenwürfeln und einem verzweigten Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${engine.unlocked(state, module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => engine.unlocked(state, unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> L1.1 enthält einen ersten Verständnischeck. Die weiteren Einheiten zeigen zunächst ihre Lernziele. Sie erhalten ihre Aufgaben im nächsten Ausbau.</aside>`;
+    setupMap();
   }
+  function setupMap() {
+    let active = null;
+    let pinned = false;
+    let closeTimer;
+    mapListenerController.signal.addEventListener("abort", () => clearTimeout(closeTimer), { once: true });
+    function close() {
+      clearTimeout(closeTimer);
+      main.querySelectorAll("[data-map-menu]").forEach(menu => { menu.hidden = true; });
+      main.querySelectorAll("[data-map-toggle]").forEach(pin => pin.setAttribute("aria-expanded", "false"));
+      main.querySelectorAll("[data-map-show]").forEach(pin => pin.setAttribute("aria-expanded", "false"));
+      active = null;
+      pinned = false;
+    }
+    function open(id, keepOpen = false) {
+      close(); active = id; pinned = keepOpen;
+      main.querySelector(`[data-map-menu="${id}"]`).hidden = false;
+      main.querySelector(`[data-map-toggle="${id}"]`).setAttribute("aria-expanded", "true");
+      main.querySelector(`[data-map-show="${id}"]`).setAttribute("aria-expanded", "true");
+    }
+    function scheduleClose() {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        if (pinned) return;
+        const panel = main.querySelector(`[data-map-menu="${active}"]`);
+        const pin = main.querySelector(`[data-map-toggle="${active}"]`);
+        if (panel?.contains(document.activeElement) || pin === document.activeElement) return;
+        close();
+      }, 260);
+    }
+    main.querySelectorAll("[data-map-toggle], [data-map-show]").forEach(button => {
+      const id = button.dataset.mapToggle || button.dataset.mapShow;
+      button.setAttribute("aria-controls", `map-menu-${id}`);
+      button.setAttribute("aria-expanded", "false");
+      button.addEventListener("click", () => active === id && pinned ? close() : open(id, true));
+      button.addEventListener("pointerenter", event => { if (event.pointerType === "mouse" && active !== id) open(id); else clearTimeout(closeTimer); });
+      button.addEventListener("pointerleave", scheduleClose);
+    });
+    main.querySelectorAll("[data-map-menu]").forEach(menu => {
+      menu.addEventListener("pointerenter", () => clearTimeout(closeTimer));
+      menu.addEventListener("pointerleave", scheduleClose);
+      menu.addEventListener("focusout", event => { if (!menu.contains(event.relatedTarget)) scheduleClose(); });
+    });
+    main.querySelector(".learning-map").addEventListener("keydown", event => {
+      if (event.key === "Escape" && active) { const pin = main.querySelector(`[data-map-toggle="${active}"]`); close(); pin.focus(); }
+    });
+    main.addEventListener("keydown", event => { if (event.key === "Escape") close(); }, { signal: mapListenerController.signal });
+    document.addEventListener("click", event => { if (!event.target.closest(".learning-map, .map-key")) close(); }, { signal: mapListenerController.signal });
+  }
+  let mapListenerController = new AbortController();
   function renderPath(moduleId) {
     document.querySelector("#page-title").textContent = "Lernpfad";
     const modules = moduleId ? content.modules.filter(module => module.id === moduleId) : content.modules;
@@ -66,6 +145,7 @@
     main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div>`;
   }
   function render(focus = false) {
+    mapListenerController.abort(); mapListenerController = new AbortController();
     const [page, id] = location.hash.slice(1).split("/");
     if (!page || page === "home") renderHome();
     else if (page === "path") renderPath(id);
@@ -81,6 +161,7 @@
       const active = link.dataset.nav === (page === "unit" ? "path" : page || "home");
       if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
     });
+    renderSidebarPath();
     if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
   }
   main.addEventListener("submit", event => {
