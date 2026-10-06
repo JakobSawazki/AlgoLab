@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 6. Oktober 2026. Version **0.3.1 – Entwicklermodus im Profil**.
+Stand: 6. Oktober 2026. Version **0.3.2 – Gemeinsam Algorithmen entdecken**.
 Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
 L1.1 enthält einen ersten Verständnischeck; weitere Einheiten sind in Vorbereitung.
 
@@ -16,7 +16,7 @@ Gestaltung und Lernkarte orientieren sich an WorkbenchLab. PythonLab wird
 gezielt zum Auffrischen der Programmiergrundlagen verlinkt.
 
 Die Oberfläche verwendet blaue Metallflächen, ein eigenes fotorealistisches
-Logo, ein Startmotiv und eine Landschaftskarte. Die Kartenstationen zeigen
+Logo, ein Startmotiv mit drei gemeinsam lernenden Schülern und eine Landschaftskarte. Die Kartenstationen zeigen
 alle zugehörigen Einheiten per Maus, Klick oder Tastatur. Auf Mobilgeräten
 erscheint die Liste unter der Karte. Die Sidebar und ihre Lernfortschritte
 sind einklappbar. [Bildwelt, Bedienung und Prompts](docs/visual-design.md).

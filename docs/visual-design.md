@@ -1,6 +1,6 @@
 # AlgoLab Bildwelt und Bedienung
 
-Stand: 6. Oktober 2026. Version 0.3.0.
+Stand: 6. Oktober 2026. Version 0.3.2.
 
 ## Gestaltung
 
@@ -21,7 +21,8 @@ der ursprünglichen Codex-Bildablage erhalten.
 | Asset | Verwendung | Format |
 | --- | --- | --- |
 | `assets/algolab-logo.png` | freigestelltes metallisches A mit Knotenpfad, Sidebar und Favicon | PNG, 1254 × 1254, Alpha |
-| `assets/algolab-workshop.webp` | motivierender Arbeitsplatz auf der Startseite | WebP, 1672 × 941 |
+| `assets/algolab-students.webp` | gemeinsam lernende Schüler auf der Startseite | WebP, 1672 × 941 |
+| `assets/algolab-workshop.webp` | archiviertes Vorgängermotiv ohne Menschen | WebP, 1672 × 941 |
 | `assets/bpe7-learning-map.webp` | drei Forschungsstationen als Lernkarte | WebP, 1672 × 941 |
 | `assets/icons.svg` | eigenes gemeinsames Icon-System | SVG-Sprite |
 | `design.css` | blaue Gestaltung, Metalleffekte, Bilder und Karte | CSS |
@@ -71,7 +72,22 @@ Transparent background: true.
 
 > Use case: logo-brand / photorealistic product photography. Create a premium photorealistic emblem for an educational algorithms website named AlgoLab. Single bold capital letter A constructed from precision-machined titanium, brushed silver bevels and cobalt-blue anodized inset surfaces, a subtle small three-node connected path integrated into the A as a detail suggesting algorithms. Elegant contemporary industrial design, realistic fine metal grain, polished edges, clean blue studio rim lighting. Front view with very slight depth, centered square composition, generously large emblem readable at 48 pixels. No words or typography other than the A, no surrounding badge, no watermark. Transparent background, isolated object.
 
-### Startmotiv
+### Startmotiv mit Schülern (0.3.2)
+
+Eingebautes Imagegen-Werkzeug, zwei Bearbeitungen, jeweils ohne Transparenz.
+Die dargestellten Schüler sind fiktiv. Ausgangsbild: `assets/algolab-workshop.webp`.
+Finales Original: `C:/Users/Jakob/.codex/generated_images/01a112ba-3602-7e33-a3d1-93f851c588b6/exec-50d6c827-924e-4f25-b490-542e5cab9f21.png`.
+Für die Homepage als WebP mit Qualität 88 komprimiert, ohne Beschnitt.
+
+Erster Bearbeitungsprompt:
+
+> Use case: photorealistic-natural / compositing. Edit target: the provided AlgoLab homepage hero photograph. Recompose this scene as a motivating, believable editorial photograph of THREE upper-secondary school students, approximately 17–19 years old, two girls and one boy with varied natural appearances, actively collaborating on algorithms and data structures (BPE7). Preserve the refined cobalt-blue and silver visual identity, brushed-metal tabletop learning objects, modern laptop, inviting workshop and soft blue window lighting from the reference. People must now be the clear main subjects: relaxed, engaged faces, natural smiles as they solve something together, looking at their work rather than posing at the camera. One student uses the laptop, another thoughtfully arranges a small row of blue and silver blocks into sorted order, the third discusses a small simple branching node model and gestures naturally towards it. Reposition the laptop so it is usable by the students, with a subtle screen glimpse of a simple array/sorting visual; correct physical perspective. Realistic everyday school clothing in restrained blue and neutral colors, natural skin texture and realistic hands, warm soft light on faces balanced with cool blue ambient light. Medium-wide 16:9 landscape photograph, eye level, all three faces and collaborative activity within the central 80% of frame so they stay visible in responsive hero crops, generous space around heads, tactile educational tools visible in foreground. A welcoming contemporary school computing lab, premium but plausible, curiosity and shared success. No readable text, no logos, no watermarks, no futuristic holograms, no plastic CGI faces, no exaggerated advertising poses. Generated fictional students, not recognizable real individuals. Opaque background.
+
+Gezielte Korrektur am Zwischenbild `exec-56127d98-2f3b-4ca1-bae0-a1ab63a42008.png`:
+
+> Use case: precise-object-edit. Edit the provided photograph of three students studying together. Change ONLY the outward-facing BACK of the laptop lid: remove the glowing bar chart / screen panel from the exterior rear lid and replace it with a continuous plain realistic brushed dark-blue aluminium laptop lid, subtle natural metal reflections, no logo, no writing, no chart. This side faces the camera and must be an opaque laptop back, not a screen. The functional screen remains facing the students and is not visible to the camera. Preserve all three students' faces, expressions, poses, clothing, hands, the metal sorting blocks, the branching node model, composition, 16:9 proportions, blue-and-warm lighting and the workshop background exactly. Do not change any other element. Photorealistic, no watermark.
+
+### Vorgängermotiv ohne Menschen (0.3.0)
 
 Transparent background: false.
 

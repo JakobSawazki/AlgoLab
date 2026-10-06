@@ -2,7 +2,7 @@
 
 Stand: 6. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.3.1 – Entwicklermodus im Profil**
+Aktueller Stand: **0.3.2 – Gemeinsam Algorithmen entdecken**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -388,6 +388,23 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.3.2 – 6. Oktober 2026
+
+Die Startgrafik zeigt jetzt drei fotorealistisch dargestellte, fiktive Schüler
+bei gemeinsamer Arbeit am Laptop, mit Sortierbausteinen und einem Knotenmodell.
+Das Motiv greift BPE7 auf und verbindet die blaue Bildwelt mit einer freundlichen
+Lernsituation. Es wurde mit dem eingebauten Imagegen-Werkzeug auf Grundlage
+des bisherigen Arbeitsplatzmotivs erstellt. Eine gezielte zweite Bearbeitung
+korrigierte die Laptoprückseite. Die Darstellung ist ein Motivationsbild, keine
+verbindliche fachliche Darstellung eines Algorithmus oder einer Datenstruktur.
+
+Das neue WebP liegt unter `assets/algolab-students.webp`; die alte Grafik bleibt
+als Vorgängerversion erhalten. Der Alternativtext beschreibt die Lernsituation.
+Prompts und Bildherkunft sind in `docs/visual-design.md` dokumentiert.
+Lokal geprüft: neue Grafik vollständig geladen (1672 × 941 Pixel), alle drei
+Gesichter im Desktopausschnitt sichtbar; bei 390 Pixeln kein horizontaler
+Überlauf. Syntax- und Git-Diff-Prüfung bestanden.
 
 ### 0.3.1 – 6. Oktober 2026
 
