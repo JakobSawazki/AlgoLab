@@ -14,9 +14,9 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
-Vorgesehene Live-Adresse: <https://jakobsawazki.github.io/AlgoLab/>.
-GitHub Pages wird für den gekennzeichneten Grundgerüst-Prototyp eingerichtet.
-Der tatsächlich geprüfte Veröffentlichungsstand wird unten festgehalten.
+Live: <https://jakobsawazki.github.io/AlgoLab/>.
+Veröffentlicht und am 6. Oktober 2026 geprüft: **0.2.0**, ausdrücklich als
+Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
 
@@ -362,6 +362,7 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [x] Lokale Antwortspeicherung und JSON-Sicherung einrichten.
 - [x] Punktegebundene Freischaltung auch für direkte Links umsetzen.
 - [x] Prototyp am Desktop und bei 390 Pixeln Breite prüfen.
+- [x] Grundgerüst 0.2.0 als gekennzeichnete Online-Vorschau veröffentlichen.
 
 ### 0.3.0 Erster Online-Prototyp
 
@@ -405,6 +406,14 @@ Der GitHub-Workflow prüft Syntax und Freischaltung vor jedem Deployment und
 veröffentlicht ausschließlich `index.html`, `styles.css`, `app.js`,
 `learning-path.js` und `progress.js`. Originalmaterialien, Tests und lokale
 Lernstandsdateien sind kein Bestandteil der veröffentlichten Homepage.
+
+GitHub Pages wurde eingerichtet. Der erste Workflow-Lauf
+`37524319516` für Commit `3a9dace` war erfolgreich. Die öffentliche Startseite
+und der Lernpfad wurden im Browser geprüft: 0 Punkte, ausschließlich L1.1
+zugänglich, alle weiteren Einheiten gesperrt. Die Online-Vorschau ist noch
+keine vollständig ausgearbeitete Unterrichtsumgebung. Dark-/Light-Mode wurden
+lokal geprüft. Die Vorschau und der Lernpfad wurden als lokale Screenshots
+unter `.tmp/` gesichert; diese Dateien werden nicht veröffentlicht.
 
 ### 0.1.0 – 6. Oktober 2026
 

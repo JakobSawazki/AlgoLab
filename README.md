@@ -7,7 +7,7 @@ Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetz
 L1.1 enthält einen ersten Verständnischeck; weitere Einheiten sind in Vorbereitung.
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
-Vorgesehene Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.
+Online-Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.
 Der aktuelle Deployment- und Prüfstand steht in der Projektdokumentation.
 
 AlgoLab entsteht als eigenständige Lernumgebung mit drei Lernfortschritten:
