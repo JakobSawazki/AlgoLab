@@ -17,7 +17,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Veröffentlicht und am 6. Oktober 2026 geprüft: **0.2.0**, ausdrücklich als
+Veröffentlicht und am 6. Oktober 2026 geprüft: **0.3.0**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -298,7 +298,7 @@ Sinnvolle Änderungen werden lokal versioniert und regelmäßig gepusht.
 GitHub Pages wird für den ersten nutzbaren Prototyp eingerichtet. Eine
 Dokumentationsversion allein wird nicht als fertige Schülerhomepage ausgegeben.
 
-Vor dem ersten Online-Prototyp müssen folgende Punkte erfüllt sein:
+Vor dem regulären Unterrichtseinsatz müssen folgende Punkte erfüllt sein:
 
 - Übersicht und Lernkarte funktionieren, auch als Liste auf Mobilgeräten.
 - Eine erste Einheit ist fachlich vollständig und verständlich bearbeitbar.
@@ -371,12 +371,13 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [x] Prototyp am Desktop und bei 390 Pixeln Breite prüfen.
 - [x] Grundgerüst 0.2.0 als gekennzeichnete Online-Vorschau veröffentlichen.
 
-### 0.3.0 Erster Online-Prototyp
+### Weitere Abnahme vor dem Unterrichtseinsatz
 
 - [ ] Veröffentlichungsvoraussetzungen aus Abschnitt 9 prüfen.
-- [ ] GitHub Pages einrichten und Deployment kontrollieren.
-- [ ] Öffentliche Seite und PythonLab-Sprungziele prüfen.
-- [ ] Veröffentlichten Umfang und offene Inhalte dokumentieren.
+- [x] GitHub Pages einrichten und Deployment kontrollieren.
+- [x] Öffentliche Seite prüfen.
+- [ ] PythonLab-Sprungziele bei ihrer Integration prüfen.
+- [x] Veröffentlichten Umfang und offene Inhalte dokumentieren.
 
 ### Weiterer Ausbau
 
@@ -409,8 +410,13 @@ Lokal geprüft: Bildladung, Sidebar-Einstellung nach Neuladen, Sidebar-Einheiten
 L2-Kartenmenü mit allen acht Einheiten, L3-Menü mit Enter/Escape, Desktop bei
 1440 Pixeln und mobile Karte mit Menü bei 390 Pixeln ohne horizontalen Überlauf.
 Der Deploy-Workflow nimmt nun `design.css` und `assets/` zusätzlich auf.
-Punkte und vorhandene Lernstände bleiben kompatibel. Der öffentliche Stand
-wird nach erfolgreichem Deployment geprüft.
+Punkte und vorhandene Lernstände bleiben kompatibel. Workflow-Lauf
+`37526317343` für Commit `2c8a8f2` war erfolgreich. Die öffentliche Homepage
+wurde geprüft: alle drei Bilder geladen, Kartenmenü L1 mit sieben Einheiten,
+nur L1.1 als zugängliche Einheit verlinkt und 0 Punkte im neuen Browserstand.
+Eine Desktop-Vorschau ist lokal unter `.tmp/algolab-blue-desktop.png` gesichert.
+Auch die helle Mobilansicht und das Ausblenden der mobilen Navigation wurden
+lokal geprüft.
 
 ### 0.2.0 – 6. Oktober 2026
 
