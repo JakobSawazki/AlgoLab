@@ -80,3 +80,21 @@ Nächster Schritt: Änderungen versionieren, pushen, GitHub-Pages-Workflow und
 Offen für folgende Inhaltsarbeit: L1.3 (Schleifen, eigene Aufgabe, Fotomotiv),
 L1.4–L1.7, L2 und L3, ihre jeweiligen Situationen und Bilder, vollständiger
 Material-/Bildungsplanabgleich und echter Datei-Export/-Import-Rundlauf.
+
+## Schritt 5: Veröffentlichung und Prüfung der Entwicklervorschau
+
+Abgeschlossen: 0.4.0 als Commit aa0c2dc gepusht. Workflow 37664851580 war
+vollständig erfolgreich. Öffentliche L1.1: Fotomotiv und drei Schreibfelder.
+Öffentliche L1.2: echte Python-Ausführung bestanden mit sieben Kriterien;
+bei vorgezogenem Entwicklerzugang blieben die Punkte korrekt bei 0.
+Testcode wurde anschließend wieder durch den Starter ersetzt.
+
+Nachbesserung 0.4.1: Auch Multiple-Choice-Fragen sind in der vorgezogenen
+Entwicklervorschau bedienbar. Richtige/falsche Antworten erzeugen Rückmeldung,
+werden aber nicht als Schülerleistung gespeichert und geben keine Punkte.
+Damit bleibt der Entwicklermodus zum vollständigen Testen einer Einheit nutzbar.
+Die Schülerreihenfolge und ihre Bewertungsregeln sind unverändert.
+
+Offen im Veröffentlichungsschritt: Vorschau-Rückmeldung online prüfen,
+Nachbesserung veröffentlichen und Prüfergebnis ergänzen. Inhaltsarbeit danach:
+L1.3 und weitere Einheiten einschließlich ihrer jeweiligen Fotomotive.

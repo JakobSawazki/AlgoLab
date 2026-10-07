@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 7. Oktober 2026. Version **0.4.0 – Arrays selbst ausprobieren und programmieren**.
+Stand: 7. Oktober 2026. Version **0.4.1 – Arrays selbst ausprobieren und programmieren**.
 Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
 L1.1 enthält Erklärungen, eigene Notizen und Verständnisfragen. L1.2 enthält ein
 Arraymodell, einen Schreibtischtest und eine echte Python-Aufgabe. Weitere

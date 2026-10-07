@@ -2,7 +2,7 @@
 
 Stand: 7. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.4.0 – Arrays selbst ausprobieren und programmieren**
+Aktueller Stand: **0.4.1 – Arrays selbst ausprobieren und programmieren**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -19,7 +19,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Zuletzt veröffentlicht und am 6. Oktober 2026 geprüft: **0.3.2**, ausdrücklich als
+Veröffentlicht und am 7. Oktober 2026 geprüft: **0.4.0**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -153,11 +153,11 @@ werden nicht vorab eingeblendet. Gestufte Hinweise unterstützen den nächsten
 Denkschritt. Aufgaben sollen neben einem richtigen Ergebnis auch das
 Verständnis des Verfahrens prüfen.
 
-Die erste vollständig umzusetzende Einheit ist **L1.1 – Datenstrukturen
+Die erste ausgearbeitete Einheit ist **L1.1 – Datenstrukturen
 kennenlernen**, auf Grundlage von `L1_1 Information Datenstrukturen.docx`
 und `L1_1 Arbeitsauftrag Einführung Datenstrukturen.docx`.
 
-Geplantes Lernprodukt: eine Definition in eigenen Worten, die Zuordnung von
+Lernprodukt: eine Definition in eigenen Worten, die Zuordnung von
 Alltagssituationen zu Datenstrukturen und kurze Begründungen. Diese Einheit
 führt zunächst in die Modelle ein; das Programmieren folgt bei den Arrays.
 
@@ -260,7 +260,7 @@ werden gezielt übernommen und an AlgoLab angepasst.
 | `app.js` | Navigation, Rendering und Lernstand | umgesetzt |
 | `python-worker.js` | Python-Ausführung und getrennte Prüfergebnisse mit Pyodide 0.29.4 | umgesetzt |
 | `python-runner.js` | Start, Zeitlimit, Abbruch und Neustart des Workers | umgesetzt |
-| `assets/` | drei eigene Fotomotive und SVG-Icon-System | umgesetzt |
+| `assets/` | eigene Start-/Karten-/Lektionsmotive und SVG-Icon-System | umgesetzt |
 | `tests/` | 15 Tests für Freischaltung, Entwürfe, Python-Kriterien und Workersteuerung | umgesetzt |
 | `resources/` | lokale Referenzmaterialien | vorhanden, Git ignoriert |
 
@@ -403,6 +403,15 @@ Computer-use-Skills wurden nicht doppelt installiert.
 
 ## 12. Prüfstand und Versionsverlauf
 
+### 0.4.1 – 7. Oktober 2026
+
+Auch Verständnisfragen lassen sich in einer vorgezogenen Entwicklervorschau
+beantworten und prüfen. Rückmeldungen erscheinen, ohne Punkte oder reguläre
+Antworten zu speichern. Codeaufgaben waren bereits in der Vorschau ausführbar.
+Damit lässt sich die gesamte ausgearbeitete Einheit als Entwickler testen.
+Normale Freischaltung und Bewertung bleiben unverändert. Runtime-URLs wurden
+auf 0.4.1 aktualisiert, damit der Browser die Anpassung sofort lädt.
+
 ### 0.4.0 – 7. Oktober 2026
 
 L1.1 erhält drei gespeicherte Schreibfelder mit Selbstkontrollkriterien.
@@ -443,7 +452,13 @@ Die neue Formatnormalisierung wurde automatisiert geprüft.
 
 Offen bleiben L1.3–L3.4, ihre 17 Fotomotive, die komplette Materialmatrix und
 der vollständige Bildungsplanabgleich. Schleifenausgabe aus L1_2 wird in L1.3
-vertieft. Die App ist weiterhin ein Grundgerüst, keine vollständig abgenommene
+vertieft. Deployment für Commit `aa0c2dc` erfolgreich (Workflow `37664851580`).
+Online geprüft: L1.1 mit Fotomotiv und drei Schreibfeldern; L1.2 mit Motiv,
+Arraymodell, Codeeditor und erfolgreicher echter Python-Ausführung. Sieben
+Kriterien bestanden; in der vorgezogenen Entwicklervorschau blieben 0 Punkte
+erhalten.
+
+Die App ist weiterhin ein Grundgerüst, keine vollständig abgenommene
 BPE7-Unterrichtsumgebung. Das Arbeitsprotokoll dokumentiert die Teilschritte.
 
 ### 0.3.2 – 6. Oktober 2026

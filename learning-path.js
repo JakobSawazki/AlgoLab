@@ -90,7 +90,7 @@
   arrays.situation = { title: "Die Punkte eures Schulturniers", text: "Vier Teams treten beim Schulfest gegeneinander an. Du verwaltest ihre Punkte. Ein Ergebnis wird korrigiert und ein fünftes Team kommt dazu. Deine Aufgabe: Ändere gezielt die Liste und zeige zuverlässig den aktuellen Stand an." };
   first.image = { src: "assets/l1-1-datenstrukturen.webp", alt: "Drei Schüler ordnen Planungskarten, Bausteine und ein Knotenmodell für ein Schulfest.", caption: "Welche Ordnung hilft eurem Team bei seiner Aufgabe?" };
   arrays.image = { src: "assets/l1-2-arrays.webp", alt: "Zwei Schüler organisieren ein Schulturnier und arbeiten mit Laptop und fünf geordneten Punktebausteinen.", caption: "Ein Team, ein Feld: Behalte die Punkte eures Turniers im Blick." };
-  const data = { version: "0.4.0", modules, units: modules.flatMap(m => m.units) };
+  const data = { version: "0.4.1", modules, units: modules.flatMap(m => m.units) };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);
