@@ -98,3 +98,22 @@ Die Schülerreihenfolge und ihre Bewertungsregeln sind unverändert.
 Offen im Veröffentlichungsschritt: Vorschau-Rückmeldung online prüfen,
 Nachbesserung veröffentlichen und Prüfergebnis ergänzen. Inhaltsarbeit danach:
 L1.3 und weitere Einheiten einschließlich ihrer jeweiligen Fotomotive.
+
+## Schritt 6: Online-Abnahme abgeschlossen
+
+Abgeschlossen: 0.4.1 mit Commit 548c6c1 veröffentlicht. Workflow 37665608749
+bestand alle 15 Tests und das Deployment. Online im Entwicklerzugang richtige
+und falsche Verständnisantwort geprüft: Rückmeldung passend, Punkte bleiben 0.
+Nach Neuladen keine Vorschauantwort gespeichert. Die Online-Python-Ausführung
+wurde bereits im Inhaltsmeilenstein 0.4.0 erfolgreich geprüft. Screenshot
+`.tmp/algolab-0-4-array-lesson.png` zeigt die veröffentlichte Array-Einheit.
+Testcode wurde auf den Starter zurückgesetzt; der echte Lernstand bleibt
+unverändert. Die Veröffentlichung ist in der zentralen Dokumentation vermerkt.
+
+Als Nächstes: L1.3 anhand Vereinsmeisterschaft/Volleyball-Material abgleichen,
+Schleifenzugriff erklären und visualisieren, eigene Programmieraufgabe prüfen,
+motivierende Situation und eigenes Fotomotiv ergänzen. Danach L1.4–L1.7 und
+L2/L3 systematisch ausarbeiten. Noch offen: 17 Einheiten/Fotomotive,
+vollständige Bildungsplanabnahme und Export/Import-Rundlauf auf einem Client,
+der die erzeugte Sicherungsdatei als Download bereitstellt. Das Gesamtziel
+ist weiterhin aktiv und durch diesen Teilmeilenstein noch nicht abgeschlossen.

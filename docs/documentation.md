@@ -19,7 +19,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Veröffentlicht und am 7. Oktober 2026 geprüft: **0.4.0**, ausdrücklich als
+Veröffentlicht und am 7. Oktober 2026 geprüft: **0.4.1**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -411,6 +411,12 @@ Antworten zu speichern. Codeaufgaben waren bereits in der Vorschau ausführbar.
 Damit lässt sich die gesamte ausgearbeitete Einheit als Entwickler testen.
 Normale Freischaltung und Bewertung bleiben unverändert. Runtime-URLs wurden
 auf 0.4.1 aktualisiert, damit der Browser die Anpassung sofort lädt.
+
+Workflow `37665608749` für Commit `548c6c1` erfolgreich. Online geprüft:
+richtige Vorschauantwort liefert „Richtig“ ohne Punkte; falsche Antwort liefert
+den passenden Hinweis. Nach Neuladen ist keine Vorschauantwort gespeichert,
+der Lernstand blieb bei 0 Punkten. Alle 15 automatisierten Tests bestanden
+auch im Veröffentlichungsworkflow.
 
 ### 0.4.0 – 7. Oktober 2026
 
