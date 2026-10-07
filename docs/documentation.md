@@ -21,7 +21,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Veröffentlicht und am 7. Oktober 2026 geprüft: **0.4.1**, ausdrücklich als
+Veröffentlicht und am 7. Oktober 2026 geprüft: **0.5.0**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -432,7 +432,11 @@ nach beiden Verständnisfragen 100 Punkte und Abschluss möglich; danach
 300 Gesamtpunkte und L1.4 zugänglich. Code, Notizen und Abschluss nach
 Neuladen erhalten. Schleifenmodell für normale, leere und einzelne Liste
 geprüft. Bei 390 Pixeln kein horizontaler Überlauf, Bedienung visuell geprüft.
-Veröffentlichung und Onlineabnahme noch offen.
+Veröffentlicht mit Commit `149ef9e`; Workflow `37668519947` bestand Tests und
+Deployment. Online im Entwicklerzugang beide Python-Aufgaben erfolgreich
+geprüft: neun Kriterien erfüllt, Lernstand weiter 0 Punkte. Foto vollständig
+geladen. Testcode auf Starter zurückgesetzt; Screenshot
+`.tmp/algolab-0-5-loop-lesson.png` dokumentiert die veröffentlichte Einheit.
 
 
 ### 0.4.1 – 7. Oktober 2026

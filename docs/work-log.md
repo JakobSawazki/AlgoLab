@@ -174,3 +174,20 @@ Dokumentation, README, Bildherkunft, Version und Veröffentlichungspaket
 auf 0.5.0 aktualisiert.
 
 Offen: GitHub-Push, Actions-Deployment und Onlineprüfung; danach L1.4.
+
+
+## Schritt 11: L1.3 veröffentlicht und online geprüft
+
+Abgeschlossen: 0.5.0 mit Commit 149ef9e gepusht. Actions-Workflow 37668519947
+bestand alle 21 Tests und das Pages-Deployment. Beide Python-Aufgaben online
+im Entwicklerzugang ausgeführt: alle neun Kriterien erfüllt, keine Punkte
+vergeben; echter Lernstand bleibt bei 0. Foto vollständig geladen. Testcode
+auf Starter zurückgesetzt. Screenshot `.tmp/algolab-0-5-loop-lesson.png`
+zeigt die veröffentlichte Lerneinheit. Dokumentation und Materialmatrix
+halten Inhalte, Quellen und Prüfumfang fest.
+
+Als Nächstes: L1.4 anhand Gewinnziehung und Trainingsanalyse ausarbeiten,
+Minimum/Maximum/Durchschnitt mit Zwischenergebnissen modellieren, eigene
+Python-Aufgaben und Fotomotiv erstellen. Weitere 16 Einheiten sind offen.
+Vollständige BPE7-Abnahme und Datei-Export-Rundlauf bleiben ebenfalls offen.
+Das Gesamtziel bleibt aktiv.
