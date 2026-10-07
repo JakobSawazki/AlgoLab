@@ -45,8 +45,28 @@ test("All points plus explicit completion unlock exactly the next unit", () => {
 });
 test("Preparation units cannot earn points or complete", () => {
   const state = engine.empty(); solve(state, "L1.1"); engine.finish(state, "L1.1");
-  assert.equal(engine.answer(state, "L1.2", "fake", 0), false);
+  assert.equal(engine.answer(state, "L1.3", "fake", 0), false);
+  assert.equal(engine.finish(state, "L1.3"), false);
+});
+
+test("L1.2 requires correct code as well as all three checks; drafts survive restore", () => {
+  const state = engine.empty();
+  assert.equal(engine.completeCode(state, "L1.2", "teamcode", true), false);
+  solve(state, "L1.1"); engine.finish(state, "L1.1");
+  const unit = engine.byId("L1.2");
+  for (const task of unit.tasks.filter(task => task.type !== "code")) engine.answer(state, unit.id, task.id, task.correct);
+  assert.equal(engine.earned(state, "L1.2"), 60);
   assert.equal(engine.finish(state, "L1.2"), false);
+  assert.equal(engine.completeCode(state, "L1.2", "teamcode", false), false);
+  assert.equal(engine.completeCode(state, "L1.2", "teamcode", true), true);
+  assert.equal(engine.completeCode(state, "L1.2", "teamcode", true), true);
+  assert.equal(engine.earned(state, "L1.2"), 100);
+  assert.equal(engine.unlocked(state, "L1.3"), false);
+  state.work = { "L1.1": { definition: "Meine Erklärung" }, "L1.2": { teamcode: "punkte = [12, 11, 15, 9, 7]" } };
+  assert.equal(engine.finish(state, "L1.2"), true);
+  assert.equal(engine.unlocked(state, "L1.3"), true);
+  assert.deepEqual(engine.normalize(JSON.parse(JSON.stringify(state))), state);
+  assert.equal(engine.total(state), 200);
 });
 test("Restore derives points and rejects unknown or disconnected completions", () => {
   const state = engine.empty(); solve(state, "L1.1"); engine.finish(state, "L1.1");

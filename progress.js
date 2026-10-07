@@ -3,7 +3,7 @@
   function createEngine(content) {
     const units = content.units;
     const byId = id => units.find(unit => unit.id === id);
-    const empty = () => ({ answers: {}, completed: [] });
+    const empty = () => ({ answers: {}, completed: [], work: {} });
     const earned = (state, id) => {
       const unit = byId(id);
       if (!unit?.ready) return 0;
@@ -21,14 +21,25 @@
     const accessible = (state, id, developerMode = false) => Boolean(byId(id)) && (developerMode || unlocked(state, id));
     function normalize(raw) {
       const state = empty();
+      for (const unit of units.filter(unit => unit.ready)) {
+        const fields = [...unit.tasks.filter(task => task.type === "code"), ...(unit.reflections || [])];
+        for (const field of fields) {
+          const value = raw?.work?.[unit.id]?.[field.id];
+          if (typeof value === "string" && value.length <= 20000) {
+            state.work[unit.id] ??= {};
+            state.work[unit.id][field.id] = value;
+          }
+        }
+      }
       // Derive points and validate a contiguous chain; never trust imported totals.
       for (const unit of units) {
         if (!unit.ready || !unlocked(state, unit.id)) break;
         const answers = raw?.answers?.[unit.id];
-        state.answers[unit.id] = {};
+        if (answers && typeof answers === "object") state.answers[unit.id] = {};
         for (const task of unit.tasks) {
           const answer = answers?.[task.id];
-          if (Number.isInteger(answer) && answer >= 0 && answer < task.options.length) state.answers[unit.id][task.id] = answer;
+          if (task.type === "code") { if (answer === true) { state.answers[unit.id] ??= {}; state.answers[unit.id][task.id] = true; } }
+          else if (Number.isInteger(answer) && answer >= 0 && answer < task.options.length) { state.answers[unit.id] ??= {}; state.answers[unit.id][task.id] = answer; }
         }
         if (Array.isArray(raw?.completed) && raw.completed.includes(unit.id) && passed(state, unit.id)) state.completed.push(unit.id);
       }
@@ -37,18 +48,25 @@
     function answer(state, id, taskId, choice) {
       const unit = byId(id);
       const task = unit?.tasks.find(item => item.id === taskId);
-      if (!unlocked(state, id) || !unit?.ready || !task || !Number.isInteger(choice) || choice < 0 || choice >= task.options.length || state.completed.includes(id)) return false;
+      if (!unlocked(state, id) || !unit?.ready || !task || task.type === "code" || !Number.isInteger(choice) || choice < 0 || choice >= task.options.length || state.completed.includes(id)) return false;
       state.answers[id] ??= {};
       // A passed task keeps its points; retries cannot award duplicates.
       if (state.answers[id][taskId] !== task.correct) state.answers[id][taskId] = choice;
       return choice === task.correct;
+    }
+    function completeCode(state, id, taskId, passedCheck) {
+      const task = byId(id)?.tasks.find(item => item.id === taskId);
+      if (!unlocked(state, id) || !byId(id)?.ready || task?.type !== "code" || passedCheck !== true || state.completed.includes(id)) return false;
+      state.answers[id] ??= {};
+      state.answers[id][taskId] = true;
+      return true;
     }
     function finish(state, id) {
       if (!unlocked(state, id) || !passed(state, id) || state.completed.includes(id)) return false;
       state.completed.push(id);
       return true;
     }
-    return { empty, byId, earned, passed, unlocked, accessible, normalize, answer, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
+    return { empty, byId, earned, passed, unlocked, accessible, normalize, answer, completeCode, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createEngine;
   else root.createAlgoLabProgress = createEngine;

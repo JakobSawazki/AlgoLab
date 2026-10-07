@@ -1,15 +1,17 @@
 # AlgoLab Projektdokumentation
 
-Stand: 6. Oktober 2026 (Europe/Berlin)
+Stand: 7. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.3.2 – Gemeinsam Algorithmen entdecken**
+Aktueller Stand: **0.4.0 – Arrays selbst ausprobieren und programmieren**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
 Zusätzlich umgesetzt: metallische Bedienelemente, eigenes fotorealistisches
 Logo, Startmotiv, Landkarte mit ausklappbaren Einheiten und einklappbare Sidebar.
-L1.1 enthält Erklärungen und einen ersten Verständnischeck; die übrigen
-Einheiten sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
+L1.1 enthält Erklärungen, eigene gespeicherte Begründungen und Verständnisfragen.
+L1.2 enthält ein interaktives Arraymodell, einen Schreibtischtest und eine
+automatisch geprüfte Python-Aufgabe. Beide besitzen ein eigenes Fotomotiv und
+eine Lernsituation. Die übrigen 17 Einheiten sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
 ist noch nicht erreicht.
 
 Projektordner: `D:\Google Drive\Codex\AlgoLab`
@@ -17,7 +19,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Veröffentlicht und am 6. Oktober 2026 geprüft: **0.3.1**, ausdrücklich als
+Zuletzt veröffentlicht und am 6. Oktober 2026 geprüft: **0.3.2**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -80,7 +82,9 @@ Sie enthält das Kompetenzraster, drei Lernfortschritte mit Ich-kann-Listen,
 Informationsmaterial, Arbeitsaufträgen, Lösungen und ergänzenden Dateien.
 Die Datei `202509_Aktualisierungen.docx` dokumentiert unter anderem Änderungen
 zum 1. September 2025. Dieser Änderungsstand ist beim Übertragen zu beachten;
-eine vollständige Einzelprüfung aller Dateien steht noch aus.
+eine vollständige Einzelprüfung aller Dateien steht noch aus. Die aktuelle
+Zuordnung steht in [Materialmatrix](material-matrix.md); alle Arbeitsschritte
+und verbleibenden Tasks stehen im [Arbeitsprotokoll](work-log.md).
 
 Bereits gelesen: Kompetenzraster, Ich-kann-Listen im bisherigen Projektkontext,
 Aktualisierungshinweise sowie Informationsblatt und Arbeitsauftrag zur
@@ -206,8 +210,11 @@ Einheiten vergeben keine Punkte und ermöglichen keinen weiteren Abschluss.
 L1.1 verwendet vier Verständnisfragen mit je 25 Punkten. Richtige Antworten
 werden gespeichert; nach 100 Punkten wird „Einheit abschließen“ aktiv. Danach
 öffnet sich L1.2 mit ihren geplanten Lernzielen. Noch fehlende Inhalte werden
-klar angezeigt. Freitextbegründungen und die vollständige Umsetzung des
-Originalarbeitsauftrags folgen später.
+klar angezeigt. Seit 0.4.0 ergänzen gespeicherte eigene Definitionen, Modellvergleiche und
+begründete Auswahlen diese Checks. Sie erhalten Selbstkontrollkriterien, aber
+keine automatische Freitextbewertung. L1.2 besitzt drei Checks mit je 20 Punkten
+und eine Python-Aufgabe mit 40 Punkten. Alle Prüfkriterien und der bewusste
+Abschluss sind erforderlich, um L1.3 zu öffnen.
 
 ## 6. Verbindung mit PythonLab
 
@@ -251,9 +258,10 @@ werden gezielt übernommen und an AlgoLab angepasst.
 | `progress.js` | Punkte, Abschluss, Freischaltung und Lernstandvalidierung | umgesetzt |
 | `content.js` | zusätzliche Erklärungen und Aufgaben bei weiterem Ausbau | geplant |
 | `app.js` | Navigation, Rendering und Lernstand | umgesetzt |
-| `python-worker.js` | Python-Ausführung über Pyodide im Web Worker | geplant |
+| `python-worker.js` | Python-Ausführung und getrennte Prüfergebnisse mit Pyodide 0.29.4 | umgesetzt |
+| `python-runner.js` | Start, Zeitlimit, Abbruch und Neustart des Workers | umgesetzt |
 | `assets/` | drei eigene Fotomotive und SVG-Icon-System | umgesetzt |
-| `tests/` | sechs automatisierte Freischaltungs- und Lernstandtests | umgesetzt |
+| `tests/` | 15 Tests für Freischaltung, Entwürfe, Python-Kriterien und Workersteuerung | umgesetzt |
 | `resources/` | lokale Referenzmaterialien | vorhanden, Git ignoriert |
 
 Die Lernpfaddaten sollen stabile IDs und einen nachvollziehbaren Bezug zum
@@ -268,8 +276,10 @@ werden verständlich übersetzt. KI-Dienste sind für den Kern nicht erforderlic
 ## 8. Lernstand und Rückmeldung im Entwurf
 
 Umgesetzt sind lokale Speicherung von Abschlüssen und geprüften Antworten
-sowie JSON-Export und -Import. Codeentwürfe und zuletzt geöffneter Lernschritt
-folgen beim weiteren Ausbau. Der Speicherschlüssel lautet `algolab-v1`;
+sowie JSON-Export und -Import. Seit 0.4.0 werden Codeentwürfe und eigene Erklärungen unter `state.work`
+mitgespeichert und exportiert. Die Normalisierung übernimmt nur bekannte Felder
+aus ausgearbeiteten Einheiten und begrenzt jeden Entwurf auf 20000 Zeichen.
+Zuletzt geöffneter Lernschritt folgt beim weiteren Ausbau. Der Speicherschlüssel lautet `algolab-v1`;
 die Sicherungsdatei kennzeichnet ihre Herkunft eindeutig als AlgoLab und
 verwendet `formatVersion: 1`.
 
@@ -365,7 +375,7 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Materialmatrix für alle drei Lernfortschritte vervollständigen.
 - [x] Übersicht und Lernkarte mit drei Stationen entwerfen und umsetzen.
 - [x] Navigation und mobile Listenansicht erstellen.
-- [ ] L1.1 mit Erklärungen, Zuordnungsaufgaben und Begründungen umsetzen.
+- [x] L1.1 mit Erklärungen, Zuordnungsaufgaben und gespeicherten Begründungen umsetzen.
 - [x] Lokale Antwortspeicherung und JSON-Sicherung einrichten.
 - [x] Punktegebundene Freischaltung auch für direkte Links umsetzen.
 - [x] Prototyp am Desktop und bei 390 Pixeln Breite prüfen.
@@ -381,13 +391,60 @@ Computer-use-Skills wurden nicht doppelt installiert.
 
 ### Weiterer Ausbau
 
-- [ ] Array-Einheiten und Python-Laufzeit ergänzen.
+- [x] L1.2 und Python-Laufzeit mit Stoppen und Zeitlimit ergänzen.
+- [ ] L1.3–L1.7 mit Programmieraufgaben und Materialabgleich ausarbeiten.
+- [x] Eigene Fotomotive und Lernsituationen für L1.1 und L1.2 ergänzen.
+- [ ] Eigene Fotomotive und Lernsituationen für die weiteren 17 Einheiten ergänzen.
+- [ ] Vollständigen Datei-Export im Browser auf einem Download-fähigen Testclient abnehmen.
 - [ ] Schreibtischtests sowie Such- und Sortiersimulationen entwickeln.
 - [ ] L2 einschließlich eigener Implementierungen und Transferaufgaben aufbauen.
 - [ ] L3 mit anschaulichen Modellen und begründeten Zuordnungen aufbauen.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.4.0 – 7. Oktober 2026
+
+L1.1 erhält drei gespeicherte Schreibfelder mit Selbstkontrollkriterien.
+L1.2 ist als Array-Einstieg ausgearbeitet: Modell/Python-Unterschied,
+Initialisierung, Indexzugriff, Änderung, append, len; bedienbares Feldmodell;
+fünf Schreibtischtestzustände; drei Fragen mit je 20 Punkten und eine echte
+Python-Aufgabe mit 40 Punkten. Ihre sieben Kriterien prüfen Werte, Ausgabe
+und die geforderten Operationen. Schulturnier und Schulfest bilden konkrete
+Lernsituationen. Die eigenen Fotomotive wurden mit Imagegen erstellt; siehe
+[Prompts und Bildherkunft](lesson-images.md). Die PythonLab-Listenlektion wurde
+online geprüft und wird als Grundlagenhilfe in einem neuen Tab geöffnet.
+
+Die neue Laufzeit basiert auf Pyodide 0.29.4 im Web Worker. Laden erfolgt erst
+bei Bedarf; das Ladelimit beträgt 60 Sekunden, das Ausführungslimit 5 Sekunden.
+Stoppen, Neustart, begrenzte Ausgabe und verständliche Fehlerhinweise sind
+umgesetzt. Ausgabe und Prüfergebnisse werden getrennt transportiert. Ein
+neuer Lauf erhält einen eigenen Namensraum. Ein Seitenwechsel beendet den
+Worker. Code/Erklärungen gehen in den bestehenden JSON-Lernstand ein.
+
+15 Tests bestanden: bestehende Reihenfolge, L1.2 erfordert Code und Checks,
+Entwürfe überstehen Normalisierung, Worker wartet auf Start, Abbruch/Neustart,
+Zeitlimit/Ladefehler; echte Python-Prüfkriterien akzeptieren eine korrekte
+Lösung und lehnen falsche Werte sowie bloße hartcodierte Ergebnisse ab.
+Im Browser mit echter Pyodide-Ausführung geprüft: IndexError-Hinweis,
+korrekte Ausgabe und sieben bestandene Kriterien, 40 Punkte noch ohne
+Abschluss, echte Endlosschleife nach 5 Sekunden gestoppt, manueller Abbruch,
+Neustart ohne doppelte Punkte. Nach allen Checks: 100 Punkte, expliziter
+Abschluss, L1.3-Link; Erhalt nach Neuladen. Eigene Definition bleibt gespeichert.
+Arraymodell und Schreibtischtest wurden bedient; L1.1 und L1.2 wurden bei
+390 Pixeln ohne horizontalen Überlauf geprüft.
+
+Dateiimport einer lokal erzeugten gültigen Testdatei wurde über die Oberfläche
+geprüft: Bestätigung, Erfolgsmeldung, 200 Punkte und Codeentwurf erhalten.
+Der Exportklick erzeugte keinen JS-Fehler; der Download konnte vom In-App-
+Browser nicht als Datei geliefert werden (Download-Ereignis nach 10 Sekunden
+ohne Ergebnis). Ein vollständiger Export/Import-Rundlauf bleibt deshalb offen.
+Die neue Formatnormalisierung wurde automatisiert geprüft.
+
+Offen bleiben L1.3–L3.4, ihre 17 Fotomotive, die komplette Materialmatrix und
+der vollständige Bildungsplanabgleich. Schleifenausgabe aus L1_2 wird in L1.3
+vertieft. Die App ist weiterhin ein Grundgerüst, keine vollständig abgenommene
+BPE7-Unterrichtsumgebung. Das Arbeitsprotokoll dokumentiert die Teilschritte.
 
 ### 0.3.2 – 6. Oktober 2026
 

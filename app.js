@@ -96,13 +96,13 @@
     const available = accessible(unit.id);
     const previous = engine.prerequisite(unit.id);
     const label = status(unit);
-    return `<article class="unit-card ${available ? "" : "locked"}"><div class="card-top"><span class="code">${unit.id}</span><span class="status ${label === "Abgeschlossen" ? "done" : ""}">${label}</span></div><h3>${esc(unit.title)}</h3><p>${esc(unit.description)}</p><div class="unit-meta"><span>${engine.earned(state, unit.id)} / ${unit.points} Punkte</span><span>${unit.ready ? "Verständnischeck" : "Inhalte folgen"}</span></div>${available ? `<a class="unit-link" href="#unit/${unit.id}">${unit.ready ? "Einheit öffnen" : "Lernziele ansehen"} <span aria-hidden="true">↗</span></a>` : `<p class="lock-reason">Zuerst ${previous.id} abschließen (${previous.points} Punkte).</p>`}</article>`;
+    return `<article class="unit-card ${available ? "" : "locked"}"><div class="card-top"><span class="code">${unit.id}</span><span class="status ${label === "Abgeschlossen" ? "done" : ""}">${label}</span></div><h3>${esc(unit.title)}</h3><p>${esc(unit.description)}</p><div class="unit-meta"><span>${engine.earned(state, unit.id)} / ${unit.points} Punkte</span><span>${unit.ready ? (unit.tasks.some(task => task.type === "code") ? "Check + Python" : "Verständnischeck") : "Inhalte folgen"}</span></div>${available ? `<a class="unit-link" href="#unit/${unit.id}">${unit.ready ? "Einheit öffnen" : "Lernziele ansehen"} <span aria-hidden="true">↗</span></a>` : `<p class="lock-reason">Zuerst ${previous.id} abschließen (${previous.points} Punkte).</p>`}</article>`;
   }
   function renderHome() {
     document.querySelector("#page-title").textContent = "Übersicht";
     const next = content.units.find(unit => !state.completed.includes(unit.id));
     const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
-    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> L1.1 enthält einen ersten Verständnischeck. Die weiteren Einheiten zeigen zunächst ihre Lernziele. Sie erhalten ihre Aufgaben im nächsten Ausbau.</aside>`;
+    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> L1.1 und L1.2 enthalten Erklärungen und Aufgaben. In L1.2 kannst du bereits Python programmieren. Die weiteren Einheiten zeigen zunächst ihre Lernziele und werden schrittweise ausgearbeitet.</aside>`;
     setupMap();
   }
   function setupMap() {
@@ -161,6 +161,13 @@
     main.innerHTML = `<div class="path-intro"><p>Arbeite die Lerneinheiten in Reihenfolge durch. Bestehe alle Pflichtaufgaben einer Einheit und sammle ihre ${content.units[0].points} Punkte. Nach dem Abschluss öffnet sich die nächste Einheit.</p><div class="module-tabs">${content.modules.map(module => `<a href="#path/${module.id}" ${moduleId === module.id ? 'aria-current="page"' : ""}>${module.id} · ${module.title}</a>`).join("")}</div></div>${modules.map(module => `<section class="module ${module.color}" id="${module.id}"><div class="section-heading"><div><span class="eyebrow">LERNFORTSCHRITT ${module.number} · ${module.plan}</span><h2>${module.title}</h2><p>${module.subtitle}</p></div><span class="module-completed">${module.units.filter(unit => state.completed.includes(unit.id)).length} / ${module.units.length} abgeschlossen</span></div><div class="unit-grid">${module.units.map(card).join("")}</div></section>`).join("")}`;
   }
   function renderMissing() { document.querySelector("#page-title").textContent = "Seite nicht gefunden"; main.innerHTML = `<section class="empty-state"><h2>Diese Seite gibt es nicht.</h2><a class="primary" href="#path">Zum Lernpfad</a></section>`; }
+  let pythonRunner = null;
+  const workValue = (unitId, fieldId, fallback = "") => state.work[unitId]?.[fieldId] ?? fallback;
+  function renderCodeTask(unit, task) {
+    const solved = state.answers[unit.id]?.[task.id] === true;
+    const fieldId = `code-${unit.id.replace(".", "-")}-${task.id}`;
+    return `<section class="task code-task" data-code-unit="${unit.id}" data-code-task="${task.id}"><h4>${esc(task.title)}</h4><p>${esc(task.prompt)}</p><label for="${fieldId}">Dein Python-Code</label><textarea id="${fieldId}" class="code-editor" data-work="${task.id}" data-work-unit="${unit.id}" maxlength="20000" rows="14" spellcheck="false" autocapitalize="off">${esc(workValue(unit.id, task.id, task.starter))}</textarea><small class="draft-status" role="status"></small><div class="code-actions"><button class="primary" data-run-code>Code ausführen und prüfen</button><button data-stop-code disabled>Stoppen</button><span class="code-award">${solved ? `Bestanden · ${task.points} Punkte` : `${task.points} Punkte möglich`}</span></div><p class="code-status" role="status">Python wird erst beim Ausführen geladen. Dein Code läuft in deinem Browser.</p><pre class="code-output" aria-label="Programmausgabe" tabindex="0">Hier erscheint deine Ausgabe.</pre><ul class="code-checks" aria-label="Prüfergebnisse"></ul><details><summary>Ein Hinweis zum nächsten Schritt</summary><p>${esc(task.hint)}</p></details></section>`;
+  }
   function renderUnit(id) {
     const unit = engine.byId(id);
     if (!unit) { renderMissing(); return; }
@@ -173,17 +180,61 @@
     }
     const complete = state.completed.includes(id);
     const next = content.units[content.units.indexOf(unit) + 1];
-    main.innerHTML = `<div class="breadcrumb"><a href="#path/${module.id}">${module.id} · ${module.title}</a><span aria-hidden="true">/</span><span>${unit.id}</span></div><section class="lesson-heading"><span class="eyebrow">${status(unit).toUpperCase()}</span><h2>${unit.title}</h2><p>${unit.description}</p><div class="lesson-points"><span>${engine.earned(state, id)} / ${unit.points} Punkte</span><progress value="${engine.earned(state, id)}" max="${unit.points}" aria-label="Punkte in ${id}"></progress></div></section><section class="lesson-panel"><h3>Das lernst du hier</h3><ul>${unit.goals.map(goal => `<li>${esc(goal)}</li>`).join("")}</ul></section>${unit.ready ? `<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>Wie organisieren wir Daten?</h3><p>${unit.intro}</p><div class="examples">${unit.examples.map(example => `<details><summary>${example.title}</summary><p>${example.text}</p></details>`).join("")}</div></section><section class="lesson-panel"><span class="eyebrow">2 · SELBST ÜBERPRÜFEN</span><h3>Welche Struktur passt?</h3><p>Jede richtige Antwort gibt 25 Punkte. Du kannst eine Aufgabe erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${unit.tasks.map((task, index) => {
-      const answer = state.answers[id]?.[task.id];
-      const solved = answer === task.correct;
-      return `<form class="task" data-unit="${id}" data-task="${task.id}"><fieldset ${solved ? "disabled" : ""}><legend><span class="task-number">${index + 1}</span> ${task.prompt}</legend>${task.options.map((option, choice) => `<label class="choice"><input type="radio" name="choice" value="${choice}" ${answer === choice ? "checked" : ""} required><span>${option}</span></label>`).join("")}</fieldset><div class="task-actions">${solved ? '<span class="task-success">✓ Bestanden · 25 Punkte</span>' : '<button type="submit">Antwort prüfen</button>'}<p role="status" class="task-feedback">${answer !== undefined && !solved ? esc(task.hint) : ""}</p></div></form>`;
-    }).join("")}</section><section class="lesson-panel completion"><span class="eyebrow">3 · ABSCHLIESSEN</span><h3>${complete ? "L1.1 ist abgeschlossen." : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? "Du hast 100 Punkte erreicht. Die nächste Einheit ist freigeschaltet." : "Bestehe alle vier Aufgaben. Danach kannst du diese Einheit abschließen und L1.2 freischalten."}</p>${complete ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>` : `<section class="lesson-panel preparation"><span class="eyebrow">IN VORBEREITUNG</span><h3>Hier entsteht deine nächste Lerneinheit.</h3><p>Diese Einheit ist für dich freigeschaltet. Ihre Erklärungen und Aufgaben werden noch ausgearbeitet. Deshalb kannst du hier noch keine Punkte sammeln oder zur folgenden Einheit wechseln.</p><a href="#path/${module.id}">Zur Übersicht von ${module.id} →</a></section>`}`;
+    const preview = developerMode && !engine.unlocked(state, id);
+    const header = `<div class="breadcrumb"><a href="#path/${module.id}">${module.id} · ${module.title}</a><span aria-hidden="true">/</span><span>${unit.id}</span></div><section class="lesson-heading"><span class="eyebrow">${status(unit).toUpperCase()}</span><h2>${esc(unit.title)}</h2><p>${esc(unit.description)}</p><div class="lesson-points"><span id="lesson-score">${engine.earned(state, id)} / ${unit.points} Punkte</span><progress id="lesson-progress" value="${engine.earned(state, id)}" max="${unit.points}" aria-label="Punkte in ${id}"></progress></div></section>${unit.image ? `<figure class="lesson-photo"><img src="${unit.image.src}" width="1672" height="941" alt="${esc(unit.image.alt)}"><figcaption>${esc(unit.image.caption)}</figcaption></figure>` : ""}${unit.situation ? `<section class="lesson-panel"><span class="eyebrow">DEINE MISSION</span><h3>${esc(unit.situation.title)}</h3><p>${esc(unit.situation.text)}</p></section>` : ""}<section class="lesson-panel"><h3>Das lernst du hier</h3><ul>${unit.goals.map(goal => `<li>${esc(goal)}</li>`).join("")}</ul></section>`;
+    if (!unit.ready) {
+      main.innerHTML = `${header}<section class="lesson-panel preparation"><span class="eyebrow">IN VORBEREITUNG</span><h3>Hier entsteht deine nächste Lerneinheit.</h3><p>Die Erklärungen und Aufgaben werden noch ausgearbeitet. Hier kannst du noch keine Punkte sammeln.</p><a href="#path/${module.id}">Zur Übersicht von ${module.id} →</a></section>`; return;
+    }
+    const reflections = (unit.reflections || []).map(field => `<div class="reflection"><label for="work-${field.id}">${esc(field.title)}</label><p>${esc(field.prompt)}</p><textarea id="work-${field.id}" data-work="${field.id}" data-work-unit="${id}" maxlength="20000" rows="4">${esc(workValue(id, field.id))}</textarea><small class="draft-status" role="status"></small><details><summary>Meine Erklärung selbst überprüfen</summary><p>${esc(field.criteria)}</p></details></div>`).join("");
+    const tasks = unit.tasks.map((task, index) => {
+      if (task.type === "code") return renderCodeTask(unit, task);
+      const answer = state.answers[id]?.[task.id]; const solved = answer === task.correct;
+      return `<form class="task" data-unit="${id}" data-task="${task.id}"><fieldset ${solved || preview ? "disabled" : ""}><legend><span class="task-number">${index + 1}</span> ${esc(task.prompt)}</legend>${task.options.map((option, choice) => `<label class="choice"><input type="radio" name="choice" value="${choice}" ${answer === choice ? "checked" : ""} required><span>${esc(option)}</span></label>`).join("")}</fieldset><div class="task-actions">${solved ? `<span class="task-success">✓ Bestanden · ${task.points} Punkte</span>` : `<button type="submit" ${preview ? "disabled" : ""}>Antwort prüfen</button>`}<p role="status" class="task-feedback">${answer !== undefined && !solved ? esc(task.hint) : ""}</p></div></form>`;
+    }).join("");
+    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.</p><a href="${unit.help.href}" target="_blank" rel="noopener noreferrer">${esc(unit.help.label)} ↗</a></aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section><section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
+    if (unit.explorer) setupArrayLab(unit);
+  }
+  function renderArrayLab(unit) {
+    return `<section class="lesson-panel array-lab"><span class="eyebrow">2 · AUSPROBIEREN</span><h3>Das Array unter der Lupe</h3><p>Klicke auf ein Feld. Lies seinen Index und ändere seinen Wert. Vergleiche, was beim Ersetzen und beim Anhängen mit der Länge passiert.</p><div class="array-fields" id="array-fields"></div><p id="array-reading" role="status"></p><form id="array-edit"><label for="array-value">Neuer Wert für das ausgewählte Feld</label><input id="array-value" type="number" step="1" min="-9999" max="9999" value="11" required><button>Wert ersetzen</button></form><div class="code-actions"><button id="array-append">7 am Ende ergänzen</button><button id="array-reset">Modell zurücksetzen</button></div><p id="array-change" role="status"></p><h4>Schreibtischtest: erst vorhersagen, dann aufdecken</h4><p>Notiere vor jedem Klick den erwarteten Listeninhalt auf Papier. Beobachte nach der nächsten Anweisung die veränderten Felder.</p><pre id="trace-code"></pre><div class="array-fields" id="trace-values"></div><p id="trace-why" role="status"></p><div class="code-actions"><button id="trace-next">Nächste Anweisung</button><button id="trace-reset">Schreibtischtest neu starten</button></div></section>`;
+  }
+  function setupArrayLab(unit) {
+    let values = [12, 8, 15, 9], selected = 0, step = 0;
+    const draw = () => {
+      main.querySelector("#array-fields").innerHTML = values.map((value, index) => `<button type="button" data-array-index="${index}" aria-pressed="${index === selected}" aria-label="Index ${index}, Wert ${value}"><small>Index ${index}</small><strong>${value}</strong></button>`).join("");
+      main.querySelector("#array-reading").textContent = `punkte[${selected}] = ${values[selected]} · Länge: ${values.length} · letzter nichtnegativer Index: ${values.length - 1}`;
+      main.querySelector("#array-append").disabled = values.length >= 8;
+    };
+    main.querySelector("#array-fields").addEventListener("click", event => {
+      const button = event.target.closest("[data-array-index]");
+      if (button) { selected = Number(button.dataset.arrayIndex); draw(); main.querySelector(`[data-array-index="${selected}"]`).focus(); }
+    });
+    main.querySelector("#array-edit").addEventListener("submit", event => {
+      event.preventDefault(); const value = Number(main.querySelector("#array-value").value);
+      if (!Number.isInteger(value) || value < -9999 || value > 9999) return;
+      values[selected] = value; draw(); main.querySelector("#array-change").textContent = `punkte[${selected}] = ${value}. Die Länge bleibt ${values.length}.`;
+    });
+    main.querySelector("#array-append").addEventListener("click", () => {
+      if (values.length >= 8) return;
+      values.push(7); selected = values.length - 1; draw(); main.querySelector("#array-change").textContent = `punkte.append(7). Die Länge wächst auf ${values.length}.`;
+    });
+    main.querySelector("#array-reset").addEventListener("click", () => { values = [12, 8, 15, 9]; selected = 0; draw(); main.querySelector("#array-change").textContent = "Das Modell ist zurückgesetzt."; });
+    const drawTrace = () => {
+      const current = unit.trace[step], previous = unit.trace[step - 1]?.values;
+      main.querySelector("#trace-code").textContent = current.code;
+      main.querySelector("#trace-values").innerHTML = current.values.map((value, index) => `<div class="trace-field ${previous && value !== previous[index] ? "changed" : ""}"><small>Index ${index}</small><strong>${value}</strong></div>`).join("");
+      main.querySelector("#trace-why").textContent = `Schritt ${step + 1}/${unit.trace.length}: ${current.why}`;
+      main.querySelector("#trace-next").disabled = step === unit.trace.length - 1;
+    };
+    main.querySelector("#trace-next").addEventListener("click", () => { if (step < unit.trace.length - 1) step++; drawTrace(); });
+    main.querySelector("#trace-reset").addEventListener("click", () => { step = 0; drawTrace(); });
+    draw(); drawTrace();
   }
   function renderProgress() {
     document.querySelector("#page-title").textContent = "Mein Lernstand";
     main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div>`;
   }
   function render(focus = false) {
+    pythonRunner?.stop(); pythonRunner = null;
     mapListenerController.abort(); mapListenerController = new AbortController();
     const [page, id] = location.hash.slice(1).split("/");
     if (!page || page === "home") renderHome();
@@ -204,6 +255,48 @@
     syncProfile();
     if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
   }
+  main.addEventListener("input", event => {
+    const field = event.target.closest("textarea[data-work]");
+    if (!field) return;
+    state.work[field.dataset.workUnit] ??= {};
+    state.work[field.dataset.workUnit][field.dataset.work] = field.value;
+    save();
+    field.nextElementSibling.textContent = document.querySelector("#storage-warning").hidden ? "Auf diesem Gerät gespeichert." : "Im aktuellen Tab verfügbar. Sichere deinen Lernstand als Datei.";
+  });
+  async function runCode(pane) {
+    const unit = engine.byId(pane.dataset.codeUnit), task = unit.tasks.find(item => item.id === pane.dataset.codeTask);
+    const status = pane.querySelector(".code-status"), output = pane.querySelector(".code-output"), runButton = pane.querySelector("[data-run-code]"), stopButton = pane.querySelector("[data-stop-code]");
+    runButton.disabled = true; stopButton.disabled = false;
+    pane.querySelector(".code-checks").replaceChildren(); output.textContent = "";
+    pythonRunner ??= window.createAlgoLabPythonRunner({ onStatus: message => { if (pane.isConnected) status.textContent = message; } });
+    try {
+      const result = await pythonRunner.run(pane.querySelector("textarea").value, task.checks.map(check => check.expression));
+      if (!pane.isConnected) return;
+      output.textContent = result.output || "Dein Programm hat nichts ausgegeben.";
+      if (result.truncated) output.textContent += "\n[Ausgabe nach 12000 Zeichen gekürzt]";
+      if (result.error) {
+        const detail = result.error.trim().split("\n").filter(Boolean).at(-1);
+        const hint = detail.includes("IndexError") ? "Prüfe deinen Index: Die Zählung beginnt bei 0 und endet bei Länge minus 1." : detail.includes("NameError") ? "Prüfe die Schreibweise und ob du die Variable vorher angelegt hast." : detail.includes("SyntaxError") || detail.includes("IndentationError") ? "Prüfe Klammern, Anführungszeichen und Einrückungen." : "Lies die Fehlermeldung und überprüfe die passende Codezeile.";
+        status.textContent = `${hint} ${detail}`; return;
+      }
+      pane.querySelector(".code-checks").innerHTML = task.checks.map((check, index) => `<li class="${result.checks[index] ? "passed" : "retry"}">${result.checks[index] ? "✓ Erfüllt" : "Noch offen"}: ${esc(check.message)}</li>`).join("");
+      const passed = result.checks.length === task.checks.length && result.checks.every(Boolean);
+      const awarded = engine.completeCode(state, unit.id, task.id, passed);
+      if (awarded) {
+        save(); pane.querySelector(".code-award").textContent = `Bestanden · ${task.points} Punkte`;
+        const total = engine.total(state);
+        document.querySelector("#total-points").textContent = `${total} Punkte`;
+        document.querySelector("#sidebar-points").textContent = `${total} Punkte · ${state.completed.length} abgeschlossen`;
+        document.querySelector("#sidebar-progress").value = total;
+        main.querySelector("#lesson-score").textContent = `${engine.earned(state, unit.id)} / ${unit.points} Punkte`;
+        main.querySelector("#lesson-progress").value = engine.earned(state, unit.id);
+        main.querySelector("[data-finish]")?.toggleAttribute("disabled", !engine.passed(state, unit.id));
+        syncProfile();
+      }
+      status.textContent = passed ? (awarded || state.completed.includes(unit.id) ? "Alle Prüfungen bestanden. Bereits erreichte Punkte werden nicht doppelt vergeben." : "Alle Prüfungen bestanden. In der Entwicklervorschau werden noch keine Punkte vergeben.") : "Dein Programm läuft. Prüfe die noch offenen Kriterien und versuche es erneut.";
+    } catch (error) { if (pane.isConnected) status.textContent = error.message; }
+    finally { if (pane.isConnected) { runButton.disabled = false; stopButton.disabled = true; } }
+  }
   main.addEventListener("submit", event => {
     const form = event.target.closest("form[data-task]");
     if (!form) return;
@@ -219,6 +312,9 @@
     success.setAttribute("tabindex", "-1"); success.focus({ preventScroll: true });
   });
   main.addEventListener("click", event => {
+    const run = event.target.closest("[data-run-code]");
+    if (run) runCode(run.closest(".code-task"));
+    if (event.target.closest("[data-stop-code]")) { pythonRunner?.stop(); pythonRunner = null; }
     const button = event.target.closest("[data-finish]");
     if (button && engine.finish(state, button.dataset.finish)) { save(); render(); main.querySelector(".completion h3").setAttribute("tabindex", "-1"); main.querySelector(".completion h3").focus({ preventScroll: true }); }
     if (event.target.closest("[data-backup]")) document.querySelector("#backup-dialog").showModal();

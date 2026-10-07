@@ -2,9 +2,12 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 6. Oktober 2026. Version **0.3.2 – Gemeinsam Algorithmen entdecken**.
+Stand: 7. Oktober 2026. Version **0.4.0 – Arrays selbst ausprobieren und programmieren**.
 Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
-L1.1 enthält einen ersten Verständnischeck; weitere Einheiten sind in Vorbereitung.
+L1.1 enthält Erklärungen, eigene Notizen und Verständnisfragen. L1.2 enthält ein
+Arraymodell, einen Schreibtischtest und eine echte Python-Aufgabe. Weitere
+Einheiten sind in Vorbereitung. Beide ausgearbeiteten Einheiten besitzen
+ein eigenes fotorealistisches Motiv und eine Lernsituation.
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
 Online-Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.
@@ -52,13 +55,27 @@ Browser-Tab aktiv, bis er ausgeschaltet oder der Tab geschlossen wird. Er wird
 nicht in Lernstandsdateien exportiert. Beim erneuten Öffnen des Profils ist der
 Button wieder verborgen; ein aktiver Modus bleibt an der Kopfzeile erkennbar.
 
+## Python und gespeicherte Entwürfe
+
+In L1.2 kannst du Code direkt ausführen. Pyodide 0.29.4 wird beim ersten Start
+vom CDN geladen; dafür ist eine Internetverbindung nötig. Die Berechnung
+läuft im Browser-Worker, kann gestoppt werden und endet nach spätestens fünf
+Sekunden. Die Codeaufgabe zählt 40 Punkte, drei Verständnisfragen je 20.
+Erst alle 100 Punkte und der ausdrückliche Abschluss öffnen L1.3.
+
+Eigene Erklärungen und Codeentwürfe werden lokal gespeichert und in die
+Lernstandsdatei aufgenommen. Freitext wird nicht automatisch benotet.
+Die Python-Prüfung ist eine Lernhilfe und kein manipulationssicherer Nachweis.
+[Arbeitsprotokoll](docs/work-log.md), [Materialmatrix](docs/material-matrix.md)
+und [Fotomotive mit Prompts](docs/lesson-images.md) dokumentieren den Ausbau.
+
 ## Lokal starten und prüfen
 
 Im Projektordner `python -m http.server 4175 --bind 127.0.0.1` ausführen und
 `http://127.0.0.1:4175` öffnen. Für die Freischaltungstests:
 
 ```text
-node --test tests/progress.test.cjs
+node --test tests/*.test.cjs
 ```
 
 Der Lernstand wird lokal gespeichert und kann über das Symbol in der Kopfzeile
@@ -67,5 +84,5 @@ Leistungsnachweis. Der Veröffentlichungsworkflow prüft die Freischaltung und
 überträgt ausschließlich die Laufzeitdateien und eigenen Assets der Homepage
 an GitHub Pages.
 
-Nächster Meilenstein: L1.1 um eigene Begründungen und Zuordnungen ergänzen,
+Nächster Meilenstein: L1.3 mit Schleifenzugriff und eigener Python-Aufgabe ausbauen,
 danach L1.2 mit Arraybeispielen und Python-Ausführung ausarbeiten.
