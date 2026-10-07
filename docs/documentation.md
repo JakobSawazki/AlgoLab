@@ -2,7 +2,7 @@
 
 Stand: 7. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.4.1 – Arrays selbst ausprobieren und programmieren**
+Aktueller Stand: **0.5.0 – Arrays mit Schleifen durchlaufen**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -10,8 +10,10 @@ Zusätzlich umgesetzt: metallische Bedienelemente, eigenes fotorealistisches
 Logo, Startmotiv, Landkarte mit ausklappbaren Einheiten und einklappbare Sidebar.
 L1.1 enthält Erklärungen, eigene gespeicherte Begründungen und Verständnisfragen.
 L1.2 enthält ein interaktives Arraymodell, einen Schreibtischtest und eine
-automatisch geprüfte Python-Aufgabe. Beide besitzen ein eigenes Fotomotiv und
-eine Lernsituation. Die übrigen 17 Einheiten sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
+automatisch geprüfte Python-Aufgabe. L1.3 ergänzt einen Schleifendurchlauf,
+zwei geprüfte Python-Funktionen und gespeicherte Transferfelder. Alle drei
+besitzen ein eigenes Fotomotiv und eine Lernsituation. Die übrigen 16 Einheiten
+sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
 ist noch nicht erreicht.
 
 Projektordner: `D:\Google Drive\Codex\AlgoLab`
@@ -260,8 +262,10 @@ werden gezielt übernommen und an AlgoLab angepasst.
 | `app.js` | Navigation, Rendering und Lernstand | umgesetzt |
 | `python-worker.js` | Python-Ausführung und getrennte Prüfergebnisse mit Pyodide 0.29.4 | umgesetzt |
 | `python-runner.js` | Start, Zeitlimit, Abbruch und Neustart des Workers | umgesetzt |
+| `loop-model.js` | Schritte des Schleifenzugriffs einschließlich leerer Listen | umgesetzt |
+| `python-checks.js` | isolierte Ausgabe für zusätzliche Funktionsprüfungen | umgesetzt |
 | `assets/` | eigene Start-/Karten-/Lektionsmotive und SVG-Icon-System | umgesetzt |
-| `tests/` | 15 Tests für Freischaltung, Entwürfe, Python-Kriterien und Workersteuerung | umgesetzt |
+| `tests/` | 21 Tests für Freischaltung, Entwürfe, Python-Kriterien und Workersteuerung | umgesetzt |
 | `resources/` | lokale Referenzmaterialien | vorhanden, Git ignoriert |
 
 Die Lernpfaddaten sollen stabile IDs und einen nachvollziehbaren Bezug zum
@@ -392,9 +396,10 @@ Computer-use-Skills wurden nicht doppelt installiert.
 ### Weiterer Ausbau
 
 - [x] L1.2 und Python-Laufzeit mit Stoppen und Zeitlimit ergänzen.
-- [ ] L1.3–L1.7 mit Programmieraufgaben und Materialabgleich ausarbeiten.
-- [x] Eigene Fotomotive und Lernsituationen für L1.1 und L1.2 ergänzen.
-- [ ] Eigene Fotomotive und Lernsituationen für die weiteren 17 Einheiten ergänzen.
+- [x] L1.3 mit Schleifenmodell, zwei Programmieraufgaben und Materialabgleich ausarbeiten.
+- [ ] L1.4–L1.7 mit Programmieraufgaben und Materialabgleich ausarbeiten.
+- [x] Eigene Fotomotive und Lernsituationen für L1.1 bis L1.3 ergänzen.
+- [ ] Eigene Fotomotive und Lernsituationen für die weiteren 16 Einheiten ergänzen.
 - [ ] Vollständigen Datei-Export im Browser auf einem Download-fähigen Testclient abnehmen.
 - [ ] Schreibtischtests sowie Such- und Sortiersimulationen entwickeln.
 - [ ] L2 einschließlich eigener Implementierungen und Transferaufgaben aufbauen.
@@ -402,6 +407,33 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.5.0 – 7. Oktober 2026
+
+L1.3 ist fachlich anhand der Aufgaben und Lösungen Vereinsmeisterschaften
+und Volleyball Spieler anzeigen ausgearbeitet. Ein interaktiver Schreibtischtest
+zeigt den Zugriff mit range(len(...)) für drei, einen und keinen Namen.
+Zwei Verständnisfragen (40 Punkte), eine Platzfunktion (20 Punkte) und
+eine wiederverwendbare Ausgabefunktion (40 Punkte) bilden 100 Pflichtpunkte.
+Zusätzliche Daten prüfen Anfang, Ende, neue Namen und leere Listen; Ausgabe
+der Testaufrufe bleibt von der Schülerausgabe getrennt. Die Transferaufgabe
+erweitert zu drei Mannschaftsansichten und einer späteren Menüauswahl.
+Interaktive input-Eingaben sind weiterhin nicht unterstützt; die Browseraufgaben
+nutzen bewusst Funktionsparameter.
+
+Eigenes Fotomotiv: `assets/l1-3-arrays-durchlaufen.webp`, 1672 × 941 Pixel.
+Prompt und Herkunft: `docs/lesson-images.md`. Neue Dateien `loop-model.js`
+und `python-checks.js` werden mit veröffentlicht.
+
+21 lokale Tests bestanden, Syntax- und Diff-Prüfung bestanden. Im lokalen
+Browser beide Aufgaben mit tatsächlichem Pyodide ausgeführt: vier bzw. fünf
+Kriterien bestanden, Testausgaben nicht sichtbar. Zunächst 60 Punkte, erst
+nach beiden Verständnisfragen 100 Punkte und Abschluss möglich; danach
+300 Gesamtpunkte und L1.4 zugänglich. Code, Notizen und Abschluss nach
+Neuladen erhalten. Schleifenmodell für normale, leere und einzelne Liste
+geprüft. Bei 390 Pixeln kein horizontaler Überlauf, Bedienung visuell geprüft.
+Veröffentlichung und Onlineabnahme noch offen.
+
 
 ### 0.4.1 – 7. Oktober 2026
 

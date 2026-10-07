@@ -242,3 +242,6 @@ progress { appearance: none; border-radius: 8px; overflow: hidden; background: v
 progress::-webkit-progress-bar { background: var(--panel-2); border-radius: 8px; }
 progress::-webkit-progress-value { background: linear-gradient(90deg, #397ec5, #94c8ff); border-radius: 8px; }
 progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8ff); border-radius: 8px; }
+
+.loop-lab select { display: block; max-width: 100%; margin: 10px 0 20px; padding: 10px 14px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; font: inherit; }
+#loop-output { min-height: 80px; }

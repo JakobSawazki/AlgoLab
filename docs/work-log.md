@@ -117,3 +117,60 @@ L2/L3 systematisch ausarbeiten. Noch offen: 17 Einheiten/Fotomotive,
 vollständige Bildungsplanabnahme und Export/Import-Rundlauf auf einem Client,
 der die erzeugte Sicherungsdatei als Download bereitstellt. Das Gesamtziel
 ist weiterhin aktiv und durch diesen Teilmeilenstein noch nicht abgeschlossen.
+
+## Schritt 7: L1.3 aus Quellen aufgebaut
+
+Abgeschlossen: Aufgaben und Lösungen L1_3.1.1 Vereinsmeisterschaften und
+L1_3.1.2 Volleyball Spieler anzeigen fachlich gelesen. Eigenständig formulierte
+Schulturnier-Situation, Erklärungen zu range/len, Einrückung, Platz minus 1,
+Funktionsparametern, Listenkombination und direktem Wertzugriff ergänzt.
+Zwei Verständnisfragen (je 20 Punkte), Platzfunktion (20 Punkte) und
+Ausgabefunktion (40 Punkte) bilden alle 100 Pflichtpunkte. Gespeicherter
+Schreibtischtest und Erweiterung zu drei Ansichten unterstützen den Transfer.
+Funktionsparameter ersetzen in den Browseraufgaben die interaktive Eingabe;
+eine Menüauswahl wird als eigene Erweiterung beschrieben. Eigenes
+fotorealistisches Volleyballmotiv mit dem eingebauten Imagegen erzeugt und
+als WebP eingebunden.
+
+Offen: lokale Browserabnahme, Veröffentlichung und Onlineprüfung. Weitere
+16 Einheiten einschließlich Motiven und vollständiger Materialabnahme offen.
+
+## Schritt 8: Schleifenmodell und variable Testdaten geprüft
+
+Abgeschlossen: interaktiver Durchlauf mit drei, einem und keinem Namen.
+Funktionsprüfungen laufen mit zusätzlichen Daten; ihre Ausgabe wird getrennt
+aufgefangen und verändert die sichtbare Schülerausgabe nicht. 21 lokale
+Tests bestehen: u. a. Schleifengrenzen, leere Listen, neue Namen, falscher
+Index, fest eingetragene Ausgaben und Freischaltung erst nach beiden
+Codeaufgaben plus beiden Verständnisfragen und explizitem Abschluss.
+Syntax und Git-Diff geprüft.
+
+Offen: Browserprüfung mit tatsächlichem Pyodide, mobile Darstellung,
+Lernstands-Erhalt und Onlinebereitstellung.
+
+
+## Schritt 9: Lokale Browserabnahme L1.3
+
+Abgeschlossen: Beide Programme mit echtem Pyodide ausgeführt, alle neun
+Kriterien bestanden. Prüfausgaben gelangen nicht in die Schülerausgabe.
+60 Punkte nach den Codeaufgaben, 100 erst nach beiden Verständnisfragen.
+Expliziter Abschluss öffnet L1.4; Neuladen erhält 300 Gesamtpunkte, Code
+und Schreibtischtest-Notizen im lokalen Testlernstand. Schleifenmodell mit
+drei, einem und keinem Namen geprüft; fertiger Durchlauf stoppt. Bei
+390 Pixeln kein horizontaler Überlauf, Bedienelemente visuell geprüft.
+Fotomotiv korrekt geladen.
+
+Offen: Veröffentlichung und Onlineabnahme; weitere 16 Einheiten mit Motiven,
+vollständige Quellenabnahme und Datei-Export-Rundlauf.
+
+
+## Schritt 10: Grundlagenhilfe und Veröffentlichung vorbereitet
+
+Abgeschlossen: PythonLab-Hilfe für for/range, Funktionsparameter und return
+eingebunden. Alle drei Sprungziele online anhand der tatsächlichen Lektion
+geprüft. Array-Informationsblatt und Ich-kann-Liste 2.6/2.9 zusätzlich
+abgeglichen. Lokale Seite nach Hilfeänderung neu geladen; keine JS-Fehler.
+Dokumentation, README, Bildherkunft, Version und Veröffentlichungspaket
+auf 0.5.0 aktualisiert.
+
+Offen: GitHub-Push, Actions-Deployment und Onlineprüfung; danach L1.4.

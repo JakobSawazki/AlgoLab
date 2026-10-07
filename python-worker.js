@@ -1,4 +1,5 @@
 import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.mjs";
+import "./python-checks.js?v=0.5.0";
 
 const ready = loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.4/full/" });
 ready.then(() => self.postMessage({ type: "ready" })).catch(error => self.postMessage({ type: "init-error", error: String(error) }));
@@ -21,6 +22,7 @@ self.onmessage = async ({ data }) => {
     await python.runPythonAsync(data.code, { globals });
     globals.set("__algolab_source__", data.code);
     globals.set("__algolab_output__", output.trimEnd());
+    python.runPython(globalThis.ALGOLAB_CHECK_SETUP, { globals });
     const checks = [];
     for (const expression of data.checks || []) {
       // A structured result is kept separate from the learner's printed output.

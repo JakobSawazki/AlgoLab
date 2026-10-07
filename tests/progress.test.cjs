@@ -43,10 +43,26 @@ test("All points plus explicit completion unlock exactly the next unit", () => {
   assert.equal(engine.finish(state, "L1.1"), false);
   solve(state, "L1.1"); assert.equal(engine.total(state), 100);
 });
-test("Preparation units cannot earn points or complete", () => {
+test("Locked units cannot earn points or complete", () => {
   const state = engine.empty(); solve(state, "L1.1"); engine.finish(state, "L1.1");
   assert.equal(engine.answer(state, "L1.3", "fake", 0), false);
   assert.equal(engine.finish(state, "L1.3"), false);
+});
+
+test("Both L1.3 programs and both checks are required before L1.4 unlocks", () => {
+  const state = engine.empty(); solve(state, "L1.1"); engine.finish(state, "L1.1");
+  solve(state, "L1.2"); engine.completeCode(state, "L1.2", "teamcode", true); engine.finish(state, "L1.2");
+  solve(state, "L1.3");
+  assert.equal(engine.earned(state, "L1.3"), 40);
+  engine.completeCode(state, "L1.3", "platzcode", true);
+  assert.equal(engine.finish(state, "L1.3"), false);
+  engine.completeCode(state, "L1.3", "kadercode", true);
+  assert.equal(engine.unlocked(state, "L1.4"), false);
+  state.work["L1.3"] = { kadercode: "def zeige_liste(namen): pass", schleifentest: "0, 1, 2" };
+  assert.equal(engine.finish(state, "L1.3"), true);
+  assert.equal(engine.unlocked(state, "L1.4"), true);
+  assert.deepEqual(engine.normalize(state), state);
+  assert.equal(engine.total(state), 300);
 });
 
 test("L1.2 requires correct code as well as all three checks; drafts survive restore", () => {
