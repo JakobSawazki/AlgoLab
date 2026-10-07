@@ -22,7 +22,7 @@ Projektordner: `D:\Google Drive\Codex\AlgoLab`
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
 Live: <https://jakobsawazki.github.io/AlgoLab/>.
-Veröffentlicht und am 7. Oktober 2026 geprüft: **0.5.0**, ausdrücklich als
+Veröffentlicht und am 7. Oktober 2026 geprüft: **0.6.0**, ausdrücklich als
 Grundgerüst gekennzeichnet. GitHub Pages verwendet den geprüften Actions-Workflow.
 
 ## 1. Projektziel und festgelegte Entscheidungen
@@ -442,8 +442,13 @@ PythonLab-Ziel Vergleiche/if überprüft; for und return bereits in 0.5.0
 
 Motiv: `assets/l1-4-arrays-auswerten.webp`, 1672 × 941 Pixel; Prompt und
 Bildquelle in `docs/lesson-images.md`. Neuer Modellcode `analysis-model.js`
-ist Teil des Veröffentlichungspakets. Veröffentlichung und Onlineprüfung
-noch offen.
+ist Teil des Veröffentlichungspakets. Mit Commit `7ef7e93` veröffentlicht.
+Actions-Workflow `37671271355` bestand alle 30 Tests und das Deployment.
+Online beide Python-Aufgaben mit allen zehn Kriterien erfolgreich geprüft;
+Entwicklervorschau lässt den echten Lernstand bei 0 Punkten. Trainingsmodell
+zeigt 0 / 42 / 126 / 21, leere Liste stoppt ohne Auswertung. Keine JS-Fehler,
+Foto geladen. Testcode auf Starter zurückgesetzt. Screenshot:
+`.tmp/algolab-0-6-analysis-lesson.png`.
 
 
 ### 0.5.0 – 7. Oktober 2026

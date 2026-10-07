@@ -267,3 +267,21 @@ bei einem Wert, eindeutiger Abschlussbutton, Bild geladen, keine JS-Fehler.
 
 Offen: finaler Syntax-/Diff-Lauf, GitHub-Push, Deployment und Onlineprüfung.
 Weitere Inhalte und Bilder für 15 Einheiten bleiben offen.
+
+
+## Schritt 17: Version 0.6.0 veröffentlicht und online geprüft
+
+Abgeschlossen: 7ef7e93 gepusht, Workflow 37671271355 erfolgreich mit
+30 Tests und Pages-Deployment. Beide Python-Aufgaben auf GitHub Pages
+ausgeführt: vier und sechs Kriterien erfüllt. Entwicklerzugang verändert
+den echten Lernstand nicht (weiter 0 Punkte). Online-Modell für Training
+und leere Eingabe geprüft, Ergebnis 0 / 42 / 126 / 21 korrekt. Keine
+JS-Fehler, Foto vollständig geladen. Testcode auf Starter zurückgesetzt.
+Screenshot `.tmp/algolab-0-6-analysis-lesson.png` zeigt die neue Einheit.
+Dokumentation hält Quellen, Aufgaben, Testumfang und Veröffentlichung fest.
+
+Als Nächstes: L1.5 anhand Volleyball Positionen tauschen ausarbeiten.
+Hilfsvariable, fehlerhaftes Überschreiben und korrektes Vertauschen
+interaktiv zeigen; passende Codeaufgabe und eigenes Fotomotiv ergänzen.
+Weitere 15 Einheiten mit Motiven und vollständige BPE7-Abnahme sowie
+Datei-Export-Rundlauf bleiben offen. Gesamtziel weiterhin aktiv.
