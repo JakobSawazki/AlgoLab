@@ -243,5 +243,15 @@ progress::-webkit-progress-bar { background: var(--panel-2); border-radius: 8px;
 progress::-webkit-progress-value { background: linear-gradient(90deg, #397ec5, #94c8ff); border-radius: 8px; }
 progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8ff); border-radius: 8px; }
 
-.loop-lab select { display: block; max-width: 100%; margin: 10px 0 20px; padding: 10px 14px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; font: inherit; }
+.loop-lab select, .analysis-lab select { display: block; max-width: 100%; margin: 10px 0 20px; padding: 10px 14px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; font: inherit; }
 #loop-output { min-height: 80px; }
+
+.analysis-markers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.analysis-markers > div { padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+.analysis-markers dt { font-size: .78rem; color: var(--muted); }
+.analysis-markers dd { margin: 5px 0 0; font: 700 1.2rem Consolas, monospace; overflow-wrap: anywhere; color: var(--accent); }
+.analysis-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; }
+.analysis-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.analysis-table th, .analysis-table td { text-align: right; padding: 9px; border-bottom: 1px solid var(--line); }
+.analysis-table thead { background: var(--panel-2); }
+.analysis-table caption { text-align: left; padding: 12px; color: var(--muted); }

@@ -65,6 +65,27 @@ test("Both L1.3 programs and both checks are required before L1.4 unlocks", () =
   assert.equal(engine.total(state), 300);
 });
 
+test("L1.4 requires both programs and all questions before L1.5 opens; notes restore", () => {
+  const state = engine.empty();
+  for (const id of ["L1.1", "L1.2", "L1.3"]) {
+    solve(state, id);
+    for (const task of engine.byId(id).tasks.filter(t => t.type === "code")) engine.completeCode(state, id, task.id, true);
+    engine.finish(state, id);
+  }
+  solve(state, "L1.4");
+  assert.equal(engine.earned(state, "L1.4"), 30);
+  engine.completeCode(state, "L1.4", "losecode", true);
+  assert.equal(engine.earned(state, "L1.4"), 50);
+  assert.equal(engine.finish(state, "L1.4"), false);
+  engine.completeCode(state, "L1.4", "analysecode", true);
+  assert.equal(engine.unlocked(state, "L1.5"), false);
+  state.work["L1.4"] = { auswertungstest: "Summe: 18, 60, 60, 90, 102, 126", analysecode: "def analysiere(werte): pass" };
+  assert.equal(engine.finish(state, "L1.4"), true);
+  assert.equal(engine.unlocked(state, "L1.5"), true);
+  assert.deepEqual(engine.normalize(state), state);
+  assert.equal(engine.total(state), 400);
+});
+
 test("L1.2 requires correct code as well as all three checks; drafts survive restore", () => {
   const state = engine.empty();
   assert.equal(engine.completeCode(state, "L1.2", "teamcode", true), false);

@@ -59,3 +59,36 @@ test("Missing last elements and hardcoded output cannot pass roster checks", () 
   const hardcoded = rosterTask.starter.replace("    pass", '    print("Mila\\nJonas\\nSam")').replace("# Lege hier kader an.", "kader = start + ersatz");
   assert.equal(check(hardcoded, rosterTask).at(-1), false);
 });
+
+const analysis = content.units.find(unit => unit.id === "L1.4");
+const collectTask = analysis.tasks.find(task => task.id === "losecode");
+const analyseTask = analysis.tasks.find(task => task.id === "analysecode");
+const collectCode = collectTask.starter.replace("    pass", "    lose = []\n    for i in range(len(gezogen)):\n        lose.append(gezogen[i])\n    return lose");
+const analyseCode = analyseTask.starter.replace("    pass", "    kleinster = werte[0]\n    groesster = werte[0]\n    summe = 0\n    for i in range(len(werte)):\n        wert = werte[i]\n        if wert < kleinster:\n            kleinster = wert\n        if wert > groesster:\n            groesster = wert\n        summe = summe + wert\n    return kleinster, groesster, summe / len(werte)");
+test("Collecting preserves order, duplicates and inputs and handles empty lists", () => {
+  assert.equal(check(collectCode, collectTask).every(Boolean), true);
+});
+test("Returning the input itself or a literal list cannot pass the collecting task", () => {
+  assert.equal(check(collectTask.starter.replace("    pass", "    return gezogen"), collectTask)[0], false);
+  const literal = collectTask.starter.replace("    pass", "    return [125, 48, 302, 91, 214]");
+  assert.equal(check(literal, collectTask)[1], false);
+  assert.equal(check(literal, collectTask)[2], false);
+});
+test("Analysis accepts full traversal and the optimized variant starting at index 1", () => {
+  assert.equal(check(analyseCode, analyseTask).every(Boolean), true);
+  const optimized = analyseCode.replace("summe = 0", "summe = werte[0]").replace("range(len(werte))", "range(1, len(werte))");
+  assert.equal(check(optimized, analyseTask).every(Boolean), true);
+});
+test("Analysis rejects incorrect initial values, double counting and integer division", () => {
+  assert.equal(check(analyseCode.replace("kleinster = werte[0]", "kleinster = 0"), analyseTask)[1], false);
+  assert.equal(check(analyseCode.replace("groesster = werte[0]", "groesster = 0"), analyseTask)[2], false);
+  assert.equal(check(analyseCode.replace("summe = 0", "summe = werte[0]"), analyseTask)[0], false);
+  assert.equal(check(analyseCode.replace("summe / len(werte)", "summe // len(werte)"), analyseTask)[1], false);
+});
+test("Builtin-only analysis and input sorting fail the stated algorithm requirements", () => {
+  const builtin = analyseTask.starter.replace("    pass", "    return min(werte), max(werte), sum(werte) / len(werte)");
+  assert.equal(check(builtin, analyseTask).slice(0, 4).every(Boolean), true);
+  assert.equal(check(builtin, analyseTask)[4], false);
+  const sorted = analyseCode.replace("    kleinster = werte[0]", "    werte.sort()\n    kleinster = werte[0]");
+  assert.equal(check(sorted, analyseTask)[0], false);
+});

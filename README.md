@@ -2,12 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 7. Oktober 2026. Version **0.5.0 – Arrays mit Schleifen durchlaufen**.
+Stand: 7. Oktober 2026. Version **0.6.0 – Arrays auswerten**.
 Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
 L1.1 enthält Erklärungen, eigene Notizen und Verständnisfragen. L1.2 enthält ein
 Arraymodell, einen Schreibtischtest und eine echte Python-Aufgabe. L1.3 ergänzt
-ein Schleifenmodell und zwei automatisch geprüfte Python-Funktionen. Weitere
-16 Einheiten sind in Vorbereitung. Alle drei ausgearbeiteten Einheiten besitzen
+ein Schleifenmodell und zwei automatisch geprüfte Python-Funktionen. L1.4
+zeigt Minimum, Maximum und Durchschnitt mit Modell und zwei Codeaufgaben.
+Weitere 15 Einheiten sind in Vorbereitung. Alle vier ausgearbeiteten Einheiten besitzen
 ein eigenes fotorealistisches Motiv und eine Lernsituation.
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
@@ -58,13 +59,15 @@ Button wieder verborgen; ein aktiver Modus bleibt an der Kopfzeile erkennbar.
 
 ## Python und gespeicherte Entwürfe
 
-In L1.2 und L1.3 kannst du Code direkt ausführen. Pyodide 0.29.4 wird beim ersten Start
+Ab L1.2 kannst du Code direkt ausführen. Pyodide 0.29.4 wird beim ersten Start
 vom CDN geladen; dafür ist eine Internetverbindung nötig. Die Berechnung
 läuft im Browser-Worker, kann gestoppt werden und endet nach spätestens fünf
 Sekunden. Die Codeaufgabe zählt 40 Punkte, drei Verständnisfragen je 20.
 Erst alle 100 Punkte und der ausdrückliche Abschluss öffnen L1.3. Dort ergeben
 zwei Verständnisfragen und zwei Codeaufgaben wieder 100 Punkte. Nach dem
-Abschluss ist L1.4 zugänglich, dort entstehen die Inhalte als Nächstes.
+Abschluss ist L1.4 zugänglich. Drei Verständnisfragen sowie Sammel- und
+Analysefunktion ergeben dort 100 Punkte. Erst der Abschluss öffnet L1.5,
+dessen Inhalte als Nächstes entstehen.
 
 Eigene Erklärungen und Codeentwürfe werden lokal gespeichert und in die
 Lernstandsdatei aufgenommen. Freitext wird nicht automatisch benotet.

@@ -2,7 +2,7 @@
 
 Stand: 7. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.5.0 – Arrays mit Schleifen durchlaufen**
+Aktueller Stand: **0.6.0 – Arrays auswerten**
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -11,8 +11,9 @@ Logo, Startmotiv, Landkarte mit ausklappbaren Einheiten und einklappbare Sidebar
 L1.1 enthält Erklärungen, eigene gespeicherte Begründungen und Verständnisfragen.
 L1.2 enthält ein interaktives Arraymodell, einen Schreibtischtest und eine
 automatisch geprüfte Python-Aufgabe. L1.3 ergänzt einen Schleifendurchlauf,
-zwei geprüfte Python-Funktionen und gespeicherte Transferfelder. Alle drei
-besitzen ein eigenes Fotomotiv und eine Lernsituation. Die übrigen 16 Einheiten
+zwei geprüfte Python-Funktionen und gespeicherte Transferfelder. L1.4 enthält
+ein Auswertungsmodell, Sammel- und Analysefunktionen sowie Randfalltests.
+Alle vier besitzen ein eigenes Fotomotiv und eine Lernsituation. Die übrigen 15 Einheiten
 sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
 ist noch nicht erreicht.
 
@@ -263,9 +264,10 @@ werden gezielt übernommen und an AlgoLab angepasst.
 | `python-worker.js` | Python-Ausführung und getrennte Prüfergebnisse mit Pyodide 0.29.4 | umgesetzt |
 | `python-runner.js` | Start, Zeitlimit, Abbruch und Neustart des Workers | umgesetzt |
 | `loop-model.js` | Schritte des Schleifenzugriffs einschließlich leerer Listen | umgesetzt |
+| `analysis-model.js` | Minimum, Maximum, Summe und Durchschnitt im Schreibtischtest | umgesetzt |
 | `python-checks.js` | isolierte Ausgabe für zusätzliche Funktionsprüfungen | umgesetzt |
 | `assets/` | eigene Start-/Karten-/Lektionsmotive und SVG-Icon-System | umgesetzt |
-| `tests/` | 21 Tests für Freischaltung, Entwürfe, Python-Kriterien und Workersteuerung | umgesetzt |
+| `tests/` | 30 Tests für Freischaltung, Entwürfe, Python-Kriterien und Workersteuerung | umgesetzt |
 | `resources/` | lokale Referenzmaterialien | vorhanden, Git ignoriert |
 
 Die Lernpfaddaten sollen stabile IDs und einen nachvollziehbaren Bezug zum
@@ -397,9 +399,10 @@ Computer-use-Skills wurden nicht doppelt installiert.
 
 - [x] L1.2 und Python-Laufzeit mit Stoppen und Zeitlimit ergänzen.
 - [x] L1.3 mit Schleifenmodell, zwei Programmieraufgaben und Materialabgleich ausarbeiten.
-- [ ] L1.4–L1.7 mit Programmieraufgaben und Materialabgleich ausarbeiten.
-- [x] Eigene Fotomotive und Lernsituationen für L1.1 bis L1.3 ergänzen.
-- [ ] Eigene Fotomotive und Lernsituationen für die weiteren 16 Einheiten ergänzen.
+- [x] L1.4 mit Auswertungsmodell, zwei Python-Aufgaben und Materialabgleich ausarbeiten.
+- [ ] L1.5–L1.7 mit Programmieraufgaben und Materialabgleich ausarbeiten.
+- [x] Eigene Fotomotive und Lernsituationen für L1.1 bis L1.4 ergänzen.
+- [ ] Eigene Fotomotive und Lernsituationen für die weiteren 15 Einheiten ergänzen.
 - [ ] Vollständigen Datei-Export im Browser auf einem Download-fähigen Testclient abnehmen.
 - [ ] Schreibtischtests sowie Such- und Sortiersimulationen entwickeln.
 - [ ] L2 einschließlich eigener Implementierungen und Transferaufgaben aufbauen.
@@ -407,6 +410,41 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.6.0 – 7. Oktober 2026
+
+L1.4 folgt Gewinnziehung und Trainingsanalyse (L1_3.2/L1_3.3, Aufgaben
+und Lösungen gelesen). Eigenständige Trainingssituation, Erklärungen,
+Fotomotiv, zwei Notiz-/Transferfelder und PythonLab-Hilfe ergänzt. Modell
+mit sieben Datensätzen: jede Vergleichsentscheidung, laufende Summe und
+Tabelle der Zwischenergebnisse. Division erst nach dem Durchlauf.
+Minimum/Maximum starten mit dem ersten Wert; die leere Liste wird zuvor
+abgefangen. Der Durchschnitt ist bei Python / ein Gleitkommawert; die
+Ganzzahl-Angabe in der Vorlage wird fachlich korrigiert.
+
+Drei Fragen (30 Punkte), Sammeln mit for/append (20 Punkte) und selbst
+implementierte Auswertung (50 Punkte) sind Pflichtaufgaben. Neue Daten,
+gleiche Werte, negative Messreihen, Singleton, Nullen und leere Eingaben
+werden geprüft; Eingaben müssen unverändert bleiben. Testausgabe wird
+getrennt aufgefangen. Fertige Auswertungen wie min/max/sum sind hier
+nicht zulässig, weil der Algorithmus gelernt werden soll. Leere Auswertung
+liefert nach ausdrücklicher Vereinbarung None.
+
+30 lokale Tests bestanden. Browser mit tatsächlichem Pyodide: Sammlung
+vierteilige Prüfung erfüllt, Auswertung sechsteilige Prüfung erfüllt.
+Falsche Ganzzahldivision erkannt, kein Punktegewinn. Beide Programme
+bringen 70 Punkte; erst alle Fragen ergänzen zu 100 und expliziter Abschluss
+öffnet L1.5. Neuladen erhält lokal 400 Gesamtpunkte, Notizen und Code.
+Sieben Modellfälle geprüft, Mobilansicht 390 Pixel ohne Seitenüberlauf
+(Tabelle separat scrollbar), Desktopansicht 1440 Pixel visuell geprüft.
+PythonLab-Ziel Vergleiche/if überprüft; for und return bereits in 0.5.0
+überprüft. Abschließende Textänderung neu geladen, keine JS-Fehler.
+
+Motiv: `assets/l1-4-arrays-auswerten.webp`, 1672 × 941 Pixel; Prompt und
+Bildquelle in `docs/lesson-images.md`. Neuer Modellcode `analysis-model.js`
+ist Teil des Veröffentlichungspakets. Veröffentlichung und Onlineprüfung
+noch offen.
+
 
 ### 0.5.0 – 7. Oktober 2026
 

@@ -191,3 +191,79 @@ Minimum/Maximum/Durchschnitt mit Zwischenergebnissen modellieren, eigene
 Python-Aufgaben und Fotomotiv erstellen. Weitere 16 Einheiten sind offen.
 Vollständige BPE7-Abnahme und Datei-Export-Rundlauf bleiben ebenfalls offen.
 Das Gesamtziel bleibt aktiv.
+
+
+## Schritt 12: Materialabgleich für L1.4
+
+Abgeschlossen: Arbeitsaufträge und Lösungen Gewinnziehung (L1_3.2) sowie
+Trainingsanalyse (L1_3.3) gelesen. Gewinnziehung: fünf Werte mit append
+sammeln und ausgeben. Trainingsanalyse: sechs Würfe, Minimum/Maximum
+aus dem ersten Wert initialisieren, Summe bilden und durch die Anzahl teilen.
+Die Vorlage nennt den Durchschnitt einmal Ganzzahl; tatsächlich liefert
+Python bei / einen Gleitkommawert. AlgoLab erklärt dies ausdrücklich.
+Eigenes Turniertraining als Situation vorgesehen; verschiedene Daten und
+Randfälle werden geprüft.
+
+Offen: Inhalte, Simulation, Codeaufgaben, Motiv, Tests, Browserabnahme und
+Veröffentlichung L1.4. Weitere 15 Einheiten danach noch auszuarbeiten.
+
+
+## Schritt 13: L1.4 Inhalte und Modell umgesetzt
+
+Abgeschlossen: Trainingssituation, eigenes fotorealistisches Motiv, sechs
+Erklärabschnitte, Grundlagenlinks, Schreibtischtest und Optimierungsaufgabe
+ergänzt. Auswertungsmodell zeigt Startwerte, jeden Vergleich und laufende
+Summe; Durchschnitt erst nach allen Werten. Sieben Testreihen einschließlich
+positiver/negativer Messwerte, gleicher Werte, Singleton, Nullen und leerer
+Liste. Drei Verständnisfragen (30 Punkte), Sammelfunktion (20 Punkte) und
+Auswertungsfunktion (50 Punkte) bilden 100 Pflichtpunkte. Funktionsprüfungen
+verwenden neue Daten, prüfen unveränderte Eingaben und erfassen ihre Ausgabe
+getrennt. Leere Auswertung liefert ausdrücklich None.
+
+Offen: automatisierte Tests, tatsächlicher Browserlauf, mobile Abnahme,
+Grundlagenlinks prüfen und Veröffentlichung. Weitere 15 Einheiten offen.
+
+
+## Schritt 14: Algorithmen und Freischaltung geprüft
+
+Abgeschlossen: 30 lokale Tests bestanden. Neue Prüfungen umfassen sämtliche
+Zwischensummen, Minimum/Maximum, leere Listen, unveränderte Eingaben,
+wiederholte Werte und optimierten Summenstart bei Index 1. Falsche
+Nullinitialisierung, doppelte Zählung, Ganzzahldivision, bloße Alias-Rückgabe
+und fertige Auswertungsfunktionen werden erkannt. L1.5 öffnet erst nach
+allen fünf Pflichtaufgaben mit 100 Punkten und explizitem Abschluss.
+Notizen und Codeentwürfe bleiben in der Lernstandnormalisierung erhalten.
+Syntax- und Diff-Prüfung bestanden.
+
+Offen: Browserabnahme inklusive tatsächlichem Pyodide und Mobilansicht,
+Grundlagenlinks, Veröffentlichung. Danach weitere 15 Einheiten.
+
+
+## Schritt 15: Browserabnahme L1.4
+
+Abgeschlossen: sieben Modellreihen bis zum Ende im Browser geprüft.
+Pyodide-Sammelfunktion bestand vier Kriterien. Falsche Ganzzahldivision
+in der Auswertungsfunktion wurde erkannt und vergab keine Analysepunkte;
+korrekte Lösung bestand alle sechs Kriterien. Testausgaben sind nicht in
+der Schülerausgabe sichtbar. Nach beiden Codeaufgaben 70 Punkte, nach
+allen Fragen 100; erst Abschluss öffnet L1.5. Neuladen erhält lokal
+400 Gesamtpunkte, Code und Schreibtischtest. Mobil bei 390 Pixeln kein
+Seitenüberlauf; Tabelle ist innerhalb ihres Bereichs scrollbar. Desktop
+1440 Pixel visuell geprüft. Neue PythonLab-Hilfe zu Vergleichen/if anhand
+der tatsächlichen Lektion online geprüft; for/return waren bereits geprüft.
+Kleine Textkorrekturen: Singular für eine Messung und klarer Endzustand
+des Modellbuttons.
+
+Offen: Version 0.6.0 dokumentieren, letzte Prüfung nach Textänderung,
+GitHub-Push und Onlineabnahme. Danach L1.5, weitere 15 Einheiten offen.
+
+
+## Schritt 16: Version 0.6.0 vorbereitet
+
+Abgeschlossen: README, zentrale Dokumentation, Aufgabenliste, Materialmatrix
+und Bildquelle aktualisiert. Veröffentlichungsworkflow nimmt analysis-model.js
+mit auf. Letzte Textänderungen im Browser neu geladen und geprüft: Singular
+bei einem Wert, eindeutiger Abschlussbutton, Bild geladen, keine JS-Fehler.
+
+Offen: finaler Syntax-/Diff-Lauf, GitHub-Push, Deployment und Onlineprüfung.
+Weitere Inhalte und Bilder für 15 Einheiten bleiben offen.

@@ -29,11 +29,12 @@ jobs:
           node --check python-runner.js
           node --check python-checks.js
           node --check loop-model.js
+          node --check analysis-model.js
           node --test tests/*.test.cjs
       - name: Assemble public files only
         run: |
           mkdir public
-          cp index.html styles.css design.css app.js learning-path.js progress.js python-worker.js python-runner.js python-checks.js loop-model.js public/
+          cp index.html styles.css design.css app.js learning-path.js progress.js python-worker.js python-runner.js python-checks.js loop-model.js analysis-model.js public/
           cp -r assets public/
           touch public/.nojekyll
       - uses: actions/upload-pages-artifact@v3

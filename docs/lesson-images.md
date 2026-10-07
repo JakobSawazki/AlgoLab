@@ -9,9 +9,10 @@ die Lernsituation; die exakten Fachmodelle werden interaktiv dargestellt.
 | L1.1 | `assets/l1-1-datenstrukturen.webp` | erzeugt, geprüft und eingebunden |
 | L1.2 | `assets/l1-2-arrays.webp` | erzeugt, geprüft und eingebunden |
 | L1.3 | `assets/l1-3-arrays-durchlaufen.webp` | erzeugt, geprüft und eingebunden |
-| L1.4–L1.7, L2.1–L2.8, L3.1–L3.4 | je ein eigenes Motiv geplant | offen, bei jeweiligem Inhaltsausbau umsetzen |
+| L1.4 | `assets/l1-4-arrays-auswerten.webp` | erzeugt, geprüft und eingebunden |
+| L1.5–L1.7, L2.1–L2.8, L3.1–L3.4 | je ein eigenes Motiv geplant | offen, bei jeweiligem Inhaltsausbau umsetzen |
 
-Alle drei Motive sind 1672 × 941 Pixel groß und mit WebP-Qualität 88 komprimiert,
+Alle vier Motive sind 1672 × 941 Pixel groß und mit WebP-Qualität 88 komprimiert,
 ohne Beschnitt. Originale liegen in der Codex-Bildablage im Threadordner
 `C:/Users/Jakob/.codex/generated_images/01a112ba-3602-7e33-a3d1-93f851c588b6/`.
 
@@ -32,3 +33,9 @@ Original: `exec-20691b28-d763-45cc-b439-ad6ac0a51abf.png`.
 Original: `exec-82e3d336-e371-4cb6-b365-b86041d31130.png`.
 
 > Use case: photorealistic-natural. Asset type: 16:9 motivational educational photograph for AlgoLab lesson L1.3 Arrays durchlaufen. Three fictional upper-secondary school students aged 17–19, two girls and a boy with natural varied appearances, collaborate at a table beside a bright contemporary school gym to prepare a volleyball tournament roster. They are focused and pleased with shared progress. One student points sequentially at a row of six separate blue player tokens on a clipboard, another works on a realistic brushed metal laptop with the back of the screen facing the camera, another checks a blank roster sheet. A volleyball beside the table and softly out-of-focus gym in the background establish the context. Natural daylight, warm skin tones, restrained modern cobalt blue and silver accents, believable hands and objects, premium candid editorial photography. Medium-wide eye-level landscape framing with all faces and activity centered in central 80 percent and margins around heads. No readable text, no logos, no watermarks, no floating UI or holograms, no screen on the back of the laptop. The image illustrates collaborative programming and checking every team member, not an exact technical diagram.
+
+## L1.4
+
+Original: `exec-af54dcb8-cd5d-49e5-a8a2-55770a5848cb.png`.
+
+> Use case: photorealistic-natural. Asset type: wide 16:9 motivational photograph for AlgoLab lesson L1.4 Minimum, Maximum and Average. Three fictional upper-secondary school students aged 17–19 with varied natural appearances collaborate at a table in a bright modern school recreation room after a friendly darts training session. A girl uses a realistic brushed-metal laptop with the back of its screen toward the camera, a boy compares six separate blue and silver score tokens on a simple tray, another girl records results in a notebook. A small dartboard mounted on a wall softly out of focus establishes the sport; nobody is throwing or holding darts. Candid expressions of concentration and shared discovery, everyday clothes in cobalt blue and natural neutrals, warm faces, natural hands, tactile realistic materials. Soft daylight, premium editorial photography, restrained modern blue accents. Medium-wide eye-level framing with all three faces and learning activity inside the central 80 percent, margin around heads. Motivating and believable collaborative data analysis. No readable words or numbers, no logos, no watermarks, no holograms, no floating UI, no screen on laptop back. Tokens suggest six training results but are not a technical diagram.

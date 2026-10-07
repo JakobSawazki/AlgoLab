@@ -1,6 +1,6 @@
 (function (root) {
   "use strict";
-  function createRunner({ makeWorker = () => new Worker("python-worker.js?v=0.5.0", { type: "module" }), onStatus = () => {}, loadTimeout = 60000, runTimeout = 5000 } = {}) {
+  function createRunner({ makeWorker = () => new Worker("python-worker.js?v=0.6.0", { type: "module" }), onStatus = () => {}, loadTimeout = 60000, runTimeout = 5000 } = {}) {
     let worker, timer, pending, serial = 0, initialized = false;
     function terminate(message = "Ausführung gestoppt.") {
       clearTimeout(timer);

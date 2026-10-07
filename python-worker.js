@@ -1,5 +1,5 @@
 import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.mjs";
-import "./python-checks.js?v=0.5.0";
+import "./python-checks.js?v=0.6.0";
 
 const ready = loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.4/full/" });
 ready.then(() => self.postMessage({ type: "ready" })).catch(error => self.postMessage({ type: "init-error", error: String(error) }));
