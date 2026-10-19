@@ -449,3 +449,57 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .banner-tree text { fill: var(--text); font: 700 11px Consolas, monospace; text-anchor: middle; }
 .banner-tree g[style] { animation: cell-in .5s ease both; animation-delay: calc(var(--i) * 60ms); }
 @media (prefers-reduced-motion: reduce) { .banner-bars span, .banner-chain > span, .banner-queue > span, .banner-flow > span, .banner-stack span, .banner-tree g[style] { animation: none; } }
+
+/* Struktogramme (Nassi-Shneiderman) nach Operatorenliste BW */
+.step-codebox { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.view-switch { display: inline-flex; justify-self: start; padding: 3px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); }
+.view-switch button { padding: 5px 12px; border: 0; border-radius: 7px; background: transparent; box-shadow: none; color: var(--muted); font-size: .76rem; }
+.view-switch button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.nsd { margin: 0; min-width: 0; }
+.nsd figcaption { margin-bottom: 6px; color: var(--muted); font-size: .76rem; font-weight: 700; letter-spacing: .03em; }
+.nsd-box { border: 1.5px solid color-mix(in srgb, var(--text) 55%, var(--line)); background: var(--bg); font: .8rem/1.4 Consolas, monospace; color: var(--text); overflow-x: auto; }
+.nsd-box > * + *, .nsd-body > * + *, .nsd-branches > div > * + * { border-top: 1px solid color-mix(in srgb, var(--text) 40%, var(--line)); }
+.nsd-s, .nsd-head { padding: 6px 10px; }
+.nsd-op { color: var(--muted); }
+.nsd-empty { color: var(--muted); text-align: center; }
+.nsd-loop { display: grid; grid-template-columns: 22px minmax(0, 1fr); }
+.nsd-head { grid-column: 1 / -1; }
+.nsd-body { grid-column: 2; border-top: 1px solid color-mix(in srgb, var(--text) 40%, var(--line)); border-left: 1px solid color-mix(in srgb, var(--text) 40%, var(--line)); }
+.nsd-cond { position: relative; min-height: 54px; padding: 6px 34px 22px; text-align: center; }
+.nsd-cond span { position: relative; }
+.nsd-tri { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nsd-tri line { stroke: color-mix(in srgb, var(--text) 45%, var(--line)); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.nsd-j, .nsd-n { position: absolute; bottom: 3px; font-size: .7rem; color: var(--muted); }
+.nsd-j { left: 8px; } .nsd-n { right: 8px; }
+.nsd-branches { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid color-mix(in srgb, var(--text) 40%, var(--line)); }
+.nsd-branches > div + div { border-left: 1px solid color-mix(in srgb, var(--text) 40%, var(--line)); }
+.nsd .is-current { background: color-mix(in srgb, var(--state-active) 22%, transparent); box-shadow: inset 3px 0 var(--state-active); }
+.examples .nsd { margin-top: 12px; }
+.step-grid.is-nsd { grid-template-columns: minmax(0, 1fr); }
+.nsd-wrap { overflow-x: auto; }
+.nsd-wrap .nsd-box { min-width: 540px; overflow: visible; }
+
+/* Ich-kann-Listen */
+.can-list ol { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.can-item { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+.can-number { font: 700 .82rem Consolas, monospace; color: var(--accent); }
+.can-text p { margin: 0; color: var(--text); font-size: .9rem; }
+.can-units { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.can-units a, .can-units span { padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; font: 700 .7rem Consolas, monospace; color: var(--muted); }
+.can-units a { color: var(--accent); }
+.rating { display: inline-flex; gap: 4px; }
+.rating button { min-width: 42px; padding: 6px 8px; border-radius: 8px; box-shadow: none; font-size: .82rem; color: var(--muted); background: var(--bg); }
+.rating button[aria-pressed="true"].rate-1 { border-color: var(--state-error); color: var(--text); background: color-mix(in srgb, var(--state-error) 22%, var(--bg)); }
+.rating button[aria-pressed="true"].rate-2 { border-color: var(--state-changed); color: var(--text); background: color-mix(in srgb, var(--state-changed) 22%, var(--bg)); }
+.rating button[aria-pressed="true"].rate-3 { border-color: var(--state-done); color: var(--text); background: color-mix(in srgb, var(--state-done) 24%, var(--bg)); }
+.can-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 6px; font-size: .8rem; font-weight: 700; }
+.can-summary .sum-3 { color: var(--state-done); } .can-summary .sum-2 { color: var(--state-changed); } .can-summary .sum-1 { color: var(--state-error); } .can-summary .sum-0 { color: var(--muted); }
+.can-bar { display: flex; flex-basis: 100%; height: 8px; overflow: hidden; border-radius: 999px; background: var(--bg); }
+.can-bar i { display: block; } .can-bar .bar-3 { background: var(--state-done); } .can-bar .bar-2 { background: var(--state-changed); } .can-bar .bar-1 { background: var(--state-error); } .can-bar .bar-0 { background: var(--line); }
+@media (max-width: 640px) { .can-item { grid-template-columns: 38px minmax(0, 1fr); } .rating { grid-column: 1 / -1; justify-self: end; } }
+
+/* Freiwillige Vertiefung */
+.extras-panel { border-style: dashed; }
+.code-task.is-optional { border-top-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.task-source { display: inline-block; margin-bottom: 6px; padding: 2px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font: 700 .68rem Consolas, monospace; }
+.is-optional .code-award { color: var(--accent); }

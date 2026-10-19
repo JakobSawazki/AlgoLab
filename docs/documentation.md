@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.0.1 – Alle 19 Lerneinheiten** (L1, L2 und L3 vollständig, online). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.1.0 – Struktogramme, Ich-kann-Listen, Vertiefung** (alle 19 Einheiten). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,33 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.1.0 – 19. Oktober 2026
+
+Struktogramme (Nassi-Shneiderman) nach der Operatorenliste Baden-Württemberg
+(Version 2.2 vom 01.09.2024): Alle Arraymodelle (Tauschen, Einfügen,
+Entfernen, Umdrehen, Bubble Sort normal/optimiert, Selection Sort auf-/
+absteigend, lineare Suche mit/ohne Abbruch, binäre Suche, Zählen) lassen sich
+zwischen Python und Struktogramm umschalten; der aktuell ausgeführte Block
+wird markiert, die Wahl bleibt im Browser gespeichert. Beispiele in L1.3,
+L1.4 und L2.1 zeigen Struktogramme direkt.
+
+Ich-kann-Listen: 45 Aussagen der drei Ich-kann-Listen des Materials als
+Selbsteinschätzung (☐ noch nicht, ✓ ich kann das, ✓✓ sicher) auf der neuen
+Seite „Ich-kann-Listen“ (#selfcheck) und als Ich-kann-Check vor dem Abschluss
+jeder Einheit. Gespeichert in `selfcheck` des Lernstands und der JSON-Datei;
+keine Auswirkung auf Punkte oder Freischaltung.
+
+Vertiefung: freiwillige, automatisch geprüfte Aufgaben ohne Punkte
+(`unit.extras`, gespeichert in `extras`): Kapitalrechner (L1.3, L1_4.3),
+Wetterstation und Gewinnziehung ohne doppelte Lose (L1.4, L1_4.2, L1_5),
+Wortverschlüsselung (L2.5, L2_4.4), Mitglieder je Jahrgang (L2.8, L2_4.3),
+Klammerprüfung mit Stapel (L3.2) und Baumhöhe mit Warteschlange (L3.4).
+Losnummern abweichend vom Material einheitlich als 1000000 + Zufallszahl.
+
+Fehlerbehebungen: Speichermeldung im Code-Editor überschrieb die
+Werkzeugzeile (seit 0.9.1); Codezeile der linearen Suche ohne Abbruch.
+75 Tests.
 
 ### 1.0.1 – 19. Oktober 2026
 

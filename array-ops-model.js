@@ -159,7 +159,7 @@
       const text = hit
         ? `${name} = ${i}: ${show(values[i])} == ${show(target)}? Ja – gefunden wird True (nach ${comparisons} Vergleich${comparisons === 1 ? "" : "en"}).${stopEarly ? " Die Schleife endet." : " Die for-Schleife prüft trotzdem bis zum Ende weiter."}`
         : `${name} = ${i}: ${show(values[i])} == ${show(target)}? Nein.`;
-      add(hit ? 4 : stopEarly ? 6 : 2, text, { ...before, [i]: hit ? "done" : "compare" }, [["gesucht", show(target)], [name, i], ["gefunden", foundAt >= 0 ? "True" : "False"], ["Vergleiche", comparisons]]);
+      add(hit ? (stopEarly ? 4 : 3) : stopEarly ? 6 : 2, text, { ...before, [i]: hit ? "done" : "compare" }, [["gesucht", show(target)], [name, i], ["gefunden", foundAt >= 0 ? "True" : "False"], ["Vergleiche", comparisons]]);
       if (hit && stopEarly) break;
     }
     const found = foundAt >= 0;
@@ -211,7 +211,100 @@
   const bubbleSortOptimized = values => bubbleSort(values, true);
   const selectionSortDescending = values => selectionSort(values, true);
   const linearSearchAll = (values, target) => linearSearch(values, target, false);
-  const models = { swap, swapWithoutHelper, insert, remove, reverse, bubbleSort, bubbleSortOptimized, selectionSort, selectionSortDescending, linearSearch, linearSearchAll, binarySearch, countOccurrences };
+
+  // Struktogramme nach der Operatorenliste Baden-Württemberg (Version 2.2, 01.09.2024).
+  // Knoten: { s } Anweisung, { loop, body } Schleife mit Eingangsbedingung, { if, yes, no } Verzweigung.
+  // l nennt die Python-Codezeilen des Modells, bei denen der Block hervorgehoben wird.
+  const S = (s, ...l) => ({ s, l });
+  const LOOP = (loop, l, body) => ({ loop, l: [l], body });
+  const IF = (cond, l, yes, no = []) => ({ if: cond, l: [l], yes, no });
+  const n = name => `Anzahl der Elemente des Arrays ${name}`;
+  const swapBlock = (a, b, lines, name = "liste") => [S(`Zuweisung: zwischenspeicher = ${name}[${a}]`, ...lines), S(`Zuweisung: ${name}[${a}] = ${name}[${b}]`, ...lines), S(`Zuweisung: ${name}[${b}] = zwischenspeicher`, ...lines)];
+  const selectionNsd = descending => {
+    const idx = descending ? "max_idx" : "min_idx", op = descending ? ">" : "<";
+    return { title: descending ? "Selection Sort (absteigend)" : "Selection Sort", blocks: [
+      S(`Deklaration und Initialisierung: laenge = ${n("zahlen")}`, 0),
+      LOOP("Wiederhole von akt_idx = 0 solange akt_idx < laenge − 1, Schrittweite 1", 1, [
+        S(`Zuweisung: ${idx} = akt_idx`, 2),
+        LOOP("Wiederhole von j = akt_idx + 1 solange j < laenge, Schrittweite 1", 3, [
+          IF(`zahlen[j] ${op} zahlen[${idx}]`, 4, [S(`Zuweisung: ${idx} = j`, 5)])
+        ]),
+        IF(`akt_idx != ${idx}`, 6, [S("Zuweisung: zwischenspeicher = zahlen[akt_idx]", 7, 8, 9), S(`Zuweisung: zahlen[akt_idx] = zahlen[${idx}]`, 7, 8, 9), S(`Zuweisung: zahlen[${idx}] = zwischenspeicher`, 7, 8, 9)])
+      ])
+    ] };
+  };
+  const diagrams = {
+    swap: () => ({ title: "tausche(liste, a, b)", blocks: [S("Zuweisung: zwischenspeicher = liste[b]", 0), S("Zuweisung: liste[b] = liste[a]", 1), S("Zuweisung: liste[a] = zwischenspeicher", 2)] }),
+    swapWithoutHelper: () => ({ title: "tausche_falsch(liste, a, b)", blocks: [S("Zuweisung: liste[b] = liste[a]", 0), S("Zuweisung: liste[a] = liste[b]", 1)] }),
+    insert: () => ({ title: "einfuegen(liste, neu, index)", blocks: [
+      S(`Zuweisung: liste[${n("liste")}] = neu  (anhängen)`, 0),
+      LOOP(`Wiederhole von i = ${n("liste")} − 1 solange i > index, Schrittweite −1`, 1, swapBlock("i − 1", "i", [2, 3, 4]))
+    ] }),
+    remove: () => ({ title: "entfernen(liste, index)", blocks: [
+      LOOP(`Wiederhole von i = index solange i < ${n("liste")} − 1, Schrittweite 1`, 0, [S("Zuweisung: liste[i] = liste[i + 1]", 1)]),
+      S("Aufruf: liste.pop()  (letztes Arrayelement entfernen)", 2)
+    ] }),
+    reverse: () => ({ title: "umdrehen(liste)", blocks: [
+      S("Deklaration und Initialisierung: links = 0", 0),
+      S(`Deklaration und Initialisierung: rechts = ${n("liste")} − 1`, 1),
+      LOOP("Wiederhole solange links < rechts", 2, [...swapBlock("links", "rechts", [3, 4, 5]), S("Zuweisung: links = links + 1", 6), S("Zuweisung: rechts = rechts − 1", 7)])
+    ] }),
+    bubbleSort: () => ({ title: "Bubble Sort", blocks: [
+      S(`Deklaration und Initialisierung: laenge = ${n("zahlen")}`, 0),
+      LOOP("Wiederhole von i = 1 solange i < laenge, Schrittweite 1", 1, [
+        LOOP("Wiederhole von j = 0 solange j < laenge − i, Schrittweite 1", 2, [
+          IF("zahlen[j] > zahlen[j + 1]", 3, swapBlock("j", "j + 1", [4, 5, 6], "zahlen"))
+        ])
+      ])
+    ] }),
+    bubbleSortOptimized: () => ({ title: "Bubble Sort (optimiert)", blocks: [
+      S(`Deklaration und Initialisierung: laenge = ${n("zahlen")}`, 0),
+      S("Deklaration und Initialisierung: bubble_phasen = 0", 1),
+      S("Deklaration und Initialisierung: tausch = wahr", 2),
+      LOOP("Wiederhole solange tausch == wahr", 3, [
+        S("Zuweisung: tausch = falsch", 4),
+        S("Zuweisung: bubble_phasen = bubble_phasen + 1", 5),
+        LOOP("Wiederhole von j = 0 solange j < laenge − bubble_phasen, Schrittweite 1", 6, [
+          IF("zahlen[j] > zahlen[j + 1]", 7, [...swapBlock("j", "j + 1", [8, 9, 10], "zahlen"), S("Zuweisung: tausch = wahr", 10, 11)])
+        ])
+      ])
+    ] }),
+    selectionSort: () => selectionNsd(false),
+    selectionSortDescending: () => selectionNsd(true),
+    linearSearch: () => ({ title: "Lineare Suche (mit Abbruch)", blocks: [
+      S("Deklaration und Initialisierung: gefunden = falsch", 0),
+      S("Deklaration und Initialisierung: zaehler = 0", 1),
+      LOOP(`Wiederhole solange gefunden == falsch AND zaehler < ${n("liste")}`, 2, [
+        IF("liste[zaehler] == gesucht", 3, [S("Zuweisung: gefunden = wahr", 4)], [S("Zuweisung: zaehler = zaehler + 1", 5, 6)])
+      ])
+    ] }),
+    linearSearchAll: () => ({ title: "Lineare Suche", blocks: [
+      S("Deklaration und Initialisierung: gefunden = falsch", 0),
+      LOOP(`Wiederhole von i = 0 solange i < ${n("liste")}, Schrittweite 1`, 1, [
+        IF("liste[i] == gesucht", 2, [S("Zuweisung: gefunden = wahr", 3)])
+      ])
+    ] }),
+    binarySearch: () => ({ title: "Binäre Suche", blocks: [
+      S("Deklaration und Initialisierung: gefunden = falsch", 0),
+      S("Deklaration und Initialisierung: index_anfang = 0", 1),
+      S(`Deklaration und Initialisierung: index_ende = ${n("liste")} − 1`, 2),
+      LOOP("Wiederhole solange gefunden == falsch AND index_anfang <= index_ende", 3, [
+        S("Zuweisung: index_mitte = ganzzahliger Anteil von (index_anfang + index_ende) / 2", 4),
+        IF("liste[index_mitte] == gesucht", 5, [S("Zuweisung: gefunden = wahr", 6)], [
+          IF("liste[index_mitte] > gesucht", 7, [S("Zuweisung: index_ende = index_mitte − 1", 8)], [S("Zuweisung: index_anfang = index_mitte + 1", 9, 10)])
+        ])
+      ])
+    ] }),
+    countOccurrences: () => ({ title: "Häufigkeit zählen", blocks: [
+      S("Deklaration und Initialisierung: anzahl = 0", 0),
+      LOOP(`Wiederhole von i = 0 solange i < ${n("liste")}, Schrittweite 1`, 1, [
+        IF("liste[i] == gesucht", 2, [S("Zuweisung: anzahl = anzahl + 1", 3)])
+      ])
+    ] })
+  };
+  const raw = { swap, swapWithoutHelper, insert, remove, reverse, bubbleSort, bubbleSortOptimized, selectionSort, selectionSortDescending, linearSearch, linearSearchAll, binarySearch, countOccurrences };
+  const models = Object.fromEntries(Object.entries(raw).map(([name, model]) => [name, (...args) => ({ ...model(...args), nsd: diagrams[name]() })]));
+  models.diagrams = diagrams;
   if (typeof module !== "undefined" && module.exports) module.exports = models;
   else root.ALGOLAB_ARRAY_MODELS = models;
 })(globalThis);

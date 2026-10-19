@@ -472,3 +472,23 @@ Prüfstand: 65/65 Tests, Syntax, Diff; Banner aller 15 Einheiten im Browser
 geprüft (hell/dunkel).
 Online-Abnahme 1.0.1 (944f7f1): Fußzeile und Inhaltsversion 1.0.1, Banner
 L1.5/L2.3/L2.6/L3.2/L3.4, neue Abschnittshinweise, keine Konsolenfehler.
+
+## 19. Oktober 2026 – Struktogramme, Ich-kann-Listen, Vertiefung (1.1.0)
+
+Bearbeiter: Claude, autarker Ausbau. Operatorenliste für Struktogramme (BW,
+v2.2, 01.09.2024) mit eigenem PDF-Textauszug gelesen; Ich-kann-Listen L1–L3
+und die bisher ungenutzten Vertiefungs-/Zusatzaufgaben (L1_4.2, L1_4.3, L1_5,
+L2_4.3, L2_4.4) samt Musterlösungen ausgewertet.
+- Struktogramme: Datenmodell (Anweisung, Schleife, Verzweigung) mit Bezug auf
+  die Python-Zeilen jedes Modells; Darstellung als Nassi-Shneiderman-Diagramm
+  mit Bedingungsdreieck und J/N; Umschalter im Schrittmodell.
+- Ich-kann-Listen: Inhalte, Bewertungen (☐/✓/✓✓), neue Seite und
+  Ich-kann-Check je Einheit; Validierung beim Import.
+- Vertiefung: sieben freiwillige Codeaufgaben, Referenzwerte mit den
+  Musterlösungen berechnet (Kapitalrechner 60723,37 €, Jahrgänge 2000–2010).
+- Fehler behoben: Editor-Werkzeugzeile wurde beim Tippen überschrieben;
+  falscher Zeilenbezug der linearen Suche ohne Abbruch.
+Prüfstand: 75/75 Tests (neu: Struktogramm-Abdeckung und -Notation,
+Selbsteinschätzung, Zusatzaufgaben mit Referenz- und Falschlösungen),
+Syntax, Diff; Browser: Struktogramm-Ansicht, Ich-kann-Liste und
+Zusatzaufgabe mit random in Pyodide.

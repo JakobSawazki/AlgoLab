@@ -124,3 +124,53 @@ test("Progression carries across all module boundaries without spending points",
   });
   assert.equal(chain.total(state), 1900);
 });
+
+test("Self-assessment is validated, survives a JSON round trip and never changes points", () => {
+  const state = engine.empty();
+  assert.equal(engine.rateSelfcheck(state, "L1-2.10", 3), true);
+  assert.equal(engine.rateSelfcheck(state, "L3-4.3", 1), true);
+  assert.equal(engine.rateSelfcheck(state, "L9-1.1", 2), false);
+  assert.equal(engine.rateSelfcheck(state, "L1-1.1", 4), false);
+  assert.equal(engine.total(state), 0);
+  const restored = engine.readPayload(JSON.parse(JSON.stringify(engine.payload(state))));
+  assert.deepEqual(restored.selfcheck, { "L1-2.10": 3, "L3-4.3": 1 });
+  assert.equal(engine.rateSelfcheck(restored, "L1-2.10", 0), true);
+  assert.deepEqual(restored.selfcheck, { "L3-4.3": 1 });
+  const dirty = engine.normalize({ answers: {}, completed: [], selfcheck: { "L1-1.1": 2, "L1-1.2": "3", "fremd": 1, "L2-1.1": 0 } });
+  assert.deepEqual(dirty.selfcheck, { "L1-1.1": 2 });
+});
+
+test("Every I-can statement points to existing units and every unit is covered", () => {
+  const ids = new Set(content.units.map(unit => unit.id));
+  const covered = new Set();
+  for (const group of content.selfcheck) for (const item of group.items) {
+    assert.ok(item.units.length, item.id);
+    for (const unitId of item.units) { assert.ok(ids.has(unitId), `${item.id} → ${unitId}`); covered.add(unitId); }
+  }
+  for (const unit of content.units) assert.ok(covered.has(unit.id), unit.id);
+  assert.equal(new Set(content.selfcheck.flatMap(group => group.items.map(item => item.id))).size, 45);
+});
+
+test("Optional extra tasks are stored separately and never affect points or unlocking", () => {
+  const state = engine.empty();
+  const withExtras = content.units.filter(unit => unit.extras?.length);
+  assert.ok(withExtras.length >= 6);
+  const target = withExtras[0];
+  assert.equal(engine.completeExtra(state, target.id, target.extras[0].id, true), false, "gesperrte Einheit");
+  for (const unit of content.units.slice(0, content.units.indexOf(target))) {
+    solve(state, unit.id);
+    for (const task of unit.tasks.filter(task => task.type === "code")) engine.completeCode(state, unit.id, task.id, true);
+    engine.finish(state, unit.id);
+  }
+  const before = engine.total(state);
+  assert.equal(engine.completeExtra(state, target.id, target.extras[0].id, false), false);
+  assert.equal(engine.completeExtra(state, target.id, "unbekannt", true), false);
+  assert.equal(engine.completeExtra(state, target.id, target.extras[0].id, true), true);
+  assert.equal(engine.completeExtra(state, target.id, target.extras[0].id, true), false, "kein zweites Mal neu");
+  assert.equal(engine.total(state), before);
+  assert.equal(engine.passed(state, target.id), false);
+  const restored = engine.readPayload(JSON.parse(JSON.stringify(engine.payload({ ...state, work: { [target.id]: { [target.extras[0].id]: "print(1)" } } }))));
+  assert.deepEqual(restored.extras, { [target.id]: { [target.extras[0].id]: true } });
+  assert.equal(restored.work[target.id][target.extras[0].id], "print(1)");
+  for (const unit of withExtras) for (const task of unit.extras) assert.equal(task.points, 0, task.id);
+});

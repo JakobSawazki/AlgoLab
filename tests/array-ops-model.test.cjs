@@ -27,7 +27,7 @@ test("Reverse, sorting and search models reach correct results", () => {
   assert.match(last(models.binarySearch(sorted, 40)).explanation, /nicht vor/);
 });
 test("Every step ends exactly once and points to an existing code line", () => {
-  const traces = [models.swap([1, 2], 0, 1), models.insert([1], 2, 0), models.remove([1, 2], 0), models.bubbleSort([3, 2, 1]), models.selectionSort([3, 1, 2]), models.linearSearch([1, 2], 2), models.binarySearch([1, 2, 3], 3), models.reverse([1, 2, 3])];
+  const traces = [models.swap([1, 2], 0, 1), models.insert([1], 2, 0), models.remove([1, 2], 0), models.bubbleSort([3, 2, 1]), models.selectionSort([3, 1, 2]), models.linearSearch([1, 2], 2), models.linearSearchAll([1, 2, 1], 1), models.countOccurrences([1, 2, 1], 1), models.bubbleSortOptimized([2, 1, 3]), models.selectionSortDescending([1, 3, 2]), models.binarySearch([1, 2, 3], 3), models.binarySearch([1, 2, 3], 4), models.reverse([1, 2, 3])];
   for (const trace of traces) {
     assert.equal(trace.steps.filter(step => step.done).length, 1);
     assert.equal(trace.steps.at(-1).done, true);
@@ -39,4 +39,29 @@ test("Counting visits every element and reports the number of hits", () => {
   assert.deepEqual(trace.steps.at(-1).vars, [["anzahl", 3]]);
   assert.equal(trace.steps.length, 9);
   assert.equal(last(models.bubbleSortOptimized([10, 1, 2, 3, 4, 5, 6, 7, 8, 9])).vars[0][1], 2);
+});
+
+test("Every model has a Struktogramm whose blocks cover all highlighted code lines", () => {
+  const samples = { swap: [[1, 2, 3], 0, 2], swapWithoutHelper: [[1, 2], 0, 1], insert: [[1, 2, 3], 9, 1], remove: [[1, 2, 3], 1], reverse: [[1, 2, 3, 4]], bubbleSort: [[3, 1, 2]], bubbleSortOptimized: [[3, 1, 2]], selectionSort: [[3, 1, 2]], selectionSortDescending: [[1, 3, 2]], linearSearch: [[4, 5, 6], 6], linearSearchAll: [[4, 5, 4], 4], binarySearch: [[1, 3, 5, 7, 9], 7], countOccurrences: [[1, 2, 1], 1] };
+  const lines = blocks => blocks.flatMap(block => [...(block.l || []), ...lines(block.body || []), ...lines(block.yes || []), ...lines(block.no || [])]);
+  for (const [name, args] of Object.entries(samples)) {
+    const trace = models[name](...args);
+    assert.ok(trace.nsd && trace.nsd.title && trace.nsd.blocks.length, name);
+    const covered = new Set(lines(trace.nsd.blocks));
+    for (const line of covered) assert.ok(line >= 0 && line < trace.code.length, `${name}: Zeile ${line}`);
+    for (const step of trace.steps) if (step.line !== null) assert.ok(covered.has(step.line), `${name}: Schritt mit Zeile ${step.line} ohne Block`);
+  }
+  for (const binary of [models.binarySearch([1, 3, 5, 7, 9], 1), models.binarySearch([1, 3, 5], 4)]) {
+    const covered = new Set(lines(binary.nsd.blocks));
+    for (const step of binary.steps) if (step.line !== null) assert.ok(covered.has(step.line));
+  }
+});
+
+test("Struktogramm texts follow the Baden-Württemberg operator list", () => {
+  const texts = blocks => blocks.flatMap(block => [block.s || block.loop || block.if, ...texts(block.body || []), ...texts(block.yes || []), ...texts(block.no || [])]);
+  for (const [name, build] of Object.entries(models.diagrams)) {
+    for (const text of texts(build().blocks)) {
+      assert.ok(/^((Zuweisung|Deklaration und Initialisierung|Aufruf): |Wiederhole (solange|von) )/.test(text) || !/^(Zuweisung|Deklaration|Aufruf|Wiederhole)/.test(text) && /[<>=!]=?|AND/.test(text), `${name}: ${text}`);
+    }
+  }
 });

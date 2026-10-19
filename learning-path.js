@@ -100,6 +100,7 @@
     { title: "range endet vor der Grenze", text: "range(3) liefert 0, 1 und 2. Bei einer Liste mit drei Namen sind das genau die gültigen Indizes. range(len(namen) + 1) würde zusätzlich den ungültigen Index 3 erreichen. Eine leere Liste hat Länge 0: range(0) führt zu keinem Schleifendurchlauf.", code: 'namen = ["Mila", "Jonas", "Sam"]\nfor i in range(len(namen)):\n    print(namen[i])' },
     { title: "Einrücken bestimmt den Schleifenkörper", text: "Nach dem Doppelpunkt gehören die eingerückten Anweisungen zur Schleife. print(namen[i]) wird für jeden Index ausgeführt. Eine nicht eingerückte Anweisung nach der Schleife läuft einmal. Nutze vier Leerzeichen pro Einrückung.", code: 'for i in range(len(namen)):\n    print(i, namen[i])\nprint("Alle Namen angezeigt")' },
     { title: "Position und Index verbinden", text: "Menschen zählen Plätze meist ab 1; Listenindizes beginnen hier bei 0. Platz 2 gehört deshalb zu Index 1. Eine Funktion erhält die Liste und den Platz als Parameter. return gibt den gefundenen Namen an die aufrufende Stelle zurück. Unsere Pflichtaufgabe setzt einen gültigen Platz voraus: 1 bis len(platzierungen).", code: 'def name_auf_platz(platzierungen, platz):\n    return platzierungen[platz - 1]\n\nprint(name_auf_platz(["Mila", "Jonas", "Sam"], 2))' },
+    { title: "Struktogramm: alle Elemente ausgeben", text: "So sieht der Schleifendurchlauf als Struktogramm aus. Die zählergesteuerte Schleife beginnt bei 0 und läuft, solange i kleiner als die Anzahl der Elemente ist.", nsd: { title: "zeige_liste(namen)", blocks: [{ loop: "Wiederhole von i = 0 solange i < Anzahl der Elemente des Arrays namen, Schrittweite 1", body: [{ s: "Ausgabe: namen[i] + Zeilenumbruch" }] }] } },
     { title: "Eine Ausgabefunktion mehrfach verwenden", text: "Die Funktion zeige_liste erhält eine Liste als Parameter. Du kannst sie für Startaufstellung, Ersatzspieler und Gesamtkader wiederverwenden. namen ist bei jedem Aufruf die übergebene Liste. Die Einrückung unter def und for zeigt, welche Anweisungen zusammengehören.", code: 'def zeige_liste(namen):\n    for i in range(len(namen)):\n        print(namen[i])\n\nstart = ["Mila", "Jonas"]\nersatz = ["Sam"]\nzeige_liste(start)\nzeige_liste(ersatz)\nzeige_liste(start + ersatz)' },
     { title: "Direkter Zugriff auf Werte als Alternative", text: "Wenn du nur die Werte brauchst, kannst du direkt über die Liste laufen: for name in namen. name ist dann ein Wert, kein Index. In der Pflichtaufgabe verwenden wir bewusst range und Indexzugriff, um das Arraymodell zu üben. Verändere die Länge der Liste nicht während dieses Durchlaufs.", code: 'for name in namen:\n    print(name)' }
   ];
@@ -144,6 +145,20 @@
     { title: "Den nächsten Wert mit beiden Merkern vergleichen", text: "Ist der aktuelle Wert kleiner als kleinster, ersetzt du den Merker. Ist er größer als groesster, ersetzt du diesen Merker. Die beiden if-Anweisungen prüfen getrennt. Gleiche Werte ändern das Ergebnis nicht. Dieser Code gehört in eine Funktion und unter die Schleife; die Einrückung zeigt den Zusammenhang.", code: "for i in range(len(werte)):\n    wert = werte[i]\n    if wert < kleinster:\n        kleinster = wert\n    if wert > groesster:\n        groesster = wert\n    summe = summe + wert" },
     { title: "Den Durchschnitt nach der Schleife berechnen", text: "Für den Durchschnitt teilst du die Summe durch die Anzahl der Werte. Im Training ergibt 126 / 6 den Wert 21.0. Python liefert bei / einen Gleitkommawert. // würde den Quotienten abrunden und ist für einen allgemeinen Durchschnitt ungeeignet. Die Division kommt nach der Schleife; eine leere Liste wird vorher abgefangen.", code: "durchschnitt = summe / len(werte)\nreturn kleinster, groesster, durchschnitt" },
     { title: "Mehrere Ergebnisse zurückgeben", text: "return kleinster, groesster, durchschnitt gibt drei Werte als Tupel zurück. Die Reihenfolge ist Teil der Vereinbarung: erst Minimum, dann Maximum, dann Durchschnitt. print zeigt zum Beispiel (0, 42, 21.0). Für eine leere Liste vereinbaren wir None als Signal: Es gibt kein Ergebnis, nicht etwa einen Durchschnitt von 0.", code: "ergebnis = analysiere([18, 42, 0, 30, 12, 24])\nprint(ergebnis)\nprint(analysiere([]))" },
+    { title: "Struktogramm der Auswertung", text: "Das Struktogramm zeigt den ganzen Algorithmus von analysiere(werte): erst die leere Liste abfangen, dann Merker setzen, alle Werte prüfen und nach der Schleife den Durchschnitt berechnen.", nsd: { title: "analysiere(werte)", blocks: [
+      { if: "Anzahl der Elemente des Arrays werte == 0", yes: [{ s: "Rückgabe: None (kein Ergebnis)" }], no: [
+        { s: "Deklaration und Initialisierung: kleinster = werte[0]" },
+        { s: "Deklaration und Initialisierung: groesster = werte[0]" },
+        { s: "Deklaration und Initialisierung: summe = 0" },
+        { loop: "Wiederhole von i = 0 solange i < Anzahl der Elemente des Arrays werte, Schrittweite 1", body: [
+          { if: "werte[i] < kleinster", yes: [{ s: "Zuweisung: kleinster = werte[i]" }], no: [] },
+          { if: "werte[i] > groesster", yes: [{ s: "Zuweisung: groesster = werte[i]" }], no: [] },
+          { s: "Zuweisung: summe = summe + werte[i]" }
+        ] },
+        { s: "Deklaration und Initialisierung: durchschnitt = summe / Anzahl der Elemente des Arrays werte" },
+        { s: "Rückgabe: kleinster, groesster, durchschnitt" }
+      ] }
+    ] } },
     { title: "Warum die Auswertung hier selbst programmiert wird", text: "Python hat hilfreiche Funktionen wie min, max und sum. In dieser Einheit schreibst du die Vergleiche und das Aufsummieren selbst, damit du den Algorithmus erklären kannst. Du kannst eine Schleife für alle drei Merker oder getrennte Schleifen verwenden. Verändere die ursprüngliche Liste dabei nicht." }
   ];
   analysis.analysisExplorer = true;
@@ -177,6 +192,10 @@
       { expression: "__algolab_output__.splitlines() == ['(0, 42, 21.0)', 'None']", message: "Die beiden Aufrufe zeigen das Trainingsergebnis und None für die leere Liste." }
     ] }
   ];
+  // Struktogramm-Bausteine für Beispiele (Notation nach Operatorenliste BW v2.2).
+  const nsdS = s => ({ s });
+  const nsdLoop = (loop, body) => ({ loop, body });
+  const nsdIf = (cond, yes, no = []) => ({ if: cond, yes, no });
   const ast = "__import__('ast')";
   const swapUnit = modules[0].units[4];
   swapUnit.ready = true;
@@ -312,7 +331,13 @@
     { title: "Endlichkeit (Finitheit) und Terminierung", text: "Die Beschreibung besteht aus endlich vielen Anweisungen. Terminiert heißt: Der Algorithmus kommt nach endlich vielen Schritten zu einem Ende und liefert ein Ergebnis. Die Schleife unten terminiert nicht – zahl wird immer größer und bleibt größer als 0.", code: "zahl = 2\nwhile zahl > 0:\n    zahl = zahl * 2\nprint(zahl)  # wird nie erreicht" },
     { title: "Determiniertheit", text: "Gleiche Eingaben liefern immer das gleiche Ergebnis. Eine Anweisung wie „Hausaufgaben bearbeiten“ ist nicht determiniert: Jede Person kommt zu einem anderen Ergebnis. Eine Funktion, die Zufallszahlen verwendet, ist ebenfalls nicht determiniert." },
     { title: "Determinismus", text: "Zu jedem Zeitpunkt gibt es höchstens eine Möglichkeit, wie es weitergeht. Ein Rezept, das „nach Belieben mit Salz oder Zucker würzen“ erlaubt, ist nichtdeterministisch. In Programmen sorgen Bedingungen dafür, dass der nächste Schritt eindeutig feststeht." },
-    { title: "Vom Text zur Funktion: die Kfz-Steuer", text: "Diesel: 9,50 € je angefangene 100 cm³ Hubraum, Benzin: 2,00 €. Dazu 2,00 € je g CO₂/km oberhalb des Freibetrags von 95 g/km. Für einen Diesel mit 1990 cm³ und 174 g/km: 20 · 9,50 + (174 − 95) · 2 = 348,00 €. „Angefangene 100“ bedeutet aufrunden: 1990 cm³ zählen als 20 Einheiten, 2000 cm³ ebenfalls als 20, 2001 cm³ als 21.", code: "einheiten = (hubraum + 99) // 100   # aufrunden ohne math\n# alternativ: import math; einheiten = math.ceil(hubraum / 100)" }
+    { title: "Vom Text zur Funktion: die Kfz-Steuer", text: "Diesel: 9,50 € je angefangene 100 cm³ Hubraum, Benzin: 2,00 €. Dazu 2,00 € je g CO₂/km oberhalb des Freibetrags von 95 g/km. Für einen Diesel mit 1990 cm³ und 174 g/km: 20 · 9,50 + (174 − 95) · 2 = 348,00 €. „Angefangene 100“ bedeutet aufrunden: 1990 cm³ zählen als 20 Einheiten, 2000 cm³ ebenfalls als 20, 2001 cm³ als 21.", code: "einheiten = (hubraum + 99) // 100   # aufrunden ohne math\n# alternativ: import math; einheiten = math.ceil(hubraum / 100)" },
+    { title: "Struktogramm der Kfz-Steuer", text: "Eine mögliche Lösung als Struktogramm. Vergleiche es mit deinem eigenen Entwurf: Wo stehen die beiden Verzweigungen, und warum wird erst am Ende zurückgegeben?", nsd: { title: "berechne_kfz_steuer(antrieb, hubraum, co2)", blocks: [
+      nsdS("Deklaration und Initialisierung: einheiten = aufgerundeter Wert von hubraum / 100"),
+      nsdIf('antrieb == "Diesel"', [nsdS("Deklaration und Initialisierung: steuer = einheiten * 9,50")], [nsdS("Deklaration und Initialisierung: steuer = einheiten * 2,00")]),
+      nsdIf("co2 > 95", [nsdS("Zuweisung: steuer = steuer + (co2 − 95) * 2,00")]),
+      nsdS("Rückgabe: steuer")
+    ] } }
   ];
   algo.help = { text: "Für die Kfz-Steuer brauchst du Verzweigungen. In PythonLab kannst du if, elif und else wiederholen.", links: [{ href: "https://jakobsawazki.github.io/PythonLab/#lesson/if", label: "Verzweigungen wiederholen" }] };
   algo.reflections = [
@@ -797,6 +822,115 @@
       { expression: "__algolab_output__.splitlines() == ['True', 'False']", message: "Die vorgegebenen Aufrufe geben True und False aus." }
     ] }
   ];
+  // Vertiefung und Zusatz: freiwillige, geprüfte Aufgaben ohne Punkte und ohne Einfluss auf die Freischaltung.
+  const extra = (id, source, title, prompt, starter, hint, checks) => ({ id, type: "code", optional: true, source, title, prompt, starter, hint, checks, points: 0, correct: true, options: [] });
+  loops.extras = [
+    extra("kapital", "L1_4.3 Vertiefung", "Kapitalrechner mit Zinsstaffel", "Eine Bank gewährt bei einer Anlage von mehr als 50.000 € je Jahr einen eigenen Zinssatz (Jahr 1: 0,1 %, Jahr 2: 0,2 % … Jahr 9: 1 %), gespeichert im Array zinssatz. Schreibe auszahlung(betrag, laufzeit): Für jedes Jahr der Laufzeit (1 bis 9) werden die Zinsen dieses Jahres zum Betrag addiert. Gib den Auszahlungsbetrag zurück. Bei einem Betrag von höchstens 50.000 € gibt die Funktion None zurück.", "zinssatz = [0.1, 0.2, 0.3, 0.3, 0.3, 0.4, 0.4, 0.5, 1]\n\ndef auszahlung(betrag, laufzeit):\n    # Nur Beträge über 50000 werden verzinst.\n    # Für jedes Jahr i: betrag = betrag + betrag * zinssatz[i] / 100\n    pass\n\nprint(auszahlung(60000, 5))\nprint(auszahlung(50000, 5))\n", "Der Zinssatz für das erste Jahr steht an Index 0. for i in range(laufzeit) durchläuft genau die Jahre der Laufzeit.", [
+      { expression: "__algolab_returns__('auszahlung', (60000, 5), 60723.36756810325) and __algolab_returns__('auszahlung', (100000, 1), 100100.0)", message: "60.000 € über 5 Jahre ergeben 60.723,37 €; 100.000 € über ein Jahr 100.100 €." },
+      { expression: "__algolab_returns__('auszahlung', (75000, 9), 77664.17310008901)", message: "Die volle Laufzeit von 9 Jahren nutzt alle Zinssätze." },
+      { expression: "__algolab_returns__('auszahlung', (50000, 5), None) and __algolab_returns__('auszahlung', (12000, 3), None)", message: "Beträge bis 50.000 € werden nicht verzinst (None)." },
+      { expression: "__algolab_loops__('auszahlung')", message: "Du verzinst Jahr für Jahr in einer Schleife." }
+    ])
+  ];
+  analysis.extras = [
+    extra("wetter", "L1_4.2 Vertiefung", "Wetterstation", "Schreibe wetter_auswertung(temperaturen) für die Höchsttemperaturen einer Woche. Gib ein Tupel (hoechste, niedrigste, durchschnitt, unterschied) zurück; unterschied ist hoechste − niedrigste. Programmiere die Auswertung selbst, ohne min, max oder sum. Du darfst voraussetzen, dass mindestens ein Wert vorhanden ist.", "def wetter_auswertung(temperaturen):\n    # Höchste, niedrigste, Durchschnitt und Unterschied ermitteln.\n    pass\n\nwoche = [12, 15, 16, 10, 17, 20, 22]\nprint(wetter_auswertung(woche))\n", "Wie in L1.4: Merker mit temperaturen[0] starten, in einer Schleife vergleichen und aufsummieren, danach Durchschnitt und Unterschied berechnen.", [
+      { expression: "__algolab_returns__('wetter_auswertung', ([12, 15, 16, 10, 17, 20, 22],), (22, 10, 16.0, 12))", message: "Die Beispielwoche ergibt 22, 10, 16.0 und 12." },
+      { expression: "__algolab_returns__('wetter_auswertung', ([-3.5, -1, -7.5],), (-1, -7.5, -4.0, 6.5)) and __algolab_returns__('wetter_auswertung', ([8],), (8, 8, 8.0, 0))", message: "Frosttage, Dezimalwerte und ein einzelner Messwert funktionieren." },
+      { expression: "__algolab_loops__('wetter_auswertung') and " + noBuiltins("wetter_auswertung", "min", "max", "sum", "sorted", "sort"), message: "Du wertest selbst mit einer Schleife aus." }
+    ]),
+    extra("gewinnlose", "L1_5 Zusatzaufgabe", "Automatische Gewinnziehung ohne doppelte Lose", "500 Lose mit den Nummern 1000001 bis 1000500 sind verkauft. Schreibe ziehe_gewinnlose(anzahl): Ziehe mit random.randint(1, 500) zufällig Losnummern (1000000 + Zufallszahl) und sammle sie in einem Array. Eine bereits gezogene Nummer darf nicht noch einmal gewinnen – ziehe dann neu. Gib das Array mit genau anzahl verschiedenen Losnummern zurück.", "import random\n\ndef ziehe_gewinnlose(anzahl):\n    gewinnlose = []\n    # Solange noch Lose fehlen: zufällig ziehen, nur neue Nummern übernehmen.\n    return gewinnlose\n\nprint(ziehe_gewinnlose(5))\n", "while len(gewinnlose) < anzahl: nummer = 1000000 + random.randint(1, 500); nur wenn die Nummer noch nicht im Array steht, mit append übernehmen.", [
+      { expression: "(lambda r: len(r) == 5 and len(set(r)) == 5 and all(isinstance(n, int) and 1000001 <= n <= 1000500 for n in r))((__import__('random').seed(7), ziehe_gewinnlose(5))[1])", message: "Fünf verschiedene Losnummern im Bereich 1000001 bis 1000500." },
+      { expression: "(lambda r: sorted(r) == list(range(1000001, 1000501)))((__import__('random').seed(1), ziehe_gewinnlose(500))[1]) and __algolab_returns__('ziehe_gewinnlose', (0,), [])", message: "Auch alle 500 Lose lassen sich ohne Doppelte ziehen; 0 Lose ergeben []." },
+      { expression: "'randint' in __algolab_uses__('ziehe_gewinnlose', 'randint') and __algolab_loops__('ziehe_gewinnlose')", message: "Du ziehst mit random.randint in einer Schleife." }
+    ])
+  ];
+  linear.extras = [
+    extra("wort", "L2_4.4 Zusatzaufgabe", "Ganze Wörter verschlüsseln", "Erweitere die Geheimschrift: Schreibe verschluessele_wort(wort). Verschlüssele jeden Großbuchstaben mit einer linearen Suche in alphabet_klar; alle anderen Zeichen (Leerzeichen, Ziffern) bleiben unverändert. Gib den verschlüsselten Text zurück. Keine Hilfen wie index, find, dict oder translate.", 'alphabet_klar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]\nalphabet_geheim = ["A", "D", "Z", "V", "P", "H", "W", "X", "B", "Q", "R", "C", "O", "Y", "E", "G", "U", "L", "M", "F", "J", "S", "T", "I", "K", "N"]\n\ndef verschluessele_wort(wort):\n    geheimtext = ""\n    # Für jedes Zeichen: im Klartext-Alphabet suchen und ersetzen.\n    return geheimtext\n\nprint(verschluessele_wort("HALLO"))\n', "Zwei verschachtelte Schleifen: außen über die Zeichen von wort, innen über alphabet_klar. Starte für jedes Zeichen mit zeichen_geheim = zeichen.", [
+      { expression: "__algolab_returns__('verschluessele_wort', ('HALLO',), 'XACCE') and __algolab_returns__('verschluessele_wort', ('ALGORITHMIK',), 'ACWELBFXOBR')", message: "HALLO → XACCE, ALGORITHMIK → ACWELBFXOBR." },
+      { expression: "__algolab_returns__('verschluessele_wort', ('BPE 7',), 'DGP 7') and __algolab_returns__('verschluessele_wort', ('',), '')", message: "Leerzeichen und Ziffern bleiben erhalten; ein leeres Wort bleibt leer." },
+      { expression: "sum(isinstance(n, (" + ast + ".For, " + ast + ".While)) for n in __algolab_nodes__('verschluessele_wort')) >= 2 and " + noBuiltins("verschluessele_wort", "index", "find", "dict", "translate", "maketrans", "zip"), message: "Du suchst jeden Buchstaben selbst mit einer Schleife." }
+    ])
+  ];
+  apply.extras = [
+    extra("jahrgaenge", "L2_4.3 Zusatzaufgabe", "Mitglieder je Jahrgang", "Die Jugendabteilung möchte wissen, wie viele Mitglieder in den Jahren ab 2000 geboren wurden. Schreibe mitglieder_je_jahrgang(jahrgang): Ermittle zuerst den größten Jahrgang und zähle dann für jedes Jahr von 2000 bis zu diesem Jahrgang die Mitglieder. Gib eine Liste von Tupeln (jahr, anzahl) zurück. Keine Hilfen wie count, max oder Counter.", "jahrgang = [2002, 2004, 2006, 2000, 2003, 2006, 2001, 2001, 2005, 2003, 2007, 2002, 2006, 2003, 2004, 2006, 2002, 2001, 2007, 2009, 2003, 2005, 2002, 2004, 2000, 2004, 2004, 2002, 2003, 2008, 2002, 2005, 2000, 2004, 2007, 2001, 2005, 2006, 2007, 2003, 2005, 2009, 2001, 2003, 2009, 2004, 2006, 2000, 2003, 2002, 2000, 2001, 2005, 2001, 2001, 2003, 2006, 2007, 2003, 2005, 2005, 2007, 2010, 2004, 2008, 2002, 2007, 2003, 2006, 2004, 2008, 2001, 2003, 2005, 2006, 2008, 2002, 2004, 2006]\n\ndef mitglieder_je_jahrgang(jahrgang):\n    ergebnis = []\n    # 1. Größten Jahrgang suchen.\n    # 2. Für jedes Jahr ab 2000 zählen und (jahr, anzahl) anhängen.\n    return ergebnis\n\nprint(\"Jahrgang   Anzahl Mitglieder\")\nfor jahr, anzahl in mitglieder_je_jahrgang(jahrgang):\n    print(jahr, \"      \", anzahl)\n", "Maximum wie in L1.4, danach for jahr in range(2000, max_jahrgang + 1) mit einer inneren Zählschleife wie in L2.8; anzahl für jedes Jahr wieder auf 0 setzen.", [
+      { expression: "__algolab_returns__('mitglieder_je_jahrgang', (jahrgang,), [(2000, 5), (2001, 9), (2002, 9), (2003, 12), (2004, 10), (2005, 9), (2006, 10), (2007, 7), (2008, 4), (2009, 3), (2010, 1)])", message: "Für 2000 bis 2010 stimmen alle Anzahlen (5, 9, 9, 12 …)." },
+      { expression: "__algolab_returns__('mitglieder_je_jahrgang', ([2003, 2000, 2003],), [(2000, 1), (2001, 0), (2002, 0), (2003, 2)])", message: "Jahre ohne Mitglieder erscheinen mit Anzahl 0." },
+      { expression: "sum(isinstance(n, (" + ast + ".For, " + ast + ".While)) for n in __algolab_nodes__('mitglieder_je_jahrgang')) >= 2 and " + noBuiltins("mitglieder_je_jahrgang", "count", "max", "Counter", "sorted"), message: "Du ermittelst Maximum und Anzahlen selbst mit Schleifen." }
+    ])
+  ];
+  stackUnit.extras = [
+    extra("klammern", "Zusatz (Transfer)", "Klammern prüfen mit einem Stapel", "Editoren und Compiler prüfen, ob Klammern korrekt geschlossen werden. Schreibe klammern_ok(text): Jede öffnende Klammer ( [ { wird auf einen Stapel gelegt. Bei einer schließenden Klammer muss oben die passende öffnende liegen – dann wird sie entfernt, sonst ist der Text falsch. Am Ende muss der Stapel leer sein. Andere Zeichen werden übersprungen. Gib True oder False zurück.", "def klammern_ok(text):\n    stapel = []\n    # Öffnende Klammern: PUSH. Schließende: oben prüfen und POP.\n    return False\n\nprint(klammern_ok(\"print(liste[2])\"))\nprint(klammern_ok(\"(]\"))\n", "Lege ein Wörterbuch oder zwei Strings für die Paare an, z. B. auf = \"([{\", zu = \")]}\". Bei einer schließenden Klammer: Ist der Stapel leer oder passt stapel[-1] nicht, return False.", [
+      { expression: "__algolab_returns__('klammern_ok', ('print(liste[2])',), True) and __algolab_returns__('klammern_ok', ('{a: [1, (2)]}',), True) and __algolab_returns__('klammern_ok', ('',), True)", message: "Korrekt verschachtelte Klammern und Texte ohne Klammern sind in Ordnung." },
+      { expression: "__algolab_returns__('klammern_ok', ('(]',), False) and __algolab_returns__('klammern_ok', ('([)]',), False)", message: "Falsch gepaarte und überkreuzte Klammern werden erkannt." },
+      { expression: "__algolab_returns__('klammern_ok', ('((',), False) and __algolab_returns__('klammern_ok', ('())',), False) and __algolab_returns__('klammern_ok', (')(',), False)", message: "Nicht geschlossene und zu früh geschlossene Klammern werden erkannt." },
+      { expression: "'append' in __algolab_uses__('klammern_ok', 'append') and 'pop' in __algolab_uses__('klammern_ok', 'pop')", message: "Du arbeitest mit einem Stapel (append und pop)." }
+    ])
+  ];
+  treeUnit.extras = [
+    extra("hoehe", "Zusatz (Transfer)", "Die Höhe eines Baums mit einer Warteschlange", "Schreibe hoehe(baum) für eine Binärbaum-Tabelle mit Zeilen [Inhalt, links, rechts]. Besuche die Knoten ebenenweise mit einer Warteschlange: Starte mit (0, 1) für die Wurzel auf Höhe 1. Entnimm vorne ein Paar (index, ebene) und hänge die vorhandenen Kinder mit ebene + 1 hinten an. Gib die größte erreichte Ebene zurück; ein leerer Baum hat Höhe 0.", "def hoehe(baum):\n    if not baum:\n        return 0\n    schlange = [(0, 1)]\n    groesste = 0\n    # Solange die Schlange nicht leer ist: vorne entnehmen, Kinder hinten anhängen.\n    return groesste\n\nbaum = [[\"Home\", 1, 2], [\"Schule\", None, None], [\"Privat\", 3, 4], [\"Bilder\", None, None], [\"Videos\", None, None]]\nprint(hoehe(baum))\n", "while schlange: index, ebene = schlange.pop(0); groesste aktualisieren; für links und rechts: wenn nicht None, schlange.append((kind, ebene + 1)).", [
+      { expression: "__algolab_returns__('hoehe', ([['Home', 1, 2], ['Schule', None, None], ['Privat', 3, 4], ['Bilder', None, None], ['Videos', None, None]],), 3)", message: "Die Ordnerstruktur hat die Höhe 3." },
+      { expression: "__algolab_returns__('hoehe', ([[50, 1, 2], [30, 3, 4], [70, 5, 6], [20, None, None], [40, None, None], [60, None, None], [80, None, None]],), 3) and __algolab_returns__('hoehe', ([[1, None, 1], [2, None, 2], [3, None, None]],), 3)", message: "Vollständige Bäume und „Ketten“ mit nur rechten Kindern werden richtig gemessen." },
+      { expression: "__algolab_returns__('hoehe', ([['solo', None, None]],), 1) and __algolab_returns__('hoehe', ([],), 0)", message: "Ein einzelner Knoten hat Höhe 1, ein leerer Baum Höhe 0." },
+      { expression: "'append' in __algolab_uses__('hoehe', 'append') and any(isinstance(n, " + ast + ".Call) and isinstance(n.func, " + ast + ".Attribute) and n.func.attr in ('pop', 'popleft') for n in __algolab_nodes__('hoehe'))", message: "Du nutzt eine Warteschlange (append und pop(0))." }
+    ])
+  ];
+
+  // Ich-kann-Listen aus dem Material (je Lernfortschritt), mit den Einheiten, in denen geübt wird.
+  const can = (module, entries) => ({ module, items: entries.map(([number, text, units]) => ({ id: `${module}-${number}`, number, text, units })) });
+  const selfcheck = [
+    can("L1", [
+      ["1.1", "Ich kann den Begriff Datenstruktur definieren.", ["L1.1"]],
+      ["1.2", "Ich kann Array, verkettete Liste, Stapelspeicher, Warteschlange und Baum anhand ihrer Merkmale erklären.", ["L1.1"]],
+      ["1.3", "Ich kann einem Sachverhalt eine passende Datenstruktur zuordnen.", ["L1.1"]],
+      ["2.1", "Ich kann ein Array deklarieren und initialisieren.", ["L1.2"]],
+      ["2.2", "Ich kann mit einem Index auf ein Arrayelement zugreifen.", ["L1.2"]],
+      ["2.3", "Ich kann einem Array Elemente hinzufügen.", ["L1.2"]],
+      ["2.4", "Ich kann Arrayelemente verändern.", ["L1.2"]],
+      ["2.5", "Ich kann die Anzahl der Arrayelemente ermitteln.", ["L1.2"]],
+      ["2.6", "Ich kann ein Array mit einer Schleife durchlaufen und auf die Elemente zugreifen.", ["L1.3"]],
+      ["2.7", "Ich kann das größte und das kleinste Arrayelement ermitteln.", ["L1.4"]],
+      ["2.8", "Ich kann den Durchschnitt aller Arrayelemente ermitteln.", ["L1.4"]],
+      ["2.9", "Ich kann einen Schreibtischtest mit einem Array durchführen.", ["L1.2", "L1.7"]],
+      ["2.10", "Ich kann Arrayelemente vertauschen.", ["L1.5"]],
+      ["2.11", "Ich kann ein neues Arrayelement an einem bestimmten Index einfügen.", ["L1.6"]],
+      ["2.12", "Ich kann ein Arrayelement an einem bestimmten Index entfernen.", ["L1.7"]]
+    ]),
+    can("L2", [
+      ["1.1", "Ich kann den Begriff Algorithmus definieren.", ["L2.1"]],
+      ["1.2", "Ich kann die Eigenschaften eines Algorithmus erklären.", ["L2.1"]],
+      ["1.3", "Ich kann einen Algorithmus formulieren.", ["L2.1"]],
+      ["2.1", "Ich kann die Funktionsweise von Bubble Sort beschreiben.", ["L2.2"]],
+      ["2.2", "Ich kann zwei Arrayelemente tauschen.", ["L1.5", "L2.2"]],
+      ["2.3", "Ich kann Bubble Sort implementieren.", ["L2.2"]],
+      ["2.4", "Ich kann die Anzahl der Bubble-Phasen benennen.", ["L2.2"]],
+      ["2.5", "Ich kann Bubble Sort tabellarisch anwenden.", ["L2.2", "L2.4"]],
+      ["2.6", "Ich kann die Funktionsweise von Selection Sort beschreiben.", ["L2.3"]],
+      ["2.7", "Ich kann Selection Sort implementieren.", ["L2.3", "L2.4"]],
+      ["3.1", "Ich kann die Funktionsweise der linearen Suche beschreiben.", ["L2.5"]],
+      ["3.2", "Ich kann die lineare Suche implementieren.", ["L2.5", "L2.8"]],
+      ["3.3", "Ich kann die Funktionsweise der binären Suche beschreiben.", ["L2.6", "L2.7"]],
+      ["3.4", "Ich kann die binäre Suche implementieren.", ["L2.6"]]
+    ]),
+    can("L3", [
+      ["1.1", "Ich kann die verkettete Liste anhand ihrer Eigenschaften erklären.", ["L3.1"]],
+      ["1.2", "Ich kann die Operationen Einfügen und Löschen einer verketteten Liste beschreiben und anwenden.", ["L3.1"]],
+      ["1.3", "Ich kann Problemstellungen mit einer verketteten Liste abbilden.", ["L3.1"]],
+      ["1.4", "Ich kann Anwendungsbereiche verketteter Listen in der Informatik beschreiben.", ["L3.1"]],
+      ["2.1", "Ich kann den Stapelspeicher beschreiben.", ["L3.2"]],
+      ["2.2", "Ich kann die Operationen PUSH und POP beschreiben und anwenden.", ["L3.2"]],
+      ["2.3", "Ich kann Problemstellungen mit einem Stapelspeicher abbilden.", ["L3.2"]],
+      ["2.4", "Ich kann Anwendungsbereiche von Stapelspeichern in der Informatik beschreiben.", ["L3.2"]],
+      ["3.1", "Ich kann die Warteschlange beschreiben.", ["L3.3"]],
+      ["3.2", "Ich kann die Operationen ENQUEUE und DEQUEUE beschreiben und anwenden.", ["L3.3"]],
+      ["3.3", "Ich kann Problemstellungen mit einer Warteschlange abbilden.", ["L3.3"]],
+      ["3.4", "Ich kann Anwendungsbereiche von Warteschlangen in der Informatik beschreiben.", ["L3.3"]],
+      ["4.1", "Ich kann den Aufbau und die Bestandteile eines Baums beschreiben.", ["L3.4"]],
+      ["4.2", "Ich kann einen Binärbaum definieren.", ["L3.4"]],
+      ["4.3", "Ich kann einen Baum hinsichtlich der Eigenschaften geordnet, voll und vollständig bewerten.", ["L3.4"]],
+      ["4.4", "Ich kann Bäume modellieren.", ["L3.4"]]
+    ])
+  ];
+  const selfcheckLevels = [{ value: 1, symbol: "☐", label: "Noch nicht" }, { value: 2, symbol: "✓", label: "Ich kann das" }, { value: 3, symbol: "✓✓", label: "Ich kann das sicher" }];
   // Gemeinsame Ergebnissicherung: je Klasse ein geteiltes Word-Dokument (OneDrive) mit einer
   // Überschrift je Aufgabe, nur fachliche Inhalte. `match` wird in der Profilklasse gesucht.
   // Ohne gültigen https-Link bleibt ein Dokument ausgeblendet.
@@ -816,7 +950,7 @@
   };
   // Gliederung der Dokumente: Überschrift 1 „Lernfortschritt n – …“, darunter Überschrift 2 „Aufgabe x“.
   const resultSections = unit => unit.sourceRefs.map(ref => `Lernfortschritt ${ref.match(/^L(\d+)_/)[1]} → Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "1.0.1", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections };
+  const data = { version: "1.1.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

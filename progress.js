@@ -4,7 +4,10 @@
     const units = content.units;
     const nagold = typeof module !== "undefined" && module.exports ? require("./nagold.js")(content) : root.ALGOLAB_NAGOLD;
     const byId = id => units.find(unit => unit.id === id);
-    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [] });
+    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {} });
+    // Selbsteinschätzung (Ich-kann-Listen) und freiwillige Zusatzaufgaben zählen nicht für die Freischaltung.
+    const selfcheckIds = new Set((content.selfcheck || []).flatMap(group => group.items.map(item => item.id)));
+    const extraTask = (id, taskId) => byId(id)?.extras?.find(task => task.id === taskId);
     const earned = (state, id) => {
       const unit = byId(id);
       if (!unit?.ready) return 0;
@@ -48,6 +51,16 @@
         }
         if (Array.isArray(raw?.completed) && raw.completed.includes(unit.id) && passed(state, unit.id)) state.completed.push(unit.id);
       }
+      for (const [key, level] of Object.entries(raw?.selfcheck && typeof raw.selfcheck === "object" ? raw.selfcheck : {})) {
+        if (selfcheckIds.has(key) && Number.isInteger(level) && level >= 1 && level <= 3) state.selfcheck[key] = level;
+      }
+      for (const unit of units.filter(unit => unit.ready && unit.extras)) {
+        for (const task of unit.extras) {
+          if (raw?.extras?.[unit.id]?.[task.id] === true && unlocked(state, unit.id)) { state.extras[unit.id] ??= {}; state.extras[unit.id][task.id] = true; }
+          const draft = raw?.work?.[unit.id]?.[task.id];
+          if (typeof draft === "string" && draft.length <= 20000) { state.work[unit.id] ??= {}; state.work[unit.id][task.id] = draft; }
+        }
+      }
       state.nagoldEntries = nagold.entriesFor(Object.hasOwn(raw || {}, "nagoldEntries") ? { nagoldEntries: raw.nagoldEntries } : { completed: state.completed });
       return state;
     }
@@ -74,6 +87,20 @@
       nagold.addLessonEntry(state, byId(id), nagold.today(now), nagold.clock(now));
       return true;
     }
+    function rateSelfcheck(state, itemId, level) {
+      if (!selfcheckIds.has(itemId) || !Number.isInteger(level) || level < 0 || level > 3) return false;
+      state.selfcheck ??= {};
+      if (level === 0) delete state.selfcheck[itemId]; else state.selfcheck[itemId] = level;
+      return true;
+    }
+    function completeExtra(state, id, taskId, passedCheck) {
+      if (!unlocked(state, id) || !extraTask(id, taskId) || passedCheck !== true) return false;
+      state.extras ??= {};
+      state.extras[id] ??= {};
+      const fresh = state.extras[id][taskId] !== true;
+      state.extras[id][taskId] = true;
+      return fresh;
+    }
     function payload(state) {
       return { app: "AlgoLab", formatVersion: 1, version: content.version, exportedAt: new Date().toISOString(), state: normalize(state) };
     }
@@ -91,7 +118,7 @@
       }
       return normalize(raw);
     }
-    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
+    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, rateSelfcheck, completeExtra, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createEngine;
   else root.createAlgoLabProgress = createEngine;
