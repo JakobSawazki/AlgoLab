@@ -413,3 +413,25 @@ bisect, remove, del). Binäre Suche: Prüfliste zählt Zugriffe (≤ 40 bei
 Neue Prüfhelfer __algolab_returns__, __algolab_compares__; Zählmodell.
 Prüfstand: 57/57 Tests, Syntax, Diff; im Browser alle 34 Modellfälle von
 L2 bis zum Ende durchgeklickt, binäre Suche in Pyodide bestanden.
+
+## 19. Oktober 2026 – Gestaltung der Lerneinheiten (0.9.1)
+
+Bearbeiter: Claude. Ziel: professioneller, für die Oberstufe angemessener
+und leichter zu überblickender Aufbau der Lektionsseiten.
+
+- Kopf: Kennzahlen-Chips (Pflichtaufgaben, Python-Aufgaben, Materialbezug).
+  Einheiten ohne Foto erhalten ein grafisches Banner im Stil der Seite
+  (Einheitenkürzel als Konturschrift, Arrayfelder aus dem ersten
+  Modellbeispiel, Rasterhintergrund, Bewegung abschaltbar über
+  prefers-reduced-motion).
+- Mission und Lernziele stehen nebeneinander (mobil untereinander).
+- Arbeitsschritte werden automatisch fortlaufend nummeriert (vorher
+  doppelte „2 ·“). Eine klebende Kapitelleiste springt zu Verstehen,
+  Ausprobieren, Erklären, Überprüfen (mit Zähler bestandener Aufgaben),
+  Sichern und Abschließen und markiert den aktuellen Abschnitt.
+- Code-Editor: Tab/Umschalt+Tab rücken (auch mehrere Zeilen) ein und aus,
+  Enter übernimmt die Einrückung (nach Doppelpunkt +4), Strg+Enter führt
+  aus, Esc und dann Tab verlässt den Editor (Tastaturbedienbarkeit),
+  „Startcode wiederherstellen“ mit Rückfrage.
+Geprüft: 57/57 Tests; Browser Desktop und 375 px ohne Überlauf, hell und
+dunkel, Tastatureingaben im Editor mit echten Tastendrücken.

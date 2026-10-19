@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=0.3.2#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=0.9.1#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -215,7 +215,7 @@
   function renderCodeTask(unit, task) {
     const solved = state.answers[unit.id]?.[task.id] === true;
     const fieldId = `code-${unit.id.replace(".", "-")}-${task.id}`;
-    return `<section class="task code-task" data-code-unit="${unit.id}" data-code-task="${task.id}"><h4>${esc(task.title)}</h4><p>${esc(task.prompt)}</p><label for="${fieldId}">Dein Python-Code</label><textarea id="${fieldId}" class="code-editor" data-work="${task.id}" data-work-unit="${unit.id}" maxlength="20000" rows="14" spellcheck="false" autocapitalize="off">${esc(workValue(unit.id, task.id, task.starter))}</textarea><small class="draft-status" role="status"></small><div class="code-actions"><button class="primary" data-run-code>Code ausführen und prüfen</button><button data-stop-code disabled>Stoppen</button><span class="code-award">${solved ? `Bestanden · ${task.points} Punkte` : `${task.points} Punkte möglich`}</span></div><p class="code-status" role="status">Python wird erst beim Ausführen geladen. Dein Code läuft in deinem Browser.</p><pre class="code-output" aria-label="Programmausgabe" tabindex="0">Hier erscheint deine Ausgabe.</pre><ul class="code-checks" aria-label="Prüfergebnisse"></ul><details><summary>Ein Hinweis zum nächsten Schritt</summary><p>${esc(task.hint)}</p></details></section>`;
+    return `<section class="task code-task" data-code-unit="${unit.id}" data-code-task="${task.id}"><h4>${esc(task.title)}</h4><p>${esc(task.prompt)}</p><label for="${fieldId}">Dein Python-Code</label><textarea id="${fieldId}" class="code-editor" data-work="${task.id}" data-work-unit="${unit.id}" maxlength="20000" rows="14" spellcheck="false" autocapitalize="off">${esc(workValue(unit.id, task.id, task.starter))}</textarea><div class="editor-tools"><span>Tab rückt ein · Umschalt+Tab rückt aus · Strg+Enter führt aus · Esc, dann Tab verlässt den Editor</span><button type="button" data-reset-code>Startcode wiederherstellen</button></div><small class="draft-status" role="status"></small><div class="code-actions"><button class="primary" data-run-code>Code ausführen und prüfen</button><button data-stop-code disabled>Stoppen</button><span class="code-award">${solved ? `Bestanden · ${task.points} Punkte` : `${task.points} Punkte möglich`}</span></div><p class="code-status" role="status">Python wird erst beim Ausführen geladen. Dein Code läuft in deinem Browser.</p><pre class="code-output" aria-label="Programmausgabe" tabindex="0">Hier erscheint deine Ausgabe.</pre><ul class="code-checks" aria-label="Prüfergebnisse"></ul><details><summary>Ein Hinweis zum nächsten Schritt</summary><p>${esc(task.hint)}</p></details></section>`;
   }
   function renderUnit(id) {
     const unit = engine.byId(id);
@@ -230,7 +230,12 @@
     const complete = state.completed.includes(id);
     const next = content.units[content.units.indexOf(unit) + 1];
     const preview = developerMode && !engine.unlocked(state, id);
-    const header = `<div class="breadcrumb"><a href="#path/${module.id}">${module.id} · ${module.title}</a><span aria-hidden="true">/</span><span>${unit.id}</span></div><section class="lesson-heading"><span class="eyebrow">${status(unit).toUpperCase()}</span><h2>${esc(unit.title)}</h2><p>${esc(unit.description)}</p><div class="lesson-points"><span id="lesson-score">${engine.earned(state, id)} / ${unit.points} Punkte</span><progress id="lesson-progress" value="${engine.earned(state, id)}" max="${unit.points}" aria-label="Punkte in ${id}"></progress></div></section>${unit.image ? `<figure class="lesson-photo"><img src="${unit.image.src}" width="1672" height="941" alt="${esc(unit.image.alt)}"><figcaption>${esc(unit.image.caption)}</figcaption></figure>` : ""}${unit.situation ? `<section class="lesson-panel"><span class="eyebrow">DEINE MISSION</span><h3>${esc(unit.situation.title)}</h3><p>${esc(unit.situation.text)}</p></section>` : ""}<section class="lesson-panel"><h3>Das lernst du hier</h3><ul>${unit.goals.map(goal => `<li>${esc(goal)}</li>`).join("")}</ul></section>`;
+    const codeTasks = unit.tasks.filter(task => task.type === "code").length;
+    const bannerValues = unit.stepLab?.cases[0].args[0] || unit.trace?.[0].values || ["A", "B", "C", "D", "E"];
+    const visual = unit.image
+      ? `<figure class="lesson-photo"><img src="${unit.image.src}" width="1672" height="941" alt="${esc(unit.image.alt)}"><figcaption>${esc(unit.image.caption)}</figcaption></figure>`
+      : `<figure class="lesson-banner ${module.color}" aria-hidden="true"><div class="banner-code">${unit.id}</div><div class="banner-cells">${bannerValues.slice(0, 8).map((value, index) => `<span style="--i:${index}"><small>${index}</small>${esc(String(value))}</span>`).join("")}</div><figcaption>${esc(module.title)} · ${module.plan}</figcaption></figure>`;
+    const header = `<div class="breadcrumb"><a href="#path/${module.id}">${module.id} · ${module.title}</a><span aria-hidden="true">/</span><span>${unit.id}</span></div><section class="lesson-heading"><span class="eyebrow">${status(unit).toUpperCase()}</span><h2>${esc(unit.title)}</h2><p>${esc(unit.description)}</p><div class="lesson-points"><span id="lesson-score">${engine.earned(state, id)} / ${unit.points} Punkte</span><progress id="lesson-progress" value="${engine.earned(state, id)}" max="${unit.points}" aria-label="Punkte in ${id}"></progress></div>${unit.ready ? `<ul class="lesson-meta"><li>${icon("check")} ${unit.tasks.length} Pflichtaufgaben</li>${codeTasks ? `<li>${icon("spark")} ${codeTasks} × Python im Browser</li>` : ""}<li>${icon("notes")} Material ${unit.sourceRefs.join(", ")}</li></ul>` : ""}</section>${visual}<div class="lesson-intro">${unit.situation ? `<section class="lesson-panel mission"><span class="eyebrow">DEINE MISSION</span><h3>${esc(unit.situation.title)}</h3><p>${esc(unit.situation.text)}</p></section>` : ""}<section class="lesson-panel goals"><span class="eyebrow">LERNZIELE</span><h3>Das lernst du hier</h3><ul class="goal-list">${unit.goals.map(goal => `<li>${esc(goal)}</li>`).join("")}</ul></section></div>`;
     if (!unit.ready) {
       main.innerHTML = `${header}<section class="lesson-panel preparation"><span class="eyebrow">IN VORBEREITUNG</span><h3>Hier entsteht deine nächste Lerneinheit.</h3><p>Die Erklärungen und Aufgaben werden noch ausgearbeitet. Hier kannst du noch keine Punkte sammeln.</p><a href="#path/${module.id}">Zur Übersicht von ${module.id} →</a></section>`; return;
     }
@@ -265,6 +270,54 @@
       anchor.before(panel);
       setupStepLab(lab);
     }
+    numberSections(id);
+  }
+  // Arbeitsschritte einer Lektion fortlaufend nummerieren und als Kapitelleiste anbieten.
+  function numberSections(unitId) {
+    const kinds = [
+      [panel => panel.querySelector(".examples"), "Verstehen"],
+      [panel => panel.matches(".array-lab, .loop-lab, .analysis-lab, .step-lab"), "Ausprobieren"],
+      [panel => panel.querySelector(".reflection"), "Erklären"],
+      [panel => panel.querySelector(".task, .code-task"), "Überprüfen"],
+      [panel => panel.matches(".results-panel"), "Sichern"],
+      [panel => panel.matches(".completion"), "Abschließen"]
+    ];
+    const titles = { Verstehen: "VERSTEHEN", Ausprobieren: "AUSPROBIEREN", Erklären: "IN EIGENEN WORTEN", Überprüfen: "SELBST ÜBERPRÜFEN", Sichern: "ERGEBNISSE SICHERN", Abschließen: "ABSCHLIESSEN" };
+    const steps = [];
+    main.querySelectorAll(":scope > .lesson-panel").forEach(panel => {
+      const kind = kinds.find(([test]) => test(panel))?.[1];
+      if (!kind) return;
+      const number = steps.length + 1;
+      panel.dataset.step = number;
+      panel.id = `abschnitt-${number}`;
+      panel.setAttribute("tabindex", "-1");
+      const eyebrow = panel.querySelector(":scope > .eyebrow");
+      if (eyebrow) eyebrow.textContent = `${number} · ${titles[kind]}`;
+      steps.push({ number, kind, panel });
+    });
+    if (steps.length < 3) return;
+    const solved = unitId => engine.byId(unitId).tasks.filter(task => state.answers[unitId]?.[task.id] === task.correct).length;
+    const nav = document.createElement("nav");
+    nav.className = "lesson-steps";
+    nav.setAttribute("aria-label", "Arbeitsschritte dieser Lerneinheit");
+    nav.innerHTML = `<ol>${steps.map(step => `<li><button type="button" data-goto="${step.number}"><span>${step.number}</span>${step.kind}${step.kind === "Überprüfen" ? ` <small>${solved(unitId)}/${engine.byId(unitId).tasks.length}</small>` : ""}</button></li>`).join("")}</ol>`;
+    steps[0].panel.before(nav);
+    nav.addEventListener("click", event => {
+      const button = event.target.closest("[data-goto]");
+      if (!button) return;
+      const target = main.querySelector(`#abschnitt-${button.dataset.goto}`);
+      target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      target.focus({ preventScroll: true });
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.filter(entry => entry.isIntersecting).forEach(entry => {
+        nav.querySelectorAll("button").forEach(button => button.toggleAttribute("aria-current", button.dataset.goto === entry.target.dataset.step));
+        const current = nav.querySelector("button[aria-current]"), list = nav.querySelector("ol");
+        if (current && list.scrollWidth > list.clientWidth) list.scrollTo({ left: current.offsetLeft - 8 });
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    steps.forEach(step => observer.observe(step.panel));
+    mapListenerController.signal.addEventListener("abort", () => observer.disconnect(), { once: true });
   }
   function setupStepLab(lab) {
     let step = 0, trace;
@@ -428,6 +481,54 @@
     } catch (error) { if (pane.isConnected) status.textContent = error.message; }
     finally { if (pane.isConnected) { runButton.disabled = false; stopButton.disabled = true; } }
   }
+  // Komfort im Code-Editor: Einrücken wie in einer IDE, ohne die Tastaturbedienung zu blockieren.
+  let editorEscaped = false;
+  main.addEventListener("keydown", event => {
+    const editor = event.target.closest?.("textarea.code-editor");
+    if (!editor) return;
+    if (event.key === "Escape") { editorEscaped = true; return; }
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") { event.preventDefault(); editor.closest(".code-task").querySelector("[data-run-code]:not(:disabled)")?.click(); return; }
+    const { selectionStart: start, selectionEnd: end, value } = editor;
+    const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+    const replace = (from, to, text, caretStart, caretEnd = caretStart) => {
+      editor.setRangeText(text, from, to);
+      editor.setSelectionRange(caretStart, caretEnd);
+      editor.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+    if (event.key === "Tab" && !editorEscaped && !event.altKey && !event.ctrlKey) {
+      event.preventDefault();
+      const blockEnd = value.indexOf("\n", end - (end > start && value[end - 1] === "\n" ? 1 : 0));
+      const to = blockEnd === -1 ? value.length : blockEnd;
+      const lines = value.slice(lineStart, to).split("\n");
+      if (event.shiftKey) {
+        const removed = lines.map(line => line.match(/^ {1,4}/)?.[0].length || 0);
+        replace(lineStart, to, lines.map((line, index) => line.slice(removed[index])).join("\n"), Math.max(lineStart, start - removed[0]), Math.max(lineStart, end - removed.reduce((sum, n) => sum + n, 0)));
+      } else if (start === end) {
+        replace(start, end, "    ", start + 4);
+      } else {
+        replace(lineStart, to, lines.map(line => `    ${line}`).join("\n"), start + 4, end + 4 * lines.length);
+      }
+      return;
+    }
+    if (event.key === "Enter" && !event.shiftKey && start === end) {
+      const line = value.slice(lineStart, start);
+      const indent = line.match(/^ */)[0] + (/:\s*$/.test(line) ? "    " : "");
+      if (!indent) return;
+      event.preventDefault();
+      replace(start, end, `\n${indent}`, start + 1 + indent.length);
+    }
+  });
+  main.addEventListener("focusin", event => { if (event.target.closest?.("textarea.code-editor")) editorEscaped = false; });
+  main.addEventListener("click", event => {
+    const reset = event.target.closest("[data-reset-code]");
+    if (!reset) return;
+    const pane = reset.closest(".code-task"), editor = pane.querySelector("textarea");
+    const task = engine.byId(pane.dataset.codeUnit).tasks.find(item => item.id === pane.dataset.codeTask);
+    if (editor.value !== task.starter && !window.confirm("Deinen Code durch den Startcode ersetzen? Dein bisheriger Entwurf geht dabei verloren.")) return;
+    editor.value = task.starter;
+    editor.dispatchEvent(new Event("input", { bubbles: true }));
+    editor.focus();
+  });
   main.addEventListener("submit", event => {
     const form = event.target.closest("form[data-task]");
     if (!form) return;

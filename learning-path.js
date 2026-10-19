@@ -646,7 +646,7 @@
     return own.length === 1 ? own : valid;
   };
   const resultSections = unit => unit.sourceRefs.map(ref => `Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "0.9.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections };
+  const data = { version: "0.9.1", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);
