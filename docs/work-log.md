@@ -501,3 +501,4 @@ Bearbeiter: Claude. Glossar mit 56 eigenständig formulierten Begriffen
 #glossar mit Suche und Themenfilter, Symbol „book“ in assets/icons.svg.
 Prüfstand: 77/77 Tests, Syntax, Diff; Browser Desktop und 375 px ohne
 Überlauf, Suche („lifo“ → Stapelspeicher, LIFO), Filter „Bäume“ (11).
+Online-Abnahme 1.2.0 (9bb02bb): Version 1.2.0, Glossar-Suche („zeiger“ → 3 Treffer), Symbol geladen, keine Konsolenfehler.
