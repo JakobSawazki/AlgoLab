@@ -16,7 +16,7 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | DESIGN-01 | DONE | Claude | 19.10.2026: 0.9.1 – Lektionskopf mit Kennzahlen und Banner, nummerierte Arbeitsschritte mit Kapitelleiste, Code-Editor-Komfort. Hell/dunkel, Desktop/375 px geprüft. |
 | CONTENT-L2 | DONE | Claude | 19.10.2026: 0.9.0 – alle acht L2-Einheiten (L2_1 bis L2_4.x): Algorithmus-Eigenschaften + Kfz-Steuer, Bubble Sort (inkl. Optimierung), Selection Sort (auf-/absteigend), Fehleranalyse, lineare Suche + Verschlüsselung, binäre Suche (Zugriffszählung prüft echtes Halbieren), Vergleich der Suchen + Modulo-Filter, Anwenden nach Namen + Häufigkeiten. Schrittmodelle an Bezeichner des Materials angepasst. 57/57 Tests, Pyodide geprüft. |
 | CONTENT-L3 | DONE | Claude | 19.10.2026: 1.0.0 – L3.1 verkettete Liste, L3.2 Stapel, L3.3 Warteschlange, L3.4 Baum (Material L3_1 bis L3_4.2). Modelle in `ds-model.js`, Baum-Prüfstand. Python modelliert Zeiger/Bäume als Tabellen (Bildungsplan: Beschreiben und Modellieren). 64/64 Tests, Pyodide geprüft. |
-| REVIEW-01 | OPEN | – | Vollständige Quellen-/Bildungsplanabnahme und Materialmatrix. |
+| REVIEW-01 | OPEN | – | 19.10.2026 (Claude): Materialmatrix für alle 19 Einheiten ergänzt; Inhalte decken die BPE7-Tabelle der Doku (7.1–7.3 inkl. geordnet/voll/vollständig) ab. Offen: formale Abnahme durch Jakob am Bildungsplan-PDF (lokal keine PDF-Werkzeuge), Erprobung im Unterricht, Fotomotive L1.5–L3.4. |
 
 ## Übergabe
 
