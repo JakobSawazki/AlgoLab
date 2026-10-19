@@ -521,3 +521,4 @@ mit Eingabe-Echo, Fehlversuch (in mnr) mit Meldung, Lösung bestanden und
 gespeichert, Tupeltausch abgelehnt, Werkstatt (Vorlage binäre Suche,
 IndexError-Erklärung, Endlosschleife nach 5 s gestoppt), Lektionsaufgabe
 L2.6 weiterhin bestanden, 375 px ohne Überlauf.
+Online-Abnahme 1.3.0 (4f369a5): Version 1.3.0, practice.js/practice-check.js/python-worker.js/python-checks.js Status 200, Aufgabe „Habe ich gewonnen?“ mit Eingabe gestartet und alle 5 Testfälle live bestanden, keine Konsolenfehler.

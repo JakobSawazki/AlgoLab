@@ -32,7 +32,7 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.3.0** (Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Offen: CLASS-01 (Erprobung, Jakob).
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.3.0** (Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar), als 4f369a5 veröffentlicht und online abgenommen. Offen: CLASS-01 (Erprobung, Jakob).
 Derzeit keine Dateireservierung.
 Prüfungen: `node --test tests/*.test.cjs` (85/85), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
