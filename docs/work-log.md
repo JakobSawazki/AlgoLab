@@ -285,3 +285,40 @@ Hilfsvariable, fehlerhaftes Überschreiben und korrektes Vertauschen
 interaktiv zeigen; passende Codeaufgabe und eigenes Fotomotiv ergänzen.
 Weitere 15 Einheiten mit Motiven und vollständige BPE7-Abnahme sowie
 Datei-Export-Rundlauf bleiben offen. Gesamtziel weiterhin aktiv.
+
+## 19. Oktober 2026 – Profil, NAGOLD und gemeinsame Agentenübergabe
+
+Bearbeiter: Codex. Auftrag von Jakob: Claude über denselben Arbeitsstand
+beteiligen und Profil/NAGOLD wie Excel-Lab mit JSON-Sicherung ermöglichen.
+
+Abgeschlossen: AGENTS.md, CLAUDE.md und TASKS.md als gemeinsame Übergabe
+angelegt. Excel-Lab unter Codex/Tabellenkalkulation/Excel-Lab gesichtet;
+NAGOLD-Regeln und Tabellenmodul für AlgoLab angepasst. Profil mit Kürzel und
+Klasse, NAGOLD-Jahresziel, automatische 5 NAGOLD pro Abschluss, Anwesenheit,
+Startkapital und editierbare Tabelle mit sofortiger Speicherung ergänzt.
+JSON enthält alle Profildaten, NAGOLD, Antworten, Abschlüsse, Notizen und
+Codeentwürfe. Alte AlgoLab-Dateien bleiben lesbar; ungültige NAGOLD-Dateien
+werden vor dem Ersetzen vollständig zurückgewiesen. Version 0.7.0 und
+Veröffentlichungsworkflow angepasst.
+
+Prüfstand: 35/35 Tests, Syntax aller JavaScript-Dateien, Diff-Prüfung.
+Browser: echter Download, Wiederherstellung in frischem Browserkontext,
+Neuladen, automatische Speicherung, negative NAGOLD, letzte gültige Zeile
+bei ungültiger Korrektur, Löschen und ungültiger Import ohne Datenverlust.
+Desktop 1440 und Mobil 390 Pixel visuell geprüft, mobile Tabelle ohne
+horizontalen Überlauf, keine JavaScript-Fehler. Prüfdateien lokal in .tmp/.
+
+Offen: Commit, Push, Pages-Veröffentlichung und Onlineabnahme. Claude wurde
+nicht direkt gestartet/kontaktiert; beide Agenten sollen beim Einstieg die
+gemeinsamen Dateien lesen und aktualisieren. Danach L1.5 wie zuvor geplant.
+
+## 19. Oktober 2026 – Konkrete Übergabe an Claude
+
+Bearbeiter: Codex. Auf Jakobs Auftrag docs/claude-handoff.md erstellt und in
+CLAUDE.md sowie TASKS.md verlinkt. Übergabe umfasst Projektpfade, lokale
+Version 0.7.0, nicht committete Änderungen, Architektur, Profil-/NAGOLD-Regeln,
+Altdatei-Migration, bisherigen Prüfstand und konkrete nächste Schritte für
+RELEASE-01 und CONTENT-05. Lokalen Git- und Dokumentationsstand erneut gelesen;
+keine Codeänderung, kein Commit/Push und keine neue Browserabnahme in diesem
+Dokumentationsschritt. Diff-Prüfung durchgeführt. Claude wurde nicht direkt
+gestartet oder kontaktiert; die Datei ist für seinen nächsten Projekteinstieg.

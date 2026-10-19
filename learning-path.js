@@ -177,7 +177,7 @@
       { expression: "__algolab_output__.splitlines() == ['(0, 42, 21.0)', 'None']", message: "Die beiden Aufrufe zeigen das Trainingsergebnis und None für die leere Liste." }
     ] }
   ];
-  const data = { version: "0.6.0", modules, units: modules.flatMap(m => m.units) };
+  const data = { version: "0.7.0", modules, units: modules.flatMap(m => m.units) };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

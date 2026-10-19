@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 7. Oktober 2026. Version **0.6.0 – Arrays auswerten**.
+Stand: 19. Oktober 2026. Version **0.7.0 – Profil und NAGOLD** (lokal geprüft).
 Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
 L1.1 enthält Erklärungen, eigene Notizen und Verständnisfragen. L1.2 enthält ein
 Arraymodell, einen Schreibtischtest und eine echte Python-Aufgabe. L1.3 ergänzt
@@ -29,6 +29,12 @@ sind einklappbar. [Bildwelt, Bedienung und Prompts](docs/visual-design.md).
 Die zentrale [Projektdokumentation](docs/documentation.md) enthält die
 fachlichen Grundlagen, das Gestaltungskonzept, den geplanten technischen
 Aufbau, Aufgaben, Prüfstand und Versionsverlauf.
+
+Die [Lenovo-Startanleitung](docs/lenovo-setup.md) dokumentiert den lokalen
+Projektpfad, die geprüfte Laufzeit und den übernommenen Arbeitsstand.
+Der gemeinsame [Aufgabenstand](TASKS.md) hält für Jakob, Codex und Claude
+fest, wer gerade woran arbeitet und was abgeschlossen oder noch offen ist.
+Die Einstiegsdateien `AGENTS.md` und `CLAUDE.md` verweisen auf dieselbe Übergabe.
 
 Die Unterrichtsmaterialien unter `resources/` dienen als lokale Referenz
 und sind vom Git-Repository ausgeschlossen. Öffentliche Erklärungen und
@@ -75,6 +81,24 @@ Die Python-Prüfung ist eine Lernhilfe und kein manipulationssicherer Nachweis.
 [Arbeitsprotokoll](docs/work-log.md), [Materialmatrix](docs/material-matrix.md)
 und [Fotomotive mit Prompts](docs/lesson-images.md) dokumentieren den Ausbau.
 
+## Profil und NAGOLD
+
+Im Profil Kürzel (z. B. `jak.saw`) und Klasse eintragen und übernehmen.
+Die NAGOLD-Karte öffnet eine bearbeitbare Tabelle mit Datum, Uhrzeit, Anlass
+und ganzen Punkten von −10 bis 5, ohne 0. Gültige Änderungen und Löschungen
+werden sofort gespeichert; unvollständige Korrekturen behalten den letzten
+gültigen Stand. Anwesenheit schlägt 2 NAGOLD vor, Startkapital einmal je
+Schuljahr 5. Abgeschlossene Einheiten buchen einmalig 5 NAGOLD. Das
+Jahresziel beträgt 100; verbindlich bleibt die Bewertung der Lehrkraft.
+Lernpunkte und Freischaltung werden davon unabhängig berechnet.
+
+„Profil als JSON speichern“ sichert Profildaten, NAGOLD, Lernstand, Notizen
+und Codeentwürfe gemeinsam. „Profil laden“ stellt diese Daten nach Bestätigung
+wieder her. Auch das bisherige Diskettensymbol verwendet denselben Dateistand.
+Alte AlgoLab-Dateien bleiben ladbar; bei fehlender NAGOLD-Tabelle werden
+bekannte Abschlüsse mit je 5 NAGOLD und unbekanntem Datum übernommen.
+Excel-Lab-Dateien gehören weiterhin zu Excel-Lab.
+
 ## Lokal starten und prüfen
 
 Im Projektordner `python -m http.server 4175 --bind 127.0.0.1` ausführen und
@@ -90,5 +114,5 @@ Leistungsnachweis. Der Veröffentlichungsworkflow prüft die Freischaltung und
 überträgt ausschließlich die Laufzeitdateien und eigenen Assets der Homepage
 an GitHub Pages.
 
-Nächster Meilenstein: L1.3 mit Schleifenzugriff und eigener Python-Aufgabe ausbauen,
-danach L1.2 mit Arraybeispielen und Python-Ausführung ausarbeiten.
+Nächster Meilenstein: L1.5 „Elemente vertauschen“ mit Hilfsvariable,
+interaktivem Modell, Python-Aufgabe und eigenem Fotomotiv ausarbeiten.

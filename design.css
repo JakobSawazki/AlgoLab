@@ -255,3 +255,57 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .analysis-table th, .analysis-table td { text-align: right; padding: 9px; border-bottom: 1px solid var(--line); }
 .analysis-table thead { background: var(--panel-2); }
 .analysis-table caption { text-align: left; padding: 12px; color: var(--muted); }
+
+/* Profil und NAGOLD-Tabelle; Bedienung nach Excel-Lab. */
+#profile-dialog { max-width: 620px; max-height: calc(100dvh - 32px); overflow-y: auto; }
+.profile-edit-form { display: grid; gap: 10px; }
+.profile-edit-form label { font-weight: 700; }
+.profile-edit-form input { min-width: 0; width: 100%; padding: 10px 12px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; }
+.profile-edit-form small { color: var(--muted); }
+.profile-edit-form button { justify-self: start; }
+.profile-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
+.profile-actions .import-label { margin: 0; }
+.nagold-total { width: 100%; display: grid; gap: 4px; margin: 16px 0; text-align: left; justify-content: stretch; }
+.nagold-total strong { color: var(--gold); font-size: 1.7rem; }
+.nagold-total span:last-child { color: var(--muted); font-size: .85rem; }
+#nagold-goal { margin-top: 8px; }
+#nagold-goal-text { float: right; font-size: .85rem; color: var(--muted); }
+.nagold-dialog { width: min(960px, calc(100% - 28px)); max-width: none; max-height: calc(100dvh - 28px); overflow-y: auto; }
+.nagold-dialog h2, #nagold-sum { color: var(--gold); }
+.dialog-close { float: right; padding: 8px; }
+.dialog-close svg, .nagold-icon-button svg, .nagold-combo-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.nagold-table-wrap { border: 1px solid var(--line); border-radius: 10px; margin-top: 16px; }
+.nagold-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.nagold-table th, .nagold-table td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.nagold-table th { background: var(--panel-2); }
+.nagold-table input { min-width: 0; width: 100%; padding: 9px 6px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 7px; }
+.nagold-table input[type=date] { width: 145px; }
+.nagold-table input[type=time] { width: 115px; }
+.nagold-table input[type=number] { width: 70px; }
+.nagold-points { color: var(--gold); font-weight: 750; }
+.nagold-row-actions { white-space: nowrap; }
+.nagold-icon-button { padding: 9px; margin: 2px; }
+.nagold-table-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 12px 0; }
+.nagold-error { color: var(--gold); font-size: .85rem; }
+.nagold-error:empty { margin: 0; }
+.nagold-autosave { margin: 0; font-size: .8rem; }
+.nagold-combo { position: relative; min-width: 150px; }
+.nagold-table .nagold-combo input { padding-right: 32px; }
+.nagold-combo-toggle { position: absolute; right: 3px; top: 50%; transform: translateY(-50%); padding: 5px; border: 0; background: transparent; }
+.nagold-combo-list { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 4; list-style: none; margin: 0; padding: 5px; overflow-y: auto; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); }
+.nagold-combo.opens-upward .nagold-combo-list { top: auto; bottom: calc(100% + 4px); }
+.nagold-combo-list li { padding: 8px; cursor: pointer; overflow-wrap: anywhere; }
+.nagold-combo-list li:hover, .nagold-combo-list li[aria-selected=true] { color: var(--bg); background: var(--accent); }
+@media (max-width: 720px) {
+  .nagold-dialog { padding: 18px; }
+  .nagold-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  .nagold-table, .nagold-table tbody, .nagold-table tr, .nagold-table td { display: block; width: 100%; }
+  .nagold-table tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .nagold-table td { display: grid; grid-template-columns: 64px minmax(0,1fr); align-items: center; gap: 8px; padding: 5px 10px; border: 0; }
+  .nagold-table td::before { content: attr(data-label); color: var(--muted); font-size: .75rem; }
+  .nagold-table td.nagold-row-actions { display: flex; justify-content: flex-end; }
+  .nagold-row-actions::before { display: none; }
+  .nagold-combo { min-width: 0; }
+  #nagold-goal-text { float: none; display: block; }
+}

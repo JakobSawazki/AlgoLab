@@ -1,8 +1,11 @@
 # AlgoLab Projektdokumentation
 
-Stand: 7. Oktober 2026 (Europe/Berlin)
+Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.6.0 – Arrays auswerten**
+Aktueller lokaler Stand: **0.7.0 – Profil und NAGOLD**.
+Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
+Die zuletzt hier dokumentierte Onlineabnahme bleibt 0.6.0 vom 7. Oktober;
+0.7.0 wurde noch nicht veröffentlicht.
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -17,7 +20,8 @@ Alle vier besitzen ein eigenes Fotomotiv und eine Lernsituation. Die übrigen 15
 sind ausdrücklich in Vorbereitung. Eine vollständige BPE7-Abdeckung
 ist noch nicht erreicht.
 
-Projektordner: `D:\Google Drive\Codex\AlgoLab`
+Projektordner Gaming-Laptop: `D:\Google Drive\Codex\AlgoLab`.
+Projektordner Lenovo: `G:\Meine Ablage\Codex\AlgoLab`.
 
 Repository: <https://github.com/JakobSawazki/AlgoLab> (öffentlich).
 
@@ -410,6 +414,41 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.7.0 – 19. Oktober 2026 (lokal)
+
+Profil mit Kürzel und Klasse sowie NAGOLD-Tabelle nach Excel-Lab ergänzt.
+NAGOLD-Regeln und Tabellenbedienung stammen aus dem lokalen Projekt
+`G:\Meine Ablage\Codex\Tabellenkalkulation\Excel-Lab` und wurden an AlgoLab
+angepasst. Neue Dateien: `nagold.js` für Regeln und `nagold-table.js` für die
+Tabelle. Der Pages-Workflow prüft beide und nimmt sie ins Laufzeitpaket auf.
+
+Ganze Einträge von −10 bis 5 ohne 0, Anwesenheit mit Vorschlag 2,
+Startkapital 5 einmal je Schuljahr (Beginn 1. August), Jahresziel 100.
+Abschlüsse buchen je 5 NAGOLD genau einmal. Die bestehenden Lernpunkte und
+Freischaltungsregeln bleiben getrennt. Alte Abschlüsse ohne Tabelle erhalten
+bei der Migration 5 NAGOLD mit leerem Datum und leerer Uhrzeit. Eine explizit
+leere Tabelle bleibt leer, auch wenn Einträge zuvor gelöscht wurden.
+
+Das bestehende JSON-Format 1 wird um `state.profile` und `state.nagoldEntries`
+erweitert. Beide Sicherungszugänge enthalten dasselbe vollständige Profil
+einschließlich Antworten, Abschlüssen, Notizen und Codeentwürfen. Der Import
+weist ungültige Tabellen vollständig ab, bevor er den aktuellen Stand ersetzt.
+Entwicklermodus ist weiterhin nicht Teil der Datei.
+
+35 automatisierte Tests bestanden, alle JavaScript-Dateien syntaxgeprüft,
+`git diff --check` bestanden. Browserabnahme in isolierten Edge-Kontexten:
+Profil anlegen, Anwesenheit/Startkapital/Abzug, letzte gültige Korrektur
+erhalten, echter JSON-Download und Laden in neuem Browserkontext, Erhalt nach
+Neuladen, Löschen einer Zeile und Abweisung ungültiger Importdaten ohne
+Standverlust. Desktop 1440 Pixel und Mobil 390 Pixel visuell geprüft, kein
+horizontaler Überlauf der mobilen Tabelle und keine JavaScript-Fehler.
+Screenshots und Prüfskript lokal unter `.tmp/` (nicht veröffentlicht).
+
+Zusammenarbeit: `AGENTS.md` und `CLAUDE.md` führen auf die gemeinsame
+`TASKS.md` mit Status, Bearbeiter, Arbeitsbereich und Übergabe. Eine laufende
+Claude-Sitzung wurde nicht gestartet oder kontaktiert. Commit, Push,
+Pages-Deployment und Onlineabnahme für 0.7.0 stehen aus.
 
 ### 0.6.0 – 7. Oktober 2026
 

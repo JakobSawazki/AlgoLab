@@ -13,7 +13,14 @@
   const accessible = id => engine.accessible(state, id, developerMode);
   const profileDialog = document.querySelector("#profile-dialog");
   const developerButton = document.querySelector("#developer-toggle");
+  const nagold = window.ALGOLAB_NAGOLD;
   function syncProfile() {
+    const total = nagold.total(state);
+    document.querySelector("#nagold-total").textContent = `${total} NAGOLD`;
+    document.querySelector("#nagold-goal").value = Math.max(0, Math.min(100, total));
+    document.querySelector("#nagold-goal-text").textContent = `${total} / 100 NAGOLD`;
+    document.querySelector(".profile-copy").firstChild.textContent = state.profile.name || "Dein Profil";
+    document.querySelector(".avatar").textContent = state.profile.name ? state.profile.name[0].toUpperCase() : "A";
     document.querySelector("#profile-summary").textContent = `${engine.total(state)} Punkte · ${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen`;
     developerButton.hidden = !developerControlRevealed;
     developerButton.setAttribute("aria-pressed", String(developerMode));
@@ -26,6 +33,9 @@
   }
   function openProfile() {
     developerControlRevealed = false;
+    document.querySelector("#profile-name").value = state.profile.name;
+    document.querySelector("#profile-class").value = state.profile.className;
+    document.querySelector("#profile-message").textContent = "";
     syncProfile();
     profileDialog.showModal();
   }
@@ -77,9 +87,24 @@
   try { state = engine.normalize(JSON.parse(localStorage.getItem(key) || "null")); }
   catch { storageWarning("Dein gespeicherter Lernstand konnte nicht geladen werden. Sichere deinen neuen Stand als Datei."); }
   function save() {
-    try { localStorage.setItem(key, JSON.stringify(state)); }
-    catch { storageWarning("Dein Browser kann den Lernstand gerade nicht speichern. Sichere ihn als Datei, bevor du die Seite schließt."); }
+    try { localStorage.setItem(key, JSON.stringify(state)); return true; }
+    catch { storageWarning("Dein Browser kann den Lernstand gerade nicht speichern. Sichere ihn als Datei, bevor du die Seite schließt."); return false; }
   }
+  document.querySelector("#profile-edit-form").addEventListener("submit", event => {
+    event.preventDefault();
+    state.profile = { name: document.querySelector("#profile-name").value.trim().toLocaleLowerCase("de"), className: document.querySelector("#profile-class").value.trim().toLocaleUpperCase("de") };
+    const stored = save(); syncProfile();
+    document.querySelector("#profile-class").value = state.profile.className;
+    document.querySelector("#profile-message").textContent = stored ? "Deine Profildaten sind auf diesem Gerät gespeichert." : "Profildaten übernommen. Bitte sichere sie als JSON-Datei.";
+  });
+  document.querySelector("#nagold-open").addEventListener("click", event => {
+    window.AlgoLabNagoldTable.open({ entries: state.nagoldEntries, returnFocus: event.currentTarget, save(entries) {
+      const previous = state.nagoldEntries;
+      state.nagoldEntries = entries;
+      if (!save()) { state.nagoldEntries = previous; return false; }
+      syncProfile(); return true;
+    } });
+  });
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     const toggle = document.querySelector("#theme-toggle");
@@ -381,24 +406,31 @@
     setTheme(theme); try { localStorage.setItem("algolab-theme-v1", theme); } catch { /* Theme still works for this session. */ }
   });
   document.querySelector("#backup-open").addEventListener("click", () => document.querySelector("#backup-dialog").showModal());
-  document.querySelector("#export-progress").addEventListener("click", () => {
-    const payload = { app: "AlgoLab", formatVersion: 1, version: content.version, exportedAt: new Date().toISOString(), state };
+  function exportProfile() {
+    const payload = engine.payload(state);
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
     const link = document.createElement("a"); link.href = url; link.download = `algolab-lernstand-${new Date().toISOString().slice(0, 10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
-  document.querySelector("#import-progress").addEventListener("change", async event => {
+  }
+  document.querySelector("#export-progress").addEventListener("click", exportProfile);
+  document.querySelector("[data-export-profile]").addEventListener("click", exportProfile);
+  async function importProfile(event) {
     const file = event.target.files[0];
-    const message = document.querySelector("#backup-message");
+    const message = document.querySelector(event.target.id === "import-profile" ? "#profile-message" : "#backup-message");
     if (!file) return;
     try {
       if (file.size > 2 * 1024 * 1024) throw new Error("Die Datei ist zu groß (maximal 2 MB).");
       const payload = JSON.parse(await file.text());
-      if (payload.app !== "AlgoLab" || payload.formatVersion !== 1 || !payload.state || typeof payload.state !== "object" || !payload.state.answers || typeof payload.state.answers !== "object" || !Array.isArray(payload.state.completed)) throw new Error("Bitte wähle eine gültige AlgoLab-Lernstandsdatei.");
+      const restored = engine.readPayload(payload);
       if (!window.confirm("Den aktuellen Lernstand durch die gewählte Datei ersetzen? Sichere deinen bisherigen Stand, wenn du ihn behalten möchtest.")) return;
-      state = engine.normalize(payload.state); save(); render(); message.textContent = "Dein Lernstand wurde geladen.";
+      state = restored; const stored = save(); render();
+      document.querySelector("#profile-name").value = state.profile.name;
+      document.querySelector("#profile-class").value = state.profile.className;
+      message.textContent = stored ? "Dein Profil mit NAGOLD und Lernstand wurde geladen." : "Profil geladen. Der Browser kann es nicht dauerhaft speichern; sichere eine JSON-Datei.";
     } catch (error) { message.textContent = `Die Datei wurde nicht geladen. ${error.message}`; }
     finally { event.target.value = ""; }
-  });
+  }
+  document.querySelector("#import-progress").addEventListener("change", importProfile);
+  document.querySelector("#import-profile").addEventListener("change", importProfile);
   window.addEventListener("hashchange", () => render(true));
   document.querySelector(".skip-link").addEventListener("click", event => {
     event.preventDefault(); main.focus(); main.scrollIntoView();

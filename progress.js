@@ -2,8 +2,9 @@
   "use strict";
   function createEngine(content) {
     const units = content.units;
+    const nagold = typeof module !== "undefined" && module.exports ? require("./nagold.js")(content) : root.ALGOLAB_NAGOLD;
     const byId = id => units.find(unit => unit.id === id);
-    const empty = () => ({ answers: {}, completed: [], work: {} });
+    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [] });
     const earned = (state, id) => {
       const unit = byId(id);
       if (!unit?.ready) return 0;
@@ -21,6 +22,10 @@
     const accessible = (state, id, developerMode = false) => Boolean(byId(id)) && (developerMode || unlocked(state, id));
     function normalize(raw) {
       const state = empty();
+      state.profile = {
+        name: typeof raw?.profile?.name === "string" ? raw.profile.name.trim().toLocaleLowerCase("de").slice(0, 40) : "",
+        className: typeof raw?.profile?.className === "string" ? raw.profile.className.trim().toLocaleUpperCase("de").slice(0, 32) : ""
+      };
       for (const unit of units.filter(unit => unit.ready)) {
         const fields = [...unit.tasks.filter(task => task.type === "code"), ...(unit.reflections || [])];
         for (const field of fields) {
@@ -43,6 +48,7 @@
         }
         if (Array.isArray(raw?.completed) && raw.completed.includes(unit.id) && passed(state, unit.id)) state.completed.push(unit.id);
       }
+      state.nagoldEntries = nagold.entriesFor(Object.hasOwn(raw || {}, "nagoldEntries") ? { nagoldEntries: raw.nagoldEntries } : { completed: state.completed });
       return state;
     }
     function answer(state, id, taskId, choice) {
@@ -64,9 +70,28 @@
     function finish(state, id) {
       if (!unlocked(state, id) || !passed(state, id) || state.completed.includes(id)) return false;
       state.completed.push(id);
+      const now = new Date();
+      nagold.addLessonEntry(state, byId(id), nagold.today(now), nagold.clock(now));
       return true;
     }
-    return { empty, byId, earned, passed, unlocked, accessible, normalize, answer, completeCode, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
+    function payload(state) {
+      return { app: "AlgoLab", formatVersion: 1, version: content.version, exportedAt: new Date().toISOString(), state: normalize(state) };
+    }
+    function readPayload(data) {
+      const object = value => value !== null && typeof value === "object" && !Array.isArray(value);
+      const raw = data?.state;
+      if (data?.app !== "AlgoLab" || data.formatVersion !== 1 || !object(raw) || !object(raw.answers) || !Array.isArray(raw.completed)) throw new Error("Bitte wähle eine gültige AlgoLab-Datei.");
+      if (Object.hasOwn(raw, "profile") && (!object(raw.profile) || typeof raw.profile.name !== "string" || typeof raw.profile.className !== "string" || raw.profile.name.length > 40 || raw.profile.className.length > 32)) throw new Error("Das Profil ist nicht lesbar. Der bisherige Stand bleibt erhalten.");
+      if (Object.hasOwn(raw, "nagoldEntries")) {
+        if (!Array.isArray(raw.nagoldEntries) || raw.nagoldEntries.length > nagold.maxEntries || nagold.normalizeEntries(raw.nagoldEntries).length !== raw.nagoldEntries.length || raw.nagoldEntries.some(row => row.purpose.length > 160)) throw new Error("Die NAGOLD-Tabelle enthält ungültige Einträge. Keine Daten übernommen.");
+        const entries = nagold.normalizeEntries(raw.nagoldEntries);
+        if (entries.some((row, index) => nagold.isStartCapital(row.purpose) && nagold.startCapitalTaken(entries.slice(0, index), row.date))) throw new Error("Die Datei enthält mehrfaches Startkapital im selben Schuljahr.");
+        const lessonIds = entries.filter(row => row.lessonId).map(row => row.lessonId);
+        if (new Set(lessonIds).size !== lessonIds.length) throw new Error("Die Datei enthält doppelte NAGOLD-Buchungen für eine Lerneinheit.");
+      }
+      return normalize(raw);
+    }
+    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createEngine;
   else root.createAlgoLabProgress = createEngine;
