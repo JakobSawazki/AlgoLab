@@ -23,7 +23,7 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | NSD-01 | DONE | Claude | 19.10.2026: 1.1.0 – Struktogramme nach Operatorenliste BW v2.2 für alle 13 Arraymodelle (Umschalter Python/Struktogramm, aktueller Block markiert, Auswahl gemerkt) und als Beispiele in L1.3, L1.4, L2.1. Tests sichern Notation und Abdeckung aller Modellschritte. |
 | SELF-01 | DONE | Claude | 19.10.2026: 1.1.0 – Ich-kann-Listen L1–L3 (45 Aussagen aus dem Material) als Seite „Ich-kann-Listen“ und als Ich-kann-Check je Einheit; ☐/✓/✓✓, im Lernstand und in der JSON-Sicherung, ohne Einfluss auf Punkte. |
 | EXTRA-01 | DONE | Claude | 19.10.2026: 1.1.0 – sieben freiwillige, geprüfte Aufgaben ohne Punkte: Kapitalrechner (L1_4.3), Wetterstation (L1_4.2), Gewinnziehung ohne Doppelte (L1_5), Wortverschlüsselung (L2_4.4), Mitglieder je Jahrgang (L2_4.3), Klammerprüfung mit Stapel und Baumhöhe mit Warteschlange (Transfer). |
-| GLOSSAR-01 | IN_PROGRESS | Claude | 19.10.2026: Durchsuchbares Glossar der Fachbegriffe (BPE 7, Operatorenliste) mit Verweisen auf die Einheiten. Belegt: learning-path.js, app.js, index.html, design.css, tests/. |
+| GLOSSAR-01 | DONE | Claude | 19.10.2026: 1.2.0 – Glossar mit 56 Fachbegriffen in 7 Themen (#glossar), Suche inkl. Synonymen, Themenfilter, Verknüpfung zu den Einheiten; Seitenleiste mit Buch-Symbol. Tests: eindeutig, erklärt, BPE-7.3-Begriffe vorhanden. |
 
 ## Übergabe
 
@@ -31,9 +31,9 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.1.0** (Struktogramme, Ich-kann-Listen, Vertiefung), als a3b079c veröffentlicht und online abgenommen. Offen: CLASS-01 (Erprobung, Jakob). Claude arbeitet an GLOSSAR-01.
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.2.0** (Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Offen: CLASS-01 (Erprobung, Jakob).
 Derzeit keine Dateireservierung.
-Prüfungen: `node --test tests/*.test.cjs` (75/75), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (77/77), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale

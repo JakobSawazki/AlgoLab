@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 19. Oktober 2026. Version **1.1.0 – Struktogramme, Ich-kann-Listen, Vertiefung**.
+Stand: 19. Oktober 2026. Version **1.2.0 – Struktogramme, Ich-kann-Listen, Vertiefung, Glossar**.
 Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
 (Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
 Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
@@ -119,7 +119,8 @@ Seit 1.1.0 zeigen die Schrittmodelle jeden Algorithmus wahlweise als Python-Code
 oder als Struktogramm nach der Operatorenliste Baden-Württemberg. Die
 Ich-kann-Listen der drei Lernfortschritte stehen als Selbsteinschätzung zur
 Verfügung, und sieben freiwillige Vertiefungsaufgaben aus dem Material bieten
-zusätzliche Übung ohne Einfluss auf Punkte und Freischaltung.
+zusätzliche Übung ohne Einfluss auf Punkte und Freischaltung. Ein durchsuchbares
+Glossar erklärt 56 Fachbegriffe und verweist auf die passenden Einheiten.
 
 Nächste Schritte: Erprobung im Unterricht, Rückmeldungen der Klassen J2 INF1 und
 J2 INF2 einarbeiten, Fotomotive für L1.5 bis L3.4 und eine vollständige

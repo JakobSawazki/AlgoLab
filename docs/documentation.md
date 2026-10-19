@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.1.0 – Struktogramme, Ich-kann-Listen, Vertiefung** (alle 19 Einheiten). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.2.0 – Glossar** (alle 19 Einheiten, Struktogramme, Ich-kann-Listen, Vertiefung). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,14 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.2.0 – 19. Oktober 2026
+
+Glossar (#glossar) mit 56 Fachbegriffen aus BPE 7 und der Operatorenliste in
+sieben Themen (Arrays, Algorithmen, Sortieren, Suchen, dynamische
+Datenstrukturen, Bäume, Python). Suche über Begriff, Synonyme und Erklärung
+(ohne Rücksicht auf Groß-/Kleinschreibung und Akzente), Themenfilter,
+Verknüpfung zu den Einheiten (freigeschaltete als Link). 77 Tests.
 
 ### 1.1.0 – 19. Oktober 2026
 

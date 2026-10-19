@@ -503,3 +503,19 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .code-task.is-optional { border-top-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
 .task-source { display: inline-block; margin-bottom: 6px; padding: 2px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font: 700 .68rem Consolas, monospace; }
 .is-optional .code-award { color: var(--accent); }
+
+/* Glossar */
+.glossary-search { display: grid; gap: 6px; max-width: 520px; margin: 18px 0 14px; font-weight: 650; font-size: .88rem; }
+.glossary-search input { padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); color: var(--text); font: inherit; font-weight: 400; }
+.glossary-search input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.path-intro .module-tabs button { padding: 8px 12px; font-size: .8rem; }
+.path-intro .module-tabs button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.glossary-count { margin: 10px 0 0; font-size: .8rem; }
+.glossary-group dl { display: grid; gap: 10px; margin: 12px 0 0; }
+.glossary-term { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr); gap: 8px 18px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+.glossary-term dt { font-weight: 750; color: var(--text); }
+.glossary-term dt small { display: block; margin-top: 3px; font-weight: 400; font-size: .74rem; color: var(--muted); }
+.glossary-term dd { margin: 0; }
+.glossary-term dd p { margin: 0 0 6px; font-size: .9rem; }
+.glossary-term:target { border-color: var(--accent); }
+@media (max-width: 640px) { .glossary-term { grid-template-columns: 1fr; } }

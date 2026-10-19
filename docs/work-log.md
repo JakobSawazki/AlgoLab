@@ -493,3 +493,11 @@ Selbsteinschätzung, Zusatzaufgaben mit Referenz- und Falschlösungen),
 Syntax, Diff; Browser: Struktogramm-Ansicht, Ich-kann-Liste und
 Zusatzaufgabe mit random in Pyodide.
 Online-Abnahme 1.1.0 (a3b079c): Version 1.1.0, 45 Ich-kann-Aussagen, Struktogramm-Umschalter mit markiertem Block, Zusatzaufgaben, keine Konsolenfehler.
+
+## 19. Oktober 2026 – Glossar (1.2.0)
+
+Bearbeiter: Claude. Glossar mit 56 eigenständig formulierten Begriffen
+(Grundlage: Informationsblätter L1–L3, Operatorenliste BW v2.2), Seite
+#glossar mit Suche und Themenfilter, Symbol „book“ in assets/icons.svg.
+Prüfstand: 77/77 Tests, Syntax, Diff; Browser Desktop und 375 px ohne
+Überlauf, Suche („lifo“ → Stapelspeicher, LIFO), Filter „Bäume“ (11).

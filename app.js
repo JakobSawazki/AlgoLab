@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.1.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.2.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -577,6 +577,39 @@
     if (!items.length) return "";
     return `<section class="lesson-panel can-list compact"><span class="eyebrow">ICH-KANN-CHECK</span><h3>Wie sicher bist du jetzt?</h3><p>Diese Aussagen aus der Ich-kann-Liste gehören zu ${unit.id}. Deine Einschätzung findest du später unter <a href="#selfcheck/${unit.id.split(".")[0]}">Ich-kann-Listen</a> wieder.</p><ol>${items.map(item => renderSelfcheckItem(item, false)).join("")}</ol></section>`;
   }
+  // Glossar: durchsuchbar nach Begriff, Synonym und Erklärung; Kategorien als Filter.
+  const normalizeTerm = text => String(text).toLocaleLowerCase("de").normalize("NFD").replace(/[̀-ͯ]/g, "");
+  function renderGlossary(focusTerm) {
+    document.querySelector("#page-title").textContent = "Glossar";
+    const categories = [...new Set(content.glossary.map(item => item.category))];
+    const slug = name => normalizeTerm(name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    main.innerHTML = `<div class="path-intro"><span class="eyebrow">FACHBEGRIFFE</span><h2>Glossar</h2><p>Die wichtigsten Begriffe aus BPE 7 und der Operatorenliste für Struktogramme – kurz erklärt und mit den Einheiten verknüpft, in denen du sie übst.</p><label class="glossary-search" for="glossary-query"><span>Begriff suchen</span><input id="glossary-query" type="search" placeholder="z. B. Index, LIFO, Bubble-Phase" autocomplete="off"></label><div class="module-tabs" role="group" aria-label="Thema filtern"><button type="button" data-category="" aria-pressed="true">Alle</button>${categories.map(category => `<button type="button" data-category="${esc(category)}" aria-pressed="false">${esc(category)}</button>`).join("")}</div><p class="glossary-count" role="status"></p></div>${categories.map(category => `<section class="lesson-panel glossary-group" data-group="${esc(category)}"><span class="eyebrow">${esc(category.toUpperCase())}</span><dl>${content.glossary.filter(item => item.category === category).map(item => `<div class="glossary-term" id="begriff-${slug(item.name)}" data-search="${esc(normalizeTerm([item.name, ...item.aliases, item.text].join(" ")))}"><dt>${esc(item.name)}${item.aliases.length ? `<small>${item.aliases.map(esc).join(" · ")}</small>` : ""}</dt><dd><p>${esc(item.text)}</p><div class="can-units">${item.units.map(unitId => accessible(unitId) ? `<a href="#unit/${unitId}">${unitId}</a>` : `<span>${unitId}</span>`).join("")}</div></dd></div>`).join("")}</dl></section>`).join("")}<p class="notice glossary-empty" hidden>Kein Begriff gefunden. Versuche ein anderes Stichwort.</p>`;
+    let category = "";
+    const filter = () => {
+      const query = normalizeTerm(main.querySelector("#glossary-query").value.trim());
+      let visible = 0;
+      main.querySelectorAll(".glossary-group").forEach(group => {
+        let groupVisible = 0;
+        group.querySelectorAll(".glossary-term").forEach(item => {
+          const show = (!category || group.dataset.group === category) && (!query || item.dataset.search.includes(query));
+          item.hidden = !show;
+          if (show) groupVisible++;
+        });
+        group.hidden = !groupVisible;
+        visible += groupVisible;
+      });
+      main.querySelector(".glossary-count").textContent = `${visible} von ${content.glossary.length} Begriffen`;
+      main.querySelector(".glossary-empty").hidden = visible > 0;
+    };
+    main.querySelector("#glossary-query").addEventListener("input", filter);
+    main.querySelectorAll("[data-category]").forEach(button => button.addEventListener("click", () => {
+      category = button.dataset.category;
+      main.querySelectorAll("[data-category]").forEach(other => other.setAttribute("aria-pressed", String(other === button)));
+      filter();
+    }));
+    if (focusTerm) main.querySelector("#glossary-query").value = decodeURIComponent(focusTerm);
+    filter();
+  }
   function renderProgress() {
     document.querySelector("#page-title").textContent = "Mein Lernstand";
     main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div>`;
@@ -590,6 +623,7 @@
     else if (page === "unit") renderUnit(id);
     else if (page === "progress") renderProgress();
     else if (page === "selfcheck") renderSelfcheck(id);
+    else if (page === "glossar") renderGlossary(id);
     else renderMissing();
     const total = engine.total(state);
     document.querySelector("#total-points").textContent = `${total} Punkte`;

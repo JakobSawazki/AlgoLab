@@ -875,6 +875,67 @@
     ])
   ];
 
+  // Glossar: Fachbegriffe aus BPE 7 und der Operatorenliste, mit den Einheiten, in denen sie vorkommen.
+  const term = (category, name, text, units, aliases = []) => ({ category, name, text, units, aliases });
+  const glossary = [
+    term("Arrays", "Datenstruktur", "Beschreibt, wie Daten organisiert sind und welche Zugriffe und Operationen darauf vorgesehen sind.", ["L1.1"]),
+    term("Arrays", "Array", "Geordnete Folge von Elementen, auf die über einen Index zugegriffen wird. In Python setzen wir das Arraymodell mit Listen um.", ["L1.1", "L1.2"], ["Feld"]),
+    term("Arrays", "Index", "Nummer eines Arrayfelds. In Python beginnt der Index bei 0; das letzte Element hat den Index Länge − 1.", ["L1.2", "L1.3"], ["Feldindex"]),
+    term("Arrays", "Länge", "Anzahl der Elemente eines Arrays, in Python len(liste). In Struktogrammen: „Anzahl der Elemente des Arrays …“.", ["L1.2"], ["len", "Anzahl der Elemente"]),
+    term("Arrays", "Deklaration und Initialisierung", "Eine Variable oder ein Array wird angelegt und erhält zugleich einen Anfangswert, z. B. punkte = [12, 8, 15, 9].", ["L1.2"]),
+    term("Arrays", "Durchlaufen", "Alle Elemente eines Arrays nacheinander bearbeiten, meist mit for i in range(len(liste)).", ["L1.3"], ["Schleife", "for", "range"]),
+    term("Arrays", "Schreibtischtest", "Ein Algorithmus wird gedanklich ausgeführt; jede Änderung einer Variablen wird in einer Tabellenzeile notiert.", ["L1.2", "L1.4", "L1.7"]),
+    term("Arrays", "Zwischenspeicher", "Hilfsvariable, die einen Wert sichert, bevor sein Feld überschrieben wird – unverzichtbar beim Tauschen.", ["L1.5", "L2.2"], ["Hilfsvariable", "merker"]),
+    term("Arrays", "Einfügen (Array)", "Neues Element mit append anhängen und durch Tauschen nach vorne an den Zielindex bewegen; alle folgenden Elemente rücken nach hinten.", ["L1.6"]),
+    term("Arrays", "Entfernen (Array)", "Alle Elemente hinter dem Index rücken einen Platz nach vorne; danach wird das letzte, überzählige Feld entfernt bzw. geleert.", ["L1.7"]),
+    term("Arrays", "IndexError", "Python-Fehler bei einem Zugriff außerhalb der gültigen Indizes, z. B. liste[4] bei vier Elementen.", ["L1.2", "L1.7"]),
+    term("Algorithmen", "Algorithmus", "Handlungsanweisung, die eindeutig den Weg zur Lösung eines gegebenen Problems beschreibt.", ["L2.1"]),
+    term("Algorithmen", "Allgemeinheit", "Ein Algorithmus löst eine ganze Klasse gleichartiger Probleme, nicht nur einen Einzelfall.", ["L2.1"]),
+    term("Algorithmen", "Eindeutigkeit", "Die Anweisungen eines Algorithmus sind widerspruchsfrei und unmissverständlich.", ["L2.1"]),
+    term("Algorithmen", "Ausführbarkeit", "Jeder einzelne Schritt kann vom Ausführenden (Mensch oder Computer) tatsächlich ausgeführt werden.", ["L2.1"]),
+    term("Algorithmen", "Endlichkeit", "Die Beschreibung des Algorithmus besteht aus endlich vielen Anweisungen (Finitheit).", ["L2.1"], ["Finitheit"]),
+    term("Algorithmen", "Terminierung", "Der Algorithmus endet nach endlich vielen Schritten und liefert ein Ergebnis.", ["L2.1", "L2.6"], ["terminiert"]),
+    term("Algorithmen", "Determiniertheit", "Gleiche Eingaben führen immer zum gleichen Ergebnis.", ["L2.1"]),
+    term("Algorithmen", "Determinismus", "Zu jedem Zeitpunkt gibt es höchstens eine Möglichkeit, wie der Algorithmus fortgesetzt wird.", ["L2.1"]),
+    term("Algorithmen", "Struktogramm", "Grafische Darstellung eines Algorithmus nach Nassi-Shneiderman mit Anweisungen, Verzweigungen und Schleifen; in Baden-Württemberg mit den Formulierungen der Operatorenliste.", ["L1.3", "L1.4", "L2.1", "L2.2"], ["Nassi-Shneiderman", "Operatorenliste"]),
+    term("Algorithmen", "Best Case / Worst Case", "Günstigster und ungünstigster Fall eines Algorithmus, etwa gemessen an der Zahl der Vergleiche.", ["L2.2", "L2.5"], ["bester Fall", "schlechtester Fall"]),
+    term("Sortieren", "Bubble Sort", "Vergleicht benachbarte Elemente und tauscht sie, wenn das linke größer ist. Nach jeder Bubble-Phase steht das größte unsortierte Element am Ende.", ["L2.2", "L2.4"]),
+    term("Sortieren", "Bubble-Phase", "Ein vollständiger Durchlauf von Nachbarvergleichen. Ohne Optimierung braucht Bubble Sort Länge − 1 Phasen.", ["L2.2"]),
+    term("Sortieren", "Selection Sort", "Sucht im unsortierten Bereich den kleinsten (bzw. größten) Wert und tauscht ihn an dessen Anfang.", ["L2.3", "L2.4"]),
+    term("Sortieren", "aufsteigend / absteigend", "Sortierrichtung: vom kleinsten zum größten Wert bzw. umgekehrt. Texte werden alphabetisch verglichen.", ["L2.3"]),
+    term("Suchen", "Lineare Suche", "Prüft die Elemente der Reihe nach, bis das Gesuchte gefunden ist oder alle geprüft wurden. Die Daten müssen nicht sortiert sein.", ["L2.5", "L2.7"], ["sequenzielle Suche"]),
+    term("Suchen", "Binäre Suche", "Halbiert in sortierten Daten den Suchbereich mit jedem Vergleich über index_anfang, index_mitte und index_ende.", ["L2.6", "L2.7"]),
+    term("Suchen", "Merker", "Boolesche Variable wie gefunden oder tausch, die festhält, ob ein Ereignis eingetreten ist.", ["L2.2", "L2.5"], ["Flag", "gefunden"]),
+    term("Suchen", "Ganzzahlige Division", "Division ohne Nachkommaanteil, in Python //; z. B. (0 + 9) // 2 ergibt 4.", ["L2.6"], ["//"]),
+    term("Suchen", "Modulo", "Rest der ganzzahligen Division, in Python %; z. B. 20 % 7 ergibt 6.", ["L2.7"], ["%", "Rest"]),
+    term("Dynamische Datenstrukturen", "Dynamische Datenstruktur", "Datenstruktur, die während des Programmlaufs beliebig wachsen und schrumpfen kann.", ["L3.1"]),
+    term("Dynamische Datenstrukturen", "Verkettete Liste", "Folge von Knoten, die jeweils Daten und einen Zeiger auf den nächsten Knoten enthalten. Einfügen und Löschen ändern nur Zeiger.", ["L1.1", "L3.1"]),
+    term("Dynamische Datenstrukturen", "Knoten", "Element einer verketteten Liste oder eines Baums; enthält Daten und Verweise auf andere Knoten.", ["L3.1", "L3.4"]),
+    term("Dynamische Datenstrukturen", "Zeiger", "Verweis auf die Adresse eines anderen Knotens.", ["L3.1"], ["Verweis", "Pointer"]),
+    term("Dynamische Datenstrukturen", "Anker", "Enthält die Adresse des ersten Knotens (Listenkopf) einer verketteten Liste.", ["L3.1"], ["Listenkopf"]),
+    term("Dynamische Datenstrukturen", "NULL", "Endmarke: Der Zeiger des letzten Knotens zeigt auf NULL. In Python modellieren wir das mit None.", ["L3.1", "L3.4"], ["None"]),
+    term("Dynamische Datenstrukturen", "Stapelspeicher", "Dynamische Datenstruktur nach dem LIFO-Prinzip; Zugriff nur auf das oberste Element.", ["L1.1", "L3.2"], ["Stack", "Stapel"]),
+    term("Dynamische Datenstrukturen", "LIFO", "Last In, First Out: Was zuletzt hineinkommt, kommt zuerst wieder heraus.", ["L3.2"]),
+    term("Dynamische Datenstrukturen", "PUSH / POP", "Operationen des Stapelspeichers: PUSH legt oben ab, POP entnimmt das oberste Element.", ["L3.2"]),
+    term("Dynamische Datenstrukturen", "Warteschlange", "Dynamische Datenstruktur nach dem FIFO-Prinzip; hinten wird angefügt, vorne entnommen.", ["L1.1", "L3.3"], ["Queue"]),
+    term("Dynamische Datenstrukturen", "FIFO", "First In, First Out: Was zuerst hineinkommt, kommt zuerst wieder heraus.", ["L3.3"]),
+    term("Dynamische Datenstrukturen", "ENQUEUE / DEQUEUE", "Operationen der Warteschlange: ENQUEUE fügt hinten an, DEQUEUE entnimmt vorne.", ["L3.3"]),
+    term("Bäume", "Baum", "Datenstruktur aus Knoten und Kanten, bei der es zwischen zwei Knoten genau einen Weg gibt.", ["L1.1", "L3.4"]),
+    term("Bäume", "Wurzel", "Der einzige Knoten ohne Eltern; oberster Knoten des Baums.", ["L3.4"]),
+    term("Bäume", "Eltern / Kind", "Eltern sind der Vorgänger eines Knotens, Kinder seine direkten Nachfolger.", ["L3.4"], ["Elternknoten", "Kindknoten"]),
+    term("Bäume", "Blatt", "Knoten ohne Kinder; Blätter bilden die äußeren Enden eines Baums.", ["L3.4"]),
+    term("Bäume", "Teilbaum", "Ein Knoten mit all seinen direkten und indirekten Nachfolgern.", ["L3.4"]),
+    term("Bäume", "Höhe", "Anzahl der Knoten auf dem Weg von der Wurzel bis zu einem Knoten; die Wurzel hat Höhe 1.", ["L3.4"]),
+    term("Bäume", "Binärbaum", "Baum, in dem jeder Knoten höchstens zwei Kinder hat und linkes und rechtes Kind unterschieden werden.", ["L3.4"]),
+    term("Bäume", "geordnet", "Die Anordnung der Kinder bzw. Teilbäume spielt eine Rolle; welche Ordnung gilt, muss angegeben sein.", ["L3.4"]),
+    term("Bäume", "voll", "Jeder Knoten eines Binärbaums ist ein Blatt oder hat genau zwei Kinder.", ["L3.4"]),
+    term("Bäume", "vollständig", "Der Binärbaum ist voll und alle Blätter liegen auf derselben Höhe.", ["L3.4"]),
+    term("Bäume", "Binärer Suchbaum", "Sortierter Binärbaum: Links stehen nur kleinere, rechts nur größere Inhalte als im jeweiligen Knoten.", ["L3.4"], ["sortierter Binärbaum"]),
+    term("Python", "Liste (Python)", "Pythons dynamische Folge von Werten. Wir nutzen sie als Umsetzung des Arraymodells sowie für Stapel und Warteschlangen.", ["L1.1", "L1.2"], ["list"]),
+    term("Python", "append / pop", "append hängt am Ende an, pop() entfernt das letzte Element, pop(0) das erste.", ["L1.2", "L1.7", "L3.2", "L3.3"]),
+    term("Python", "Funktion, Parameter, return", "Eine Funktion bündelt Anweisungen; Parameter übergeben Werte, return gibt ein Ergebnis zurück.", ["L1.3", "L1.4"], ["def", "Rückgabe"])
+  ];
+
   // Ich-kann-Listen aus dem Material (je Lernfortschritt), mit den Einheiten, in denen geübt wird.
   const can = (module, entries) => ({ module, items: entries.map(([number, text, units]) => ({ id: `${module}-${number}`, number, text, units })) });
   const selfcheck = [
@@ -950,7 +1011,7 @@
   };
   // Gliederung der Dokumente: Überschrift 1 „Lernfortschritt n – …“, darunter Überschrift 2 „Aufgabe x“.
   const resultSections = unit => unit.sourceRefs.map(ref => `Lernfortschritt ${ref.match(/^L(\d+)_/)[1]} → Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "1.1.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels };
+  const data = { version: "1.2.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);
