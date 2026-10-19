@@ -322,3 +322,21 @@ RELEASE-01 und CONTENT-05. Lokalen Git- und Dokumentationsstand erneut gelesen;
 keine Codeänderung, kein Commit/Push und keine neue Browserabnahme in diesem
 Dokumentationsschritt. Diff-Prüfung durchgeführt. Claude wurde nicht direkt
 gestartet oder kontaktiert; die Datei ist für seinen nächsten Projekteinstieg.
+
+## 19. Oktober 2026 – Version 0.7.0 veröffentlicht und online geprüft
+
+Bearbeiter: Claude. Übergabe gelesen und Stand abgeglichen. `git fetch`
+scheiterte an 155 von Google Drive erzeugten `desktop.ini` in `.git/`
+(`bad object refs/desktop.ini`); diese reinen Ordnersymbol-Dateien nur in
+`.git/` entfernt. Danach main = origin/main = 76c8b98. Vor dem Commit erneut
+35/35 Tests, Syntax aller JS-Dateien und `git diff --check` bestanden.
+Auf Jakobs Freigabe Commit 349053b gepusht; GitHub Actions Build und Deploy
+erfolgreich. Online geprüft: Fußzeile 0.7.0, nagold.js/nagold-table.js/
+progress.js mit Status 200, Profil und NAGOLD-Tabelle öffnen, keine
+Konsolenfehler. Kein erneuter Datei-Rundlauf online (Codeänderung gegenüber
+dem lokal geprüften Stand: keine).
+
+Neue Anforderung von Jakob: gemeinsame Ergebnissicherung, in der Lehrkraft
+und Schüler besprochene Ergebnisse festhalten und einsehen (bisher geteilte
+Word-Datei). Als RESULTS-01 in TASKS.md aufgenommen; Plattformentscheidung
+offen.

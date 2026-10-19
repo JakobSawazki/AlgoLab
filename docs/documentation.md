@@ -2,10 +2,9 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller lokaler Stand: **0.7.0 – Profil und NAGOLD**.
+Aktueller veröffentlichter Stand: **0.7.0 – Profil und NAGOLD**.
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
-Die zuletzt hier dokumentierte Onlineabnahme bleibt 0.6.0 vom 7. Oktober;
-0.7.0 wurde noch nicht veröffentlicht.
+0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
 Umgesetzt: statischer Prototyp mit Übersicht, drei Kartenstationen, 19
 nummerierten Lerneinheiten, Punkten und sequenzieller Freischaltung.
@@ -415,7 +414,7 @@ Computer-use-Skills wurden nicht doppelt installiert.
 
 ## 12. Prüfstand und Versionsverlauf
 
-### 0.7.0 – 19. Oktober 2026 (lokal)
+### 0.7.0 – 19. Oktober 2026
 
 Profil mit Kürzel und Klasse sowie NAGOLD-Tabelle nach Excel-Lab ergänzt.
 NAGOLD-Regeln und Tabellenbedienung stammen aus dem lokalen Projekt
@@ -447,8 +446,10 @@ Screenshots und Prüfskript lokal unter `.tmp/` (nicht veröffentlicht).
 
 Zusammenarbeit: `AGENTS.md` und `CLAUDE.md` führen auf die gemeinsame
 `TASKS.md` mit Status, Bearbeiter, Arbeitsbereich und Übergabe. Eine laufende
-Claude-Sitzung wurde nicht gestartet oder kontaktiert. Commit, Push,
-Pages-Deployment und Onlineabnahme für 0.7.0 stehen aus.
+Claude-Sitzung wurde nicht gestartet oder kontaktiert. Veröffentlicht durch
+Claude mit Commit 349053b; CI-Tests und Pages-Deployment erfolgreich.
+Online geprüft: Version 0.7.0, alle Skripte mit Status 200, Profil und
+NAGOLD-Tabelle öffnen ohne JavaScript-Fehler.
 
 ### 0.6.0 – 7. Oktober 2026
 
