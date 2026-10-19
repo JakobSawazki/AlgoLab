@@ -32,7 +32,14 @@ test("Results documents without a valid https link stay hidden", () => {
 
 test("Each unit names its sections in the shared results document", () => {
   const byId = id => content.units.find(unit => unit.id === id);
-  assert.deepEqual(content.resultSections(byId("L1.3")), ["Aufgabe 3.1.1", "Aufgabe 3.1.2"]);
-  assert.deepEqual(content.resultSections(byId("L1.5")), ["Aufgabe 3.4"]);
+  assert.deepEqual(content.resultSections(byId("L1.3")), ["Lernfortschritt 1 → Aufgabe 3.1.1", "Lernfortschritt 1 → Aufgabe 3.1.2"]);
+  assert.deepEqual(content.resultSections(byId("L1.5")), ["Lernfortschritt 1 → Aufgabe 3.4"]);
   for (const unit of content.units) assert.ok(content.resultSections(unit).length > 0, unit.id);
+  assert.deepEqual(content.resultSections(byId("L2.1")), ["Lernfortschritt 2 → Aufgabe 1"]);
+  assert.deepEqual(content.resultSections(byId("L3.4")), ["Lernfortschritt 3 → Aufgabe 4.1", "Lernfortschritt 3 → Aufgabe 4.2"]);
+});
+
+test("Section hints are unique across all learning progressions", () => {
+  const all = content.units.flatMap(unit => content.resultSections(unit));
+  assert.equal(new Set(all).size, all.length);
 });

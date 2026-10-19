@@ -449,3 +449,24 @@ für L1.5–L3.4 ergänzt. Startseitenhinweis passt sich an.
 Prüfstand: 64/64 Tests (neu: tests/ds-model.test.cjs, tests/l3-content.test.cjs),
 Syntax, Diff; Browser: alle Modellfälle von L3 durchgeklickt, Baum-Prüfstand
 für sechs Bäume, Backspace-Aufgabe in Pyodide bestanden, keine Konsolenfehler.
+
+## 19. Oktober 2026 – Offene Punkte abgearbeitet (1.0.1)
+
+Bearbeiter: Claude, auf Jakobs Auftrag autark.
+- Veröffentlichung: GitHub Actions/Pages waren über eine Stunde gestört
+  („degraded performance“). Nach Normalisierung lief e312881 erfolgreich;
+  1.0.0 online abgenommen (alle Dateien 200, Modelle L1.5/L2.6/L3.1,
+  Baum-Prüfstand, Python-Aufgabe L3.3 in Pyodide, keine Konsolenfehler).
+- Ergebnissicherung: Die beiden Word-Dokumente waren byte-identisch, die
+  INF2-Kopfzeile nannte INF1. Beide gegliedert (Lernfortschritt als
+  Überschrift 1, 40 Materialaufgaben als Überschrift 2 mit Seitenumbrüchen),
+  Jakobs Überschriften „Aufgabe 1/2“ erhalten, Kopfzeile INF2 korrigiert.
+  Nur ersetzt, nachdem die Originale unverändert waren; in Word geprüft;
+  Sicherung in .tmp/docx-backup-2026-10-19 und OneDrive-Versionen.
+  Website-Hinweise eindeutig „Lernfortschritt n → Aufgabe x“ (neuer Test).
+- Bildungsplan: PDF ohne Zusatzsoftware mit eigenem Textauszug gelesen;
+  Abgleich in docs/bildungsplan-abgleich.md, REVIEW-01 erledigt.
+- Themenbanner für die 15 Einheiten ohne Foto.
+- Übergabe von Codex als überholt gekennzeichnet.
+Prüfstand: 65/65 Tests, Syntax, Diff; Banner aller 15 Einheiten im Browser
+geprüft (hell/dunkel).

@@ -1,5 +1,9 @@
 # Übergabe von Codex an Claude
 
+> Hinweis (19.10.2026, abends): Diese Übergabe beschreibt den Stand 0.7.0 und ist
+> überholt. Aktuell ist 1.0.1 mit allen 19 Einheiten; maßgeblich sind TASKS.md
+> und docs/work-log.md.
+
 Stand: 19. Oktober 2026. Auftraggeber: Jakob Sawazki.
 
 ## Auftrag und Einstieg

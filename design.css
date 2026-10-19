@@ -423,3 +423,29 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .tree-lab h4 { margin: 22px 0 10px; }
 @media (max-width: 760px) { .queue-box { grid-template-columns: 1fr; } }
 .step-code.is-prose li { white-space: normal; padding-left: 3.4em; text-indent: -3.4em; }
+
+/* Themenbanner (ersetzen fehlende Fotos) */
+.banner-cells span.is-hit { border-color: var(--state-done); background: color-mix(in srgb, var(--state-done) 22%, var(--panel-2)); }
+.banner-cells span.is-seen { opacity: .5; }
+.banner-bars { position: relative; display: flex; align-items: flex-end; gap: 8px; height: 110px; margin: 18px 0 14px; }
+.banner-bars span { position: relative; display: flex; align-items: flex-end; justify-content: center; width: 42px; height: var(--h); border: 1px solid color-mix(in srgb, var(--accent) 60%, var(--line)); border-radius: 8px 8px 3px 3px; background: linear-gradient(color-mix(in srgb, var(--accent) 35%, var(--panel-2)), var(--panel-2)); animation: bar-in .6s ease both; animation-delay: calc(var(--i) * 70ms); transform-origin: bottom; }
+.banner-bars b { padding-bottom: 6px; font: 700 .8rem Consolas, monospace; color: var(--text); }
+@keyframes bar-in { from { transform: scaleY(.15); opacity: 0; } }
+.banner-chain, .banner-queue, .banner-flow { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 22px 0 14px; }
+.banner-chain > span, .banner-queue > span, .banner-flow > span { display: inline-flex; overflow: hidden; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: 9px; background: color-mix(in srgb, var(--panel-2) 85%, transparent); font: 700 .85rem Consolas, monospace; color: var(--text); animation: cell-in .5s ease both; animation-delay: calc(var(--i) * 70ms); }
+.banner-chain b, .banner-chain em { padding: 7px 10px; font-style: normal; }
+.banner-chain em { border-left: 1px solid var(--line); color: var(--accent); }
+.banner-chain .anchor, .banner-chain .null { padding: 7px 10px; border-style: dashed; color: var(--muted); }
+.banner-chain i, .banner-flow i { font-style: normal; font-weight: 800; color: var(--accent); }
+.banner-queue > span, .banner-flow > span { padding: 8px 12px; }
+.banner-queue small { color: var(--muted); font-size: .72rem; }
+.banner-stack { position: relative; display: inline-grid; gap: 5px; margin: 18px 0 12px; padding: 0 10px 8px; border: 2px solid var(--line); border-top: 0; border-radius: 0 0 12px 12px; }
+.banner-stack span { padding: 6px 28px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: 7px; background: color-mix(in srgb, var(--panel-2) 85%, transparent); font: 700 .82rem Consolas, monospace; text-align: center; color: var(--text); animation: cell-in .5s ease both; animation-delay: calc(var(--i) * 70ms); }
+.banner-stack span:first-child { border-color: var(--state-changed); }
+.banner-stack small { color: var(--muted); font-size: .68rem; text-align: center; }
+.banner-tree { position: relative; display: block; width: min(100%, 300px); height: auto; margin: 12px 0 8px; }
+.banner-tree line { stroke: var(--accent); stroke-width: 1.5; opacity: .6; }
+.banner-tree circle { fill: var(--panel-2); stroke: color-mix(in srgb, var(--accent) 60%, var(--line)); stroke-width: 1.3; }
+.banner-tree text { fill: var(--text); font: 700 11px Consolas, monospace; text-anchor: middle; }
+.banner-tree g[style] { animation: cell-in .5s ease both; animation-delay: calc(var(--i) * 60ms); }
+@media (prefers-reduced-motion: reduce) { .banner-bars span, .banner-chain > span, .banner-queue > span, .banner-flow > span, .banner-stack span, .banner-tree g[style] { animation: none; } }

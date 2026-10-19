@@ -16,7 +16,10 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | DESIGN-01 | DONE | Claude | 19.10.2026: 0.9.1 – Lektionskopf mit Kennzahlen und Banner, nummerierte Arbeitsschritte mit Kapitelleiste, Code-Editor-Komfort. Hell/dunkel, Desktop/375 px geprüft. |
 | CONTENT-L2 | DONE | Claude | 19.10.2026: 0.9.0 – alle acht L2-Einheiten (L2_1 bis L2_4.x): Algorithmus-Eigenschaften + Kfz-Steuer, Bubble Sort (inkl. Optimierung), Selection Sort (auf-/absteigend), Fehleranalyse, lineare Suche + Verschlüsselung, binäre Suche (Zugriffszählung prüft echtes Halbieren), Vergleich der Suchen + Modulo-Filter, Anwenden nach Namen + Häufigkeiten. Schrittmodelle an Bezeichner des Materials angepasst. 57/57 Tests, Pyodide geprüft. |
 | CONTENT-L3 | DONE | Claude | 19.10.2026: 1.0.0 – L3.1 verkettete Liste, L3.2 Stapel, L3.3 Warteschlange, L3.4 Baum (Material L3_1 bis L3_4.2). Modelle in `ds-model.js`, Baum-Prüfstand. Python modelliert Zeiger/Bäume als Tabellen (Bildungsplan: Beschreiben und Modellieren). 64/64 Tests, Pyodide geprüft. |
-| REVIEW-01 | OPEN | – | 19.10.2026 (Claude): Materialmatrix für alle 19 Einheiten ergänzt; Inhalte decken die BPE7-Tabelle der Doku (7.1–7.3 inkl. geordnet/voll/vollständig) ab. Offen: formale Abnahme durch Jakob am Bildungsplan-PDF (lokal keine PDF-Werkzeuge), Erprobung im Unterricht, Fotomotive L1.5–L3.4. |
+| REVIEW-01 | DONE | Claude | 19.10.2026: Bildungsplan (LPH 2/2020, S. 17/18) per eigenem PDF-Textauszug gelesen und Punkt für Punkt abgeglichen: BPE 7.1–7.3 vollständig abgedeckt, siehe docs/bildungsplan-abgleich.md. Materialmatrix für alle 19 Einheiten. |
+| RESULTS-02 | DONE | Claude | 19.10.2026: Beide OneDrive-Dokumente gegliedert: Überschrift 1 je Lernfortschritt, Überschrift 2 je Materialaufgabe (40 Aufgaben, Seitenumbrüche wie im Original; Jakobs Überschriften „Aufgabe 1/2“ erhalten). Kopfzeile INF2 korrigiert (stand auf INF1). Website-Hinweis jetzt eindeutig „Lernfortschritt n → Aufgabe x“. In Word geöffnet und geprüft; Originale in .tmp/docx-backup-2026-10-19. |
+| DESIGN-02 | DONE | Claude | 19.10.2026: 1.0.1 – Themenbanner statt fehlender Fotos (Balken für Sortieren, markiertes Feld für Suchen, Knotenkette, Stapel, Warteschlange, Baum, Ablauf für L2.1). |
+| CLASS-01 | OPEN | Jakob | Erprobung im Unterricht (J2 INF1/INF2): Zeitbedarf je Einheit gegenüber 30 h Richtwert, Schwierigkeit der Codeaufgaben, Freigabe „Bearbeiten“ der OneDrive-Links prüfen. Optional: Fotomotive für L1.5–L3.4. |
 
 ## Übergabe
 
@@ -24,9 +27,9 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.0** – alle 19 Einheiten ausgearbeitet. Offen: REVIEW-01, Fotomotive L1.5–L3.4, Rückmeldungen aus dem Unterricht.
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, online. Offen ist nur CLASS-01 (Erprobung im Unterricht durch Jakob).
 Derzeit keine Dateireservierung.
-Prüfungen: `node --test tests/*.test.cjs` (64/64), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (65/65), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale

@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.0.0 – Alle 19 Lerneinheiten** (L1, L2 und L3 vollständig).
+Aktueller Stand: **1.0.1 – Alle 19 Lerneinheiten** (L1, L2 und L3 vollständig, online). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,15 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.0.1 – 19. Oktober 2026
+
+Themenbanner für alle Einheiten ohne Foto (Sortieren: Balken, Suchen:
+markiertes Treffer-Feld, verkettete Liste: Knotenkette mit Anker und NULL,
+Stapel, Warteschlange, Baum, Algorithmusbegriff: Eingabe → Verarbeitung →
+Ausgabe). Abschnittshinweise der Ergebnissicherung eindeutig als
+„Lernfortschritt n → Aufgabe x“; die beiden OneDrive-Dokumente sind
+entsprechend gegliedert. Bildungsplanabgleich dokumentiert. 65 Tests.
 
 ### 1.0.0 – 19. Oktober 2026
 

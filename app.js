@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.0.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.0.1#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -217,6 +217,27 @@
     const fieldId = `code-${unit.id.replace(".", "-")}-${task.id}`;
     return `<section class="task code-task" data-code-unit="${unit.id}" data-code-task="${task.id}"><h4>${esc(task.title)}</h4><p>${esc(task.prompt)}</p><label for="${fieldId}">Dein Python-Code</label><textarea id="${fieldId}" class="code-editor" data-work="${task.id}" data-work-unit="${unit.id}" maxlength="20000" rows="14" spellcheck="false" autocapitalize="off">${esc(workValue(unit.id, task.id, task.starter))}</textarea><div class="editor-tools"><span>Tab rückt ein · Umschalt+Tab rückt aus · Strg+Enter führt aus · Esc, dann Tab verlässt den Editor</span><button type="button" data-reset-code>Startcode wiederherstellen</button></div><small class="draft-status" role="status"></small><div class="code-actions"><button class="primary" data-run-code>Code ausführen und prüfen</button><button data-stop-code disabled>Stoppen</button><span class="code-award">${solved ? `Bestanden · ${task.points} Punkte` : `${task.points} Punkte möglich`}</span></div><p class="code-status" role="status">Python wird erst beim Ausführen geladen. Dein Code läuft in deinem Browser.</p><pre class="code-output" aria-label="Programmausgabe" tabindex="0">Hier erscheint deine Ausgabe.</pre><ul class="code-checks" aria-label="Prüfergebnisse"></ul><details><summary>Ein Hinweis zum nächsten Schritt</summary><p>${esc(task.hint)}</p></details></section>`;
   }
+  // Themenspezifische Grafik für Einheiten ohne Foto.
+  function bannerVisual(unit) {
+    const model = unit.stepLab?.cases[0].model || (unit.treeLab ? "tree" : "");
+    const cell = (value, index, extra = "") => `<span class="${extra}" style="--i:${index}"><small>${index}</small>${esc(String(value))}</span>`;
+    const args = unit.stepLab?.cases[0].args || [];
+    if (/Sort/.test(model)) {
+      const values = args[0].slice(0, 8), max = Math.max(...values);
+      return `<div class="banner-bars">${values.map((value, index) => `<span style="--i:${index};--h:${Math.round(18 + 82 * value / max)}%"><b>${esc(String(value))}</b></span>`).join("")}</div>`;
+    }
+    if (/Search|count/.test(model)) {
+      const values = args[0].slice(0, 10), hit = values.indexOf(args[1]);
+      return `<div class="banner-cells">${values.map((value, index) => cell(value, index, index === hit ? "is-hit" : index < hit ? "is-seen" : "")).join("")}</div>`;
+    }
+    if (/^list/.test(model)) return `<div class="banner-chain"><span class="anchor">Anker</span>${args[0].slice(0, 4).map(([id, data], index) => `<i>→</i><span style="--i:${index}"><b>${esc(data)}</b><em>${esc(args[0][index + 1]?.[0] ?? "NULL")}</em></span>`).join("")}<i>→</i><span class="null">NULL</span></div>`;
+    if (model === "stack" || model === "typing") return `<div class="banner-stack">${["Tom", "bin", "Ich", "Hallo"].map((value, index) => `<span style="--i:${index}">${value}</span>`).join("")}<small>PUSH ↓ · ↑ POP</small></div>`;
+    if (model === "queue") return `<div class="banner-queue"><small>vorne</small>${["T085", "T432", "T021", "T099"].map((value, index) => `<span style="--i:${index}">${value}</span>`).join("")}<small>hinten</small></div>`;
+    if (model === "tree") return `<svg class="banner-tree" viewBox="0 0 280 120" role="presentation"><g><line x1="140" y1="22" x2="75" y2="62"/><line x1="140" y1="22" x2="205" y2="62"/><line x1="75" y1="62" x2="40" y2="102"/><line x1="75" y1="62" x2="110" y2="102"/><line x1="205" y1="62" x2="170" y2="102"/><line x1="205" y1="62" x2="240" y2="102"/></g>${[[140, 22, 50], [75, 62, 30], [205, 62, 70], [40, 102, 20], [110, 102, 40], [170, 102, 60], [240, 102, 80]].map(([x, y, v], index) => `<g style="--i:${index}"><circle cx="${x}" cy="${y}" r="15"/><text x="${x}" y="${y + 4}">${v}</text></g>`).join("")}</svg>`;
+    if (!unit.stepLab && !unit.trace) return `<div class="banner-flow">${["Eingabe", "Verarbeitung", "Ausgabe"].map((step, index) => `${index ? "<i>→</i>" : ""}<span style="--i:${index}">${step}</span>`).join("")}</div>`;
+    const values = (args[0] || unit.trace?.[0].values || []).slice(0, 8);
+    return `<div class="banner-cells">${values.map((value, index) => cell(value, index)).join("")}</div>`;
+  }
   function renderUnit(id) {
     const unit = engine.byId(id);
     if (!unit) { renderMissing(); return; }
@@ -231,10 +252,9 @@
     const next = content.units[content.units.indexOf(unit) + 1];
     const preview = developerMode && !engine.unlocked(state, id);
     const codeTasks = unit.tasks.filter(task => task.type === "code").length;
-    const bannerValues = unit.stepLab?.cases[0].args[0] || unit.trace?.[0].values || ["A", "B", "C", "D", "E"];
     const visual = unit.image
       ? `<figure class="lesson-photo"><img src="${unit.image.src}" width="1672" height="941" alt="${esc(unit.image.alt)}"><figcaption>${esc(unit.image.caption)}</figcaption></figure>`
-      : `<figure class="lesson-banner ${module.color}" aria-hidden="true"><div class="banner-code">${unit.id}</div><div class="banner-cells">${bannerValues.slice(0, 8).map((value, index) => `<span style="--i:${index}"><small>${index}</small>${esc(String(value))}</span>`).join("")}</div><figcaption>${esc(module.title)} · ${module.plan}</figcaption></figure>`;
+      : `<figure class="lesson-banner ${module.color}" aria-hidden="true"><div class="banner-code">${unit.id}</div>${bannerVisual(unit)}<figcaption>${esc(module.title)} · ${module.plan}</figcaption></figure>`;
     const header = `<div class="breadcrumb"><a href="#path/${module.id}">${module.id} · ${module.title}</a><span aria-hidden="true">/</span><span>${unit.id}</span></div><section class="lesson-heading"><span class="eyebrow">${status(unit).toUpperCase()}</span><h2>${esc(unit.title)}</h2><p>${esc(unit.description)}</p><div class="lesson-points"><span id="lesson-score">${engine.earned(state, id)} / ${unit.points} Punkte</span><progress id="lesson-progress" value="${engine.earned(state, id)}" max="${unit.points}" aria-label="Punkte in ${id}"></progress></div>${unit.ready ? `<ul class="lesson-meta"><li>${icon("check")} ${unit.tasks.length} Pflichtaufgaben</li>${codeTasks ? `<li>${icon("spark")} ${codeTasks} × Python im Browser</li>` : ""}<li>${icon("notes")} Material ${unit.sourceRefs.join(", ")}</li></ul>` : ""}</section>${visual}<div class="lesson-intro">${unit.situation ? `<section class="lesson-panel mission"><span class="eyebrow">DEINE MISSION</span><h3>${esc(unit.situation.title)}</h3><p>${esc(unit.situation.text)}</p></section>` : ""}<section class="lesson-panel goals"><span class="eyebrow">LERNZIELE</span><h3>Das lernst du hier</h3><ul class="goal-list">${unit.goals.map(goal => `<li>${esc(goal)}</li>`).join("")}</ul></section></div>`;
     if (!unit.ready) {
       main.innerHTML = `${header}<section class="lesson-panel preparation"><span class="eyebrow">IN VORBEREITUNG</span><h3>Hier entsteht deine nächste Lerneinheit.</h3><p>Die Erklärungen und Aufgaben werden noch ausgearbeitet. Hier kannst du noch keine Punkte sammeln.</p><a href="#path/${module.id}">Zur Übersicht von ${module.id} →</a></section>`; return;

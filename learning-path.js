@@ -814,8 +814,9 @@
     const own = valid.filter(doc => new RegExp(`${doc.match}(?!\\d)`).test(key));
     return own.length === 1 ? own : valid;
   };
-  const resultSections = unit => unit.sourceRefs.map(ref => `Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "1.0.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections };
+  // Gliederung der Dokumente: Überschrift 1 „Lernfortschritt n – …“, darunter Überschrift 2 „Aufgabe x“.
+  const resultSections = unit => unit.sourceRefs.map(ref => `Lernfortschritt ${ref.match(/^L(\d+)_/)[1]} → Aufgabe ${ref.replace(/^L\d+_/, "")}`);
+  const data = { version: "1.0.1", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);
