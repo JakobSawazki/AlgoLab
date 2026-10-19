@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.3.0 – Programmieren** (alle 19 Einheiten, Programmierbereich, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.4.0 – KI-Lerncoach** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,32 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.4.0 – 19. Oktober 2026
+
+Optionaler **KI-Lerncoach** nach dem Konzept von PythonLab:
+
+- Architektur: Browser → Cloudflare-Worker (Schlüssel nur als Secret,
+  Ursprungsprüfung, Ratenbegrenzung) → Google Gemini. `config.js` enthält nur
+  die öffentliche Worker-Adresse; standardmäßig wird der PythonLab-Worker
+  mitgenutzt (gleicher Ursprung jakobsawazki.github.io). Alternativ liegt ein
+  eigener, auf BPE 7 zugeschnittener Worker in `services/ai-coach-worker/`.
+- Zustimmung: Dialog vor der ersten Übertragung (Inhalte, Anbieter,
+  Grenzen der KI, nur Sitzung); jederzeit zurückziehbar.
+- Nutzung: Schalter „KI-Modus“ (automatischer Denkimpuls nach jedem
+  Fehlversuch), „KI jetzt um Hilfe bitten“, „Vertiefende Hilfe“; in allen
+  Programmieraufgaben, in der Werkstatt und als kompakter Knopf in den
+  Codeaufgaben der Lektionen und Zusatzaufgaben.
+- Datensparsamkeit (`ai-coach.js`): nur Aufgabe, Code (max. 12 000 Zeichen),
+  lokales Prüfergebnis und Versuchszähler; kein Name, keine Klasse, keine
+  Punkte, kein Lernstand. Antworten werden bereinigt, maskiert dargestellt
+  und je Code zwischengespeichert. Die KI vergibt keine Punkte.
+- Befund beim Einrichten: Der PythonLab-Worker ist erreichbar, die
+  Gemini-Anfrage scheitert jedoch mit 502 (Schlüssel, Kontingent oder Modell
+  prüfen; betrifft auch PythonLab). Bis dahin zeigt AlgoLab eine
+  verständliche Meldung; der lokale Lerncoach arbeitet unverändert.
+- 92 Tests (neu: Client mit simulierten Antworten und Fehlern, Worker mit
+  Ursprungsprüfung, Feldfilter, Schlüssel nur im Header, Ratenbegrenzung).
 
 ### 1.3.0 – 19. Oktober 2026
 

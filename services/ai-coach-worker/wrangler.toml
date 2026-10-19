@@ -1,0 +1,9 @@
+name = "algolab-ai-coach"
+main = "worker.js"
+compatibility_date = "2026-10-19"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://jakobsawazki.github.io,http://127.0.0.1:4175,http://localhost:4175"
+GEMINI_MODEL = "gemini-flash-lite-latest"
+# Secret (niemals hier eintragen): wrangler secret put GEMINI_API_KEY

@@ -522,3 +522,22 @@ gespeichert, Tupeltausch abgelehnt, Werkstatt (Vorlage binäre Suche,
 IndexError-Erklärung, Endlosschleife nach 5 s gestoppt), Lektionsaufgabe
 L2.6 weiterhin bestanden, 375 px ohne Überlauf.
 Online-Abnahme 1.3.0 (4f369a5): Version 1.3.0, practice.js/practice-check.js/python-worker.js/python-checks.js Status 200, Aufgabe „Habe ich gewonnen?“ mit Eingabe gestartet und alle 5 Testfälle live bestanden, keine Konsolenfehler.
+
+## 19. Oktober 2026 – KI-Lerncoach (1.4.0)
+
+Bearbeiter: Claude, auf Jakobs Auftrag („KI-Unterstützung für das
+Programmieren“, „dasselbe Konzept wie bei PythonLab“). PythonLab-Konzept
+(docs/KI_CODEPRUEFUNG_KONZEPT.md), config.js und Worker gelesen.
+Erreichbarkeit des Workers pythonlab-ai-feedback geprüft: CORS für
+https://jakobsawazki.github.io 204, lokale Adressen 403. Zwei Testanfragen mit
+neutralem Beispielcode: beide 502 „Der KI-Dienst konnte gerade keine
+Rückmeldung erzeugen“ (< 1 s, also Fehler von Gemini selbst – Schlüssel,
+Kontingent oder Modell). Als AI-02 für Jakob eingetragen.
+Umgesetzt: config.js, ai-coach.js (Zustimmung/Modus nur sessionStorage,
+Sitzungs-ID, Feldfilter, Kürzung, Cache, Fehlertexte), Zustimmungsdialog,
+KI-Bereich in Programmieraufgaben, Werkstatt und Lektions-Codeaufgaben,
+automatische Anfrage nach Fehlversuch im KI-Modus, eigener Worker
+services/ai-coach-worker/ (BPE-7-Prompt, upstreamStatus, Logs) mit Anleitung.
+Prüfstand: 92/92 Tests, Syntax, Diff; Browser mit simulierten Antworten:
+Dialog, Modus, automatische Anfrage (nur erlaubte Felder), Antwortkarte,
+vertiefende Hilfe, 502-Meldung, Zurückziehen, Lektionsknopf.

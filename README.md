@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 19. Oktober 2026. Version **1.3.0 – Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar**.
+Stand: 19. Oktober 2026. Version **1.4.0 – KI-Lerncoach, Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar**.
 Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
 (Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
 Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
@@ -121,6 +121,12 @@ Editor, Konsole mit Ausgabe- und Eingabereiter, automatische Prüfung mit
 mehreren Testfällen, lokaler Lerncoach und eine freie Python-Werkstatt mit
 Vorlagen. Der Programmierstand wird gespeichert, zählt aber nicht für die
 Freischaltung der Lerneinheiten.
+
+Wie in PythonLab gibt es einen optionalen **KI-Lerncoach** (Google Gemini über
+einen abgesicherten Cloudflare-Worker): Nach ausdrücklicher Zustimmung für die
+Browsersitzung gibt er nach Fehlversuchen kurze Denkimpulse, ohne die Lösung zu
+verraten. Übertragen werden nur Aufgabe, Code und Prüfergebnis – kein Name und
+kein Lernstand. Einrichtung und Grundsätze: `services/ai-coach-worker/README.md`.
 
 Seit 1.1.0 zeigen die Schrittmodelle jeden Algorithmus wahlweise als Python-Code
 oder als Struktogramm nach der Operatorenliste Baden-Württemberg. Die

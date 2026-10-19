@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.3.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.4.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -215,7 +215,7 @@
   function renderCodeTask(unit, task) {
     const solved = task.optional ? state.extras?.[unit.id]?.[task.id] === true : state.answers[unit.id]?.[task.id] === true;
     const fieldId = `code-${unit.id.replace(".", "-")}-${task.id}`;
-    return `<section class="task code-task ${task.optional ? "is-optional" : ""}" data-code-unit="${unit.id}" data-code-task="${task.id}">${task.source ? `<span class="task-source">${esc(task.source)}</span>` : ""}<h4>${esc(task.title)}</h4><p>${esc(task.prompt)}</p><label for="${fieldId}">Dein Python-Code</label><textarea id="${fieldId}" class="code-editor" data-work="${task.id}" data-work-unit="${unit.id}" maxlength="20000" rows="14" spellcheck="false" autocapitalize="off">${esc(workValue(unit.id, task.id, task.starter))}</textarea><div class="editor-tools"><span>Tab rückt ein · Umschalt+Tab rückt aus · Strg+Enter führt aus · Esc, dann Tab verlässt den Editor</span><button type="button" data-reset-code>Startcode wiederherstellen</button></div><small class="draft-status" role="status"></small><div class="code-actions"><button class="primary" data-run-code>Code ausführen und prüfen</button><button data-stop-code disabled>Stoppen</button><span class="code-award">${task.optional ? (solved ? "✓ Gelöst · freiwillig" : "Freiwillig · ohne Punkte") : solved ? `Bestanden · ${task.points} Punkte` : `${task.points} Punkte möglich`}</span></div><p class="code-status" role="status">Python wird erst beim Ausführen geladen. Dein Code läuft in deinem Browser.</p><pre class="code-output" aria-label="Programmausgabe" tabindex="0">Hier erscheint deine Ausgabe.</pre><ul class="code-checks" aria-label="Prüfergebnisse"></ul><details><summary>Ein Hinweis zum nächsten Schritt</summary><p>${esc(task.hint)}</p></details></section>`;
+    return `<section class="task code-task ${task.optional ? "is-optional" : ""}" data-code-unit="${unit.id}" data-code-task="${task.id}">${task.source ? `<span class="task-source">${esc(task.source)}</span>` : ""}<h4>${esc(task.title)}</h4><p>${esc(task.prompt)}</p><label for="${fieldId}">Dein Python-Code</label><textarea id="${fieldId}" class="code-editor" data-work="${task.id}" data-work-unit="${unit.id}" maxlength="20000" rows="14" spellcheck="false" autocapitalize="off">${esc(workValue(unit.id, task.id, task.starter))}</textarea><div class="editor-tools"><span>Tab rückt ein · Umschalt+Tab rückt aus · Strg+Enter führt aus · Esc, dann Tab verlässt den Editor</span><button type="button" data-reset-code>Startcode wiederherstellen</button></div><small class="draft-status" role="status"></small><div class="code-actions"><button class="primary" data-run-code>Code ausführen und prüfen</button><button data-stop-code disabled>Stoppen</button><span class="code-award">${task.optional ? (solved ? "✓ Gelöst · freiwillig" : "Freiwillig · ohne Punkte") : solved ? `Bestanden · ${task.points} Punkte` : `${task.points} Punkte möglich`}</span></div><p class="code-status" role="status">Python wird erst beim Ausführen geladen. Dein Code läuft in deinem Browser.</p><pre class="code-output" aria-label="Programmausgabe" tabindex="0">Hier erscheint deine Ausgabe.</pre><ul class="code-checks" aria-label="Prüfergebnisse"></ul>${renderAiPanel("compact")}<details><summary>Ein Hinweis zum nächsten Schritt</summary><p>${esc(task.hint)}</p></details></section>`;
   }
   // Themenspezifische Grafik für Einheiten ohne Foto.
   function bannerVisual(unit) {
@@ -650,13 +650,13 @@
     if (!exercise) { renderMissing(); return; }
     document.querySelector("#page-title").textContent = `Programmieren · ${exercise.title}`;
     const unit = engine.byId(exercise.unit), solved = practiceSolved(exercise.id);
-    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>${esc(exercise.title)}</span></div><section class="lesson-heading"><span class="eyebrow">${esc(exercise.topic.toUpperCase())} · ${esc(exercise.level.toUpperCase())}</span><h2>${esc(exercise.title)}</h2><p>${esc(exercise.description)}</p><ul class="lesson-meta"><li>${icon("notes")} Material ${esc(exercise.source)}</li><li>${icon("check")} ${exercise.check.cases.length} Testfälle</li><li id="practice-solved-chip" ${solved ? "" : "hidden"}>${icon("check")} Gelöst</li></ul></section><div class="practice-workspace"><aside class="lesson-panel practice-brief"><span class="eyebrow">DEINE AUFGABE</span><ol>${exercise.instructions.map(step => `<li>${esc(step)}</li>`).join("")}</ol>${exercise.numericInput ? '<p class="practice-note">input() liefert immer Text. Für Zahlen brauchst du int(input(...)) oder float(input(...)).</p>' : ""}<p class="practice-note">Beim Prüfen wird dein Programm mit mehreren Testeingaben ausgeführt. Bewertet wird nur, was print() ausgibt; Eingabeaufforderungen von input() zählen nicht mit.</p>${unit && accessible(unit.id) ? `<a class="practice-unit" href="#unit/${unit.id}">${icon("route")} Erklärung in ${unit.id} · ${esc(unit.title)}</a>` : `<span class="practice-unit">${icon("route")} Passt zu ${exercise.unit}${unit ? ` · ${esc(unit.title)}` : ""}</span>`}</aside><section class="practice-main">${editorShell({ id: exercise.id, code: practiceDraft(exercise.id, exercise.starter), input: exercise.input || "", check: true })}<div class="result-banner" id="practice-result" role="status" hidden></div><ul class="practice-cases" id="practice-cases" aria-label="Testfälle"></ul><section class="lesson-panel learning-coach"><span class="eyebrow">LERNCOACH</span><h3>Hinweise zu deinem Code</h3><p id="coach-lead">Die Prüfung läuft vollständig in deinem Browser. Hinweise helfen weiter, ohne die Lösung vorwegzunehmen.</p><ul id="coach-hints"></ul><button type="button" data-practice-hint>💡 Lernhinweis anzeigen</button></section></section></div>`;
+    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>${esc(exercise.title)}</span></div><section class="lesson-heading"><span class="eyebrow">${esc(exercise.topic.toUpperCase())} · ${esc(exercise.level.toUpperCase())}</span><h2>${esc(exercise.title)}</h2><p>${esc(exercise.description)}</p><ul class="lesson-meta"><li>${icon("notes")} Material ${esc(exercise.source)}</li><li>${icon("check")} ${exercise.check.cases.length} Testfälle</li><li id="practice-solved-chip" ${solved ? "" : "hidden"}>${icon("check")} Gelöst</li></ul></section><div class="practice-workspace"><aside class="lesson-panel practice-brief"><span class="eyebrow">DEINE AUFGABE</span><ol>${exercise.instructions.map(step => `<li>${esc(step)}</li>`).join("")}</ol>${exercise.numericInput ? '<p class="practice-note">input() liefert immer Text. Für Zahlen brauchst du int(input(...)) oder float(input(...)).</p>' : ""}<p class="practice-note">Beim Prüfen wird dein Programm mit mehreren Testeingaben ausgeführt. Bewertet wird nur, was print() ausgibt; Eingabeaufforderungen von input() zählen nicht mit.</p>${unit && accessible(unit.id) ? `<a class="practice-unit" href="#unit/${unit.id}">${icon("route")} Erklärung in ${unit.id} · ${esc(unit.title)}</a>` : `<span class="practice-unit">${icon("route")} Passt zu ${exercise.unit}${unit ? ` · ${esc(unit.title)}` : ""}</span>`}</aside><section class="practice-main">${editorShell({ id: exercise.id, code: practiceDraft(exercise.id, exercise.starter), input: exercise.input || "", check: true })}<div class="result-banner" id="practice-result" role="status" hidden></div><ul class="practice-cases" id="practice-cases" aria-label="Testfälle"></ul><section class="lesson-panel learning-coach"><span class="eyebrow">LERNCOACH</span><h3>Hinweise zu deinem Code</h3><p id="coach-lead">Die Prüfung läuft vollständig in deinem Browser. Hinweise helfen weiter, ohne die Lösung vorwegzunehmen.</p><ul id="coach-hints"></ul><button type="button" data-practice-hint>💡 Lernhinweis anzeigen</button>${renderAiPanel()}</section></section></div>`;
     setupPracticeEditor(exercise);
   }
   function renderWorkshop() {
     document.querySelector("#page-title").textContent = "Python-Werkstatt";
     const code = practiceDraft("werkstatt", practice.templates[0].code), input = practiceDraft("werkstatt-eingabe", "");
-    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>Python-Werkstatt</span></div><section class="lesson-heading"><span class="eyebrow">FREIES PROGRAMMIEREN</span><h2>Python-Werkstatt</h2><p>Hier gibt es keine Prüfung. Probiere Ideen aus, teste Algorithmen aus dem Unterricht mit eigenen Daten oder bereite eine Lösung vor. Dein Entwurf wird automatisch auf diesem Gerät gespeichert und gehört zur Lernstandsdatei.</p></section><div class="practice-workspace"><aside class="lesson-panel practice-brief"><span class="eyebrow">VORLAGEN</span><p>Lade eine Vorlage als Ausgangspunkt. Dein bisheriger Code wird dabei ersetzt.</p><div class="template-list">${practice.templates.map(template => `<button type="button" data-template="${template.id}">${esc(template.title)}</button>`).join("")}</div><p class="practice-note">Programme werden nach 5 Sekunden gestoppt. Eingaben für input() trägst du im Reiter „Eingabe“ ein – je Zeile eine. Für größere Projekte nutzt du im Unterricht Thonny.</p></aside><section class="practice-main">${editorShell({ id: "werkstatt", code, input, title: "werkstatt.py" })}<section class="lesson-panel learning-coach"><span class="eyebrow">LERNCOACH</span><h3>Fehlermeldung verstehen</h3><p id="coach-lead">Wenn dein Programm mit einer Fehlermeldung endet, erklärt der Lerncoach hier, was sie bedeutet.</p><ul id="coach-hints"></ul></section></section></div>`;
+    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>Python-Werkstatt</span></div><section class="lesson-heading"><span class="eyebrow">FREIES PROGRAMMIEREN</span><h2>Python-Werkstatt</h2><p>Hier gibt es keine Prüfung. Probiere Ideen aus, teste Algorithmen aus dem Unterricht mit eigenen Daten oder bereite eine Lösung vor. Dein Entwurf wird automatisch auf diesem Gerät gespeichert und gehört zur Lernstandsdatei.</p></section><div class="practice-workspace"><aside class="lesson-panel practice-brief"><span class="eyebrow">VORLAGEN</span><p>Lade eine Vorlage als Ausgangspunkt. Dein bisheriger Code wird dabei ersetzt.</p><div class="template-list">${practice.templates.map(template => `<button type="button" data-template="${template.id}">${esc(template.title)}</button>`).join("")}</div><p class="practice-note">Programme werden nach 5 Sekunden gestoppt. Eingaben für input() trägst du im Reiter „Eingabe“ ein – je Zeile eine. Für größere Projekte nutzt du im Unterricht Thonny.</p></aside><section class="practice-main">${editorShell({ id: "werkstatt", code, input, title: "werkstatt.py" })}<section class="lesson-panel learning-coach"><span class="eyebrow">LERNCOACH</span><h3>Fehlermeldung verstehen</h3><p id="coach-lead">Wenn dein Programm mit einer Fehlermeldung endet, erklärt der Lerncoach hier, was sie bedeutet. Die KI kann dir zusätzlich Feedback zu deinem Code geben.</p><ul id="coach-hints"></ul>${renderAiPanel()}</section></section></div>`;
     main.querySelectorAll("[data-template]").forEach(button => button.addEventListener("click", () => {
       const template = practice.templates.find(item => item.id === button.dataset.template);
       const editor = main.querySelector("#practice-code");
@@ -685,6 +685,9 @@
     const busy = running => { buttons().forEach(button => { button.disabled = running; }); stopButton.disabled = !running; };
     const runner = () => (pythonRunner ??= window.createAlgoLabPythonRunner({ onStatus: message => { if (output.isConnected && message) output.textContent = message; } }));
     const errorLine = text => String(text).trim().split("\n").filter(Boolean).at(-1) || "";
+    let lastReview = { passed: null, diagnostic: "", error: "" };
+    const aiExercise = exercise || { id: "werkstatt", title: "Freies Programmieren in der Python-Werkstatt", description: "Keine feste Aufgabe: Gib Feedback zu Verständlichkeit, Fehlern und möglichen Verbesserungen des Programms.", instructions: [] };
+    const ai = setupAiPanel(main.querySelector("[data-ai-panel]"), () => ({ exercise: aiExercise, code: editor.value, attempt: exercise ? practiceAttempts.get(exercise.id) || 1 : 1, review: lastReview }));
     async function start() {
       busy(true); showTab("output");
       try {
@@ -693,6 +696,7 @@
         output.textContent = (result.output || "") + (result.truncated ? "\n[Ausgabe nach 12000 Zeichen gekürzt]" : "") + (result.error ? `${result.output ? "\n" : ""}${errorLine(result.error)}` : "") || "(Keine Ausgabe – hast du print() verwendet?)";
         output.classList.toggle("has-error", Boolean(result.error));
         if (result.error) coach(practiceCheck.diagnostic(result.error), exercise ? practiceCheck.hints(exercise, editor.value, result.error, practiceAttempts.get(exercise.id) || 1) : [errorLine(result.error)], "warning");
+        lastReview = { passed: null, diagnostic: result.error ? practiceCheck.diagnostic(result.error) : "", error: result.error ? errorLine(result.error) : "" };
       } catch (error) { if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); } }
       finally { if (output.isConnected) busy(false); }
     }
@@ -723,11 +727,14 @@
           banner.className = "result-banner is-success";
           banner.textContent = fresh ? `Geschafft! Alle ${verdicts.length} Testfälle bestanden.` : `Alle ${verdicts.length} Testfälle bestanden – deine Lösung funktioniert weiterhin.`;
           main.querySelector("#practice-solved-chip").hidden = false;
+          lastReview = { passed: true, diagnostic: "Alle Testfälle bestanden.", error: "" };
           coach("Prüfung bestanden. Dein Programm erfüllt alle überprüften Anforderungen.", ["Teste es im Reiter „Eingabe“ noch mit eigenen Werten.", "Vergleiche deine Lösung mit dem Struktogramm in der passenden Lektion."], "success");
         } else {
           banner.className = "result-banner is-retry";
           banner.textContent = `${verdicts.filter(item => item.passed).length} von ${verdicts.length} Testfällen bestanden. ${failed.message}`;
           coach("Nächster sinnvoller Schritt", [...new Set([failed.message, ...practiceCheck.hints(exercise, editor.value, failed.result.error || "", attempt)])].slice(0, 3), "warning");
+          lastReview = { passed: false, diagnostic: failed.message, error: failed.result.error ? errorLine(failed.result.error) : "" };
+          ai.auto();
         }
       } catch (error) {
         if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); coach("Die Prüfung wurde unterbrochen.", [practiceCheck.diagnostic(error.message)], "warning"); }
@@ -756,6 +763,79 @@
     const items = practice.exercises.filter(exercise => exercise.unit === unit.id);
     if (!items.length) return "";
     return `<aside class="lesson-panel practice-links"><strong>Weiter programmieren</strong><p>Passend zu ${unit.id} gibt es im Bereich Programmieren Aufgaben mit input() wie im Unterrichtsmaterial:</p><div class="can-units">${items.map(exercise => `<a href="#programmieren/${exercise.id}">${practiceSolved(exercise.id) ? "✓ " : ""}${esc(exercise.title)}</a>`).join("")}</div></aside>`;
+  }
+  // KI-Lerncoach (optional, Konzept wie in PythonLab): nach Zustimmung für die Browsersitzung,
+  // manuell oder automatisch nach Fehlversuchen. Die KI vergibt keine Punkte.
+  const aiConfig = window.ALGOLAB_CONFIG || {};
+  const aiProvider = String(aiConfig.aiProviderLabel || "einen KI-Dienst").trim();
+  const aiCoach = window.createAlgoLabAiCoach({ endpoint: String(aiConfig.aiFeedbackEndpoint || "") });
+  function askAiConsent() {
+    const dialog = document.querySelector("#ai-consent-dialog");
+    if (aiCoach.consented()) return Promise.resolve(true);
+    if (!dialog?.showModal) return Promise.resolve(window.confirm(`Für die KI-Hilfe werden Aufgabe, dein Code und das Prüfergebnis an ${aiProvider} übertragen. Einverstanden?`) && (aiCoach.grantConsent(), true));
+    dialog.querySelector("[data-ai-provider]").textContent = aiProvider;
+    const privacy = dialog.querySelector("[data-ai-privacy]");
+    privacy.hidden = !aiConfig.aiPrivacyUrl; if (aiConfig.aiPrivacyUrl) privacy.href = aiConfig.aiPrivacyUrl;
+    return new Promise(resolve => {
+      dialog.addEventListener("close", () => { const agreed = dialog.returnValue === "agree"; if (agreed) aiCoach.grantConsent(); resolve(agreed); }, { once: true });
+      dialog.returnValue = ""; dialog.showModal();
+    });
+  }
+  function renderAiPanel(kind = "full") {
+    if (!aiCoach.available()) return kind === "full" ? '<div class="ai-panel is-unavailable"><span class="ai-symbol" aria-hidden="true">☁</span><div><strong>KI-Hilfe nicht eingerichtet</strong><small>Der lokale Lerncoach und die automatische Prüfung funktionieren vollständig.</small></div></div>' : "";
+    if (kind === "compact") return '<div class="ai-panel compact" data-ai-panel><div class="code-actions"><button type="button" data-ai-ask>✨ KI-Hinweis zu meinem Code</button></div><div class="ai-answer" data-ai-answer aria-live="polite" hidden></div></div>';
+    const active = aiCoach.modeActive();
+    return `<div class="ai-panel" data-ai-panel><div class="ai-mode ${active ? "is-active" : ""}"><span class="ai-symbol" aria-hidden="true">✨</span><div><strong>KI-Modus <span data-ai-status>${active ? "aktiv" : "aus"}</span></strong><small data-ai-desc>${active ? `Nach einer fehlgeschlagenen Prüfung fragt AlgoLab automatisch ${esc(aiProvider)} nach einem Denkimpuls.` : "Aktiviere den Modus freiwillig, wenn du nach Fehlversuchen zusätzliche Hinweise möchtest."}</small></div><button type="button" class="ai-toggle" role="switch" data-ai-toggle aria-checked="${active}" aria-label="KI-Modus ${active ? "ausschalten" : "aktivieren"}"><span></span></button></div><div class="code-actions"><button type="button" data-ai-ask>✨ KI jetzt um Hilfe bitten</button><button type="button" data-ai-deep hidden>Vertiefende Hilfe</button></div><div class="ai-answer" data-ai-answer aria-live="polite" hidden></div><p class="ai-privacy">Code wird nur nach deiner Zustimmung an ${esc(aiProvider)} übertragen – ohne Name, Klasse oder Lernstand. Schreibe keine persönlichen Daten in den Code. <button type="button" class="text-link" data-ai-revoke ${aiCoach.consented() ? "" : "hidden"}>Zustimmung zurückziehen</button></p></div>`;
+  }
+  function renderAiAnswer(box, result) {
+    const feedback = result.feedback;
+    box.hidden = false;
+    box.className = "ai-answer";
+    box.innerHTML = `<span class="ai-label">✨ KI-Hinweis · ${esc(aiProvider)}${result.cached ? " · bereits abgefragt" : ""}</span>${feedback.summary ? `<p>${esc(feedback.summary)}</p>` : ""}${feedback.strengths.length ? `<p class="ai-strength"><strong>Das gelingt schon:</strong> ${esc(feedback.strengths[0])}</p>` : ""}${feedback.nextSteps.length ? `<strong>Nächste Schritte</strong><ol>${feedback.nextSteps.map(step => `<li>${esc(step)}</li>`).join("")}</ol>` : ""}${feedback.hint ? `<p class="ai-hint"><strong>Denkimpuls:</strong> ${esc(feedback.hint)}</p>` : ""}${feedback.question ? `<p class="ai-question"><strong>Frage an dich:</strong> ${esc(feedback.question)}</p>` : ""}<small>Die KI kann sich irren und verrät keine fertige Lösung. Maßgeblich ist immer die automatische Prüfung.</small>`;
+  }
+  async function askAi(panel, context, { depth = "quick", manual = true } = {}) {
+    const box = panel.querySelector("[data-ai-answer]");
+    if (manual && !(await askAiConsent())) return;
+    if (!aiCoach.consented()) return;
+    panel.querySelector("[data-ai-revoke]")?.removeAttribute("hidden");
+    const buttons = panel.querySelectorAll("[data-ai-ask], [data-ai-deep]");
+    buttons.forEach(button => { button.disabled = true; });
+    box.hidden = false; box.className = "ai-answer is-loading"; box.textContent = depth === "deep" ? "Die KI bereitet eine ausführlichere Erklärung vor …" : "Die KI sieht sich deinen Code an …";
+    try {
+      const result = await aiCoach.request({ ...context(), depth });
+      if (!box.isConnected) return;
+      renderAiAnswer(box, result);
+      const deep = panel.querySelector("[data-ai-deep]");
+      if (deep) deep.hidden = depth === "deep";
+    } catch (error) {
+      if (!box.isConnected) return;
+      box.className = "ai-answer is-error"; box.textContent = error.message;
+    } finally { buttons.forEach(button => { if (button.isConnected) button.disabled = false; }); }
+  }
+  function setupAiPanel(panel, context) {
+    if (!panel) return { auto() {} };
+    const update = () => {
+      const active = aiCoach.modeActive(), toggle = panel.querySelector("[data-ai-toggle]");
+      if (!toggle) return;
+      toggle.setAttribute("aria-checked", String(active));
+      toggle.setAttribute("aria-label", `KI-Modus ${active ? "ausschalten" : "aktivieren"}`);
+      panel.querySelector(".ai-mode").classList.toggle("is-active", active);
+      panel.querySelector("[data-ai-status]").textContent = active ? "aktiv" : "aus";
+      panel.querySelector("[data-ai-desc]").textContent = active ? `Nach einer fehlgeschlagenen Prüfung fragt AlgoLab automatisch ${aiProvider} nach einem Denkimpuls.` : "Aktiviere den Modus freiwillig, wenn du nach Fehlversuchen zusätzliche Hinweise möchtest.";
+      panel.querySelector("[data-ai-revoke]")?.toggleAttribute("hidden", !aiCoach.consented());
+    };
+    panel.querySelector("[data-ai-toggle]")?.addEventListener("click", async () => {
+      if (aiCoach.modeActive()) aiCoach.setMode(false);
+      else if (await askAiConsent()) aiCoach.setMode(true);
+      update();
+    });
+    panel.querySelector("[data-ai-ask]")?.addEventListener("click", () => askAi(panel, context));
+    panel.querySelector("[data-ai-deep]")?.addEventListener("click", () => askAi(panel, context, { depth: "deep" }));
+    panel.querySelector("[data-ai-revoke]")?.addEventListener("click", () => {
+      aiCoach.revoke(); update();
+      const box = panel.querySelector("[data-ai-answer]"); box.hidden = false; box.className = "ai-answer"; box.textContent = "Zustimmung zurückgezogen. Ohne neue Zustimmung wird nichts mehr an den KI-Dienst übertragen.";
+    });
+    return { auto() { if (aiCoach.modeActive()) askAi(panel, context, { manual: false }); } };
   }
   function renderProgress() {
     document.querySelector("#page-title").textContent = "Mein Lernstand";
@@ -910,6 +990,15 @@
     render();
     const success = main.querySelector(`[data-task="${taskId}"] .task-success`);
     success.setAttribute("tabindex", "-1"); success.focus({ preventScroll: true });
+  });
+  main.addEventListener("click", event => {
+    const ask = event.target.closest(".code-task [data-ai-ask]");
+    if (!ask) return;
+    const pane = ask.closest(".code-task"), unit = engine.byId(pane.dataset.codeUnit);
+    const task = [...unit.tasks, ...(unit.extras || [])].find(item => item.id === pane.dataset.codeTask);
+    const open = [...pane.querySelectorAll(".code-checks li.retry")].map(item => item.textContent.replace(/^Noch offen:\s*/, ""));
+    const error = pane.querySelector(".code-status").textContent;
+    askAi(ask.closest("[data-ai-panel]"), () => ({ exercise: { id: `${unit.id}-${task.id}`, title: `${unit.id} · ${task.title}`, description: task.prompt, instructions: open.length ? open : [task.hint] }, code: pane.querySelector("textarea").value, review: { passed: pane.querySelector(".code-checks li") ? !open.length : null, diagnostic: open[0] || "", error: /Error/.test(error) ? error : "" } }));
   });
   main.addEventListener("click", event => {
     const rate = event.target.closest("[data-rate]");
