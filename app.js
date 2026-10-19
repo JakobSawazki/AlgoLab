@@ -14,7 +14,31 @@
   const profileDialog = document.querySelector("#profile-dialog");
   const developerButton = document.querySelector("#developer-toggle");
   const nagold = window.ALGOLAB_NAGOLD;
+  const resultsNavLinks = [...document.querySelectorAll("[data-results-link]")];
+  function renderResults(unit) {
+    if (!content.resultDocuments().length) return "";
+    return `<section class="lesson-panel results-panel"><span class="eyebrow">ERGEBNISSE SICHERN</span><h3>Gemeinsam festhalten</h3><p>Tragt die besprochenen fachlichen Ergebnisse in das Dokument eurer Klasse ein. Dort findest du auch die Ergebnisse der anderen.</p><p class="results-sections">Abschnitt im Dokument: ${unit.sourceRefs.length ? content.resultSections(unit).map(esc).join(", ") : "nach Absprache"}</p><p class="results-choice"></p><div class="results-links"></div></section>`;
+  }
+  function syncResults() {
+    const docs = content.resultDocuments(state.profile.className);
+    const own = docs.length === 1;
+    const name = doc => own ? content.results.title : `${content.results.title} ${doc.label}`;
+    resultsNavLinks.forEach((link, index) => {
+      const doc = docs[index]; link.hidden = !doc;
+      if (!doc) return;
+      link.href = doc.url; link.title = `${name(doc)} (öffnet neuen Tab)`;
+      link.querySelector(".nav-label").textContent = name(doc);
+    });
+    document.querySelectorAll(".results-choice").forEach(text => {
+      text.textContent = own ? "" : "Öffne das Dokument deiner Klasse. Trägst du deine Klasse im Profil ein, erscheint nur noch dein Dokument.";
+      text.hidden = own;
+    });
+    document.querySelectorAll(".results-links").forEach(box => {
+      box.innerHTML = docs.map(doc => `<a class="primary" href="${esc(doc.url)}" target="_blank" rel="noopener">${esc(content.results.title)} ${esc(doc.label)} öffnen ↗</a>`).join("");
+    });
+  }
   function syncProfile() {
+    syncResults();
     const total = nagold.total(state);
     document.querySelector("#nagold-total").textContent = `${total} NAGOLD`;
     document.querySelector("#nagold-goal").value = Math.max(0, Math.min(100, total));
@@ -216,7 +240,7 @@
       const answer = state.answers[id]?.[task.id]; const solved = answer === task.correct;
       return `<form class="task" data-unit="${id}" data-task="${task.id}"><fieldset ${solved ? "disabled" : ""}><legend><span class="task-number">${index + 1}</span> ${esc(task.prompt)}</legend>${task.options.map((option, choice) => `<label class="choice"><input type="radio" name="choice" value="${choice}" ${answer === choice ? "checked" : ""} required><span>${esc(option)}</span></label>`).join("")}</fieldset><div class="task-actions">${solved ? `<span class="task-success">✓ Bestanden · ${task.points} Punkte</span>` : `<button type="submit">Antwort prüfen</button>`}<p role="status" class="task-feedback">${answer !== undefined && !solved ? esc(task.hint) : ""}</p></div></form>`;
     }).join("");
-    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>${esc(unit.help.text || "Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.")}</p>${(unit.help.links || [unit.help]).map(link => `<p><a href="${link.href}" target="_blank" rel="noopener noreferrer">${esc(link.label)} ↗</a></p>`).join("")}</aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section><section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
+    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>${esc(unit.help.text || "Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.")}</p>${(unit.help.links || [unit.help]).map(link => `<p><a href="${link.href}" target="_blank" rel="noopener noreferrer">${esc(link.label)} ↗</a></p>`).join("")}</aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section>${renderResults(unit)}<section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
     if (unit.loopExplorer) {
       const panel = document.createElement("section");
       panel.className = "lesson-panel loop-lab";

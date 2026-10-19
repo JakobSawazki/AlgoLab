@@ -177,7 +177,25 @@
       { expression: "__algolab_output__.splitlines() == ['(0, 42, 21.0)', 'None']", message: "Die beiden Aufrufe zeigen das Trainingsergebnis und None für die leere Liste." }
     ] }
   ];
-  const data = { version: "0.7.0", modules, units: modules.flatMap(m => m.units) };
+  // Gemeinsame Ergebnissicherung: je Klasse ein geteiltes Word-Dokument (OneDrive) mit einer
+  // Überschrift je Aufgabe, nur fachliche Inhalte. `match` wird in der Profilklasse gesucht.
+  // Ohne gültigen https-Link bleibt ein Dokument ausgeblendet.
+  const results = { title: "Ergebnissicherung", documents: [
+    { label: "J2 INF1", match: "INF1", url: "https://1drv.ms/w/c/68a5e182d1aed930/IQCYNvH4htZ5QbC2WleRssaCAQFdBn-VNnrHu9uuRPNATLE?e=MhqgaA" },
+    { label: "J2 INF2", match: "INF2", url: "https://1drv.ms/w/c/68a5e182d1aed930/IQBcBsB5CIn-TKnLrKF9YsimARC8nV05vxGjfoHxRR2C_KQ?e=t3O1tP" }
+  ] };
+  const httpsUrl = value => {
+    try { const url = new URL(value); return url.protocol === "https:" ? url.href : ""; } catch { return ""; }
+  };
+  // Passt die Profilklasse zu genau einem Dokument, nur dieses; sonst alle zur Auswahl.
+  const resultDocuments = (className = "") => {
+    const valid = results.documents.map(doc => ({ ...doc, url: httpsUrl(doc.url) })).filter(doc => doc.url);
+    const key = String(className).toLocaleUpperCase("de").replace(/[\s_-]/g, "");
+    const own = valid.filter(doc => new RegExp(`${doc.match}(?!\\d)`).test(key));
+    return own.length === 1 ? own : valid;
+  };
+  const resultSections = unit => unit.sourceRefs.map(ref => `Aufgabe ${ref.replace(/^L\d+_/, "")}`);
+  const data = { version: "0.7.1", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

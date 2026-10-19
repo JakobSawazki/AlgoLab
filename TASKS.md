@@ -10,7 +10,7 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | PROFILE-01 | DONE | Codex | 0.7.0: Profil mit Kürzel/Klasse, NAGOLD-Tabelle nach Excel-Lab, vollständiges JSON sichern/laden, Altdatei-Migration. 35 Tests und Syntaxprüfung bestanden; echter Browser-Download und Laden in frischem Kontext sowie mobile Darstellung geprüft. |
 | GIT-01 | DONE | Claude | 19.10.2026: Von Google Drive erzeugte `desktop.ini` in `.git/` (155 Stück, nur Ordnersymbol-Metadaten) brachen `git fetch` (`bad object refs/desktop.ini`). Nur innerhalb `.git/` entfernt; Fetch funktioniert, main = origin/main = 76c8b98. Kann nach Drive-Synchronisation wiederkehren: dann erneut `find .git -name desktop.ini -delete`. |
 | RELEASE-01 | DONE | Claude | 19.10.2026: 0.7.0 geprüft (35/35 Tests, Syntax, Diff), Commit 349053b gepusht, Actions Build/Deploy erfolgreich. Online abgenommen: Version 0.7.0, neue Skripte Status 200, Profil und NAGOLD-Tabelle ohne Konsolenfehler. |
-| RESULTS-01 | OPEN | Claude | Gemeinsame Ergebnissicherung (Lehrkraft und Schüler schreiben/lesen besprochene Ergebnisse, bisher geteilte Word-Datei). Lösungsvorschlag an Jakob übergeben; Entscheidung zu Plattform und Link offen. Wartet auf Jakobs Entscheidung zu Plattform (Word in SharePoint/OneDrive, Google-Ablage o. Ä.) und Link. |
+| RESULTS-01 | REVIEW | Claude | 19.10.2026 (Gaming-Laptop): 0.7.1 lokal, nicht committet. Zwei Word-Dokumente je Klasse (J2 INF1, J2 INF2) in Jakobs OneDrive `Dokumente\Codex\AlgoLab`, nur fachliche Inhalte. Links in `learning-path.js` → `results.documents`; passende Profilklasse zeigt nur ihr Dokument, sonst beide. 39/39 Tests, Syntax, Diff, Browser Desktop/Mobil geprüft. Offen: Abschnittsnamen bestätigen, Bearbeitungsrecht der Links prüfen, Commit/Push und Onlineabnahme. |
 | CONTENT-05 | OPEN | – | L1.5 Elemente vertauschen: Materialabgleich, Hilfsvariable/Überschreiben modellieren, Python-Aufgabe, Fotomotiv, Tests. |
 | CONTENT-06 | OPEN | – | L1.6/L1.7 ausarbeiten. |
 | CONTENT-L2 | OPEN | – | Acht Einheiten zu Sortieren und Suchen ausarbeiten. |
@@ -22,12 +22,12 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md).
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
-Aktuell arbeitet kein Agent an einer als `IN_PROGRESS` markierten Aufgabe.
-Claude wartet auf Jakobs Entscheidung zu RESULTS-01 (Plattform und Link).
+RESULTS-01: Links eingetragen, wartet auf Jakobs Freigabe zum Veröffentlichen. Lokale, nicht committete Änderungen: index.html, app.js,
+learning-path.js, design.css, assets/icons.svg, tests/results.test.cjs, Doku.
 Letzter geprüfter Arbeitsstand: **0.7.0 veröffentlicht** (349053b), online geprüft.
-Nächster möglicher Schritt: RESULTS-01 nach Jakobs Entscheidung, sonst CONTENT-05; den gewählten
+Nächster möglicher Schritt: RESULTS-01 nach Jakobs Freigabe veröffentlichen, sonst CONTENT-05; den gewählten
 Bereich vor Bearbeitung eintragen. Es gibt derzeit keine Dateireservierung.
-Prüfungen: `node --test tests/*.test.cjs` (35/35), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (39/39), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale

@@ -340,3 +340,36 @@ Neue Anforderung von Jakob: gemeinsame Ergebnissicherung, in der Lehrkraft
 und Schüler besprochene Ergebnisse festhalten und einsehen (bisher geteilte
 Word-Datei). Als RESULTS-01 in TASKS.md aufgenommen; Plattformentscheidung
 offen.
+
+## 19. Oktober 2026 – Gemeinsame Ergebnissicherung (0.7.1 lokal)
+
+Bearbeiter: Claude. Jakob nutzt ein einziges geteiltes Word-Dokument mit
+Überschriften je Aufgabe (Aufgabe 1, 2, 3 → 3.1.1 usw.). Umsetzung als Link,
+nicht als eigener Speicher: Eine Website ohne Server könnte gemeinsame
+Schülereinträge nur über einen externen Dienst speichern, was eine
+Datenschutzfreigabe der Schule erfordern würde. Zentrale Einstellung
+`results.url` in learning-path.js; Seitenleisteneintrag mit neuem Symbol
+`notes` und Abschnitt „Ergebnisse sichern“ je fertiger Einheit mit
+Abschnittshinweis aus den Materialnummern. Version 0.7.1, neue Tests in
+tests/results.test.cjs. 37/37 Tests, Syntax, Diff und Edge-Prüfung
+(Desktop/Mobil, mit und ohne Link) bestanden. Freigabelink von Jakob und
+Bestätigung der Abschnittszuordnung stehen aus; danach Link eintragen,
+veröffentlichen und online prüfen.
+
+## 19. Oktober 2026 – Ergebnissicherung je Klasse (0.7.1 lokal)
+
+Bearbeiter: Claude, Gaming-Laptop. Beim Einstieg hatte Google Drive erneut
+164 `desktop.ini` in `.git/` angelegt (`git fetch` scheiterte); nur diese
+entfernt, main = origin/main = b1ac3c7. Ein Git-Objekt war kurzzeitig nicht
+lesbar (Drive-Synchronisation), danach `git fsck` ohne Fehler.
+
+Jakob hat zwei inhaltsgleiche Word-Dokumente für J2 INF1 und J2 INF2 in
+seinem persönlichen OneDrive (`Dokumente\Codex\AlgoLab`) angelegt und
+freigegeben; nur fachliche Inhalte. `results.url` durch `results.documents`
+(Bezeichnung, Suchbegriff, Link) ersetzt; `resultDocuments(className)` liefert
+das passende Dokument oder alle zur Auswahl. Zwei Seitenleisteneinträge, die
+Lektion zeigt je Dokument eine Schaltfläche und aktualisiert sich nach einer
+Profiländerung sofort. Platzhalter der Profilklasse jetzt „z. B. J2 INF1“.
+39/39 Tests, Syntax, Diff, Browserprüfung Desktop und Mobil 375 bestanden.
+Offen: Abschnittsnamen (Dokumente beginnen mit „Aufgabe 1/2“), Bearbeitungs-
+recht der Freigabelinks, dann Commit/Push und Onlineabnahme.

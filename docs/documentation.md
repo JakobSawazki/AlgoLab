@@ -3,6 +3,7 @@
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
 Aktueller veröffentlichter Stand: **0.7.0 – Profil und NAGOLD**.
+Lokal vorbereitet: **0.7.1 – Ergebnissicherung** (noch nicht veröffentlicht).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +414,35 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.7.1 – 19. Oktober 2026 (lokal)
+
+Gemeinsame Ergebnissicherung: je Klasse ein geteiltes Word-Dokument mit
+einer Überschrift je Aufgabe (z. B. Aufgabe 3 → Aufgabe 3.1.1), abgelegt in
+Jakobs persönlichem OneDrive unter `Dokumente\Codex\AlgoLab`
+(„Ergebnissicherung J2 INF1.docx“, „Ergebnissicherung J2 INF2.docx“).
+Die Dokumente enthalten ausschließlich fachliche Inhalte, keine
+personenbezogenen Daten. AlgoLab verlinkt sie in der Seitenleiste und in jeder
+fertigen Lerneinheit vor dem Abschluss. Der Abschnitt im Dokument wird aus den
+Materialnummern der Einheit abgeleitet (`L1_3.1.1` → „Aufgabe 3.1.1“).
+
+Die Freigabelinks stehen an einer Stelle: `results.documents` in
+`learning-path.js` (Bezeichnung, Suchbegriff wie `INF1`, Link). Enthält die
+Profilklasse genau einen Suchbegriff (Groß-/Kleinschreibung, Leerzeichen und
+Bindestriche egal, `INF12` passt nicht zu `INF1`), erscheint nur das Dokument
+dieser Klasse; sonst werden alle Dokumente zur Auswahl gezeigt. Die Anzeige
+folgt einer Profiländerung sofort. Nur `https`-Links werden verwendet;
+Dokumente ohne gültigen Link bleiben ausgeblendet, ohne Links entfallen
+Seitenleisteneintrag und Lektionsabschnitt. Der Link öffnet in einem neuen
+Tab; das Dokument wird nicht eingebettet. AlgoLab speichert keine Inhalte der
+Dokumente. Da Website und Repository öffentlich sind, sind auch die
+Freigabelinks öffentlich einsehbar.
+
+Geprüft (Gaming-Laptop, 19. Oktober): 39/39 Tests (vier in
+`tests/results.test.cjs`), Syntax, Diff-Prüfung. Im eingebauten Browser:
+ohne Klasse beide Dokumente in Seitenleiste und Lektion, nach Eingabe von
+„j2 inf2“ im Profil sofort nur J2 INF2; Mobil 375 ohne Überlauf, keine
+Konsolenfehler.
 
 ### 0.7.0 – 19. Oktober 2026
 

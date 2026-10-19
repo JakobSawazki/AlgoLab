@@ -22,3 +22,6 @@ __pycache__/
 
 # Local learner exports
 algolab-lernstand*.json
+
+# Local agent preview settings
+.claude/

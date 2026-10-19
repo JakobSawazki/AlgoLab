@@ -309,3 +309,8 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
   .nagold-combo { min-width: 0; }
   #nagold-goal-text { float: none; display: block; }
 }
+
+/* Gemeinsame Ergebnissicherung */
+[data-results-link][hidden] { display: none; }
+.results-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.results-sections { color: var(--muted); font-size: .9rem; }
