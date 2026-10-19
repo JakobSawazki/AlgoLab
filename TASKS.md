@@ -13,7 +13,7 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | RESULTS-01 | DONE | Claude | 19.10.2026: 0.7.1 mit zwei Klassen-Dokumenten (J2 INF1/INF2, OneDrive) als 22a1416 gepusht; Auswahl über Profilklasse. 39/39 Tests, Browser Desktop/Mobil. Onlineabnahme mit 0.8.0 (Actions-Lauf für 22a1416 hing in der GitHub-Warteschlange). Offen bei Jakob: Bearbeitungsrecht der Links, Abschnittsnamen. |
 | CONTENT-05 | DONE | Claude | 19.10.2026: L1.5 Elemente vertauschen (L1_3.4): Hilfsvariable, fehlerhaftes Überschreiben, Positionen→Index, Transfer Umdrehen; zwei Python-Aufgaben. Neues Schrittmodell `array-ops-model.js` (Tauschen, Einfügen, Entfernen, Umdrehen, Bubble/Selection Sort, lineare/binäre Suche) mit generischem Renderer `stepLab`. Kein Fotomotiv (kein Bildgenerator verfügbar). |
 | CONTENT-06 | DONE | Claude | 19.10.2026: L1.6 Einfügen (L1_3.5, append + Tauschschleife) und L1.7 Entfernen mit Schreibtischtests (L1_3.6, L1_4.1). Python-Prüfungen schließen insert/del/remove/pop(index)/Slicing aus. 48/48 Tests, Pyodide-Prüfung im Browser. |
-| CONTENT-L2 | IN_PROGRESS | Claude | Acht Einheiten zu Sortieren und Suchen ausarbeiten. |
+| CONTENT-L2 | DONE | Claude | 19.10.2026: 0.9.0 – alle acht L2-Einheiten (L2_1 bis L2_4.x): Algorithmus-Eigenschaften + Kfz-Steuer, Bubble Sort (inkl. Optimierung), Selection Sort (auf-/absteigend), Fehleranalyse, lineare Suche + Verschlüsselung, binäre Suche (Zugriffszählung prüft echtes Halbieren), Vergleich der Suchen + Modulo-Filter, Anwenden nach Namen + Häufigkeiten. Schrittmodelle an Bezeichner des Materials angepasst. 57/57 Tests, Pyodide geprüft. |
 | CONTENT-L3 | OPEN | – | Vier Einheiten zu dynamischen Datenstrukturen ausarbeiten. |
 | REVIEW-01 | OPEN | – | Vollständige Quellen-/Bildungsplanabnahme und Materialmatrix. |
 
@@ -23,9 +23,9 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **0.8.0** – L1 vollständig (L1.1–L1.7). Claude arbeitet an L2 (Sortieren und Suchen) und am Design.
+Aktueller Stand: **0.9.0** – L1 und L2 vollständig (15 von 19 Einheiten). Claude arbeitet als Nächstes am Design und an L3.
 Belegt durch Claude: learning-path.js, app.js, design.css, array-ops-model.js, python-checks.js, tests/, Doku.
-Prüfungen: `node --test tests/*.test.cjs` (48/48), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (57/57), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale

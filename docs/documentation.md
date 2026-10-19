@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.8.0 – Lernfortschritt 1 vollständig** (L1.1–L1.7).
+Aktueller Stand: **0.9.0 – Sortieren und Suchen** (L1 und L2 vollständig, 15 von 19 Einheiten).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,20 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 0.9.0 – 19. Oktober 2026
+
+Lernfortschritt 2 vollständig: L2.1 Algorithmen verstehen (Eigenschaften,
+Kfz-Steuer), L2.2 Bubble Sort (Bubble-Phasen, Optimierung mit Merker),
+L2.3 Selection Sort (auf- und absteigend, Texte), L2.4 Sortierverfahren
+überprüfen (Struktogrammfehler beheben, Kader sortieren), L2.5 lineare
+Suche (Mitgliedsnummern, Substitutionsverschlüsselung), L2.6 binäre Suche
+(Gewinnlose; eine Zugriffszählung stellt sicher, dass wirklich halbiert
+wird), L2.7 Suchverfahren vergleichen (Vergleichszählung, Modulo-Filter),
+L2.8 Algorithmen anwenden (Tauschen/Entfernen nach Namen, Häufigkeiten).
+Schrittmodelle nutzen die Bezeichner des Unterrichtsmaterials (i/j,
+akt_idx/min_idx, index_anfang/index_mitte/index_ende, gefunden). Neues
+Zählmodell. Tests: 57, davon 8 mit Referenz- und Falschlösungen für L2.
 
 ### 0.8.0 – 19. Oktober 2026
 

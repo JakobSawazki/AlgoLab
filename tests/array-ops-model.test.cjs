@@ -19,7 +19,7 @@ test("Reverse, sorting and search models reach correct results", () => {
   const data = [7, 3, 9, 1, 5, 3];
   assert.deepEqual(last(models.bubbleSort(data)).values, [1, 3, 3, 5, 7, 9]);
   assert.deepEqual(last(models.selectionSort(data)).values, [1, 3, 3, 5, 7, 9]);
-  assert.deepEqual(last(models.selectionSort(data, true)).values, [9, 7, 5, 3, 3, 1]);
+  assert.deepEqual(last(models.selectionSortDescending(data)).values, [9, 7, 5, 3, 3, 1]);
   assert.equal(last(models.linearSearch(data, 1)).marks[3], "done");
   assert.match(last(models.linearSearch(data, 4)).explanation, /nicht vor/);
   const sorted = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91];
@@ -33,4 +33,10 @@ test("Every step ends exactly once and points to an existing code line", () => {
     assert.equal(trace.steps.at(-1).done, true);
     for (const step of trace.steps) assert.ok(step.line === null || (step.line >= 0 && step.line < trace.code.length));
   }
+});
+test("Counting visits every element and reports the number of hits", () => {
+  const trace = models.countOccurrences([60, 20, 1, 60, 40, 60, 20], 60);
+  assert.deepEqual(trace.steps.at(-1).vars, [["anzahl", 3]]);
+  assert.equal(trace.steps.length, 9);
+  assert.equal(last(models.bubbleSortOptimized([10, 1, 2, 3, 4, 5, 6, 7, 8, 9])).vars[0][1], 2);
 });

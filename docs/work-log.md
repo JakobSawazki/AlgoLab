@@ -398,3 +398,18 @@ prüfungen mit Richtig- und Falschlösungen, Punktsumme je Einheit), Syntax,
 Diff. Browser: L1.5–L1.7 im Entwicklermodus, alle Modellfälle bis zum Ende
 durchgeklickt, Tauschaufgabe in Pyodide bestanden, keine Konsolenfehler.
 Kein Fotomotiv für L1.5–L1.7 (kein Bildgenerator in dieser Umgebung).
+
+## 19. Oktober 2026 – Lernfortschritt 2 vollständig (0.9.0)
+
+Bearbeiter: Claude. Material L2_1 bis L2_4.4 (Informationsblätter,
+Arbeitsaufträge, Lösungen, Python-Lösungen) und Ich-kann-Liste L2
+ausgewertet; Aktualisierungen 2022–2025 berücksichtigt (z. B. Struktogramme
+Selection Sort absteigend, lineare Suche). Alle acht L2-Einheiten mit
+Lernsituation, Beispielen, Schrittmodell, Reflexionen und 100 Punkten.
+Python-Aufgaben statt input mit Parametern; Prüfungen mit Randfällen und
+Ausschluss fertiger Hilfen (sort, sorted, min, max, index, in, count,
+bisect, remove, del). Binäre Suche: Prüfliste zählt Zugriffe (≤ 40 bei
+1024 Elementen), damit eine lineare Suche nicht als binäre durchgeht.
+Neue Prüfhelfer __algolab_returns__, __algolab_compares__; Zählmodell.
+Prüfstand: 57/57 Tests, Syntax, Diff; im Browser alle 34 Modellfälle von
+L2 bis zum Ende durchgeklickt, binäre Suche in Pyodide bestanden.

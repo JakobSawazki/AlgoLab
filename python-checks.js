@@ -29,6 +29,18 @@ def __algolab_mutates__(name, values, extra, expected):
     with contextlib.redirect_stdout(io.StringIO()):
         globals()[name](data, *extra)
     return data == expected
+def __algolab_returns__(name, args, expected):
+    import io, contextlib, copy, math
+    with contextlib.redirect_stdout(io.StringIO()):
+        result = globals()[name](*copy.deepcopy(args))
+    if isinstance(expected, bool):
+        return result is expected
+    if isinstance(expected, float):
+        return isinstance(result, (int, float)) and not isinstance(result, bool) and math.isclose(result, expected, abs_tol=1e-9)
+    return result == expected
+def __algolab_compares__(name):
+    import ast
+    return any(isinstance(n, ast.Compare) and any(isinstance(op, ast.In) for op in n.ops) for n in __algolab_nodes__(name))
 def __algolab_uses__(name, *methods):
     import ast
     used = {n.func.attr for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)} | {n.func.id for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}

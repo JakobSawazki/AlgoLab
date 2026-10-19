@@ -80,94 +80,138 @@
     return { code, steps };
   }
 
-  function bubbleSort(input) {
+  function bubbleSort(input, optimized = false) {
     const values = input.slice(), { steps, add } = recorder(values);
-    const code = ["n = len(liste)", "for durchgang in range(n - 1):", "    for i in range(n - 1 - durchgang):", "        if liste[i] > liste[i + 1]:", "            zwischenspeicher = liste[i]", "            liste[i] = liste[i + 1]", "            liste[i + 1] = zwischenspeicher"];
+    const code = optimized
+      ? ["laenge = len(zahlen)", "bubble_phasen = 0", "tausch = True", "while tausch:", "    tausch = False", "    bubble_phasen = bubble_phasen + 1", "    for j in range(laenge - bubble_phasen):", "        if zahlen[j] > zahlen[j + 1]:", "            zwischenspeicher = zahlen[j]", "            zahlen[j] = zahlen[j + 1]", "            zahlen[j + 1] = zwischenspeicher", "            tausch = True"]
+      : ["laenge = len(zahlen)", "for i in range(1, laenge):", "    for j in range(laenge - i):", "        if zahlen[j] > zahlen[j + 1]:", "            zwischenspeicher = zahlen[j]", "            zahlen[j] = zahlen[j + 1]", "            zahlen[j + 1] = zwischenspeicher"];
     const n = values.length;
-    const sortedFrom = pass => Object.fromEntries(Array.from({ length: pass }, (_, k) => [n - 1 - k, "done"]));
-    add(0, `Start: ${n} Werte. In jedem Durchgang werden benachbarte Werte verglichen; der größte noch unsortierte Wert „steigt“ nach rechts.`, {}, [["n", n]]);
-    let comparisons = 0, swaps = 0;
-    for (let pass = 0; pass < n - 1; pass++) {
-      for (let i = 0; i < n - 1 - pass; i++) {
+    const sortedFrom = phase => Object.fromEntries(Array.from({ length: phase }, (_, k) => [n - 1 - k, "done"]));
+    const [compareLine, swapLine, phaseLine] = optimized ? [7, 10, 3] : [3, 6, 1];
+    const counter = optimized ? "bubble_phasen" : "i";
+    add(0, `Start: ${n} Werte. In jeder Bubble-Phase werden benachbarte Werte verglichen; der größte noch unsortierte Wert „steigt“ wie eine Blase nach rechts auf.`, {}, [["laenge", n]]);
+    let comparisons = 0, swaps = 0, phase = 0;
+    while (phase < n - 1) {
+      phase++;
+      let swapped = false;
+      for (let j = 0; j < n - phase; j++) {
         comparisons++;
-        if (values[i] > values[i + 1]) {
-          const temp = values[i]; values[i] = values[i + 1]; values[i + 1] = temp; swaps++;
-          add(6, `Durchgang ${pass + 1}, i = ${i}: ${temp} > ${values[i]} – die Nachbarn tauschen.`, { ...sortedFrom(pass), [i]: "changed", [i + 1]: "changed" }, [["durchgang", pass], ["i", i], ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]]);
+        if (values[j] > values[j + 1]) {
+          const temp = values[j]; values[j] = values[j + 1]; values[j + 1] = temp; swaps++; swapped = true;
+          add(swapLine, `Bubble-Phase ${phase}, j = ${j}: ${temp} > ${values[j]}? Ja – Tausch.`, { ...sortedFrom(phase - 1), [j]: "changed", [j + 1]: "changed" }, [[counter, phase], ["j", j], ...(optimized ? [["tausch", "True"]] : []), ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]]);
         } else {
-          add(3, `Durchgang ${pass + 1}, i = ${i}: ${values[i]} > ${values[i + 1]} ist falsch – kein Tausch.`, { ...sortedFrom(pass), [i]: "compare", [i + 1]: "compare" }, [["durchgang", pass], ["i", i], ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]]);
+          add(compareLine, `Bubble-Phase ${phase}, j = ${j}: ${values[j]} > ${values[j + 1]}? Nein – kein Tausch.`, { ...sortedFrom(phase - 1), [j]: "compare", [j + 1]: "compare" }, [[counter, phase], ["j", j], ...(optimized ? [["tausch", swapped ? "True" : "False"]] : []), ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]]);
         }
       }
-      add(1, `Durchgang ${pass + 1} beendet: ${values[n - 1 - pass]} steht endgültig an Index ${n - 1 - pass}.`, sortedFrom(pass + 1), [["durchgang", pass], ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]]);
+      const restSorted = optimized && !swapped;
+      add(phaseLine, restSorted ? `Bubble-Phase ${phase} ohne einen einzigen Tausch: Das Array ist sortiert, die Schleife endet vorzeitig.` : `Ende Bubble-Phase ${phase}: Ab Index ${n - phase} ist das Array sortiert.`, restSorted ? Object.fromEntries(values.map((_, k) => [k, "done"])) : sortedFrom(phase), [[counter, phase], ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]]);
+      if (restSorted) break;
     }
-    add(null, `Sortiert nach ${comparisons} Vergleichen und ${swaps} Tauschvorgängen.`, Object.fromEntries(values.map((_, k) => [k, "done"])), [["Vergleiche", comparisons], ["Tauschvorgänge", swaps]], true);
+    add(null, `Sortiert nach ${phase} Bubble-Phase${phase === 1 ? "" : "n"}, ${comparisons} Vergleich${comparisons === 1 ? "" : "en"} und ${swaps} Tauschvorg${swaps === 1 ? "ang" : "ängen"}.${optimized ? "" : ` Ohne Optimierung sind es immer laenge - 1 = ${n - 1} Phasen.`}`, Object.fromEntries(values.map((_, k) => [k, "done"])), [["Bubble-Phasen", phase], ["Vergleiche", comparisons], ["Tauschvorgänge", swaps]], true);
     return { code, steps };
   }
 
   function selectionSort(input, descending = false) {
     const values = input.slice(), { steps, add } = recorder(values);
     const better = (x, y) => descending ? x > y : x < y;
-    const op = descending ? ">" : "<", word = descending ? "größte" : "kleinste";
-    const code = ["n = len(liste)", "for start in range(n - 1):", "    pos = start", "    for i in range(start + 1, n):", `        if liste[i] ${op} liste[pos]:`, "            pos = i", "    zwischenspeicher = liste[start]", "    liste[start] = liste[pos]", "    liste[pos] = zwischenspeicher"];
+    const op = descending ? ">" : "<", word = descending ? "größte" : "kleinste", idx = descending ? "max_idx" : "min_idx";
+    const code = ["laenge = len(zahlen)", "for akt_idx in range(laenge - 1):", `    ${idx} = akt_idx`, "    for j in range(akt_idx + 1, laenge):", `        if zahlen[j] ${op} zahlen[${idx}]:`, `            ${idx} = j`, `    if akt_idx != ${idx}:`, "        zwischenspeicher = zahlen[akt_idx]", `        zahlen[akt_idx] = zahlen[${idx}]`, `        zahlen[${idx}] = zwischenspeicher`];
     const n = values.length;
     const sortedTo = s => Object.fromEntries(Array.from({ length: s }, (_, k) => [k, "done"]));
-    add(0, `Start: ${n} Werte. In jedem Durchgang wird der ${word} Wert im unsortierten Bereich gesucht und nach vorne gesetzt.`, {}, [["n", n]]);
+    let comparisons = 0;
+    add(0, `Start: ${n} Werte. In jedem Durchgang wird der ${word} Wert im unsortierten Bereich gesucht und an dessen Anfang getauscht.`, {}, [["laenge", n]]);
     for (let start = 0; start < n - 1; start++) {
       let pos = start;
-      add(2, `Durchgang ${start + 1}: Der unsortierte Bereich beginnt bei Index ${start}. Vorläufig ist ${values[pos]} der ${word} Wert.`, { ...sortedTo(start), [pos]: "active" }, [["start", start], ["pos", pos]]);
-      for (let i = start + 1; i < n; i++) {
-        if (better(values[i], values[pos])) {
-          pos = i;
-          add(5, `i = ${i}: ${values[i]} ${op} bisheriger Kandidat – pos merkt sich jetzt Index ${i}.`, { ...sortedTo(start), [pos]: "active" }, [["start", start], ["pos", pos], ["i", i]]);
+      add(2, `akt_idx = ${start}: Der unsortierte Bereich beginnt bei Index ${start}. Vorläufig ist ${values[pos]} der ${word} Wert.`, { ...sortedTo(start), [pos]: "active" }, [["akt_idx", start], [idx, pos]]);
+      for (let j = start + 1; j < n; j++) {
+        comparisons++;
+        if (better(values[j], values[pos])) {
+          pos = j;
+          add(5, `j = ${j}: ${values[j]} ${op} bisheriger Kandidat? Ja – ${idx} merkt sich Index ${j}.`, { ...sortedTo(start), [pos]: "active" }, [["akt_idx", start], [idx, pos], ["j", j], ["Vergleiche", comparisons]]);
         } else {
-          add(4, `i = ${i}: ${values[i]} ${op} ${values[pos]} ist falsch – pos bleibt ${pos}.`, { ...sortedTo(start), [pos]: "active", [i]: "compare" }, [["start", start], ["pos", pos], ["i", i]]);
+          add(4, `j = ${j}: ${values[j]} ${op} ${values[pos]}? Nein – ${idx} bleibt ${pos}.`, { ...sortedTo(start), [pos]: "active", [j]: "compare" }, [["akt_idx", start], [idx, pos], ["j", j], ["Vergleiche", comparisons]]);
         }
       }
-      const temp = values[start]; values[start] = values[pos]; values[pos] = temp;
-      add(8, pos === start ? `Der ${word} Wert ${values[start]} steht schon an Index ${start}. Der Tausch mit sich selbst ändert nichts.` : `Tausch: ${values[start]} (Index ${pos}) und ${temp} (Index ${start}) wechseln die Plätze.`, { ...sortedTo(start + 1), [pos]: pos === start ? "done" : "changed" }, [["start", start], ["pos", pos], ["zwischenspeicher", temp]]);
+      if (pos === start) {
+        add(6, `akt_idx == ${idx}: ${values[start]} steht schon richtig, es wird nicht getauscht. Sortiert bis Index ${start}.`, sortedTo(start + 1), [["akt_idx", start], [idx, pos], ["Vergleiche", comparisons]]);
+      } else {
+        const temp = values[start]; values[start] = values[pos]; values[pos] = temp;
+        add(9, `Tausch: ${values[start]} (Index ${pos}) und ${temp} (Index ${start}) wechseln die Plätze. Sortiert bis Index ${start}.`, { ...sortedTo(start + 1), [pos]: "changed" }, [["akt_idx", start], [idx, pos], ["zwischenspeicher", temp], ["Vergleiche", comparisons]]);
+      }
     }
-    add(null, `Sortiert: ${descending ? "absteigend" : "aufsteigend"}.`, Object.fromEntries(values.map((_, k) => [k, "done"])), [], true);
+    add(null, `Sortiert (${descending ? "absteigend" : "aufsteigend"}) nach ${comparisons} Vergleichen. Das letzte Element muss nicht mehr geprüft werden.`, Object.fromEntries(values.map((_, k) => [k, "done"])), [["Vergleiche", comparisons]], true);
     return { code, steps };
   }
 
-  function linearSearch(input, target) {
+  function linearSearch(input, target, stopEarly = true) {
     const values = input.slice(), { steps, add } = recorder(values);
-    const code = ["for i in range(len(liste)):", "    if liste[i] == gesucht:", "        return i", "return -1"];
-    add(null, `Start: Gesucht wird ${show(target)}. Die Liste muss dafür nicht sortiert sein.`, {}, [["gesucht", show(target)]]);
+    const code = stopEarly
+      ? ["gefunden = False", "zaehler = 0", "while gefunden == False and zaehler < len(liste):", "    if liste[zaehler] == gesucht:", "        gefunden = True", "    else:", "        zaehler = zaehler + 1"]
+      : ["gefunden = False", "for i in range(len(liste)):", "    if liste[i] == gesucht:", "        gefunden = True"];
+    const name = stopEarly ? "zaehler" : "i";
+    add(0, `Start: Gesucht wird ${show(target)}. gefunden ist False. Die Liste muss für die lineare Suche nicht sortiert sein.`, {}, [["gesucht", show(target)], ["gefunden", "False"]]);
+    let foundAt = -1, comparisons = 0;
     for (let i = 0; i < values.length; i++) {
+      comparisons++;
       const hit = values[i] === target;
-      add(hit ? 2 : 1, hit ? `i = ${i}: ${show(values[i])} == ${show(target)} – gefunden! Die Suche endet mit Index ${i} nach ${i + 1} Vergleichen.` : `i = ${i}: ${show(values[i])} == ${show(target)} ist falsch – weiter zum nächsten Element.`, { ...Object.fromEntries(Array.from({ length: i }, (_, k) => [k, "visited"])), [i]: hit ? "done" : "compare" }, [["gesucht", show(target)], ["i", i], ["Vergleiche", i + 1]], hit);
-      if (hit) return { code, steps };
+      const before = Object.fromEntries(Array.from({ length: i }, (_, k) => [k, k === foundAt ? "done" : "visited"]));
+      if (hit && foundAt < 0) foundAt = i;
+      const text = hit
+        ? `${name} = ${i}: ${show(values[i])} == ${show(target)}? Ja – gefunden wird True (nach ${comparisons} Vergleich${comparisons === 1 ? "" : "en"}).${stopEarly ? " Die Schleife endet." : " Die for-Schleife prüft trotzdem bis zum Ende weiter."}`
+        : `${name} = ${i}: ${show(values[i])} == ${show(target)}? Nein.`;
+      add(hit ? 4 : stopEarly ? 6 : 2, text, { ...before, [i]: hit ? "done" : "compare" }, [["gesucht", show(target)], [name, i], ["gefunden", foundAt >= 0 ? "True" : "False"], ["Vergleiche", comparisons]]);
+      if (hit && stopEarly) break;
     }
-    add(3, `Alle ${values.length} Elemente geprüft, ${show(target)} kommt nicht vor. Rückgabe -1 bedeutet „nicht gefunden“.`, Object.fromEntries(values.map((_, k) => [k, "visited"])), [["gesucht", show(target)], ["Vergleiche", values.length]], true);
+    const found = foundAt >= 0;
+    add(null, found ? `Ergebnis: ${show(target)} ist enthalten (Index ${foundAt}). ${comparisons} Vergleich${comparisons === 1 ? "" : "e"}${stopEarly ? "." : ` – ${comparisons - foundAt - 1} davon wären mit einem Abbruch nicht nötig gewesen.`}` : `Ergebnis: Alle ${values.length} Elemente geprüft, ${show(target)} kommt nicht vor. gefunden bleibt False.`, found ? { [foundAt]: "done" } : Object.fromEntries(values.map((_, k) => [k, "visited"])), [["gefunden", found ? "True" : "False"], ["Vergleiche", comparisons]], true);
     return { code, steps };
   }
 
   function binarySearch(input, target) {
     const values = input.slice(), { steps, add } = recorder(values);
-    const code = ["links = 0", "rechts = len(liste) - 1", "while links <= rechts:", "    mitte = (links + rechts) // 2", "    if liste[mitte] == gesucht:", "        return mitte", "    elif liste[mitte] < gesucht:", "        links = mitte + 1", "    else:", "        rechts = mitte - 1", "return -1"];
+    const code = ["gefunden = False", "index_anfang = 0", "index_ende = len(liste) - 1", "while gefunden == False and index_anfang <= index_ende:", "    index_mitte = (index_anfang + index_ende) // 2", "    if liste[index_mitte] == gesucht:", "        gefunden = True", "    elif liste[index_mitte] > gesucht:", "        index_ende = index_mitte - 1", "    else:", "        index_anfang = index_mitte + 1"];
     let left = 0, right = values.length - 1, count = 0;
     const range = (l, r) => Object.fromEntries(values.map((_, k) => [k, k < l || k > r ? "visited" : "range"]));
-    add(1, `Start: Die Liste ist sortiert. Suchbereich: Index ${left} bis ${right}.`, range(left, right), [["gesucht", show(target)], ["links", left], ["rechts", right]]);
+    const vars = mid => [["gesucht", show(target)], ["index_anfang", left], ["index_ende", right], ...(mid === undefined ? [] : [["index_mitte", mid]]), ["Vergleiche", count]];
+    add(2, `Start: Die Liste ist sortiert. Suchbereich: Index ${left} bis ${right}.`, range(left, right), vars());
     while (left <= right) {
       const mid = Math.floor((left + right) / 2); count++;
       if (values[mid] === target) {
-        add(5, `mitte = (${left} + ${right}) // 2 = ${mid}: ${show(values[mid])} == ${show(target)} – gefunden nach ${count} Vergleichen!`, { ...range(left, right), [mid]: "done" }, [["gesucht", show(target)], ["links", left], ["rechts", right], ["mitte", mid], ["Vergleiche", count]], true);
+        add(6, `index_mitte = (${left} + ${right}) // 2 = ${mid}: ${show(values[mid])} == ${show(target)}? Ja – gefunden nach ${count} Vergleich${count === 1 ? "" : "en"}!`, { ...range(left, right), [mid]: "done" }, vars(mid), true);
         return { code, steps };
       }
-      if (values[mid] < target) {
-        add(7, `mitte = ${mid}: ${show(values[mid])} < ${show(target)} – das Gesuchte kann nur rechts liegen. links wird ${mid + 1}.`, { ...range(left, right), [mid]: "compare" }, [["gesucht", show(target)], ["links", left], ["rechts", right], ["mitte", mid], ["Vergleiche", count]]);
-        left = mid + 1;
-      } else {
-        add(9, `mitte = ${mid}: ${show(values[mid])} > ${show(target)} – das Gesuchte kann nur links liegen. rechts wird ${mid - 1}.`, { ...range(left, right), [mid]: "compare" }, [["gesucht", show(target)], ["links", left], ["rechts", right], ["mitte", mid], ["Vergleiche", count]]);
+      if (values[mid] > target) {
+        add(8, `index_mitte = (${left} + ${right}) // 2 = ${mid}: ${show(values[mid])} > ${show(target)} – das Gesuchte kann nur links davon liegen. index_ende wird ${mid - 1}.`, { ...range(left, right), [mid]: "compare" }, vars(mid));
         right = mid - 1;
+      } else {
+        add(10, `index_mitte = (${left} + ${right}) // 2 = ${mid}: ${show(values[mid])} < ${show(target)} – das Gesuchte kann nur rechts davon liegen. index_anfang wird ${mid + 1}.`, { ...range(left, right), [mid]: "compare" }, vars(mid));
+        left = mid + 1;
       }
-      if (left <= right) add(2, `Neuer Suchbereich: Index ${left} bis ${right} – nur noch ${right - left + 1} Element${right === left ? "" : "e"}.`, range(left, right), [["gesucht", show(target)], ["links", left], ["rechts", right], ["Vergleiche", count]]);
+      if (left <= right) add(3, `Neuer Suchbereich: Index ${left} bis ${right} – noch ${right - left + 1} Element${right === left ? "" : "e"}.`, range(left, right), vars());
     }
-    add(10, `links (${left}) > rechts (${right}): Der Suchbereich ist leer. ${show(target)} kommt nicht vor, Rückgabe -1.`, range(left, right), [["gesucht", show(target)], ["links", left], ["rechts", right], ["Vergleiche", count]], true);
+    add(3, `index_anfang (${left}) > index_ende (${right}): Der Suchbereich ist leer. ${show(target)} kommt nicht vor, gefunden bleibt False (${count} Vergleiche).`, range(left, right), vars(), true);
     return { code, steps };
   }
 
-  const models = { swap, swapWithoutHelper, insert, remove, reverse, bubbleSort, selectionSort, linearSearch, binarySearch };
+  function countOccurrences(input, target) {
+    const values = input.slice(), { steps, add } = recorder(values);
+    const code = ["anzahl = 0", "for i in range(len(liste)):", "    if liste[i] == gesucht:", "        anzahl = anzahl + 1"];
+    const hits = {};
+    let count = 0;
+    add(0, `Start: Gezählt wird, wie oft ${show(target)} vorkommt. anzahl beginnt bei 0.`, {}, [["gesucht", show(target)], ["anzahl", 0]]);
+    for (let i = 0; i < values.length; i++) {
+      const hit = values[i] === target;
+      if (hit) { count++; hits[i] = "done"; }
+      add(hit ? 3 : 2, hit ? `i = ${i}: ${show(values[i])} == ${show(target)}? Ja – anzahl wird ${count}. Die Suche läuft weiter.` : `i = ${i}: ${show(values[i])} == ${show(target)}? Nein.`, { ...Object.fromEntries(Array.from({ length: i }, (_, k) => [k, hits[k] || "visited"])), [i]: hit ? "done" : "compare" }, [["gesucht", show(target)], ["i", i], ["anzahl", count]]);
+    }
+    add(null, `Ergebnis: ${show(target)} kommt ${count}-mal vor. Zum Zählen muss jedes Element geprüft werden – ein vorzeitiger Abbruch wäre hier falsch.`, hits, [["anzahl", count]], true);
+    return { code, steps };
+  }
+
+  const bubbleSortOptimized = values => bubbleSort(values, true);
+  const selectionSortDescending = values => selectionSort(values, true);
+  const linearSearchAll = (values, target) => linearSearch(values, target, false);
+  const models = { swap, swapWithoutHelper, insert, remove, reverse, bubbleSort, bubbleSortOptimized, selectionSort, selectionSortDescending, linearSearch, linearSearchAll, binarySearch, countOccurrences };
   if (typeof module !== "undefined" && module.exports) module.exports = models;
   else root.ALGOLAB_ARRAY_MODELS = models;
 })(globalThis);
