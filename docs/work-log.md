@@ -492,3 +492,4 @@ Prüfstand: 75/75 Tests (neu: Struktogramm-Abdeckung und -Notation,
 Selbsteinschätzung, Zusatzaufgaben mit Referenz- und Falschlösungen),
 Syntax, Diff; Browser: Struktogramm-Ansicht, Ich-kann-Liste und
 Zusatzaufgabe mit random in Pyodide.
+Online-Abnahme 1.1.0 (a3b079c): Version 1.1.0, 45 Ich-kann-Aussagen, Struktogramm-Umschalter mit markiertem Block, Zusatzaufgaben, keine Konsolenfehler.
