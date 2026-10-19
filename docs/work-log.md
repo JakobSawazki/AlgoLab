@@ -541,3 +541,4 @@ services/ai-coach-worker/ (BPE-7-Prompt, upstreamStatus, Logs) mit Anleitung.
 Prüfstand: 92/92 Tests, Syntax, Diff; Browser mit simulierten Antworten:
 Dialog, Modus, automatische Anfrage (nur erlaubte Felder), Antwortkarte,
 vertiefende Hilfe, 502-Meldung, Zurückziehen, Lektionsknopf.
+Online-Abnahme 1.4.0 (27e995d): Version 1.4.0, config.js mit Worker-Adresse geladen, KI-Bereich sichtbar, Zustimmungsdialog öffnet; nach „Abbrechen“ keine Anfrage an den Worker (Resource-Timing 0), keine Konsolenfehler. Zustimmung auf der Live-Seite bewusst nicht erteilt (Freigabe durch Jakob); echte Gemini-Antwort erst nach Behebung von AI-02 prüfbar.
