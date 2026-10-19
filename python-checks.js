@@ -23,6 +23,25 @@ def __algolab_collected__(values):
     with contextlib.redirect_stdout(io.StringIO()):
         result = speichere_lose(values)
     return isinstance(result, list) and result == original and values == original and result is not values
+def __algolab_mutates__(name, values, extra, expected):
+    import io, contextlib
+    data = list(values)
+    with contextlib.redirect_stdout(io.StringIO()):
+        globals()[name](data, *extra)
+    return data == expected
+def __algolab_uses__(name, *methods):
+    import ast
+    used = {n.func.attr for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)} | {n.func.id for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}
+    return used & set(methods)
+def __algolab_loops__(name):
+    import ast
+    return any(isinstance(n, (ast.For, ast.While)) for n in __algolab_nodes__(name))
+def __algolab_slices__(name):
+    import ast
+    return any(isinstance(n, ast.Slice) for n in __algolab_nodes__(name))
+def __algolab_helper_swap__(name):
+    import ast
+    return any(isinstance(n, ast.Assign) and len(n.targets) == 1 and isinstance(n.targets[0], ast.Name) and isinstance(n.value, ast.Subscript) for n in __algolab_nodes__(name))
 def __algolab_nodes__(name):
     import ast
     tree = ast.parse(__algolab_source__)

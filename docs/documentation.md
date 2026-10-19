@@ -2,8 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller veröffentlichter Stand: **0.7.0 – Profil und NAGOLD**.
-Lokal vorbereitet: **0.7.1 – Ergebnissicherung** (noch nicht veröffentlicht).
+Aktueller Stand: **0.8.0 – Lernfortschritt 1 vollständig** (L1.1–L1.7).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -415,7 +414,16 @@ Computer-use-Skills wurden nicht doppelt installiert.
 
 ## 12. Prüfstand und Versionsverlauf
 
-### 0.7.1 – 19. Oktober 2026 (lokal)
+### 0.8.0 – 19. Oktober 2026
+
+L1.5 Elemente vertauschen, L1.6 Elemente einfügen und L1.7 Elemente
+entfernen sind ausgearbeitet (Material L1_3.4–L1_3.6, L1_4.1). Neues
+Schrittmodell `array-ops-model.js` mit generischem Renderer (`stepLab`):
+Codezeile, Feldzustände (betrachtet, verändert, verglichen, fertig,
+überschrieben) und Hilfsvariablen je Schritt, vor- und zurückblätterbar.
+Das Modell enthält bereits Sortier- und Suchverfahren für L2. 48 Tests.
+
+### 0.7.1 – 19. Oktober 2026
 
 Gemeinsame Ergebnissicherung: je Klasse ein geteiltes Word-Dokument mit
 einer Überschrift je Aufgabe (z. B. Aufgabe 3 → Aufgabe 3.1.1), abgelegt in

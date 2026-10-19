@@ -92,3 +92,50 @@ test("Builtin-only analysis and input sorting fail the stated algorithm requirem
   const sorted = analyseCode.replace("    kleinster = werte[0]", "    werte.sort()\n    kleinster = werte[0]");
   assert.equal(check(sorted, analyseTask)[0], false);
 });
+
+const byUnit = id => content.units.find(unit => unit.id === id);
+const swapTask = byUnit("L1.5").tasks.find(task => task.id === "tauschcode");
+const reverseTask = byUnit("L1.5").tasks.find(task => task.id === "umdrehcode");
+const insertTask = byUnit("L1.6").tasks.find(task => task.id === "einfuegecode");
+const removeTask = byUnit("L1.7").tasks.find(task => task.id === "entfernecode");
+const body = (task, code) => task.starter.replace(/    # [^\n]*\n(    # [^\n]*\n)*    pass/, code);
+test("Swap task accepts the helper-variable swap and rejects losing or tuple swaps", () => {
+  const good = body(swapTask, "    zwischenspeicher = spieler[position_b - 1]\n    spieler[position_b - 1] = spieler[position_a - 1]\n    spieler[position_a - 1] = zwischenspeicher");
+  assert.deepEqual(check(good, swapTask), [true, true, true, true, true]);
+  const lossy = body(swapTask, "    spieler[position_b - 1] = spieler[position_a - 1]\n    spieler[position_a - 1] = spieler[position_b - 1]");
+  assert.equal(check(lossy, swapTask)[0], false);
+  const tuple = body(swapTask, "    spieler[position_a - 1], spieler[position_b - 1] = spieler[position_b - 1], spieler[position_a - 1]");
+  const tupleResults = check(tuple, swapTask);
+  assert.equal(tupleResults[0], true); assert.equal(tupleResults[3], false);
+  const offByOne = body(swapTask, "    zwischenspeicher = spieler[position_b]\n    spieler[position_b] = spieler[position_a]\n    spieler[position_a] = zwischenspeicher");
+  assert.equal(check(offByOne, swapTask).every(Boolean), false);
+});
+test("Reverse task needs pairwise swaps for odd, even, single and empty lists", () => {
+  const good = body(reverseTask, "    for i in range(len(liste) // 2):\n        zwischenspeicher = liste[i]\n        liste[i] = liste[len(liste) - 1 - i]\n        liste[len(liste) - 1 - i] = zwischenspeicher");
+  assert.equal(check(good, reverseTask).every(Boolean), true);
+  const tooFar = good.replace("range(len(liste) // 2)", "range(len(liste))");
+  assert.equal(check(tooFar, reverseTask)[0], false);
+  const builtin = body(reverseTask, "    liste.reverse()");
+  assert.equal(check(builtin, reverseTask)[3], false);
+});
+test("Insert task requires append plus backward swaps and handles start, end and empty lists", () => {
+  const good = body(insertTask, "    kader.append(name)\n    for i in range(len(kader) - 1, index, -1):\n        zwischenspeicher = kader[i - 1]\n        kader[i - 1] = kader[i]\n        kader[i] = zwischenspeicher");
+  assert.equal(check(good, insertTask).every(Boolean), true);
+  const builtin = body(insertTask, "    kader.insert(index, name)");
+  const results = check(builtin, insertTask);
+  assert.equal(results[0], true); assert.equal(results[3], false);
+  const offByOne = good.replace("index, -1", "index + 1, -1");
+  assert.equal(check(offByOne, insertTask)[0], false);
+});
+test("Remove task requires shifting and pop without index", () => {
+  const good = body(removeTask, "    for i in range(index, len(kader) - 1):\n        kader[i] = kader[i + 1]\n    kader.pop()");
+  assert.equal(check(good, removeTask).every(Boolean), true);
+  const builtin = body(removeTask, "    kader.pop(index)");
+  const results = check(builtin, removeTask);
+  assert.equal(results[0], true); assert.equal(results[3], false);
+  const noPop = body(removeTask, "    for i in range(index, len(kader) - 1):\n        kader[i] = kader[i + 1]");
+  assert.equal(check(noPop, removeTask)[0], false);
+});
+test("Every ready unit awards exactly its points through its tasks", () => {
+  for (const unit of content.units.filter(unit => unit.ready)) assert.equal(unit.tasks.reduce((sum, task) => sum + task.points, 0), unit.points, unit.id);
+});

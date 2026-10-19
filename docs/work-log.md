@@ -373,3 +373,28 @@ Profiländerung sofort. Platzhalter der Profilklasse jetzt „z. B. J2 INF1“.
 39/39 Tests, Syntax, Diff, Browserprüfung Desktop und Mobil 375 bestanden.
 Offen: Abschnittsnamen (Dokumente beginnen mit „Aufgabe 1/2“), Bearbeitungs-
 recht der Freigabelinks, dann Commit/Push und Onlineabnahme.
+
+## 19. Oktober 2026 – Lernfortschritt 1 vollständig (0.8.0)
+
+Bearbeiter: Claude, Gaming-Laptop, auf Jakobs Auftrag autark. Material
+L1_3.4 (Tauschen), L1_3.5/3.6 (Einfügen/Entfernen inkl. Informationsblätter)
+und L1_4.1 (Schreibtischtest) ausgewertet, ebenso Ich-kann-Liste L1
+(2.9–2.12) und Aktualisierungsliste.
+
+- Neues Modul `array-ops-model.js`: Schrittspuren für Tauschen (mit und ohne
+  Hilfsvariable), Einfügen (append + Tauschschleife wie im Material), Entfernen
+  (Nachrücken + pop), Umdrehen sowie bereits Bubble Sort, Selection Sort,
+  lineare und binäre Suche für L2. Generischer Renderer `unit.stepLab` in
+  app.js mit Codezeilen-Markierung, Feldzuständen, Variablen und Zurück-Taste.
+- L1.5, L1.6, L1.7 mit Lernsituation, Beispielen, Schritt-Modell,
+  Reflexionen (Schreibtischtests aus L1_4.1) und je 100 Punkten.
+  Python-Aufgaben arbeiten mit Parametern statt input; Prüfungen testen
+  Randfälle und schließen fertige Hilfen (insert, del, remove, pop(index),
+  reverse, Slicing) aus. Neue Prüfhelfer in python-checks.js.
+- Startseiten-Hinweis zählt fertige Einheiten automatisch.
+
+Prüfstand: 48/48 Tests (neu: tests/array-ops-model.test.cjs, Aufgaben-
+prüfungen mit Richtig- und Falschlösungen, Punktsumme je Einheit), Syntax,
+Diff. Browser: L1.5–L1.7 im Entwicklermodus, alle Modellfälle bis zum Ende
+durchgeklickt, Tauschaufgabe in Pyodide bestanden, keine Konsolenfehler.
+Kein Fotomotiv für L1.5–L1.7 (kein Bildgenerator in dieser Umgebung).
