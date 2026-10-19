@@ -27,7 +27,7 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, online. Offen ist nur CLASS-01 (Erprobung im Unterricht durch Jakob).
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Offen ist nur CLASS-01 (Erprobung im Unterricht durch Jakob).
 Derzeit keine Dateireservierung.
 Prüfungen: `node --test tests/*.test.cjs` (65/65), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und

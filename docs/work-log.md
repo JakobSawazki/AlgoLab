@@ -470,3 +470,5 @@ Bearbeiter: Claude, auf Jakobs Auftrag autark.
 - Übergabe von Codex als überholt gekennzeichnet.
 Prüfstand: 65/65 Tests, Syntax, Diff; Banner aller 15 Einheiten im Browser
 geprüft (hell/dunkel).
+Online-Abnahme 1.0.1 (944f7f1): Fußzeile und Inhaltsversion 1.0.1, Banner
+L1.5/L2.3/L2.6/L3.2/L3.4, neue Abschnittshinweise, keine Konsolenfehler.
