@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=0.9.1#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.0.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -151,7 +151,7 @@
     document.querySelector("#page-title").textContent = "Übersicht";
     const next = content.units.find(unit => !state.completed.includes(unit.id));
     const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
-    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice"><strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Ab L1.2 kannst du Python direkt im Browser programmieren. Die übrigen Einheiten zeigen zunächst ihre Lernziele.</aside>`;
+    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice">${content.units.every(unit => unit.ready) ? `<strong>So arbeitest du mit AlgoLab:</strong> Jede der ${content.units.length} Einheiten führt dich vom Verstehen über ein interaktives Modell zu eigenen Erklärungen und geprüften Aufgaben – ab L1.2 auch mit Python direkt im Browser. Sichere deinen Lernstand regelmäßig über das Diskettensymbol als Datei.` : `<strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Die übrigen Einheiten zeigen zunächst ihre Lernziele.`}</aside>`;
     setupMap();
   }
   function setupMap() {
@@ -270,13 +270,21 @@
       anchor.before(panel);
       setupStepLab(lab);
     }
+    if (unit.treeLab) {
+      const panel = document.createElement("section");
+      panel.className = "lesson-panel tree-lab";
+      const lab = unit.treeLab;
+      panel.innerHTML = `<span class="eyebrow">AUSPROBIEREN</span><h3>${esc(lab.title)}</h3><p>${esc(lab.text)}</p><label for="tree-case">Baum auswählen</label><select id="tree-case">${lab.cases.map((item, index) => `<option value="${index}">${esc(item.label)}</option>`).join("")}</select><p class="tree-note" id="tree-note"></p><div class="tree-view" id="tree-view"></div><dl class="step-vars" id="tree-facts"></dl><div class="analysis-table-wrap" id="tree-table"></div><h4>Erst vorhersagen, dann prüfen</h4><div class="tree-quiz" id="tree-quiz"></div><div class="code-actions"><button class="primary" id="tree-check">Vorhersagen prüfen</button><span id="tree-score" role="status"></span></div>`;
+      (main.querySelector(".reflection")?.closest(".lesson-panel") || main.querySelector(".task, .code-task")?.closest(".lesson-panel")).before(panel);
+      setupTreeLab(lab);
+    }
     numberSections(id);
   }
   // Arbeitsschritte einer Lektion fortlaufend nummerieren und als Kapitelleiste anbieten.
   function numberSections(unitId) {
     const kinds = [
       [panel => panel.querySelector(".examples"), "Verstehen"],
-      [panel => panel.matches(".array-lab, .loop-lab, .analysis-lab, .step-lab"), "Ausprobieren"],
+      [panel => panel.matches(".array-lab, .loop-lab, .analysis-lab, .step-lab, .tree-lab"), "Ausprobieren"],
       [panel => panel.querySelector(".reflection"), "Erklären"],
       [panel => panel.querySelector(".task, .code-task"), "Überprüfen"],
       [panel => panel.matches(".results-panel"), "Sichern"],
@@ -319,19 +327,96 @@
     steps.forEach(step => observer.observe(step.panel));
     mapListenerController.signal.addEventListener("abort", () => observer.disconnect(), { once: true });
   }
+  // Darstellung dynamischer Datenstrukturen im Schrittmodell (L3).
+  function renderStructure(kind, step) {
+    const { structure, marks } = step;
+    if (kind === "list") {
+      const order = window.ALGOLAB_DS_MODELS.chain(structure);
+      const node = id => `<div class="ll-node trace-field ${marks[id] || ""}"><small>${esc(id)}</small><div class="ll-cells"><span class="ll-data">${esc(structure.nodes[id].data)}</span><span class="ll-ptr">${esc(structure.nodes[id].next ?? "NULL")}</span></div></div>`;
+      const loose = Object.keys(structure.nodes).filter(id => !order.includes(id));
+      return `<div class="ll-row"><div class="ll-anchor"><small>Anker</small><span>${esc(structure.anchor ?? "NULL")}</span></div>${order.map(id => `<span class="ll-arrow" aria-hidden="true">→</span>${node(id)}`).join("")}<span class="ll-arrow" aria-hidden="true">→</span><span class="ll-null">NULL</span></div>${loose.length ? `<div class="ll-loose"><small>Nicht (mehr) über den Anker erreichbar:</small><div class="ll-row">${loose.map(node).join("")}</div></div>` : ""}`;
+    }
+    const items = structure.items.map((value, index) => `<div class="trace-field ${marks[index] || ""}"><strong>${esc(value)}</strong></div>`);
+    const out = structure.out.length ? `<div class="ds-out"><small>${kind === "stack" ? "Entnommen (POP)" : "Abgefertigt (DEQUEUE)"}</small><div>${structure.out.map((value, index) => `<span class="${marks.taken !== undefined && index === structure.out.length - 1 ? "is-new" : ""}">${esc(value)}</span>`).join("")}</div></div>` : "";
+    if (kind === "stack") return `<div class="stack-box"><small class="stack-top">oben ↓ PUSH / ↑ POP</small><div class="stack-items">${items.reverse().join("") || "<p>leer</p>"}</div></div>${out}`;
+    return `<div class="queue-box"><small>vorne · DEQUEUE ←</small><div class="queue-items">${items.join("") || "<p>leer</p>"}</div><small>← ENQUEUE · hinten</small></div>${out}`;
+  }
+  function structureVars(kind, step) {
+    const { structure } = step;
+    if (kind === "list") return [["Anker", structure.anchor ?? "NULL"], ["Knoten in der Liste", window.ALGOLAB_DS_MODELS.chain(structure).length]];
+    const items = structure.items;
+    if (kind === "stack") return [["oben", items.at(-1) ?? "—"], ["Anzahl", items.length]];
+    return [["vorne", items[0] ?? "—"], ["hinten", items.at(-1) ?? "—"], ["Anzahl", items.length]];
+  }
+  // Baum-Prüfstand: Baum zeichnen, Tabelle zeigen, Eigenschaften erst vorhersagen, dann prüfen.
+  function treeLayout(tree) {
+    const placed = [], edges = [];
+    let leafX = 0;
+    const children = node => node.kinder ? node.kinder : (node.links || node.rechts ? [node.links || { ghost: true }, node.rechts || { ghost: true }] : []);
+    const place = (node, depth) => {
+      const kids = children(node).map(child => place(child, depth + 1));
+      const x = kids.length ? (kids[0].x + kids.at(-1).x) / 2 : leafX++;
+      const item = { node, x, depth };
+      if (!node.ghost) { placed.push(item); kids.filter(kid => !kid.node.ghost).forEach(kid => edges.push([item, kid])); }
+      return item;
+    };
+    if (tree) place(tree, 0);
+    return { placed, edges, width: Math.max(1, leafX), depth: Math.max(0, ...placed.map(item => item.depth)) + 1 };
+  }
+  function renderTreeSvg(tree, highlight = []) {
+    const { placed, edges, width, depth } = treeLayout(tree);
+    const W = Math.max(320, width * 92), H = depth * 86 + 20, sx = x => (x + .5) * (W / width), sy = d => 44 + d * 86;
+    const label = text => String(text).length > 11 ? `${String(text).slice(0, 10)}…` : String(text);
+    return `<svg class="tree-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Baumdiagramm mit ${placed.length} Knoten">${edges.map(([a, b]) => `<line x1="${sx(a.x)}" y1="${sy(a.depth)}" x2="${sx(b.x)}" y2="${sy(b.depth)}"/>`).join("")}${placed.map(item => `<g class="${highlight.includes(item.node.inhalt) ? "is-marked" : ""}"><title>${esc(item.node.inhalt)}</title><rect x="${sx(item.x) - 42}" y="${sy(item.depth) - 19}" width="84" height="38" rx="10"/><text x="${sx(item.x)}" y="${sy(item.depth) + 5}">${esc(label(item.node.inhalt))}</text></g>`).join("")}</svg>`;
+  }
+  function setupTreeLab(lab) {
+    const panel = main.querySelector(".tree-lab");
+    const props = [["binary", "Binärbaum"], ["full", "voll"], ["complete", "vollständig"], ["sorted", "sortiert (binärer Suchbaum)"]];
+    const draw = () => {
+      const item = lab.cases[Number(panel.querySelector("#tree-case").value)];
+      const tree = item.table ? window.ALGOLAB_DS_MODELS.fromTable(item.table) : item.tree;
+      const result = window.ALGOLAB_DS_MODELS.analyseTree(tree);
+      panel.querySelector("#tree-view").innerHTML = renderTreeSvg(tree);
+      panel.querySelector("#tree-note").textContent = item.note || "";
+      panel.querySelector("#tree-table").innerHTML = item.table ? `<table class="analysis-table"><caption>Tabellarische Darstellung</caption><thead><tr><th scope="col">Index</th><th scope="col">Inhalt</th><th scope="col">Linkes Kind</th><th scope="col">Rechtes Kind</th></tr></thead><tbody>${item.table.map((row, index) => `<tr><th scope="row">${index}</th><td>${esc(row.inhalt)}</td><td>${row.links ?? "NULL"}</td><td>${row.rechts ?? "NULL"}</td></tr>`).join("")}</tbody></table>` : "";
+      panel.querySelector("#tree-facts").innerHTML = [["Wurzel", result.root], ["Blätter", result.leaves.join(", ")], ["Höhe", result.height], ["Knoten", result.nodes.length]].map(([name, value]) => `<div><dt>${name}</dt><dd>${esc(String(value))}</dd></div>`).join("");
+      panel.querySelector("#tree-quiz").innerHTML = props.map(([key, name]) => `<fieldset class="tree-prop" data-prop="${key}"><legend>Ist der Baum ${name}?</legend><label><input type="radio" name="tree-${key}" value="ja"> Ja</label><label><input type="radio" name="tree-${key}" value="nein"> Nein</label><p class="tree-reason" hidden></p></fieldset>`).join("");
+      panel.dataset.result = JSON.stringify(result, (k, v) => k === "node" || k === "nodes" ? undefined : v);
+    };
+    panel.querySelector("#tree-case").addEventListener("change", draw);
+    panel.querySelector("#tree-check").addEventListener("click", () => {
+      const result = JSON.parse(panel.dataset.result);
+      let correct = 0;
+      props.forEach(([key]) => {
+        const box = panel.querySelector(`[data-prop="${key}"]`), choice = box.querySelector("input:checked")?.value;
+        const right = (choice === "ja") === result[key];
+        if (choice && right) correct++;
+        box.classList.toggle("is-right", Boolean(choice) && right);
+        box.classList.toggle("is-wrong", Boolean(choice) && !right);
+        const reason = box.querySelector(".tree-reason");
+        reason.hidden = false;
+        reason.textContent = `${result[key] ? "Ja" : "Nein"}. ${result.reasons[key]}`;
+      });
+      panel.querySelector("#tree-score").textContent = `${correct} von ${props.length} Vorhersagen richtig.`;
+    });
+    draw();
+  }
   function setupStepLab(lab) {
     let step = 0, trace;
     const load = () => {
       const item = lab.cases[Number(main.querySelector("#step-case")?.value || 0)];
-      trace = window.ALGOLAB_ARRAY_MODELS[item.model](...item.args);
+      trace = (window.ALGOLAB_ARRAY_MODELS[item.model] || window.ALGOLAB_DS_MODELS[item.model])(...item.args);
+      main.querySelector("#step-code").classList.toggle("is-prose", trace.kind === "list");
       main.querySelector("#step-code").innerHTML = trace.code.map(line => `<li><code>${esc(line)}</code></li>`).join("");
       step = 0; draw();
     };
     const draw = () => {
       const current = trace.steps[step];
       main.querySelectorAll("#step-code li").forEach((line, index) => line.classList.toggle("current", index === current.line));
-      main.querySelector("#step-fields").innerHTML = current.values.length ? current.values.map((value, index) => `<div class="trace-field ${current.marks[index] || ""}"><small>Index ${index}</small><strong>${esc(String(value))}</strong></div>`).join("") : "<p>Die Liste ist leer.</p>";
-      main.querySelector("#step-vars").innerHTML = current.vars.map(([name, value]) => `<div><dt>${esc(name)}</dt><dd>${esc(String(value))}</dd></div>`).join("");
+      const fields = main.querySelector("#step-fields");
+      fields.className = `array-fields step-fields ${trace.kind ? `ds-view ds-${trace.kind}` : ""}`;
+      fields.innerHTML = trace.kind ? renderStructure(trace.kind, current) : current.values.length ? current.values.map((value, index) => `<div class="trace-field ${current.marks[index] || ""}"><small>Index ${index}</small><strong>${esc(String(value))}</strong></div>`).join("") : "<p>Die Liste ist leer.</p>";
+      main.querySelector("#step-vars").innerHTML = (current.vars || structureVars(trace.kind, current)).map(([name, value]) => `<div><dt>${esc(name)}</dt><dd>${esc(String(value))}</dd></div>`).join("");
       main.querySelector("#step-state").textContent = `Schritt ${step + 1}/${trace.steps.length}: ${current.explanation}`;
       main.querySelector("#step-next").disabled = step === trace.steps.length - 1;
       main.querySelector("#step-back").disabled = step === 0;

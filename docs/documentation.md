@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **0.9.0 – Sortieren und Suchen** (L1 und L2 vollständig, 15 von 19 Einheiten).
+Aktueller Stand: **1.0.0 – Alle 19 Lerneinheiten** (L1, L2 und L3 vollständig).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,29 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.0.0 – 19. Oktober 2026
+
+Lernfortschritt 3 vollständig, damit sind alle 19 Einheiten ausgearbeitet.
+Neues Modul `ds-model.js`: verkettete Liste (Einfügen am Anfang, in der
+Mitte, am Ende; Fehlerfall „alter Zeiger zuerst“; Löschen; Durchlaufen) in
+der Darstellung Daten | Zeiger mit Anker und NULL, Stapel (PUSH/POP,
+Backspace, Browserverlauf), Warteschlange (ENQUEUE/DEQUEUE, Taxistand,
+Drucker) und Baumanalyse (Binärbaum, voll, vollständig, sortiert, Höhe nach
+Material: Wurzel = Höhe 1). Baum-Prüfstand mit SVG-Zeichnung,
+tabellarischer Darstellung und Vorhersage-Quiz mit Begründungen.
+L3 bleibt gemäß Bildungsplan beim Beschreiben und Modellieren; die
+Python-Aufgaben modellieren Zeiger als Tabelle ([Daten, Nachfolger]), Stapel
+mit append/pop, Warteschlangen mit append/pop(0) und Bäume als Tabelle
+([Inhalt, links, rechts]). Keine Klassenimplementierung vorausgesetzt.
+Startseitenhinweis passt sich dem Ausbaustand an. 64 Tests.
+
+### 0.9.1 – 19. Oktober 2026
+
+Lektionsseiten neu gestaltet: Kennzahlen im Kopf, grafisches Banner für
+Einheiten ohne Foto, Mission und Lernziele nebeneinander, automatisch
+nummerierte Arbeitsschritte mit klebender Kapitelleiste, Code-Editor mit
+Tab-Einrückung, Auto-Einrückung, Strg+Enter und Startcode-Wiederherstellung.
 
 ### 0.9.0 – 19. Oktober 2026
 

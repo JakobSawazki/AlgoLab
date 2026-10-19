@@ -379,3 +379,47 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 @media (prefers-reduced-motion: reduce) { .banner-cells span { animation: none; } }
 .step-lab label[for="step-case"] { display: block; margin-top: 16px; font-weight: 650; font-size: .88rem; }
 .step-lab select { margin-bottom: 4px; min-width: min(100%, 360px); }
+
+/* Dynamische Datenstrukturen (L3): verkettete Liste, Stapel, Warteschlange, Baum */
+.ds-view { display: grid; gap: 14px; }
+.ll-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.ll-anchor { display: grid; gap: 3px; padding: 8px 12px; border: 1px dashed var(--accent); border-radius: 10px; text-align: center; font: 700 .9rem Consolas, monospace; }
+.ll-anchor small, .ll-node small { font: .66rem system-ui, sans-serif; color: var(--muted); }
+.ll-node.trace-field { padding: 6px 8px 8px; gap: 4px; }
+.ll-cells { display: grid; grid-template-columns: auto auto; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; font: 700 .85rem Consolas, monospace; }
+.ll-data { padding: 6px 9px; background: var(--panel); }
+.ll-ptr { padding: 6px 9px; border-left: 1px solid var(--line); color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--panel)); }
+.ll-arrow { color: var(--accent); font-weight: 800; }
+.ll-null { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); font: 700 .78rem Consolas, monospace; }
+.ll-loose { padding: 10px; border: 1px dashed var(--state-error); border-radius: 10px; }
+.ll-loose > small { display: block; margin-bottom: 8px; color: var(--muted); font-size: .74rem; }
+.stack-box { display: inline-grid; justify-items: center; gap: 6px; padding: 10px 14px 0; border: 2px solid var(--line); border-top: 0; border-radius: 0 0 12px 12px; min-width: 160px; }
+.stack-top { color: var(--muted); font-size: .7rem; }
+.stack-items { display: grid; gap: 5px; width: 100%; padding-bottom: 10px; }
+.stack-items .trace-field, .queue-items .trace-field { padding: 8px 14px; }
+.queue-box { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
+.queue-box > small { color: var(--muted); font-size: .7rem; white-space: nowrap; }
+.queue-items { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); min-height: 58px; }
+.ds-out small { display: block; margin-bottom: 6px; color: var(--muted); font-size: .74rem; }
+.ds-out div { display: flex; flex-wrap: wrap; gap: 6px; }
+.ds-out span { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; font: 700 .8rem Consolas, monospace; }
+.ds-out span.is-new { border-color: var(--state-changed); background: color-mix(in srgb, var(--state-changed) 16%, transparent); }
+.tree-lab label[for="tree-case"] { display: block; margin-top: 16px; font-weight: 650; font-size: .88rem; }
+.tree-lab select { display: block; max-width: 100%; margin: 8px 0 6px; padding: 10px 14px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; font: inherit; }
+.tree-note { font-size: .86rem; }
+.tree-view { overflow-x: auto; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.tree-svg { display: block; max-width: 100%; height: auto; margin: auto; }
+.tree-svg line { stroke: var(--accent); stroke-width: 1.6; opacity: .7; }
+.tree-svg rect { fill: var(--panel-2); stroke: var(--line); stroke-width: 1.2; }
+.tree-svg text { fill: var(--text); font: 700 13px Consolas, monospace; text-anchor: middle; }
+.tree-svg .is-marked rect { stroke: var(--state-changed); stroke-width: 2; }
+.tree-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.tree-prop { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+.tree-prop legend { padding: 0; margin-bottom: 8px; font-size: .86rem; font-weight: 650; }
+.tree-prop label { margin-right: 16px; font-size: .86rem; }
+.tree-prop.is-right { border-color: var(--state-done); }
+.tree-prop.is-wrong { border-color: var(--state-error); }
+.tree-reason { margin: 8px 0 0; font-size: .8rem; }
+.tree-lab h4 { margin: 22px 0 10px; }
+@media (max-width: 760px) { .queue-box { grid-template-columns: 1fr; } }
+.step-code.is-prose li { white-space: normal; padding-left: 3.4em; text-indent: -3.4em; }

@@ -2,14 +2,15 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 19. Oktober 2026. Version **0.7.0 – Profil und NAGOLD** (lokal geprüft).
-Ein erster Prototyp mit drei Lernfortschritten und 19 Lerneinheiten ist umgesetzt.
-L1.1 enthält Erklärungen, eigene Notizen und Verständnisfragen. L1.2 enthält ein
-Arraymodell, einen Schreibtischtest und eine echte Python-Aufgabe. L1.3 ergänzt
-ein Schleifenmodell und zwei automatisch geprüfte Python-Funktionen. L1.4
-zeigt Minimum, Maximum und Durchschnitt mit Modell und zwei Codeaufgaben.
-Weitere 15 Einheiten sind in Vorbereitung. Alle vier ausgearbeiteten Einheiten besitzen
-ein eigenes fotorealistisches Motiv und eine Lernsituation.
+Stand: 19. Oktober 2026. Version **1.0.0 – Alle 19 Lerneinheiten**.
+Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
+(Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
+Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
+Prüfen und Anwenden) und L3 Dynamische Datenstrukturen (verkettete Liste, Stapel,
+Warteschlange, Baum). Jede Einheit hat eine Lernsituation, Erklärungen, ein
+interaktives Schritt-Modell, Reflexionsfelder und geprüfte Aufgaben mit 100 Punkten.
+L1.1 bis L1.4 besitzen zusätzlich ein eigenes fotorealistisches Motiv; die übrigen
+Einheiten zeigen ein grafisches Banner.
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
 Online-Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.
@@ -114,5 +115,6 @@ Leistungsnachweis. Der Veröffentlichungsworkflow prüft die Freischaltung und
 überträgt ausschließlich die Laufzeitdateien und eigenen Assets der Homepage
 an GitHub Pages.
 
-Nächster Meilenstein: L1.5 „Elemente vertauschen“ mit Hilfsvariable,
-interaktivem Modell, Python-Aufgabe und eigenem Fotomotiv ausarbeiten.
+Nächste Schritte: Erprobung im Unterricht, Rückmeldungen der Klassen J2 INF1 und
+J2 INF2 einarbeiten, Fotomotive für L1.5 bis L3.4 und eine vollständige
+Bildungsplan- und Materialabnahme (REVIEW-01).

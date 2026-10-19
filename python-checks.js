@@ -41,6 +41,13 @@ def __algolab_returns__(name, args, expected):
 def __algolab_compares__(name):
     import ast
     return any(isinstance(n, ast.Compare) and any(isinstance(op, ast.In) for op in n.ops) for n in __algolab_nodes__(name))
+def __algolab_chain__(anker, knoten):
+    daten, aktuell, schritte = [], anker, 0
+    while aktuell is not None and schritte < 100:
+        daten.append(knoten[aktuell][0])
+        aktuell = knoten[aktuell][1]
+        schritte += 1
+    return daten
 def __algolab_uses__(name, *methods):
     import ast
     used = {n.func.attr for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)} | {n.func.id for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}

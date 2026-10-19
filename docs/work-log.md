@@ -435,3 +435,17 @@ und leichter zu überblickender Aufbau der Lektionsseiten.
   „Startcode wiederherstellen“ mit Rückfrage.
 Geprüft: 57/57 Tests; Browser Desktop und 375 px ohne Überlauf, hell und
 dunkel, Tastatureingaben im Editor mit echten Tastendrücken.
+
+## 19. Oktober 2026 – Alle 19 Einheiten (1.0.0)
+
+Bearbeiter: Claude. Material L3_1 bis L3_4.2 (Informationsblätter,
+Arbeitsaufträge, Lösungen) und Ich-kann-Liste L3 ausgewertet. Neues Modul
+ds-model.js mit Schrittspuren für verkettete Liste, Stapel und Warteschlange
+sowie Baumanalyse; Darstellung im bestehenden Schrittmodell (Daten | Zeiger
+mit Anker/NULL, Stapelkiste, Warteschlange mit vorne/hinten) und neuer
+Baum-Prüfstand (SVG, Tabelle, Vorhersagequiz mit Begründung). L3.1–L3.4 mit
+Lernsituation, Beispielen, Reflexionen und je 100 Punkten. Materialmatrix
+für L1.5–L3.4 ergänzt. Startseitenhinweis passt sich an.
+Prüfstand: 64/64 Tests (neu: tests/ds-model.test.cjs, tests/l3-content.test.cjs),
+Syntax, Diff; Browser: alle Modellfälle von L3 durchgeklickt, Baum-Prüfstand
+für sechs Bäume, Backspace-Aufgabe in Pyodide bestanden, keine Konsolenfehler.
