@@ -502,3 +502,22 @@ Bearbeiter: Claude. Glossar mit 56 eigenständig formulierten Begriffen
 Prüfstand: 77/77 Tests, Syntax, Diff; Browser Desktop und 375 px ohne
 Überlauf, Suche („lifo“ → Stapelspeicher, LIFO), Filter „Bäume“ (11).
 Online-Abnahme 1.2.0 (9bb02bb): Version 1.2.0, Glossar-Suche („zeiger“ → 3 Treffer), Symbol geladen, keine Konsolenfehler.
+
+## 19. Oktober 2026 – Bereich „Programmieren“ (1.3.0)
+
+Bearbeiter: Claude, auf Jakobs Auftrag („Bereich für das Programmieren mit
+Python wie in PythonLab“). PythonLab (0.21.0, D:\Google Drive\Codex\PythonLab)
+untersucht: Reiter „Üben“ mit Aufgabenkatalog und Filtern, Aufgabenseite mit
+Editor, Ausgabe-/Eingabereiter, Starten/Prüfen, Prüftypen tests/output/
+outputNumber, tolerante Ausgabeprüfung, lokaler Lerncoach, optionaler
+Gemini-Coach. Für AlgoLab übernommen und an BPE 7 angepasst: neue Dateien
+practice.js (17 Aufgaben, 6 Werkstattvorlagen) und practice-check.js
+(Ausgabeprüfung, Diagnosen, gestufte Hinweise); Testfälle statt einzelner
+Prüfeingabe; Syntaxbaum-Regeln statt Textsuche. Ohne KI-Coach.
+Python-Worker um input() mit Eingabezeilen und assert-Testcode erweitert,
+versionierte Worker-/Helfer-Adressen. Lernstand practice.solved/drafts.
+Prüfstand: 85/85 Tests, Syntax, Diff. Browser: Katalog und Filter, Starten
+mit Eingabe-Echo, Fehlversuch (in mnr) mit Meldung, Lösung bestanden und
+gespeichert, Tupeltausch abgelehnt, Werkstatt (Vorlage binäre Suche,
+IndexError-Erklärung, Endlosschleife nach 5 s gestoppt), Lektionsaufgabe
+L2.6 weiterhin bestanden, 375 px ohne Überlauf.

@@ -48,6 +48,21 @@ def __algolab_chain__(anker, knoten):
         aktuell = knoten[aktuell][1]
         schritte += 1
     return daten
+def __algolab_calls__(*names):
+    import ast
+    tree = ast.parse(__algolab_source__)
+    used = {n.func.attr if isinstance(n.func, ast.Attribute) else n.func.id for n in ast.walk(tree) if isinstance(n, ast.Call) and isinstance(n.func, (ast.Attribute, ast.Name))}
+    return used & set(names)
+def __algolab_in__(*names):
+    import ast
+    return any(isinstance(n, ast.Compare) and any(isinstance(op, (ast.In, ast.NotIn)) for op in n.ops) and any(isinstance(c, ast.Name) and c.id in names for c in n.comparators) for n in ast.walk(ast.parse(__algolab_source__)))
+def __algolab_has__(*kinds):
+    import ast
+    types = tuple(getattr(ast, kind) for kind in kinds)
+    return any(isinstance(n, types) for n in ast.walk(ast.parse(__algolab_source__)))
+def __algolab_pop_index__():
+    import ast
+    return any(isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "pop" and n.args for n in ast.walk(ast.parse(__algolab_source__)))
 def __algolab_uses__(name, *methods):
     import ast
     used = {n.func.attr for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)} | {n.func.id for n in __algolab_nodes__(name) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}

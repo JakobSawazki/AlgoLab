@@ -24,6 +24,7 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | SELF-01 | DONE | Claude | 19.10.2026: 1.1.0 – Ich-kann-Listen L1–L3 (45 Aussagen aus dem Material) als Seite „Ich-kann-Listen“ und als Ich-kann-Check je Einheit; ☐/✓/✓✓, im Lernstand und in der JSON-Sicherung, ohne Einfluss auf Punkte. |
 | EXTRA-01 | DONE | Claude | 19.10.2026: 1.1.0 – sieben freiwillige, geprüfte Aufgaben ohne Punkte: Kapitalrechner (L1_4.3), Wetterstation (L1_4.2), Gewinnziehung ohne Doppelte (L1_5), Wortverschlüsselung (L2_4.4), Mitglieder je Jahrgang (L2_4.3), Klammerprüfung mit Stapel und Baumhöhe mit Warteschlange (Transfer). |
 | GLOSSAR-01 | DONE | Claude | 19.10.2026: 1.2.0 – Glossar mit 56 Fachbegriffen in 7 Themen (#glossar), Suche inkl. Synonymen, Themenfilter, Verknüpfung zu den Einheiten; Seitenleiste mit Buch-Symbol. Tests: eindeutig, erklärt, BPE-7.3-Begriffe vorhanden. |
+| PRACTICE-01 | DONE | Claude | 19.10.2026: 1.3.0 – Bereich „Programmieren“ (#programmieren) nach Vorbild PythonLab: 17 Aufgaben aus dem BPE-7-Material mit input() (Arrays, Algorithmen, Sortieren, Suchen, Datenstrukturen; Grundlagen/Vertiefung/Anwendung), Editor main.py, Reiter Ausgabe/Eingabe, Code starten/prüfen, je Aufgabe 2–5 Testfälle, tolerante Ausgabeprüfung und Syntaxbaum-Regeln, lokaler Lerncoach, freie Python-Werkstatt mit 6 Vorlagen; Fortschritt und Entwürfe im JSON, unabhängig von der Freischaltung. Worker: input() aus Eingabezeilen, assert-Testcode, versionierte Adressen. 85/85 Tests, Browser Desktop/375 px. |
 
 ## Übergabe
 
@@ -31,9 +32,9 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.2.0** (Struktogramme, Ich-kann-Listen, Vertiefung, Glossar), als 9bb02bb veröffentlicht und online abgenommen. Offen: CLASS-01 (Erprobung, Jakob).
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.3.0** (Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Offen: CLASS-01 (Erprobung, Jakob).
 Derzeit keine Dateireservierung.
-Prüfungen: `node --test tests/*.test.cjs` (77/77), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (85/85), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale

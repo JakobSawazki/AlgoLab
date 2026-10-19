@@ -34,11 +34,13 @@ jobs:
           node --check analysis-model.js
           node --check array-ops-model.js
           node --check ds-model.js
+          node --check practice.js
+          node --check practice-check.js
           node --test tests/*.test.cjs
       - name: Assemble public files only
         run: |
           mkdir public
-          cp index.html styles.css design.css app.js learning-path.js progress.js nagold.js nagold-table.js python-worker.js python-runner.js python-checks.js loop-model.js analysis-model.js array-ops-model.js ds-model.js public/
+          cp index.html styles.css design.css app.js learning-path.js progress.js nagold.js nagold-table.js python-worker.js python-runner.js python-checks.js loop-model.js analysis-model.js array-ops-model.js ds-model.js practice.js practice-check.js public/
           cp -r assets public/
           touch public/.nojekyll
       - uses: actions/upload-pages-artifact@v3

@@ -4,7 +4,9 @@
     const units = content.units;
     const nagold = typeof module !== "undefined" && module.exports ? require("./nagold.js")(content) : root.ALGOLAB_NAGOLD;
     const byId = id => units.find(unit => unit.id === id);
-    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {} });
+    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {}, practice: { solved: {}, drafts: {} } });
+    // Bereich „Programmieren“: gelöste Aufgaben und Entwürfe, unabhängig von Punkten und Freischaltung.
+    const practiceIds = new Set((content.practice?.exercises || []).map(exercise => exercise.id));
     // Selbsteinschätzung (Ich-kann-Listen) und freiwillige Zusatzaufgaben zählen nicht für die Freischaltung.
     const selfcheckIds = new Set((content.selfcheck || []).flatMap(group => group.items.map(item => item.id)));
     const extraTask = (id, taskId) => byId(id)?.extras?.find(task => task.id === taskId);
@@ -61,6 +63,12 @@
           if (typeof draft === "string" && draft.length <= 20000) { state.work[unit.id] ??= {}; state.work[unit.id][task.id] = draft; }
         }
       }
+      for (const [id, solved] of Object.entries(raw?.practice?.solved && typeof raw.practice.solved === "object" ? raw.practice.solved : {})) {
+        if (practiceIds.has(id) && solved === true) state.practice.solved[id] = true;
+      }
+      for (const [id, draft] of Object.entries(raw?.practice?.drafts && typeof raw.practice.drafts === "object" ? raw.practice.drafts : {})) {
+        if ((practiceIds.has(id) || id === "werkstatt" || id === "werkstatt-eingabe") && typeof draft === "string" && draft.length <= 20000) state.practice.drafts[id] = draft;
+      }
       state.nagoldEntries = nagold.entriesFor(Object.hasOwn(raw || {}, "nagoldEntries") ? { nagoldEntries: raw.nagoldEntries } : { completed: state.completed });
       return state;
     }
@@ -93,6 +101,21 @@
       if (level === 0) delete state.selfcheck[itemId]; else state.selfcheck[itemId] = level;
       return true;
     }
+    function completePractice(state, id, passedCheck) {
+      if (!practiceIds.has(id) || passedCheck !== true) return false;
+      state.practice ??= { solved: {}, drafts: {} };
+      state.practice.solved ??= {};
+      const fresh = state.practice.solved[id] !== true;
+      state.practice.solved[id] = true;
+      return fresh;
+    }
+    function savePracticeDraft(state, id, code) {
+      if (!(practiceIds.has(id) || id === "werkstatt" || id === "werkstatt-eingabe") || typeof code !== "string" || code.length > 20000) return false;
+      state.practice ??= { solved: {}, drafts: {} };
+      state.practice.drafts ??= {};
+      state.practice.drafts[id] = code;
+      return true;
+    }
     function completeExtra(state, id, taskId, passedCheck) {
       if (!unlocked(state, id) || !extraTask(id, taskId) || passedCheck !== true) return false;
       state.extras ??= {};
@@ -118,7 +141,7 @@
       }
       return normalize(raw);
     }
-    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, rateSelfcheck, completeExtra, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
+    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, rateSelfcheck, completeExtra, completePractice, savePracticeDraft, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createEngine;
   else root.createAlgoLabProgress = createEngine;

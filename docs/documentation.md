@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.2.0 – Glossar** (alle 19 Einheiten, Struktogramme, Ich-kann-Listen, Vertiefung). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.3.0 – Programmieren** (alle 19 Einheiten, Programmierbereich, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,42 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.3.0 – 19. Oktober 2026
+
+Neuer Bereich **Programmieren** (#programmieren) nach dem Vorbild des Reiters
+„Üben“ in PythonLab:
+
+- Katalog mit 17 Programmieraufgaben, filterbar nach Niveau (Grundlagen,
+  Vertiefung, Anwendung) und Thema (Arrays, Algorithmen, Sortieren, Suchen,
+  Datenstrukturen). Die Aufgaben folgen den Arbeitsaufträgen des Materials
+  (z. B. L1_3.4–3.6, L2_2.1.2, L2_2.2.3, L2_3.1.1–3.2.1, L2_4.1) und lesen
+  Eingaben wie dort mit input(); jede verweist auf die passende Einheit.
+- Aufgabenseite mit Arbeitsschritten, Editor `main.py` (Tab-Einrückung,
+  Strg+Enter, kein Zeilenumbruch), Reitern Ausgabe/Eingabe, „Code starten“
+  (Eingaben werden wie in einer Konsole angezeigt) und „Code prüfen“.
+- Prüfung mit 2–5 Testfällen je Aufgabe (`practice.js`): tolerante
+  Ausgabeprüfung bzw. letzter Zahlenwert (`practice-check.js`, Logik aus
+  PythonLab übernommen und angepasst) sowie assert-Regeln auf dem
+  Syntaxbaum (verbotene Abkürzungen wie in, sorted, insert, pop(index);
+  Kommentare lösen keine Fehler aus). Ergebnis je Testfall mit Eingabe und
+  konkreter Meldung zur betroffenen Ausgabezeile.
+- Lokaler Lerncoach: Erklärung der Fehlertypen (u. a. EOFError bei fehlenden
+  Eingabezeilen, IndexError, TypeError bei vergessenem int()) und gestufte
+  Hinweise je Prüfversuch. Ein KI-Coach wie in PythonLab ist bewusst nicht
+  enthalten (kein Proxy, keine Datenübertragung).
+- Python-Werkstatt (#programmieren/werkstatt) zum freien Programmieren mit
+  sechs Vorlagen (Ein-/Ausgabe, Durchlaufen, Bubble Sort, binäre Suche,
+  Stapel/Warteschlange); Entwurf und Eingaben werden gespeichert.
+- Lernstand: `practice.solved` und `practice.drafts` in Browser und
+  JSON-Datei, validiert beim Import; ohne Einfluss auf Punkte und
+  Freischaltung. Jede Lektion verweist unter „Weiter programmieren“ auf
+  passende Aufgaben; die Startseite bietet „Selbst programmieren“ an.
+- Python-Worker: input() liest die Zeilen des Eingabereiters, optionaler
+  assert-Testcode nach dem Programm, Worker und Prüfhelfer werden mit der
+  Seitenversion geladen (vorher fest `v=0.6.0`, Gefahr veralteter Helfer im
+  Cache). 85 Tests (neu: tests/practice.test.cjs mit Referenz- und
+  Falschlösungen für alle Aufgaben).
 
 ### 1.2.0 – 19. Oktober 2026
 

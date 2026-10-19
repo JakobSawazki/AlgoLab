@@ -1,13 +1,14 @@
 (function (root) {
   "use strict";
-  function createRunner({ makeWorker = () => new Worker("python-worker.js?v=0.6.0", { type: "module" }), onStatus = () => {}, loadTimeout = 60000, runTimeout = 5000 } = {}) {
+  function createRunner({ makeWorker = () => new Worker(`python-worker.js?v=${root.ALGOLAB_CONTENT?.version || "dev"}`, { type: "module" }), onStatus = () => {}, loadTimeout = 60000, runTimeout = 5000 } = {}) {
     let worker, timer, pending, serial = 0, initialized = false;
     function terminate(message = "Ausführung gestoppt.") {
       clearTimeout(timer);
       worker?.terminate(); worker = null; initialized = false;
       if (pending) { const reject = pending.reject; pending = null; reject(new Error(message)); }
     }
-    function run(code, checks = []) {
+    // options: inputs (Zeilen für input()), testCode (assert-Prüfungen), echo (Eingaben anzeigen).
+    function run(code, checks = [], options = {}) {
       if (pending) return Promise.reject(new Error("Ein Programm läuft bereits."));
       return new Promise((resolve, reject) => {
         const requestId = ++serial;
@@ -16,7 +17,7 @@
           onStatus("Dein Programm läuft …");
           clearTimeout(timer);
           timer = setTimeout(() => terminate("Nach 5 Sekunden gestoppt. Prüfe, ob deine Schleife ein Ende erreicht."), runTimeout);
-          worker.postMessage({ type: "run", requestId, code, checks });
+          worker.postMessage({ type: "run", requestId, code, checks, inputs: options.inputs ?? "", testCode: options.testCode ?? "", echo: options.echo === true });
         }
         if (!worker) {
           onStatus("Python wird geladen. Beim ersten Start kann das einen Moment dauern …");

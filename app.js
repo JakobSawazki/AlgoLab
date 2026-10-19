@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.2.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.3.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -151,7 +151,7 @@
     document.querySelector("#page-title").textContent = "Übersicht";
     const next = content.units.find(unit => !state.completed.includes(unit.id));
     const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
-    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice">${content.units.every(unit => unit.ready) ? `<strong>So arbeitest du mit AlgoLab:</strong> Jede der ${content.units.length} Einheiten führt dich vom Verstehen über ein interaktives Modell zu eigenen Erklärungen und geprüften Aufgaben – ab L1.2 auch mit Python direkt im Browser. Sichere deinen Lernstand regelmäßig über das Diskettensymbol als Datei.` : `<strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Die übrigen Einheiten zeigen zunächst ihre Lernziele.`}</aside>`;
+    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><a class="hero-secondary" href="#programmieren">${icon("code")} Selbst programmieren</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice">${content.units.every(unit => unit.ready) ? `<strong>So arbeitest du mit AlgoLab:</strong> Jede der ${content.units.length} Einheiten führt dich vom Verstehen über ein interaktives Modell zu eigenen Erklärungen und geprüften Aufgaben – ab L1.2 auch mit Python direkt im Browser. Sichere deinen Lernstand regelmäßig über das Diskettensymbol als Datei.` : `<strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Die übrigen Einheiten zeigen zunächst ihre Lernziele.`}</aside>`;
     setupMap();
   }
   function setupMap() {
@@ -265,7 +265,7 @@
       const answer = state.answers[id]?.[task.id]; const solved = answer === task.correct;
       return `<form class="task" data-unit="${id}" data-task="${task.id}"><fieldset ${solved ? "disabled" : ""}><legend><span class="task-number">${index + 1}</span> ${esc(task.prompt)}</legend>${task.options.map((option, choice) => `<label class="choice"><input type="radio" name="choice" value="${choice}" ${answer === choice ? "checked" : ""} required><span>${esc(option)}</span></label>`).join("")}</fieldset><div class="task-actions">${solved ? `<span class="task-success">✓ Bestanden · ${task.points} Punkte</span>` : `<button type="submit">Antwort prüfen</button>`}<p role="status" class="task-feedback">${answer !== undefined && !solved ? esc(task.hint) : ""}</p></div></form>`;
     }).join("");
-    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}${example.nsd ? renderNsd(example.nsd) : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>${esc(unit.help.text || "Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.")}</p>${(unit.help.links || [unit.help]).map(link => `<p><a href="${link.href}" target="_blank" rel="noopener noreferrer">${esc(link.label)} ↗</a></p>`).join("")}</aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section>${unit.extras?.length ? `<section class="lesson-panel extras-panel"><span class="eyebrow">VERTIEFEN</span><h3>Vertiefung und Zusatzaufgaben</h3><p>Diese Aufgaben sind freiwillig. Sie werden genauso geprüft, bringen aber keine Punkte und sind für die Freischaltung nicht nötig. Ideal, wenn du schneller fertig bist oder für die Prüfung üben möchtest.</p>${unit.extras.map(task => renderCodeTask(unit, task)).join("")}</section>` : ""}${renderResults(unit)}${renderUnitSelfcheck(unit)}<section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
+    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}${example.nsd ? renderNsd(example.nsd) : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>${esc(unit.help.text || "Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.")}</p>${(unit.help.links || [unit.help]).map(link => `<p><a href="${link.href}" target="_blank" rel="noopener noreferrer">${esc(link.label)} ↗</a></p>`).join("")}</aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section>${unit.extras?.length ? `<section class="lesson-panel extras-panel"><span class="eyebrow">VERTIEFEN</span><h3>Vertiefung und Zusatzaufgaben</h3><p>Diese Aufgaben sind freiwillig. Sie werden genauso geprüft, bringen aber keine Punkte und sind für die Freischaltung nicht nötig. Ideal, wenn du schneller fertig bist oder für die Prüfung üben möchtest.</p>${unit.extras.map(task => renderCodeTask(unit, task)).join("")}</section>` : ""}${renderPracticeLinks(unit)}${renderResults(unit)}${renderUnitSelfcheck(unit)}<section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
     if (unit.loopExplorer) {
       const panel = document.createElement("section");
       panel.className = "lesson-panel loop-lab";
@@ -610,6 +610,153 @@
     if (focusTerm) main.querySelector("#glossary-query").value = decodeURIComponent(focusTerm);
     filter();
   }
+  // Bereich „Programmieren“ nach dem Vorbild von PythonLab: Katalog, Aufgabenseite und freie Werkstatt.
+  const practice = content.practice;
+  const practiceCheck = window.ALGOLAB_PRACTICE_CHECK;
+  const practiceFilter = { level: "", topic: "" };
+  const practiceAttempts = new Map();
+  const practiceSolved = id => state.practice?.solved?.[id] === true;
+  const practiceDraft = (id, fallback) => state.practice?.drafts?.[id] ?? fallback;
+  const solvedCount = () => practice.exercises.filter(exercise => practiceSolved(exercise.id)).length;
+  function practiceCard(exercise) {
+    const solved = practiceSolved(exercise.id);
+    return `<a class="practice-card ${solved ? "is-solved" : ""}" href="#programmieren/${exercise.id}" data-level="${esc(exercise.level)}" data-topic="${esc(exercise.topic)}"><span class="practice-state" aria-hidden="true">${solved ? "✓" : "&gt;_"}</span><span class="practice-topic">${esc(exercise.topic)}</span><h3>${esc(exercise.title)}</h3><p>${esc(exercise.description)}</p><span class="practice-meta"><span class="level level-${esc(exercise.level.toLowerCase())}">${esc(exercise.level)}</span><span>passt zu ${exercise.unit}</span>${solved ? '<span class="solved">gelöst</span>' : ""}</span></a>`;
+  }
+  function renderPracticeCatalog() {
+    document.querySelector("#page-title").textContent = "Programmieren";
+    const total = practice.exercises.length, solved = solvedCount();
+    main.innerHTML = `<section class="practice-lead"><div><span class="eyebrow">SELBST PROGRAMMIEREN</span><h2>Programmieren mit Python</h2><p>Wähle eine Aufgabe, schreibe den Code selbst und lass deine Lösung automatisch mit mehreren Testeingaben prüfen. Fehler gehören dazu: Lies die Meldung, ändere eine Sache und probiere es erneut. Die Aufgaben folgen den Arbeitsaufträgen deines Unterrichtsmaterials und nutzen – wie dort – input() für Eingaben.</p></div><div class="practice-progress"><small>Dein Programmierstand</small><strong>${solved} / ${total}</strong><progress value="${solved}" max="${total}" aria-label="Gelöste Programmieraufgaben"></progress><span>Aufgaben gelöst · zählt nicht für die Freischaltung</span></div></section><a class="practice-workshop" href="#programmieren/werkstatt"><span class="practice-state" aria-hidden="true">{ }</span><span><strong>Python-Werkstatt</strong><small>Freies Programmieren ohne Prüfung – mit Eingaben, Vorlagen für Sortieren, Suchen und Datenstrukturen und gespeichertem Entwurf.</small></span>${icon("arrow")}</a><div class="practice-filters"><div class="module-tabs" role="group" aria-label="Nach Niveau filtern"><button type="button" data-practice-level="" aria-pressed="${!practiceFilter.level}">Alle Niveaus</button>${practice.levels.map(level => `<button type="button" data-practice-level="${esc(level)}" aria-pressed="${practiceFilter.level === level}">${esc(level)}</button>`).join("")}</div><div class="module-tabs" role="group" aria-label="Nach Thema filtern"><button type="button" data-practice-topic="" aria-pressed="${!practiceFilter.topic}">Alle Themen</button>${practice.topics.map(topic => `<button type="button" data-practice-topic="${esc(topic)}" aria-pressed="${practiceFilter.topic === topic}">${esc(topic)}</button>`).join("")}</div><p class="glossary-count" id="practice-count" role="status"></p></div><div class="practice-grid">${practice.exercises.map(practiceCard).join("")}</div>`;
+    const apply = () => {
+      let visible = 0;
+      main.querySelectorAll(".practice-card").forEach(card => {
+        const show = (!practiceFilter.level || card.dataset.level === practiceFilter.level) && (!practiceFilter.topic || card.dataset.topic === practiceFilter.topic);
+        card.hidden = !show; if (show) visible++;
+      });
+      main.querySelector("#practice-count").textContent = `${visible} von ${total} Aufgaben`;
+    };
+    main.querySelectorAll("[data-practice-level], [data-practice-topic]").forEach(button => button.addEventListener("click", () => {
+      const key = button.dataset.practiceLevel !== undefined ? "level" : "topic";
+      practiceFilter[key] = button.dataset.practiceLevel ?? button.dataset.practiceTopic;
+      main.querySelectorAll(key === "level" ? "[data-practice-level]" : "[data-practice-topic]").forEach(other => other.setAttribute("aria-pressed", String(other === button)));
+      apply();
+    }));
+    apply();
+  }
+  function editorShell({ id, code, input, title = "main.py", check = false }) {
+    return `<div class="practice-editor"><div class="editor-toolbar"><strong>${esc(title)}</strong><span class="editor-hint">Tab rückt ein · Strg+Enter startet · Esc, dann Tab verlässt den Editor</span><button type="button" class="icon-button" data-practice-reset title="Startcode wiederherstellen" aria-label="Startcode wiederherstellen">↺</button></div><label class="sr-only" for="practice-code">Python-Code</label><textarea id="practice-code" class="code-editor" data-practice-draft="${esc(id)}" spellcheck="false" autocapitalize="off" maxlength="20000" rows="16">${esc(code)}</textarea><div class="runner-tabs" role="tablist" aria-label="Konsole"><button type="button" role="tab" data-runner-tab="output" aria-selected="true">Ausgabe</button><button type="button" role="tab" data-runner-tab="input" aria-selected="false">Eingabe</button></div><div class="runner-panel" data-runner-panel="output"><pre class="code-output" id="practice-output" tabindex="0" aria-live="polite">Bereit. Starte deinen Code${check ? " oder prüfe die Lösung" : ""}.</pre></div><div class="runner-panel" data-runner-panel="input" hidden><label for="practice-input">Je Zeile eine Eingabe für input()</label><textarea id="practice-input" class="input-area" ${id === "werkstatt" ? 'data-practice-draft="werkstatt-eingabe"' : ""} spellcheck="false" rows="5">${esc(input)}</textarea></div><div class="code-actions"><button type="button" data-practice-run>▶ Code starten</button>${check ? '<button type="button" class="primary" data-practice-check>✓ Code prüfen</button>' : ""}<button type="button" data-practice-stop disabled>Stoppen</button><small class="draft-status" role="status"></small></div></div>`;
+  }
+  function renderPracticeExercise(id) {
+    const exercise = practice.exercises.find(item => item.id === id);
+    if (!exercise) { renderMissing(); return; }
+    document.querySelector("#page-title").textContent = `Programmieren · ${exercise.title}`;
+    const unit = engine.byId(exercise.unit), solved = practiceSolved(exercise.id);
+    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>${esc(exercise.title)}</span></div><section class="lesson-heading"><span class="eyebrow">${esc(exercise.topic.toUpperCase())} · ${esc(exercise.level.toUpperCase())}</span><h2>${esc(exercise.title)}</h2><p>${esc(exercise.description)}</p><ul class="lesson-meta"><li>${icon("notes")} Material ${esc(exercise.source)}</li><li>${icon("check")} ${exercise.check.cases.length} Testfälle</li><li id="practice-solved-chip" ${solved ? "" : "hidden"}>${icon("check")} Gelöst</li></ul></section><div class="practice-workspace"><aside class="lesson-panel practice-brief"><span class="eyebrow">DEINE AUFGABE</span><ol>${exercise.instructions.map(step => `<li>${esc(step)}</li>`).join("")}</ol>${exercise.numericInput ? '<p class="practice-note">input() liefert immer Text. Für Zahlen brauchst du int(input(...)) oder float(input(...)).</p>' : ""}<p class="practice-note">Beim Prüfen wird dein Programm mit mehreren Testeingaben ausgeführt. Bewertet wird nur, was print() ausgibt; Eingabeaufforderungen von input() zählen nicht mit.</p>${unit && accessible(unit.id) ? `<a class="practice-unit" href="#unit/${unit.id}">${icon("route")} Erklärung in ${unit.id} · ${esc(unit.title)}</a>` : `<span class="practice-unit">${icon("route")} Passt zu ${exercise.unit}${unit ? ` · ${esc(unit.title)}` : ""}</span>`}</aside><section class="practice-main">${editorShell({ id: exercise.id, code: practiceDraft(exercise.id, exercise.starter), input: exercise.input || "", check: true })}<div class="result-banner" id="practice-result" role="status" hidden></div><ul class="practice-cases" id="practice-cases" aria-label="Testfälle"></ul><section class="lesson-panel learning-coach"><span class="eyebrow">LERNCOACH</span><h3>Hinweise zu deinem Code</h3><p id="coach-lead">Die Prüfung läuft vollständig in deinem Browser. Hinweise helfen weiter, ohne die Lösung vorwegzunehmen.</p><ul id="coach-hints"></ul><button type="button" data-practice-hint>💡 Lernhinweis anzeigen</button></section></section></div>`;
+    setupPracticeEditor(exercise);
+  }
+  function renderWorkshop() {
+    document.querySelector("#page-title").textContent = "Python-Werkstatt";
+    const code = practiceDraft("werkstatt", practice.templates[0].code), input = practiceDraft("werkstatt-eingabe", "");
+    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>Python-Werkstatt</span></div><section class="lesson-heading"><span class="eyebrow">FREIES PROGRAMMIEREN</span><h2>Python-Werkstatt</h2><p>Hier gibt es keine Prüfung. Probiere Ideen aus, teste Algorithmen aus dem Unterricht mit eigenen Daten oder bereite eine Lösung vor. Dein Entwurf wird automatisch auf diesem Gerät gespeichert und gehört zur Lernstandsdatei.</p></section><div class="practice-workspace"><aside class="lesson-panel practice-brief"><span class="eyebrow">VORLAGEN</span><p>Lade eine Vorlage als Ausgangspunkt. Dein bisheriger Code wird dabei ersetzt.</p><div class="template-list">${practice.templates.map(template => `<button type="button" data-template="${template.id}">${esc(template.title)}</button>`).join("")}</div><p class="practice-note">Programme werden nach 5 Sekunden gestoppt. Eingaben für input() trägst du im Reiter „Eingabe“ ein – je Zeile eine. Für größere Projekte nutzt du im Unterricht Thonny.</p></aside><section class="practice-main">${editorShell({ id: "werkstatt", code, input, title: "werkstatt.py" })}<section class="lesson-panel learning-coach"><span class="eyebrow">LERNCOACH</span><h3>Fehlermeldung verstehen</h3><p id="coach-lead">Wenn dein Programm mit einer Fehlermeldung endet, erklärt der Lerncoach hier, was sie bedeutet.</p><ul id="coach-hints"></ul></section></section></div>`;
+    main.querySelectorAll("[data-template]").forEach(button => button.addEventListener("click", () => {
+      const template = practice.templates.find(item => item.id === button.dataset.template);
+      const editor = main.querySelector("#practice-code");
+      if (editor.value.trim() && editor.value !== template.code && !window.confirm("Deinen Code durch die Vorlage ersetzen?")) return;
+      editor.value = template.code; editor.dispatchEvent(new Event("input", { bubbles: true }));
+      const inputField = main.querySelector("#practice-input");
+      inputField.value = template.input || ""; inputField.dispatchEvent(new Event("input", { bubbles: true }));
+      editor.focus();
+    }));
+    setupPracticeEditor(null);
+  }
+  function setupPracticeEditor(exercise) {
+    const editor = main.querySelector("#practice-code"), output = main.querySelector("#practice-output"), inputField = main.querySelector("#practice-input");
+    const buttons = () => main.querySelectorAll("[data-practice-run], [data-practice-check]");
+    const stopButton = main.querySelector("[data-practice-stop]");
+    const showTab = name => {
+      main.querySelectorAll("[data-runner-tab]").forEach(tab => tab.setAttribute("aria-selected", String(tab.dataset.runnerTab === name)));
+      main.querySelectorAll("[data-runner-panel]").forEach(panel => { panel.hidden = panel.dataset.runnerPanel !== name; });
+    };
+    main.querySelectorAll("[data-runner-tab]").forEach(tab => tab.addEventListener("click", () => showTab(tab.dataset.runnerTab)));
+    const coach = (lead, hints, tone = "info") => {
+      main.querySelector("#coach-lead").textContent = lead;
+      main.querySelector("#coach-hints").innerHTML = hints.map(hint => `<li>${esc(hint)}</li>`).join("");
+      main.querySelector(".learning-coach").dataset.tone = tone;
+    };
+    const busy = running => { buttons().forEach(button => { button.disabled = running; }); stopButton.disabled = !running; };
+    const runner = () => (pythonRunner ??= window.createAlgoLabPythonRunner({ onStatus: message => { if (output.isConnected && message) output.textContent = message; } }));
+    const errorLine = text => String(text).trim().split("\n").filter(Boolean).at(-1) || "";
+    async function start() {
+      busy(true); showTab("output");
+      try {
+        const result = await runner().run(editor.value, [], { inputs: inputField.value, echo: true });
+        if (!output.isConnected) return;
+        output.textContent = (result.output || "") + (result.truncated ? "\n[Ausgabe nach 12000 Zeichen gekürzt]" : "") + (result.error ? `${result.output ? "\n" : ""}${errorLine(result.error)}` : "") || "(Keine Ausgabe – hast du print() verwendet?)";
+        output.classList.toggle("has-error", Boolean(result.error));
+        if (result.error) coach(practiceCheck.diagnostic(result.error), exercise ? practiceCheck.hints(exercise, editor.value, result.error, practiceAttempts.get(exercise.id) || 1) : [errorLine(result.error)], "warning");
+      } catch (error) { if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); } }
+      finally { if (output.isConnected) busy(false); }
+    }
+    async function check() {
+      const attempt = (practiceAttempts.get(exercise.id) || 0) + 1;
+      practiceAttempts.set(exercise.id, attempt);
+      busy(true); showTab("output");
+      const list = main.querySelector("#practice-cases"), banner = main.querySelector("#practice-result");
+      list.innerHTML = ""; banner.hidden = true;
+      const verdicts = [];
+      try {
+        for (const [index, testCase] of exercise.check.cases.entries()) {
+          output.textContent = `Prüfe Testfall ${index + 1} von ${exercise.check.cases.length} …`;
+          const result = await runner().run(editor.value, [], { inputs: testCase.input, testCode: exercise.check.testCode || "" });
+          if (!list.isConnected) return;
+          const verdict = practiceCheck.evaluateCase(exercise.check, testCase, result);
+          verdicts.push({ ...verdict, result, testCase });
+          list.insertAdjacentHTML("beforeend", `<li class="${verdict.passed ? "passed" : "retry"}"><strong>${verdict.passed ? "✓" : "✗"} Testfall ${index + 1}</strong><span>Eingabe: ${esc(testCase.input ? testCase.input.split("\n").join(" · ") : "(keine)")}</span>${verdict.passed ? "" : `<span>${esc(verdict.message)}</span>`}</li>`);
+        }
+        const failed = verdicts.find(item => !item.passed);
+        const shown = failed || verdicts.at(-1);
+        output.textContent = shown.result.output ? shown.result.output.trimEnd() : (shown.result.error ? errorLine(shown.result.error) : "(Keine Ausgabe)");
+        output.classList.toggle("has-error", Boolean(shown.result.error));
+        banner.hidden = false;
+        if (!failed) {
+          const fresh = engine.completePractice(state, exercise.id, true);
+          if (fresh) save();
+          banner.className = "result-banner is-success";
+          banner.textContent = fresh ? `Geschafft! Alle ${verdicts.length} Testfälle bestanden.` : `Alle ${verdicts.length} Testfälle bestanden – deine Lösung funktioniert weiterhin.`;
+          main.querySelector("#practice-solved-chip").hidden = false;
+          coach("Prüfung bestanden. Dein Programm erfüllt alle überprüften Anforderungen.", ["Teste es im Reiter „Eingabe“ noch mit eigenen Werten.", "Vergleiche deine Lösung mit dem Struktogramm in der passenden Lektion."], "success");
+        } else {
+          banner.className = "result-banner is-retry";
+          banner.textContent = `${verdicts.filter(item => item.passed).length} von ${verdicts.length} Testfällen bestanden. ${failed.message}`;
+          coach("Nächster sinnvoller Schritt", [...new Set([failed.message, ...practiceCheck.hints(exercise, editor.value, failed.result.error || "", attempt)])].slice(0, 3), "warning");
+        }
+      } catch (error) {
+        if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); coach("Die Prüfung wurde unterbrochen.", [practiceCheck.diagnostic(error.message)], "warning"); }
+      } finally { if (output.isConnected) busy(false); }
+    }
+    main.querySelector("[data-practice-run]").addEventListener("click", start);
+    main.querySelector("[data-practice-check]")?.addEventListener("click", check);
+    stopButton.addEventListener("click", () => { pythonRunner?.stop(); pythonRunner = null; });
+    main.querySelector("[data-practice-hint]")?.addEventListener("click", () => {
+      const attempt = Math.max(1, practiceAttempts.get(exercise.id) || 1);
+      coach(`Hinweis ${Math.min(attempt, 3)}: Gehe einen kleinen Schritt weiter und prüfe danach erneut.`, practiceCheck.hints(exercise, editor.value, "", attempt));
+      practiceAttempts.set(exercise.id, attempt + 1);
+    });
+    main.querySelector("[data-practice-reset]").addEventListener("click", () => {
+      const starter = exercise ? exercise.starter : practice.templates[0].code;
+      if (editor.value !== starter && !window.confirm("Deinen Code durch den Startcode ersetzen? Dein bisheriger Entwurf geht dabei verloren.")) return;
+      editor.value = starter; editor.dispatchEvent(new Event("input", { bubbles: true })); editor.focus();
+    });
+  }
+  function renderPractice(id) {
+    if (!id) renderPracticeCatalog();
+    else if (id === "werkstatt") renderWorkshop();
+    else renderPracticeExercise(id);
+  }
+  function renderPracticeLinks(unit) {
+    const items = practice.exercises.filter(exercise => exercise.unit === unit.id);
+    if (!items.length) return "";
+    return `<aside class="lesson-panel practice-links"><strong>Weiter programmieren</strong><p>Passend zu ${unit.id} gibt es im Bereich Programmieren Aufgaben mit input() wie im Unterrichtsmaterial:</p><div class="can-units">${items.map(exercise => `<a href="#programmieren/${exercise.id}">${practiceSolved(exercise.id) ? "✓ " : ""}${esc(exercise.title)}</a>`).join("")}</div></aside>`;
+  }
   function renderProgress() {
     document.querySelector("#page-title").textContent = "Mein Lernstand";
     main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div>`;
@@ -624,6 +771,7 @@
     else if (page === "progress") renderProgress();
     else if (page === "selfcheck") renderSelfcheck(id);
     else if (page === "glossar") renderGlossary(id);
+    else if (page === "programmieren") renderPractice(id);
     else renderMissing();
     const total = engine.total(state);
     document.querySelector("#total-points").textContent = `${total} Punkte`;
@@ -638,6 +786,14 @@
     syncProfile();
     if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
   }
+  main.addEventListener("input", event => {
+    const draft = event.target.closest?.("textarea[data-practice-draft]");
+    if (draft && engine.savePracticeDraft(state, draft.dataset.practiceDraft, draft.value)) {
+      const stored = save();
+      const status = main.querySelector(".practice-editor .draft-status");
+      if (status) status.textContent = stored && document.querySelector("#storage-warning").hidden ? "Entwurf auf diesem Gerät gespeichert." : "Entwurf im aktuellen Tab verfügbar. Sichere deinen Lernstand als Datei.";
+    }
+  });
   main.addEventListener("input", event => {
     const field = event.target.closest("textarea[data-work]");
     if (!field) return;
@@ -692,7 +848,7 @@
     const editor = event.target.closest?.("textarea.code-editor");
     if (!editor) return;
     if (event.key === "Escape") { editorEscaped = true; return; }
-    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") { event.preventDefault(); editor.closest(".code-task").querySelector("[data-run-code]:not(:disabled)")?.click(); return; }
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") { event.preventDefault(); editor.closest(".code-task, .practice-editor")?.querySelector("[data-run-code]:not(:disabled), [data-practice-run]:not(:disabled)")?.click(); return; }
     const { selectionStart: start, selectionEnd: end, value } = editor;
     const lineStart = value.lastIndexOf("\n", start - 1) + 1;
     const replace = (from, to, text, caretStart, caretEnd = caretStart) => {

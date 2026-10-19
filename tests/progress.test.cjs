@@ -174,3 +174,21 @@ test("Optional extra tasks are stored separately and never affect points or unlo
   assert.equal(restored.work[target.id][target.extras[0].id], "print(1)");
   for (const unit of withExtras) for (const task of unit.extras) assert.equal(task.points, 0, task.id);
 });
+
+test("Programming practice progress is validated, exported and independent of unlocking", () => {
+  const state = engine.empty();
+  const [first] = content.practice.exercises;
+  assert.equal(engine.completePractice(state, first.id, false), false);
+  assert.equal(engine.completePractice(state, "unbekannt", true), false);
+  assert.equal(engine.completePractice(state, first.id, true), true);
+  assert.equal(engine.completePractice(state, first.id, true), false, "kein zweites Mal neu");
+  assert.equal(engine.savePracticeDraft(state, first.id, "print(1)"), true);
+  assert.equal(engine.savePracticeDraft(state, "werkstatt", "print(2)"), true);
+  assert.equal(engine.savePracticeDraft(state, "fremd", "print(3)"), false);
+  assert.equal(engine.total(state), 0);
+  assert.equal(engine.unlocked(state, "L1.2"), false);
+  const restored = engine.readPayload(JSON.parse(JSON.stringify(engine.payload(state))));
+  assert.deepEqual(restored.practice, { solved: { [first.id]: true }, drafts: { [first.id]: "print(1)", werkstatt: "print(2)" } });
+  const dirty = engine.normalize({ answers: {}, completed: [], practice: { solved: { [first.id]: "ja", fremd: true }, drafts: { fremd: "x", werkstatt: 5 } } });
+  assert.deepEqual(dirty.practice, { solved: {}, drafts: {} });
+});

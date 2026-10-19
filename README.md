@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 19. Oktober 2026. Version **1.2.0 – Struktogramme, Ich-kann-Listen, Vertiefung, Glossar**.
+Stand: 19. Oktober 2026. Version **1.3.0 – Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar**.
 Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
 (Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
 Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
@@ -114,6 +114,13 @@ als JSON gesichert oder geladen werden. Er ist kein manipulationssicherer
 Leistungsnachweis. Der Veröffentlichungsworkflow prüft die Freischaltung und
 überträgt ausschließlich die Laufzeitdateien und eigenen Assets der Homepage
 an GitHub Pages.
+
+Der Bereich **Programmieren** funktioniert wie der Reiter „Üben“ in PythonLab:
+17 Programmieraufgaben aus dem Unterrichtsmaterial mit Eingaben über input(),
+Editor, Konsole mit Ausgabe- und Eingabereiter, automatische Prüfung mit
+mehreren Testfällen, lokaler Lerncoach und eine freie Python-Werkstatt mit
+Vorlagen. Der Programmierstand wird gespeichert, zählt aber nicht für die
+Freischaltung der Lerneinheiten.
 
 Seit 1.1.0 zeigen die Schrittmodelle jeden Algorithmus wahlweise als Python-Code
 oder als Struktogramm nach der Operatorenliste Baden-Württemberg. Die
