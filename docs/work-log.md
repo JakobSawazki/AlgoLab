@@ -542,3 +542,19 @@ Prüfstand: 92/92 Tests, Syntax, Diff; Browser mit simulierten Antworten:
 Dialog, Modus, automatische Anfrage (nur erlaubte Felder), Antwortkarte,
 vertiefende Hilfe, 502-Meldung, Zurückziehen, Lektionsknopf.
 Online-Abnahme 1.4.0 (27e995d): Version 1.4.0, config.js mit Worker-Adresse geladen, KI-Bereich sichtbar, Zustimmungsdialog öffnet; nach „Abbrechen“ keine Anfrage an den Worker (Resource-Timing 0), keine Konsolenfehler. Zustimmung auf der Live-Seite bewusst nicht erteilt (Freigabe durch Jakob); echte Gemini-Antwort erst nach Behebung von AI-02 prüfbar.
+
+## 20. Oktober 2026 – Struktogramm-Training und Klassenübersicht (1.5.0)
+
+Bearbeiter: Claude, autark. KI-Worker erneut geprüft: weiterhin 502 von
+Gemini (20 Versuche über mehrere Stunden), AI-02 bleibt bei Jakob.
+- Struktogramm-Labor von PythonLab untersucht (Typen „order“ und Lücken mit
+  Auswahl). Für AlgoLab: 9 Aufgaben in practice.js mit Prüffunktion
+  checkStructogram (Rückmeldung je Lücke) und orderCorrect (Gruppen in
+  beliebiger Reihenfolge); Renderer renderNsd um Lücken erweitert.
+- Klassenübersicht: class-overview.js (readFile über engine.readPayload,
+  merge, aggregate, toCsv) und Seite #klassenuebersicht.
+Prüfstand: 100/100 Tests (neu: tests/structogram-training.test.cjs,
+tests/class-overview.test.cjs inkl. manipulierter Datei), Syntax, Diff.
+Browser: Lückenaufgabe mit falschem und richtigem Baustein, Ordnen per
+Pfeiltasten, Klassenübersicht mit zwei Testdateien und einer fremden Datei,
+375 px ohne Überlauf.

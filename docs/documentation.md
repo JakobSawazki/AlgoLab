@@ -2,7 +2,7 @@
 
 Stand: 19. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.4.0 – KI-Lerncoach** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.5.0 – Struktogramm-Training und Klassenübersicht** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -413,6 +413,30 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [ ] Abdeckung von Bildungsplan, Kompetenzraster und Ich-kann-Listen prüfen.
 
 ## 12. Prüfstand und Versionsverlauf
+
+### 1.5.0 – 20. Oktober 2026
+
+**Struktogramm-Training** (#struktogramme, erreichbar über „Programmieren“) nach
+dem Vorbild des Struktogramm-Labors in PythonLab, Notation nach der
+Operatorenliste Baden-Württemberg: acht Lückenaufgaben, in denen Bausteine per
+Auswahlliste eingesetzt werden (Tauschen, Maximum, Einfügen, Entfernen,
+Bubble Sort, Selection Sort, lineare Suche mit Abbruch, binäre Suche), und eine
+Ordnungsaufgabe (Kfz-Steuer: Eingabe – Verarbeitung – Ausgabe; die drei
+Eingaben dürfen in beliebiger Reihenfolge stehen). Nach dem Prüfen sind
+richtige und falsche Bausteine markiert, zu jedem falschen erscheint ein
+gezielter Hinweis. Antwortoptionen werden je Lücke stabil gemischt.
+Entwürfe und Lösungen liegen im Lernstand (`practice`).
+
+**Klassenübersicht für Lehrkräfte** (#klassenuebersicht, Link in der
+Fußzeile, Modul `class-overview.js`): Die JSON-Sicherungen der Lernenden
+werden per Dateiauswahl oder Ziehen und Ablegen geladen und ausschließlich im
+Browser ausgewertet – keine Übertragung, keine Speicherung. Jede Datei läuft
+durch dieselbe Prüfung wie beim Laden eines Profils; Abschlüsse und Punkte
+werden neu berechnet, ungültige Dateien mit Grund aufgelistet. Bei mehreren
+Sicherungen derselben Person zählt die jüngste. Anzeige: Kennzahlen,
+Fortschritt je Einheit, häufigste Einschätzungen „noch nicht“ aus den
+Ich-kann-Listen, sortier- und filterbare Tabelle, CSV-Export für Excel.
+100 Tests.
 
 ### 1.4.0 – 19. Oktober 2026
 

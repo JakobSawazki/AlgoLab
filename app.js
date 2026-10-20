@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.4.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.5.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -425,8 +425,10 @@
   }
   // Struktogramm (Nassi-Shneiderman) nach der Operatorenliste Baden-Württemberg zeichnen.
   const preferredView = () => { try { return localStorage.getItem("algolab-view-v1") === "nsd" ? "nsd" : "code"; } catch { return "code"; } };
-  function renderNsd(nsd, line = null) {
+  // slot: optionale Funktion, die für Lücken ({ slot: "id" }) eine Auswahlliste liefert (Struktogramm-Training).
+  function renderNsd(nsd, line = null, slot = null) {
     const text = value => {
+      if (value && typeof value === "object" && value.slot) return slot ? slot(value.slot) : '<span class="nsd-gap">…</span>';
       const match = /^(Zuweisung|Deklaration und Initialisierung|Aufruf|Einlesen|Ausgabe|Rückgabe): (.*)$/.exec(value);
       return match ? `<span class="nsd-op">${esc(match[1])}:</span> ${esc(match[2])}` : esc(value);
     };
@@ -435,7 +437,7 @@
     function block(item) {
       if (item.s) return `<div class="nsd-s${current(item)}">${text(item.s)}</div>`;
       if (item.loop) return `<div class="nsd-loop"><div class="nsd-head${current(item)}">${text(item.loop)}</div><div class="nsd-body">${list(item.body)}</div></div>`;
-      return `<div class="nsd-if"><div class="nsd-cond${current(item)}"><svg class="nsd-tri" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="50" y2="100"/><line x1="100" y1="0" x2="50" y2="100"/></svg><span>${esc(item.if)}</span><b class="nsd-j">J</b><b class="nsd-n">N</b></div><div class="nsd-branches"><div>${list(item.yes)}</div><div>${list(item.no)}</div></div></div>`;
+      return `<div class="nsd-if"><div class="nsd-cond${current(item)}"><svg class="nsd-tri" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="50" y2="100"/><line x1="100" y1="0" x2="50" y2="100"/></svg><span>${text(item.if)}</span><b class="nsd-j">J</b><b class="nsd-n">N</b></div><div class="nsd-branches"><div>${list(item.yes)}</div><div>${list(item.no)}</div></div></div>`;
     }
     return `<figure class="nsd" aria-label="Struktogramm ${esc(nsd.title)}"><figcaption>${esc(nsd.title)}</figcaption><div class="nsd-box">${list(nsd.blocks)}</div></figure>`;
   }
@@ -625,7 +627,7 @@
   function renderPracticeCatalog() {
     document.querySelector("#page-title").textContent = "Programmieren";
     const total = practice.exercises.length, solved = solvedCount();
-    main.innerHTML = `<section class="practice-lead"><div><span class="eyebrow">SELBST PROGRAMMIEREN</span><h2>Programmieren mit Python</h2><p>Wähle eine Aufgabe, schreibe den Code selbst und lass deine Lösung automatisch mit mehreren Testeingaben prüfen. Fehler gehören dazu: Lies die Meldung, ändere eine Sache und probiere es erneut. Die Aufgaben folgen den Arbeitsaufträgen deines Unterrichtsmaterials und nutzen – wie dort – input() für Eingaben.</p></div><div class="practice-progress"><small>Dein Programmierstand</small><strong>${solved} / ${total}</strong><progress value="${solved}" max="${total}" aria-label="Gelöste Programmieraufgaben"></progress><span>Aufgaben gelöst · zählt nicht für die Freischaltung</span></div></section><a class="practice-workshop" href="#programmieren/werkstatt"><span class="practice-state" aria-hidden="true">{ }</span><span><strong>Python-Werkstatt</strong><small>Freies Programmieren ohne Prüfung – mit Eingaben, Vorlagen für Sortieren, Suchen und Datenstrukturen und gespeichertem Entwurf.</small></span>${icon("arrow")}</a><div class="practice-filters"><div class="module-tabs" role="group" aria-label="Nach Niveau filtern"><button type="button" data-practice-level="" aria-pressed="${!practiceFilter.level}">Alle Niveaus</button>${practice.levels.map(level => `<button type="button" data-practice-level="${esc(level)}" aria-pressed="${practiceFilter.level === level}">${esc(level)}</button>`).join("")}</div><div class="module-tabs" role="group" aria-label="Nach Thema filtern"><button type="button" data-practice-topic="" aria-pressed="${!practiceFilter.topic}">Alle Themen</button>${practice.topics.map(topic => `<button type="button" data-practice-topic="${esc(topic)}" aria-pressed="${practiceFilter.topic === topic}">${esc(topic)}</button>`).join("")}</div><p class="glossary-count" id="practice-count" role="status"></p></div><div class="practice-grid">${practice.exercises.map(practiceCard).join("")}</div>`;
+    main.innerHTML = `<section class="practice-lead"><div><span class="eyebrow">SELBST PROGRAMMIEREN</span><h2>Programmieren mit Python</h2><p>Wähle eine Aufgabe, schreibe den Code selbst und lass deine Lösung automatisch mit mehreren Testeingaben prüfen. Fehler gehören dazu: Lies die Meldung, ändere eine Sache und probiere es erneut. Die Aufgaben folgen den Arbeitsaufträgen deines Unterrichtsmaterials und nutzen – wie dort – input() für Eingaben.</p></div><div class="practice-progress"><small>Dein Programmierstand</small><strong>${solved} / ${total}</strong><progress value="${solved}" max="${total}" aria-label="Gelöste Programmieraufgaben"></progress><span>Aufgaben gelöst · zählt nicht für die Freischaltung</span></div></section><div class="practice-features"><a class="practice-workshop" href="#struktogramme"><span class="practice-state" aria-hidden="true">⊞</span><span><strong>Struktogramm-Training</strong><small>${practice.structograms.length} Aufgaben: Algorithmen mit der Operatorenliste planen – Lücken füllen und Bausteine ordnen.</small></span>${icon("arrow")}</a><a class="practice-workshop" href="#programmieren/werkstatt"><span class="practice-state" aria-hidden="true">{ }</span><span><strong>Python-Werkstatt</strong><small>Freies Programmieren ohne Prüfung – mit Eingaben, Vorlagen für Sortieren, Suchen und Datenstrukturen und gespeichertem Entwurf.</small></span>${icon("arrow")}</a></div><div class="practice-filters"><div class="module-tabs" role="group" aria-label="Nach Niveau filtern"><button type="button" data-practice-level="" aria-pressed="${!practiceFilter.level}">Alle Niveaus</button>${practice.levels.map(level => `<button type="button" data-practice-level="${esc(level)}" aria-pressed="${practiceFilter.level === level}">${esc(level)}</button>`).join("")}</div><div class="module-tabs" role="group" aria-label="Nach Thema filtern"><button type="button" data-practice-topic="" aria-pressed="${!practiceFilter.topic}">Alle Themen</button>${practice.topics.map(topic => `<button type="button" data-practice-topic="${esc(topic)}" aria-pressed="${practiceFilter.topic === topic}">${esc(topic)}</button>`).join("")}</div><p class="glossary-count" id="practice-count" role="status"></p></div><div class="practice-grid">${practice.exercises.map(practiceCard).join("")}</div>`;
     const apply = () => {
       let visible = 0;
       main.querySelectorAll(".practice-card").forEach(card => {
@@ -754,6 +756,135 @@
       editor.value = starter; editor.dispatchEvent(new Event("input", { bubbles: true })); editor.focus();
     });
   }
+  // Struktogramm-Training (nach Vorbild des PythonLab-Struktogramm-Labors).
+  const structogramDraft = item => { try { return JSON.parse(practiceDraft(item.id, "{}")) || {}; } catch { return {}; } };
+  const shuffledOptions = (itemId, slotId, options) => [...options].sort((a, b) => hashText(`${itemId}/${slotId}/${a}`) - hashText(`${itemId}/${slotId}/${b}`));
+  function hashText(text) { let hash = 2166136261; for (const char of text) hash = Math.imul(hash ^ char.codePointAt(0), 16777619) >>> 0; return hash; }
+  function structogramCard(item) {
+    const solved = practiceSolved(item.id);
+    return `<a class="practice-card ${solved ? "is-solved" : ""}" href="#struktogramme/${item.id}" data-level="${esc(item.level)}" data-topic="${esc(item.topic)}"><span class="practice-state" aria-hidden="true">${solved ? "✓" : "⊞"}</span><span class="practice-topic">${esc(item.topic)} · ${item.type === "order" ? "Ordnen" : "Lücken füllen"}</span><h3>${esc(item.title)}</h3><p>${esc(item.description)}</p><span class="practice-meta"><span class="level level-${esc(item.level.toLowerCase())}">${esc(item.level)}</span><span>passt zu ${item.unit}</span>${solved ? '<span class="solved">gelöst</span>' : ""}</span></a>`;
+  }
+  function renderStructogramCatalog() {
+    document.querySelector("#page-title").textContent = "Struktogramm-Training";
+    const items = practice.structograms, solved = items.filter(item => practiceSolved(item.id)).length;
+    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><span>Struktogramm-Training</span></div><section class="practice-lead"><div><span class="eyebrow">ALGORITHMEN PLANEN</span><h2>Struktogramm-Training</h2><p>In jedem Arbeitsauftrag planst du deinen Algorithmus zuerst als Struktogramm. Hier übst du das mit den Formulierungen der Operatorenliste Baden-Württemberg: Lücken mit dem passenden Baustein füllen oder Bausteine in die richtige Reihenfolge bringen. Nach dem Prüfen siehst du, welche Bausteine stimmen.</p></div><div class="practice-progress"><small>Dein Struktogramm-Stand</small><strong>${solved} / ${items.length}</strong><progress value="${solved}" max="${items.length}" aria-label="Gelöste Struktogramm-Aufgaben"></progress><span>zählt nicht für die Freischaltung</span></div></section><div class="practice-grid">${items.map(structogramCard).join("")}</div>`;
+  }
+  function renderStructogramExercise(id) {
+    const item = practice.structograms.find(entry => entry.id === id);
+    if (!item) { renderMissing(); return; }
+    document.querySelector("#page-title").textContent = `Struktogramm · ${item.title}`;
+    const unit = engine.byId(item.unit);
+    let draft = structogramDraft(item);
+    if (item.type === "order") {
+      const valid = Array.isArray(draft.order) && draft.order.length === item.blocks.length && item.blocks.every(block => draft.order.includes(block.id));
+      if (!valid) draft = { order: item.blocks.map(block => block.id) };
+    } else draft = { answers: draft.answers && typeof draft.answers === "object" ? draft.answers : {} };
+    main.innerHTML = `<div class="breadcrumb"><a href="#programmieren">Programmieren</a><span aria-hidden="true">/</span><a href="#struktogramme">Struktogramm-Training</a><span aria-hidden="true">/</span><span>${esc(item.title)}</span></div><section class="lesson-heading"><span class="eyebrow">${esc(item.topic.toUpperCase())} · ${esc(item.level.toUpperCase())}</span><h2>${esc(item.title)}</h2><p>${esc(item.description)}</p><ul class="lesson-meta"><li>${icon("layers")} ${item.type === "order" ? "Bausteine ordnen" : `${Object.keys(item.slots).length} Lücken`}</li><li id="practice-solved-chip" ${practiceSolved(item.id) ? "" : "hidden"}>${icon("check")} Gelöst</li></ul></section><div class="practice-workspace is-wide"><aside class="lesson-panel practice-brief"><span class="eyebrow">SO GEHST DU VOR</span><ol>${item.instructions.map(step => `<li>${esc(step)}</li>`).join("")}</ol><p class="practice-note">Arbeite vom Problem aus: Welche Werte werden zuerst benötigt, welche Struktur steuert den Ablauf und in welchen Block gehört jede Anweisung?</p>${unit && accessible(unit.id) ? `<a class="practice-unit" href="#unit/${unit.id}">${icon("route")} Erklärung und Schrittmodell in ${unit.id}</a>` : `<span class="practice-unit">${icon("route")} Passt zu ${item.unit}</span>`}</aside><section class="practice-main"><div class="lesson-panel structogram-canvas" id="structogram-canvas"></div><div class="code-actions"><button type="button" data-structogram-reset>↺ Zurücksetzen</button><button type="button" class="primary" data-structogram-check>✓ Struktogramm prüfen</button></div><div class="result-banner" id="practice-result" role="status" hidden></div><ul class="practice-cases" id="structogram-hints" aria-label="Hinweise"></ul></section></div>`;
+    const canvas = main.querySelector("#structogram-canvas");
+    const store = () => { if (engine.savePracticeDraft(state, item.id, JSON.stringify(draft))) save(); };
+    const draw = (verdict = null) => {
+      if (item.type === "order") {
+        canvas.innerHTML = `<span class="eyebrow">REIHENFOLGE FESTLEGEN</span><figure class="nsd"><figcaption>${esc(item.title)}</figcaption><ol class="order-list nsd-box">${draft.order.map((blockId, index) => { const block = item.blocks.find(entry => entry.id === blockId); return `<li class="order-block"><span class="order-number">${index + 1}</span><span class="order-text">${esc(block.text)}</span><span class="order-controls"><button type="button" class="icon-button" data-move="up" data-block="${blockId}" aria-label="${esc(block.text)} nach oben" ${index === 0 ? "disabled" : ""}>↑</button><button type="button" class="icon-button" data-move="down" data-block="${blockId}" aria-label="${esc(block.text)} nach unten" ${index === draft.order.length - 1 ? "disabled" : ""}>↓</button></span></li>`; }).join("")}</ol></figure>`;
+      } else {
+        let number = 0;
+        canvas.innerHTML = `<span class="eyebrow">LÜCKEN FÜLLEN</span>${renderNsd(item.diagram, null, slotId => {
+          number++;
+          const state = verdict?.slots[slotId] || "";
+          return `<select class="nsd-select ${state ? `is-${state}` : ""}" data-slot="${slotId}" aria-label="Lücke ${number}"><option value="">– Baustein wählen –</option>${shuffledOptions(item.id, slotId, item.slots[slotId].options).map(option => `<option ${draft.answers[slotId] === option ? "selected" : ""}>${esc(option)}</option>`).join("")}</select>`;
+        })}`;
+      }
+    };
+    canvas.addEventListener("change", event => {
+      const select = event.target.closest("[data-slot]");
+      if (!select) return;
+      if (select.value) draft.answers[select.dataset.slot] = select.value; else delete draft.answers[select.dataset.slot];
+      select.className = "nsd-select";
+      store();
+    });
+    canvas.addEventListener("click", event => {
+      const button = event.target.closest("[data-move]");
+      if (!button) return;
+      const index = draft.order.indexOf(button.dataset.block), target = index + (button.dataset.move === "up" ? -1 : 1);
+      [draft.order[index], draft.order[target]] = [draft.order[target], draft.order[index]];
+      store(); draw();
+      canvas.querySelector(`[data-move="${button.dataset.move}"][data-block="${button.dataset.block}"]:not(:disabled)`)?.focus() || canvas.querySelector(`[data-block="${button.dataset.block}"]:not(:disabled)`)?.focus();
+    });
+    main.querySelector("[data-structogram-reset]").addEventListener("click", () => {
+      draft = item.type === "order" ? { order: item.blocks.map(block => block.id) } : { answers: {} };
+      store(); draw();
+      main.querySelector("#practice-result").hidden = true; main.querySelector("#structogram-hints").innerHTML = "";
+    });
+    main.querySelector("[data-structogram-check]").addEventListener("click", () => {
+      const verdict = practice.checkStructogram(item, draft);
+      draw(verdict);
+      const banner = main.querySelector("#practice-result"), hints = main.querySelector("#structogram-hints");
+      banner.hidden = false;
+      if (verdict.passed) {
+        const fresh = engine.completePractice(state, item.id, true);
+        if (fresh) save();
+        banner.className = "result-banner is-success";
+        banner.textContent = item.type === "order" ? "Der Ablauf stimmt: Eingabe, Verarbeitung, Ausgabe." : "Alle Bausteine stimmen – dein Struktogramm ist schlüssig.";
+        main.querySelector("#practice-solved-chip").hidden = false;
+        hints.innerHTML = "";
+        return;
+      }
+      banner.className = "result-banner is-retry";
+      if (item.type === "order") {
+        banner.textContent = "Prüfe die Reihenfolge noch einmal.";
+        hints.innerHTML = item.instructions.map(step => `<li class="retry"><span>${esc(step)}</span></li>`).join("");
+        return;
+      }
+      const entries = Object.entries(verdict.slots), right = entries.filter(([, stateName]) => stateName === "right").length;
+      const empty = entries.filter(([, stateName]) => stateName === "empty").length;
+      banner.textContent = empty ? `Fülle zuerst alle Lücken aus (${empty} offen). ${right} von ${entries.length} Bausteinen stimmen bereits.` : `${right} von ${entries.length} Bausteinen stimmen. Die rot markierten Lücken passen noch nicht.`;
+      hints.innerHTML = entries.filter(([, stateName]) => stateName === "wrong").map(([slotId]) => `<li class="retry"><strong>Hinweis</strong><span>${esc(item.slots[slotId].hint)}</span></li>`).join("");
+    });
+    draw();
+  }
+  // Klassenübersicht für Lehrkräfte: Sicherungsdateien werden nur im Arbeitsspeicher ausgewertet.
+  const classOverview = window.createAlgoLabClassOverview(content, engine, nagold);
+  const classData = { rows: [], errors: [], filter: "", sort: "className", descending: false };
+  function renderClassOverview() {
+    document.querySelector("#page-title").textContent = "Klassenübersicht";
+    main.innerHTML = `<section class="practice-lead"><div><span class="eyebrow">FÜR LEHRKRÄFTE</span><h2>Klassenübersicht</h2><p>Lass dir von den Schülerinnen und Schülern ihre Lernstandsdatei (Profil → „Profil als JSON speichern“) geben und lade alle Dateien hier gemeinsam. AlgoLab prüft jede Datei wie beim Laden eines Profils und berechnet Punkte und Abschlüsse neu.</p></div><div class="practice-progress"><small>Datenschutz</small><strong>lokal</strong><span>Die Dateien werden nur in diesem Browser-Tab ausgewertet, nicht hochgeladen und nicht gespeichert. Nach dem Neuladen ist die Übersicht leer.</span></div></section><label class="drop-zone" id="class-drop"><input type="file" id="class-files" accept=".json,application/json" multiple><strong>JSON-Dateien auswählen oder hierher ziehen</strong><small>Mehrere Dateien auf einmal möglich · gleiche Person mehrfach: die jüngste Sicherung zählt</small></label><div id="class-result"></div>`;
+    const input = main.querySelector("#class-files"), drop = main.querySelector("#class-drop");
+    const load = async files => {
+      for (const file of files) {
+        if (file.size > 2 * 1024 * 1024) { classData.errors.push({ fileName: file.name, error: "Die Datei ist zu groß (maximal 2 MB)." }); continue; }
+        const result = classOverview.readFile(await file.text(), file.name);
+        if (result.ok) classData.rows.push(result.row); else classData.errors.push(result);
+      }
+      classData.rows = classOverview.merge(classData.rows);
+      drawClassResult();
+    };
+    input.addEventListener("change", () => { load([...input.files]); input.value = ""; });
+    drop.addEventListener("dragover", event => { event.preventDefault(); drop.classList.add("is-over"); });
+    drop.addEventListener("dragleave", () => drop.classList.remove("is-over"));
+    drop.addEventListener("drop", event => { event.preventDefault(); drop.classList.remove("is-over"); load([...event.dataTransfer.files].filter(file => /\.json$/i.test(file.name) || file.type === "application/json")); });
+    drawClassResult();
+  }
+  function drawClassResult() {
+    const box = main.querySelector("#class-result");
+    if (!box) return;
+    const rows = classData.rows.filter(row => !classData.filter || row.className === classData.filter);
+    const summary = classOverview.aggregate(rows);
+    const columns = [["name", "Kürzel"], ["className", "Klasse"], ["completed", "Einheiten"], ["current", "Aktuell"], ["points", "Lernpunkte"], ["nagold", "NAGOLD"], ["programs", "Programmieren"], ["structograms", "Struktogramme"], ["notYet", "Ich-kann ☐"], ["exportedAt", "Sicherung"]];
+    const value = (row, key) => key === "notYet" ? row.selfcheck.notYet : row[key];
+    const sorted = [...rows].sort((a, b) => { const x = value(a, classData.sort), y = value(b, classData.sort); const order = typeof x === "number" ? x - y : String(x).localeCompare(String(y), "de"); return classData.descending ? -order : order; });
+    const errors = classData.errors.length ? `<div class="notice class-errors"><strong>${classData.errors.length} Datei${classData.errors.length === 1 ? "" : "en"} nicht übernommen:</strong><ul>${classData.errors.map(item => `<li>${esc(item.fileName || "Datei")}: ${esc(item.error)}</li>`).join("")}</ul></div>` : "";
+    if (!classData.rows.length) { box.innerHTML = `${errors}<p class="notice">Noch keine Dateien geladen.</p>`; return; }
+    const total = content.units.length, maxDone = Math.max(1, summary.count);
+    box.innerHTML = `${errors}<div class="class-toolbar"><label>Klasse <select id="class-filter"><option value="">Alle Klassen</option>${classOverview.aggregate(classData.rows).classes.map(name => `<option ${classData.filter === name ? "selected" : ""}>${esc(name)}</option>`).join("")}</select></label><button type="button" id="class-csv">Als CSV speichern</button><button type="button" id="class-clear">Liste leeren</button></div><div class="class-stats"><div><small>Lernende</small><strong>${summary.count}</strong></div><div><small>Ø abgeschlossene Einheiten</small><strong>${String(summary.averageCompleted).replace(".", ",")} / ${total}</strong></div><div><small>Ø Lernpunkte</small><strong>${String(summary.averagePoints).replace(".", ",")}</strong></div><div><small>Ø NAGOLD</small><strong>${String(summary.averageNagold).replace(".", ",")}</strong></div></div><div class="class-grid"><section class="lesson-panel"><span class="eyebrow">FORTSCHRITT JE EINHEIT</span><h3>Wie viele haben abgeschlossen?</h3><ul class="class-bars">${summary.unitProgress.map(unit => `<li><span class="code">${unit.id}</span><span class="class-bar" aria-hidden="true"><i style="width:${Math.round(unit.done / maxDone * 100)}%"></i></span><span>${unit.done}/${summary.count}</span></li>`).join("")}</ul></section><section class="lesson-panel"><span class="eyebrow">ICH-KANN-LISTEN</span><h3>Häufigste Unsicherheiten</h3>${summary.uncertain.length ? `<ol class="class-uncertain">${summary.uncertain.map(item => `<li><strong>${item.notYet}×</strong> ☐ <span>${esc(item.module)} ${esc(item.number)}: ${esc(item.text)}</span></li>`).join("")}</ol>` : "<p>Noch keine Einschätzung „noch nicht“ in den geladenen Dateien.</p>"}</section></div><div class="analysis-table-wrap" role="region" aria-label="Lernstände der Klasse" tabindex="0"><table class="analysis-table class-table"><thead><tr>${columns.map(([key, label]) => `<th scope="col" aria-sort="${classData.sort === key ? (classData.descending ? "descending" : "ascending") : "none"}"><button type="button" data-sort="${key}">${esc(label)}${classData.sort === key ? (classData.descending ? " ↓" : " ↑") : ""}</button></th>`).join("")}</tr></thead><tbody>${sorted.map(row => `<tr><th scope="row">${esc(row.name)}</th><td>${esc(row.className)}</td><td>${row.completed}/${total}</td><td>${esc(row.current)}</td><td>${row.points}</td><td>${row.nagold}</td><td>${row.programs}/${content.practice.exercises.length}</td><td>${row.structograms}/${content.practice.structograms.length}</td><td>${row.selfcheck.notYet}</td><td>${esc(row.exportedAt.slice(0, 10))}</td></tr>`).join("")}</tbody></table></div>`;
+    box.querySelector("#class-filter").addEventListener("change", event => { classData.filter = event.target.value; drawClassResult(); });
+    box.querySelectorAll("[data-sort]").forEach(button => button.addEventListener("click", () => { classData.descending = classData.sort === button.dataset.sort ? !classData.descending : false; classData.sort = button.dataset.sort; drawClassResult(); }));
+    box.querySelector("#class-clear").addEventListener("click", () => { classData.rows = []; classData.errors = []; classData.filter = ""; drawClassResult(); });
+    box.querySelector("#class-csv").addEventListener("click", () => {
+      const url = URL.createObjectURL(new Blob([classOverview.toCsv(sorted)], { type: "text/csv;charset=utf-8" }));
+      const link = document.createElement("a");
+      link.href = url; link.download = `algolab-klassenuebersicht-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  }
   function renderPractice(id) {
     if (!id) renderPracticeCatalog();
     else if (id === "werkstatt") renderWorkshop();
@@ -852,6 +983,8 @@
     else if (page === "selfcheck") renderSelfcheck(id);
     else if (page === "glossar") renderGlossary(id);
     else if (page === "programmieren") renderPractice(id);
+    else if (page === "struktogramme") { if (id) renderStructogramExercise(id); else renderStructogramCatalog(); }
+    else if (page === "klassenuebersicht") renderClassOverview();
     else renderMissing();
     const total = engine.total(state);
     document.querySelector("#total-points").textContent = `${total} Punkte`;
@@ -859,7 +992,7 @@
     document.querySelector("#sidebar-progress").value = total;
     document.querySelector("#sidebar-progress").max = content.units.reduce((sum, unit) => sum + unit.points, 0);
     document.querySelectorAll("[data-nav]").forEach(link => {
-      const active = link.dataset.nav === (page === "unit" ? "path" : page || "home");
+      const active = link.dataset.nav === (page === "unit" ? "path" : page === "struktogramme" ? "programmieren" : page || "home");
       if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
     });
     renderSidebarPath();

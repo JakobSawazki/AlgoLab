@@ -27,6 +27,8 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | PRACTICE-01 | DONE | Claude | 19.10.2026: 1.3.0 – Bereich „Programmieren“ (#programmieren) nach Vorbild PythonLab: 17 Aufgaben aus dem BPE-7-Material mit input() (Arrays, Algorithmen, Sortieren, Suchen, Datenstrukturen; Grundlagen/Vertiefung/Anwendung), Editor main.py, Reiter Ausgabe/Eingabe, Code starten/prüfen, je Aufgabe 2–5 Testfälle, tolerante Ausgabeprüfung und Syntaxbaum-Regeln, lokaler Lerncoach, freie Python-Werkstatt mit 6 Vorlagen; Fortschritt und Entwürfe im JSON, unabhängig von der Freischaltung. Worker: input() aus Eingabezeilen, assert-Testcode, versionierte Adressen. 85/85 Tests, Browser Desktop/375 px. |
 | AI-01 | DONE | Claude | 19.10.2026: 1.4.0 – KI-Lerncoach nach PythonLab-Konzept: Zustimmungsdialog (nur Sitzung), KI-Modus mit automatischem Denkimpuls nach Fehlversuchen, „KI jetzt um Hilfe bitten“, „Vertiefende Hilfe“, Zustimmung zurückziehen; in Programmieraufgaben, Werkstatt und Lektions-Codeaufgaben. Datensparsam (ai-coach.js, ohne Profil/Lernstand), Zwischenspeicher je Code, verständliche Fehler. config.js nutzt den PythonLab-Worker; eigener BPE-7-Worker in services/ai-coach-worker/ mit Anleitung. 92/92 Tests, Browser mit simulierter KI. |
 | AI-02 | OPEN | Jakob | Gemini-Verbindung reparieren: Worker pythonlab-ai-feedback liefert für jede Anfrage 502 (Gemini-Fehler). In Cloudflare-Logs und Google AI Studio Schlüssel, Kontingent und Modell prüfen (betrifft auch PythonLab). Optional eigenen Worker aus services/ai-coach-worker/ einrichten. Vor Schülereinsatz Datenschutzfreigabe und Tarif klären. |
+| NSD-02 | DONE | Claude | 20.10.2026: 1.5.0 – Struktogramm-Training (#struktogramme) nach Vorbild PythonLab-Struktogramm-Labor: 8 Lückenaufgaben (Tauschen, Maximum, Einfügen, Entfernen, Bubble Sort, Selection Sort, lineare und binäre Suche) und 1 Ordnungsaufgabe (Kfz-Steuer, Eingaben in beliebiger Reihenfolge). Rückmeldung je Baustein mit Hinweis, Entwürfe und Lösungen im Lernstand. |
+| TEACH-01 | DONE | Claude | 20.10.2026: 1.5.0 – Klassenübersicht (#klassenuebersicht, Link in der Fußzeile): JSON-Sicherungen lokal zusammenführen (gleiche Validierung wie beim Laden, Punkte neu berechnet), Tabelle sortier- und filterbar, Fortschritt je Einheit, häufigste Ich-kann-Unsicherheiten, CSV-Export (Excel). Keine Übertragung, keine Speicherung. |
 
 ## Übergabe
 
@@ -34,9 +36,9 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.4.0** (KI-Lerncoach, Programmieren, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar), als 27e995d veröffentlicht und online abgenommen. Offen bei Jakob: AI-02 (Gemini-Verbindung), CLASS-01. Offen: CLASS-01 (Erprobung, Jakob).
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.5.0** (Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar). Offen bei Jakob: AI-02 (Gemini-Verbindung), CLASS-01. Offen: CLASS-01 (Erprobung, Jakob).
 Derzeit keine Dateireservierung.
-Prüfungen: `node --test tests/*.test.cjs` (92/92), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (100/100), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale

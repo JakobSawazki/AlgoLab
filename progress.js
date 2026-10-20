@@ -6,7 +6,7 @@
     const byId = id => units.find(unit => unit.id === id);
     const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {}, practice: { solved: {}, drafts: {} } });
     // Bereich „Programmieren“: gelöste Aufgaben und Entwürfe, unabhängig von Punkten und Freischaltung.
-    const practiceIds = new Set((content.practice?.exercises || []).map(exercise => exercise.id));
+    const practiceIds = new Set([...(content.practice?.exercises || []), ...(content.practice?.structograms || [])].map(exercise => exercise.id));
     // Selbsteinschätzung (Ich-kann-Listen) und freiwillige Zusatzaufgaben zählen nicht für die Freischaltung.
     const selfcheckIds = new Set((content.selfcheck || []).flatMap(group => group.items.map(item => item.id)));
     const extraTask = (id, taskId) => byId(id)?.extras?.find(task => task.id === taskId);

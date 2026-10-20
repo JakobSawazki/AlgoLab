@@ -181,7 +181,118 @@
     { id: "binaer", title: "Binäre Suche", input: "42", code: 'liste = [3, 8, 11, 17, 20, 25, 31, 39, 42, 57]\ngesucht = int(input("Gesuchte Zahl: "))\nindex_anfang = 0\nindex_ende = len(liste) - 1\ngefunden = False\nwhile not gefunden and index_anfang <= index_ende:\n    index_mitte = (index_anfang + index_ende) // 2\n    print("Prüfe Index", index_mitte, "mit Wert", liste[index_mitte])\n    if liste[index_mitte] == gesucht:\n        gefunden = True\n    elif liste[index_mitte] > gesucht:\n        index_ende = index_mitte - 1\n    else:\n        index_anfang = index_mitte + 1\nprint("Gefunden!" if gefunden else "Nicht enthalten.")\n' },
     { id: "stapel", title: "Stapel und Warteschlange", code: 'stapel = []\nstapel.append("A")\nstapel.append("B")\nprint("POP:", stapel.pop())\n\nschlange = []\nschlange.append("A")\nschlange.append("B")\nprint("DEQUEUE:", schlange.pop(0))\n' }
   ];
-  const data = { exercises, levels, topics, templates };
+  // Struktogramm-Training (nach Vorbild des PythonLab-Struktogramm-Labors), Notation nach der
+  // Operatorenliste Baden-Württemberg. type "slots": Lücken per Auswahl füllen; type "order": Bausteine ordnen.
+  const gap = slot => ({ slot });
+  const n = name => `Anzahl der Elemente des Arrays ${name}`;
+  const swapStatements = (a, b, name) => [{ s: `Zuweisung: zwischenspeicher = ${name}[${a}]` }, { s: `Zuweisung: ${name}[${a}] = ${name}[${b}]` }, { s: `Zuweisung: ${name}[${b}] = zwischenspeicher` }];
+  const structograms = [
+    { id: "nsd-tauschen", topic: "Arrays", level: "Grundlagen", unit: "L1.5", type: "slots", title: "Zwei Elemente tauschen",
+      description: "Bringe die drei Zuweisungen des Ringtauschs in die richtige Reihenfolge.",
+      instructions: ["Welcher Wert würde zuerst überschrieben? Genau den sicherst du.", "Danach darf das gesicherte Feld überschrieben werden.", "Zum Schluss wird der gesicherte Wert zurückgeschrieben."],
+      diagram: { title: "tausche(liste, a, b)", blocks: [{ s: gap("z1") }, { s: gap("z2") }, { s: gap("z3") }] },
+      slots: {
+        z1: { options: ["Zuweisung: zwischenspeicher = liste[b]", "Zuweisung: liste[b] = liste[a]", "Zuweisung: liste[a] = zwischenspeicher", "Zuweisung: liste[a] = liste[b]"], answer: "Zuweisung: zwischenspeicher = liste[b]", hint: "Zuerst muss der Wert gesichert werden, der als Nächstes überschrieben wird." },
+        z2: { options: ["Zuweisung: zwischenspeicher = liste[b]", "Zuweisung: liste[b] = liste[a]", "Zuweisung: liste[a] = zwischenspeicher", "Zuweisung: liste[a] = liste[b]"], answer: "Zuweisung: liste[b] = liste[a]", hint: "Jetzt darf liste[b] überschrieben werden – sein alter Wert liegt im zwischenspeicher." },
+        z3: { options: ["Zuweisung: zwischenspeicher = liste[b]", "Zuweisung: liste[b] = liste[a]", "Zuweisung: liste[a] = zwischenspeicher", "Zuweisung: liste[a] = liste[b]"], answer: "Zuweisung: liste[a] = zwischenspeicher", hint: "Der gesicherte Wert kommt an die Stelle a." }
+      } },
+    { id: "nsd-maximum", topic: "Arrays", level: "Grundlagen", unit: "L1.4", type: "slots", title: "Das Maximum ermitteln",
+      description: "Vervollständige das Struktogramm, das den größten Wert eines Arrays zurückgibt.",
+      instructions: ["Die Schleife soll jeden gültigen Index genau einmal erreichen.", "Der Merker wird nur ersetzt, wenn der aktuelle Wert größer ist.", "Gespeichert wird der Wert, nicht der Index."],
+      diagram: { title: "maximum(werte)", blocks: [{ s: "Deklaration und Initialisierung: groesster = werte[0]" }, { loop: gap("schleife"), body: [{ if: gap("bedingung"), yes: [{ s: gap("zuweisung") }], no: [] }] }, { s: "Rückgabe: groesster" }] },
+      slots: {
+        schleife: { options: [`Wiederhole von i = 0 solange i < ${n("werte")}, Schrittweite 1`, `Wiederhole von i = 0 solange i <= ${n("werte")}, Schrittweite 1`, "Wiederhole von i = 1 solange i < groesster, Schrittweite 1"], answer: `Wiederhole von i = 0 solange i < ${n("werte")}, Schrittweite 1`, hint: "Der letzte gültige Index ist Anzahl − 1. Mit <= gäbe es einen Zugriff außerhalb des Arrays." },
+        bedingung: { options: ["werte[i] > groesster", "werte[i] < groesster", "i > groesster"], answer: "werte[i] > groesster", hint: "Verglichen werden Werte, nicht Indizes – und für das Maximum zählt „größer als“." },
+        zuweisung: { options: ["Zuweisung: groesster = werte[i]", "Zuweisung: groesster = i", "Zuweisung: werte[i] = groesster"], answer: "Zuweisung: groesster = werte[i]", hint: "Der Merker erhält den neuen größten Wert; das Array bleibt unverändert." }
+      } },
+    { id: "nsd-einfuegen", topic: "Arrays", level: "Vertiefung", unit: "L1.6", type: "slots", title: "Ein Element einfügen",
+      description: "Vervollständige das Einfügen per append und Tauschschleife.",
+      instructions: ["Das neue Element steht nach dem Anhängen am Ende.", "Die Schleife läuft rückwärts bis zum Zielindex.", "In jedem Durchlauf tauschen die Felder i − 1 und i."],
+      diagram: { title: "einfuegen(liste, neu, index)", blocks: [{ s: `Zuweisung: liste[${n("liste")}] = neu  (anhängen)` }, { loop: gap("kopf"), body: [{ s: "Zuweisung: zwischenspeicher = liste[i − 1]" }, { s: gap("mitte") }, { s: "Zuweisung: liste[i] = zwischenspeicher" }] }] },
+      slots: {
+        kopf: { options: [`Wiederhole von i = ${n("liste")} − 1 solange i > index, Schrittweite −1`, "Wiederhole von i = 0 solange i < index, Schrittweite 1", `Wiederhole von i = index solange i < ${n("liste")}, Schrittweite 1`], answer: `Wiederhole von i = ${n("liste")} − 1 solange i > index, Schrittweite −1`, hint: "Das neue Element startet hinten und wandert nach vorne – die Schleife zählt rückwärts." },
+        mitte: { options: ["Zuweisung: liste[i − 1] = liste[i]", "Zuweisung: liste[i] = liste[i − 1]", "Zuweisung: liste[i + 1] = liste[i]"], answer: "Zuweisung: liste[i − 1] = liste[i]", hint: "liste[i − 1] ist bereits gesichert und darf jetzt den Wert von liste[i] bekommen." }
+      } },
+    { id: "nsd-entfernen", topic: "Arrays", level: "Vertiefung", unit: "L1.7", type: "slots", title: "Ein Element entfernen",
+      description: "Vervollständige das Nachrücken nach dem Entfernen eines Elements.",
+      instructions: ["Ab dem entfernten Index rückt jedes Element einen Platz nach vorne.", "Im Schleifenkörper wird liste[i + 1] gelesen – achte auf die Grenze.", "Das überzählige letzte Feld wird danach entfernt."],
+      diagram: { title: "entfernen(liste, index)", blocks: [{ loop: gap("kopf"), body: [{ s: gap("koerper") }] }, { s: "Aufruf: liste.pop()  (letztes Arrayelement entfernen)" }] },
+      slots: {
+        kopf: { options: [`Wiederhole von i = index solange i < ${n("liste")} − 1, Schrittweite 1`, `Wiederhole von i = index solange i < ${n("liste")}, Schrittweite 1`, "Wiederhole von i = 0 solange i < index, Schrittweite 1"], answer: `Wiederhole von i = index solange i < ${n("liste")} − 1, Schrittweite 1`, hint: "Weil liste[i + 1] gelesen wird, darf i höchstens Anzahl − 2 werden." },
+        koerper: { options: ["Zuweisung: liste[i] = liste[i + 1]", "Zuweisung: liste[i + 1] = liste[i]", "Zuweisung: liste[i] = liste[i − 1]"], answer: "Zuweisung: liste[i] = liste[i + 1]", hint: "Der Nachfolger rückt auf den aktuellen Platz." }
+      } },
+    { id: "nsd-kfz", topic: "Algorithmen", level: "Grundlagen", unit: "L2.1", type: "order", title: "Kfz-Steuer in Reihenfolge",
+      description: "Ordne die Bausteine zu einem sinnvollen Ablauf: Eingabe, Verarbeitung, Ausgabe.",
+      instructions: ["Zuerst werden alle benötigten Werte eingelesen – ihre Reihenfolge untereinander ist egal.", "Dann folgt die Berechnung der Hubraum-Einheiten und der Grundsteuer.", "Der CO₂-Anteil baut auf der Grundsteuer auf; die Ausgabe steht am Ende."],
+      blocks: [
+        { id: "ausgabe", text: "Ausgabe: \"Kfz-Steuer: \" + steuer + \" EUR\"" },
+        { id: "co2", text: "Wenn co2 > 95, dann Zuweisung: steuer = steuer + (co2 − 95) * 2,00" },
+        { id: "hubraum", text: "Deklaration und Einlesen: hubraum als Ganzzahl" },
+        { id: "einheiten", text: "Deklaration und Initialisierung: einheiten = aufgerundeter Wert von hubraum / 100" },
+        { id: "antrieb", text: "Deklaration und Einlesen: antrieb als Text" },
+        { id: "grund", text: "Wenn antrieb == \"Diesel\", dann steuer = einheiten * 9,50, sonst steuer = einheiten * 2,00" },
+        { id: "co2ein", text: "Deklaration und Einlesen: co2 als Ganzzahl" }
+      ],
+      expected: [["antrieb", "hubraum", "co2ein"], "einheiten", "grund", "co2", "ausgabe"] },
+    { id: "nsd-bubble", topic: "Sortieren", level: "Vertiefung", unit: "L2.2", type: "slots", title: "Bubble Sort vervollständigen",
+      description: "Ergänze die innere Schleife und die Vergleichsbedingung des Bubble Sort.",
+      instructions: ["Nach Bubble-Phase i sind die letzten i Elemente sortiert.", "j und j + 1 sind Nachbarn – j + 1 muss ein gültiger Index bleiben.", "Aufsteigend sortieren heißt: tauschen, wenn links der größere Wert steht."],
+      diagram: { title: "Bubble Sort", blocks: [{ s: `Deklaration und Initialisierung: laenge = ${n("zahlen")}` }, { loop: "Wiederhole von i = 1 solange i < laenge, Schrittweite 1", body: [{ loop: gap("innen"), body: [{ if: gap("vergleich"), yes: swapStatements("j", "j + 1", "zahlen"), no: [] }] }] }] },
+      slots: {
+        innen: { options: ["Wiederhole von j = 0 solange j < laenge − i, Schrittweite 1", "Wiederhole von j = 0 solange j < laenge, Schrittweite 1", "Wiederhole von j = i solange j < laenge, Schrittweite 1"], answer: "Wiederhole von j = 0 solange j < laenge − i, Schrittweite 1", hint: "Bei j < laenge wäre zahlen[j + 1] im letzten Durchlauf außerhalb des Arrays; der sortierte Bereich am Ende muss nicht mehr verglichen werden." },
+        vergleich: { options: ["zahlen[j] > zahlen[j + 1]", "zahlen[j] < zahlen[j + 1]", "zahlen[j] > zahlen[i]"], answer: "zahlen[j] > zahlen[j + 1]", hint: "Verglichen werden die Nachbarn j und j + 1; „<“ würde absteigend sortieren." }
+      } },
+    { id: "nsd-selection", topic: "Sortieren", level: "Vertiefung", unit: "L2.3", type: "slots", title: "Selection Sort vervollständigen",
+      description: "Ergänze Kandidat, Suchschleife und Merkerwechsel des Selection Sort.",
+      instructions: ["Zu Beginn jedes Durchgangs ist der erste unsortierte Wert der Kandidat.", "Gesucht wird nur im unsortierten Bereich rechts von akt_idx.", "Gemerkt wird der Index des kleineren Werts."],
+      diagram: { title: "Selection Sort", blocks: [{ s: `Deklaration und Initialisierung: laenge = ${n("zahlen")}` }, { loop: "Wiederhole von akt_idx = 0 solange akt_idx < laenge − 1, Schrittweite 1", body: [{ s: gap("start") }, { loop: gap("suche"), body: [{ if: "zahlen[j] < zahlen[min_idx]", yes: [{ s: gap("merker") }], no: [] }] }, { if: "akt_idx != min_idx", yes: swapStatements("akt_idx", "min_idx", "zahlen"), no: [] }] }] },
+      slots: {
+        start: { options: ["Zuweisung: min_idx = akt_idx", "Zuweisung: min_idx = 0", "Zuweisung: min_idx = zahlen[akt_idx]"], answer: "Zuweisung: min_idx = akt_idx", hint: "Der unsortierte Bereich beginnt bei akt_idx – min_idx ist ein Index, kein Wert." },
+        suche: { options: ["Wiederhole von j = akt_idx + 1 solange j < laenge, Schrittweite 1", "Wiederhole von j = 0 solange j < laenge, Schrittweite 1", "Wiederhole von j = akt_idx + 1 solange j < laenge − 1, Schrittweite 1"], answer: "Wiederhole von j = akt_idx + 1 solange j < laenge, Schrittweite 1", hint: "Der sortierte Bereich links bleibt unberührt; das letzte Element muss mitgeprüft werden." },
+        merker: { options: ["Zuweisung: min_idx = j", "Zuweisung: min_idx = zahlen[j]", "Zuweisung: zahlen[min_idx] = zahlen[j]"], answer: "Zuweisung: min_idx = j", hint: "Gemerkt wird die Position des kleineren Werts; getauscht wird erst nach der Suche." }
+      } },
+    { id: "nsd-linear", topic: "Suchen", level: "Grundlagen", unit: "L2.5", type: "slots", title: "Lineare Suche mit Abbruch",
+      description: "Ergänze Schleifenbedingung und die beiden Zweige der linearen Suche.",
+      instructions: ["Die Suche läuft, solange nichts gefunden wurde und noch Elemente übrig sind.", "Bei einem Treffer wird der Merker gesetzt.", "Sonst geht es mit dem nächsten Index weiter."],
+      diagram: { title: "Lineare Suche", blocks: [{ s: "Deklaration und Initialisierung: gefunden = falsch" }, { s: "Deklaration und Initialisierung: zaehler = 0" }, { loop: gap("bedingung"), body: [{ if: "liste[zaehler] == gesucht", yes: [{ s: gap("ja") }], no: [{ s: gap("nein") }] }] }, { if: "gefunden == wahr", yes: [{ s: "Ausgabe: \"gefunden\"" }], no: [{ s: "Ausgabe: \"nicht gefunden\"" }] }] },
+      slots: {
+        bedingung: { options: [`Wiederhole solange gefunden == falsch AND zaehler < ${n("liste")}`, `Wiederhole solange gefunden == falsch OR zaehler < ${n("liste")}`, `Wiederhole solange zaehler <= ${n("liste")}`], answer: `Wiederhole solange gefunden == falsch AND zaehler < ${n("liste")}`, hint: "Beide Bedingungen müssen gleichzeitig gelten (AND); mit <= würde ein Index außerhalb geprüft." },
+        ja: { options: ["Zuweisung: gefunden = wahr", "Zuweisung: zaehler = zaehler + 1", "Zuweisung: gefunden = falsch"], answer: "Zuweisung: gefunden = wahr", hint: "Bei einem Treffer wird der Merker gesetzt – dadurch endet die Schleife." },
+        nein: { options: ["Zuweisung: gefunden = wahr", "Zuweisung: zaehler = zaehler + 1", "Zuweisung: gefunden = falsch"], answer: "Zuweisung: zaehler = zaehler + 1", hint: "Ohne Treffer geht es mit dem nächsten Element weiter." }
+      } },
+    { id: "nsd-binaer", topic: "Suchen", level: "Anwendung", unit: "L2.6", type: "slots", title: "Binäre Suche vervollständigen",
+      description: "Ergänze die Mitte und die Anpassung des Suchbereichs.",
+      instructions: ["Die Mitte liegt zwischen index_anfang und index_ende und wird abgerundet.", "Ist der Wert in der Mitte zu groß, liegt das Gesuchte links davon.", "Die geprüfte Mitte gehört danach nicht mehr zum Suchbereich."],
+      diagram: { title: "Binäre Suche", blocks: [{ s: "Deklaration und Initialisierung: gefunden = falsch" }, { s: "Deklaration und Initialisierung: index_anfang = 0" }, { s: `Deklaration und Initialisierung: index_ende = ${n("liste")} − 1` }, { loop: "Wiederhole solange gefunden == falsch AND index_anfang <= index_ende", body: [{ s: gap("mitte") }, { if: "liste[index_mitte] == gesucht", yes: [{ s: "Zuweisung: gefunden = wahr" }], no: [{ if: gap("vergleich"), yes: [{ s: gap("links") }], no: [{ s: gap("rechts") }] }] }] }] },
+      slots: {
+        mitte: { options: ["Zuweisung: index_mitte = ganzzahliger Anteil von (index_anfang + index_ende) / 2", `Zuweisung: index_mitte = ${n("liste")} / 2`, "Zuweisung: index_mitte = index_anfang + 1"], answer: "Zuweisung: index_mitte = ganzzahliger Anteil von (index_anfang + index_ende) / 2", hint: "Die Mitte hängt vom aktuellen Suchbereich ab, nicht von der Gesamtlänge." },
+        vergleich: { options: ["liste[index_mitte] > gesucht", "index_mitte > gesucht", "liste[index_mitte] < index_ende"], answer: "liste[index_mitte] > gesucht", hint: "Verglichen wird der Wert in der Mitte mit dem gesuchten Wert." },
+        links: { options: ["Zuweisung: index_ende = index_mitte − 1", "Zuweisung: index_anfang = index_mitte + 1", "Zuweisung: index_ende = index_mitte"], answer: "Zuweisung: index_ende = index_mitte − 1", hint: "Ist die Mitte zu groß, wird das Ende links neben die Mitte gesetzt – sonst droht eine Endlosschleife." },
+        rechts: { options: ["Zuweisung: index_ende = index_mitte − 1", "Zuweisung: index_anfang = index_mitte + 1", "Zuweisung: index_ende = index_mitte"], answer: "Zuweisung: index_anfang = index_mitte + 1", hint: "Ist die Mitte zu klein, beginnt der neue Bereich rechts neben der Mitte." }
+      } }
+  ];
+  // Bausteinfolge prüfen: Gruppen (Arrays) dürfen in beliebiger Reihenfolge stehen.
+  function orderCorrect(expected, order) {
+    let position = 0;
+    for (const step of expected) {
+      const group = Array.isArray(step) ? step : [step];
+      const part = order.slice(position, position + group.length);
+      if (part.length !== group.length || !group.every(id => part.includes(id))) return false;
+      position += group.length;
+    }
+    return position === order.length;
+  }
+  function checkStructogram(item, draft) {
+    if (item.type === "order") {
+      const order = Array.isArray(draft?.order) ? draft.order : item.blocks.map(block => block.id);
+      return { passed: orderCorrect(item.expected, order), slots: {} };
+    }
+    const slots = {};
+    for (const [id, slot] of Object.entries(item.slots)) slots[id] = draft?.answers?.[id] === undefined ? "empty" : draft.answers[id] === slot.answer ? "right" : "wrong";
+    return { passed: Object.values(slots).every(state => state === "right"), slots };
+  }
+
+  const data = { exercises, levels, topics, templates, structograms, checkStructogram, orderCorrect };
   if (typeof module !== "undefined" && module.exports) module.exports = data;
   else if (root.ALGOLAB_CONTENT) root.ALGOLAB_CONTENT.practice = data;
 })(typeof window !== "undefined" ? window : globalThis);
