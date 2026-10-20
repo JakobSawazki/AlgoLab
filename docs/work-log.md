@@ -581,3 +581,4 @@ Gemini mit Zustimmungsdialog, Lektionsfelder (Modellwahl synchron, Laden,
 Hinweis, Quellenwechsel). Echte Bibliothek geladen: CreateMLCEngine vorhanden,
 beide Modell-IDs im Katalog (1630/945 MB Grafikspeicher). Keine
 Konsolenfehler. Testseite wieder entfernt.
+Online-Abnahme 1.6.0 (0305995, Actions Build/Deploy erfolgreich): Version 1.6.0, ai-local.js/app.js/design.css Status 200, KI-Bereich mit Quellenwahl, „Lokal im Browser“ als Standard (WebGPU vorhanden), keine Konsolenfehler. Gemini-Worker am 20.10. erneut HTTP 502. Echter Modelltest wartet auf Jakobs Freigabe des Modell-Downloads.
