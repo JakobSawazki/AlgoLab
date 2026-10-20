@@ -582,3 +582,29 @@ Hinweis, Quellenwechsel). Echte Bibliothek geladen: CreateMLCEngine vorhanden,
 beide Modell-IDs im Katalog (1630/945 MB Grafikspeicher). Keine
 Konsolenfehler. Testseite wieder entfernt.
 Online-Abnahme 1.6.0 (0305995, Actions Build/Deploy erfolgreich): Version 1.6.0, ai-local.js/app.js/design.css Status 200, KI-Bereich mit Quellenwahl, „Lokal im Browser“ als Standard (WebGPU vorhanden), keine Konsolenfehler. Gemini-Worker am 20.10. erneut HTTP 502. Echter Modelltest wartet auf Jakobs Freigabe des Modell-Downloads.
+
+## 20. Oktober 2026 – Lokale KI nach echtem Test (1.7.0)
+
+Bearbeiter: Claude (Seitensitzung, autark). Jakob gab die Modell-Downloads für
+den Test frei (Qwen2.5 1.5B, Qwen3.5 2B und 4B in einem Edge-Testprofil im
+Scratchpad, danach gelöscht).
+- Echter Test 1.6.0 im Browser-Pane: Modell lud (880 MB, 6 min), Anfrage
+  scheiterte an json_object ohne Schema; danach DXGI_ERROR_DEVICE_HUNG auf
+  der integrierten AMD-Grafik (gcn-5), WebGPU im Pane bis zum App-Neustart
+  unbrauchbar. Weitere Tests mit Edge über Playwright, NVIDIA per
+  `--force_high_performance_gpu`.
+- Prompt-Labor (3 typische Fehler, je Modell mehrere Varianten): kleine
+  Modelle unbrauchbar, Qwen3.5 4B mit Ablaufprotokoll und Schema
+  ursache→…→strengths 3/3 richtig.
+- Umgesetzt: ai-local.js (ein Modell, buildPrompt, Schema, enable_thinking
+  false, <think> entfernen, Ursache nur vertiefend, Fehlertexte),
+  python-worker.js/python-runner.js (trace), ai-coach.js (formatTrace,
+  localReview.trace), app.js (Protokoll bei Bedarf, Eingabe und Bestanden-
+  Zähler im Prüfergebnis, Größen- und Grafikhinweis, „Wo es hakt“),
+  Worker-Feldfilter.
+Prüfstand: 106/106 Tests, Syntax. Edge mit simulierter WebLLM-Bibliothek:
+Protokoll mit „Z.9: gefunden = True / Z.11: gefunden = False“ und „(Text)“
+bei fehlendem int() im Prompt, „Wo es hakt“ nur vertiefend, keine
+Konsolenfehler. Echter Ende-zu-Ende-Test (localhost, Qwen3.5 4B, NVIDIA):
+Laden aus Cache 10 s, Hinweis 17 s, vertiefende Hilfe 18 s, Ursache (Zeile 11
+überschreibt gefunden) richtig erkannt, keine fertige Lösung.

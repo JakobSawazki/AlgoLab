@@ -46,7 +46,8 @@
         localReview: {
           passed: review.passed === true ? true : review.passed === false ? false : null,
           diagnostic: clip(review.diagnostic || "", 600),
-          error: clip(review.error || "", 3000)
+          error: clip(review.error || "", 3000),
+          trace: clip(review.trace || "", 2500)
         }
       };
     }
@@ -93,6 +94,24 @@
       revoke() { set(CONSENT_KEY, ""); set(MODE_KEY, ""); cache.clear(); }
     };
   }
+
+  // Ablaufprotokoll kompakt: aufeinanderfolgende Schleifenwerte einer Zeile werden zusammengefasst
+  // („Z.7: i = 0, 1, 2“), sehr lange Abläufe auf Anfang und Ende gekürzt.
+  function formatTrace(events, maxLines = 40) {
+    if (!Array.isArray(events)) return "";
+    const rows = [];
+    for (const [line, text] of events) {
+      const single = /^([A-Za-z_]\w*) = ([^\[\]{}(),;]+)$/.exec(String(text));
+      const previous = rows.at(-1);
+      if (single && previous?.name === single[1] && previous.line === line) { previous.values.push(single[2]); continue; }
+      rows.push(single ? { line, name: single[1], values: [single[2]] } : { line, text: String(text) });
+    }
+    const values = list => list.length > 8 ? [...list.slice(0, 3), "…", ...list.slice(-2)].join(", ") : list.join(", ");
+    let lines = rows.map(row => `Z.${row.line ?? "?"}: ${row.text ?? `${row.name} = ${values(row.values)}`}`);
+    if (lines.length > maxLines) lines = [...lines.slice(0, maxLines - 15), `… ${lines.length - maxLines + 3} weitere Schritte …`, ...lines.slice(-12)];
+    return lines.join("\n").slice(0, 2500);
+  }
+  createCoach.formatTrace = formatTrace;
 
   if (typeof module !== "undefined" && module.exports) module.exports = createCoach;
   else root.createAlgoLabAiCoach = createCoach;

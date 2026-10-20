@@ -2,7 +2,7 @@
 
 Stand: 20. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.6.0 – Lokale KI im Browser** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.7.0 – Lokale KI mit Ablaufprotokoll** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -437,6 +437,41 @@ Sicherungen derselben Person zählt die jüngste. Anzeige: Kennzahlen,
 Fortschritt je Einheit, häufigste Einschätzungen „noch nicht“ aus den
 Ich-kann-Listen, sortier- und filterbare Tabelle, CSV-Export für Excel.
 100 Tests.
+
+### 1.7.0 – 20. Oktober 2026
+
+Lokale KI nach echtem Test überarbeitet:
+
+- Echter Test der 1.6.0 (Edge, NVIDIA-GPU): WebLLM 0.2.85 bricht bei
+  `response_format: json_object` ohne Schema ab („Cannot pass non-string to
+  std::string“). Jetzt wird ein JSON-Schema als String übergeben; scheitert
+  die Grammatik trotzdem, folgt eine Anfrage ohne Formatzwang.
+- Modellvergleich an drei typischen Fehlern (else-Zweig setzt den Merker
+  zurück, IndexError durch zu lange innere Schleife, input() ohne int()):
+  Qwen2.5 1.5B und Qwen3.5 2B fanden die Ursache kaum und gaben teils
+  irreführende Hinweise; Qwen3.5 4B fand mit Ablaufprotokoll alle drei.
+  Angeboten wird daher nur noch Qwen3.5 4B (2257 MB Download, etwa 3,9 GB
+  Grafikspeicher, 15–25 s je Hinweis auf einer NVIDIA-Laptop-GPU).
+- **Ablaufprotokoll** (Schreibtischtest): Fragt jemand nach einer
+  fehlgeschlagenen Prüfung die KI, läuft der Code im Python-Worker noch einmal
+  mit der Eingabe dieses Testfalls unter `sys.settrace`. Erfasst wird nur der
+  eigene Code (`<main.py>`), je Zeile die geänderten Variablen, Text mit
+  „(Text)“ markiert, höchstens 300 Schritte; `formatTrace` fasst
+  Schleifenzähler zusammen („Z.7: i = 0, 1, 2“) und kürzt auf 40 Zeilen.
+  Protokoll und Testeingabe gehen an beide KI-Quellen (Feld
+  `localReview.trace`, auch im eigenen Worker).
+- Prompt für die lokale KI: nummerierter Code, Prüfergebnis, Protokoll; das
+  Schema verlangt zuerst „ursache“ (erst analysieren, dann formulieren), die
+  Listen am Ende (sonst Leerraum-Schleifen). Qwen3.5 antwortet ohne
+  Denkvorlauf (`enable_thinking: false`). „Vertiefende Hilfe“ zeigt die
+  Ursache zusätzlich als „Wo es hakt“.
+- Integrierte Grafik: Auf einer AMD-Vega-iGPU brach schon die erste Antwort
+  mit DXGI_ERROR_DEVICE_HUNG ab. AlgoLab entlädt das Modell, bietet erneutes
+  Laden an und empfiehlt die KI über den Server bzw. in Windows die
+  Grafikeinstellung „Hohe Leistung“ für den Browser (Chrome und Edge ignorieren
+  unter Windows die gewünschte Grafikkarte).
+- 106 Tests (neu: formatTrace, Prompt mit Protokoll, Ursache nur vertiefend,
+  Grammatik-Rückfall, Gerätverlust).
 
 ### 1.6.0 – 20. Oktober 2026
 

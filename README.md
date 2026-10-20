@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 20. Oktober 2026. Version **1.6.0 – Lokale KI im Browser, Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar**.
+Stand: 20. Oktober 2026. Version **1.7.0 – Lokale KI mit Ablaufprotokoll, Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar**.
 Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
 (Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
 Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
@@ -134,9 +134,12 @@ Browsersitzung gibt er nach Fehlversuchen kurze Denkimpulse, ohne die Lösung zu
 verraten. Übertragen werden nur Aufgabe, Code und Prüfergebnis – kein Name und
 kein Lernstand. Einrichtung und Grundsätze: `services/ai-coach-worker/README.md`.
 Seit 1.6.0 kann der Lerncoach alternativ **lokal im Browser** laufen (WebLLM
-über WebGPU, Qwen2.5 1.5B mit 880 MB oder 0.5B mit 290 MB, einmaliger
-Download in den Browser-Cache): ohne Schlüssel, ohne Server und ohne dass
-Aufgabe oder Code das Gerät verlassen.
+über WebGPU, ohne Schlüssel und Server; Aufgabe und Code verlassen das Gerät
+nicht). Seit 1.7.0 nutzt er Qwen3.5 4B (einmalig 2,3 GB, etwa 4 GB
+Grafikspeicher) und bekommt ein **Ablaufprotokoll** des fehlgeschlagenen
+Testfalls (welche Zeile welche Variable ändert) – damit findet er typische
+Fehler wie überschriebene Merker, Indexfehler oder ein vergessenes int().
+Auf Geräten mit integrierter Grafik ist die KI über den Server die bessere Wahl.
 
 Seit 1.1.0 zeigen die Schrittmodelle jeden Algorithmus wahlweise als Python-Code
 oder als Struktogramm nach der Operatorenliste Baden-Württemberg. Die

@@ -70,7 +70,8 @@ export default {
       localReview: {
         passed: payload?.localReview?.passed === true ? true : payload?.localReview?.passed === false ? false : null,
         diagnostic: cleanString(payload?.localReview?.diagnostic, 600),
-        error: cleanString(payload?.localReview?.error, 3000)
+        error: cleanString(payload?.localReview?.error, 3000),
+        trace: cleanString(payload?.localReview?.trace, 2500)
       }
     };
     const deep = payload?.depth === "deep";

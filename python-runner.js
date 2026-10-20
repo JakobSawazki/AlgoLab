@@ -7,7 +7,8 @@
       worker?.terminate(); worker = null; initialized = false;
       if (pending) { const reject = pending.reject; pending = null; reject(new Error(message)); }
     }
-    // options: inputs (Zeilen für input()), testCode (assert-Prüfungen), echo (Eingaben anzeigen).
+    // options: inputs (Zeilen für input()), testCode (assert-Prüfungen), echo (Eingaben anzeigen),
+    // trace (Ablaufprotokoll statt Prüfung, für die KI-Hilfe).
     function run(code, checks = [], options = {}) {
       if (pending) return Promise.reject(new Error("Ein Programm läuft bereits."));
       return new Promise((resolve, reject) => {
@@ -17,7 +18,7 @@
           onStatus("Dein Programm läuft …");
           clearTimeout(timer);
           timer = setTimeout(() => terminate("Nach 5 Sekunden gestoppt. Prüfe, ob deine Schleife ein Ende erreicht."), runTimeout);
-          worker.postMessage({ type: "run", requestId, code, checks, inputs: options.inputs ?? "", testCode: options.testCode ?? "", echo: options.echo === true });
+          worker.postMessage({ type: "run", requestId, code, checks, inputs: options.inputs ?? "", testCode: options.testCode ?? "", echo: options.echo === true, trace: options.trace === true });
         }
         if (!worker) {
           onStatus("Python wird geladen. Beim ersten Start kann das einen Moment dauern …");

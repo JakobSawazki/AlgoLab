@@ -29,7 +29,7 @@ test("The payload contains only task, code, review and attempt – no profile da
   const payload = coach.buildPayload({ exercise: { ...exercise, profile: { name: "jak.saw" }, className: "J2 INF1" }, code: "x".repeat(20000), attempt: 99, review: { passed: false, diagnostic: "d", error: "e", points: 40 }, depth: "deep", profile: { name: "jak.saw" } });
   assert.deepEqual(Object.keys(payload).sort(), ["attempt", "code", "context", "depth", "exercise", "localReview", "sessionId"]);
   assert.deepEqual(Object.keys(payload.exercise).sort(), ["description", "id", "instructions", "title"]);
-  assert.deepEqual(Object.keys(payload.localReview).sort(), ["diagnostic", "error", "passed"]);
+  assert.deepEqual(Object.keys(payload.localReview).sort(), ["diagnostic", "error", "passed", "trace"]);
   assert.equal(payload.code.length, 12000);
   assert.equal(payload.attempt, 20);
   assert.equal(payload.depth, "deep");
@@ -76,4 +76,20 @@ test("An empty or insecure endpoint disables the AI help", async () => {
     await assert.rejects(coach.request({ exercise, code: "print(1)" }), /nicht eingerichtet/);
   }
   assert.equal(createCoach({ endpoint: "http://localhost:8787/feedback", storage: memoryStorage() }).available(), true);
+});
+
+test("The trace keeps changed values per line, merges loop counters and shortens long runs", () => {
+  const events = [[1, "mnr = [1001, 1019]"], [3, "nummer = 1018"], [6, "gefunden = False"], ...[0, 1, 2].map(i => [7, `i = ${i}`]), [9, "gefunden = True"], [7, "i = 3"], [11, "gefunden = False"], ...Array.from({ length: 12 }, (_, k) => [7, `i = ${k + 4}`])];
+  const text = createCoach.formatTrace(events);
+  assert.equal(text.split("\n").length, 8);
+  assert.match(text, /^Z\.7: i = 0, 1, 2$/m);
+  assert.match(text, /^Z\.9: gefunden = True\nZ\.7: i = 3\nZ\.11: gefunden = False$/m);
+  assert.match(text, /^Z\.7: i = 4, 5, 6, …, 14, 15$/m);
+  // Lists are never merged, so every swap stays visible.
+  assert.equal(createCoach.formatTrace([[11, "zahlen = [5, 1, 1]"], [11, "zahlen = [5, 1, 6]"]]).split("\n").length, 2);
+  const long = createCoach.formatTrace(Array.from({ length: 100 }, (_, k) => [k % 5 + 1, `x = ${k}; y = ${k}`]));
+  assert.equal(long.split("\n").length, 38);
+  assert.match(long, /weitere Schritte/);
+  assert.equal(createCoach.formatTrace([[null, "NameError: name 'x' is not defined"]]), "Z.?: NameError: name 'x' is not defined");
+  assert.equal(createCoach.formatTrace(undefined), "");
 });

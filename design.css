@@ -635,6 +635,8 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .ai-local-row select { min-width: 0; max-width: 100%; padding: 9px 12px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; font: inherit; }
 .ai-local progress { width: 100%; height: 8px; accent-color: var(--state-compare); }
 .ai-local-status { color: var(--muted); font-size: .76rem; overflow-wrap: anywhere; }
+.ai-model-name { color: var(--muted); font-size: .8rem; font-weight: 700; }
+.ai-cause { padding: 8px 10px; border-left: 3px solid var(--state-compare); border-radius: 6px; background: color-mix(in srgb, var(--state-compare) 8%, transparent); }
 .text-link { display: inline; padding: 0; border: 0; background: none; box-shadow: none; color: var(--accent); font-size: inherit; font-weight: 650; text-decoration: underline; }
 .dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 18px; }
 #ai-consent-dialog { max-width: 560px; }

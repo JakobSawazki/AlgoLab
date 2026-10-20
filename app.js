@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.6.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.7.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -689,7 +689,23 @@
     const errorLine = text => String(text).trim().split("\n").filter(Boolean).at(-1) || "";
     let lastReview = { passed: null, diagnostic: "", error: "" };
     const aiExercise = exercise || { id: "werkstatt", title: "Freies Programmieren in der Python-Werkstatt", description: "Keine feste Aufgabe: Gib Feedback zu Verständlichkeit, Fehlern und möglichen Verbesserungen des Programms.", instructions: [] };
-    const ai = setupAiPanel(main.querySelector("[data-ai-panel]"), () => ({ exercise: aiExercise, code: editor.value, attempt: exercise ? practiceAttempts.get(exercise.id) || 1 : 1, review: lastReview }));
+    // Ablaufprotokoll für die KI erst bei Bedarf: Der Code läuft dann noch einmal mit der Eingabe des
+    // fehlgeschlagenen Testfalls und meldet, welche Zeile welche Variable ändert.
+    let traceInput = null;
+    const traces = new Map();
+    async function traceFor(code, inputs) {
+      const key = JSON.stringify([code, inputs]);
+      if (!traces.has(key)) {
+        try { traces.set(key, window.createAlgoLabAiCoach.formatTrace((await runner().run(code, [], { inputs, trace: true })).trace)); }
+        catch (error) { console.warn("Ablaufprotokoll nicht verfügbar:", error); return ""; } // Hilfe läuft dann ohne Protokoll.
+      }
+      return traces.get(key);
+    }
+    const ai = setupAiPanel(main.querySelector("[data-ai-panel]"), async () => {
+      const review = { ...lastReview };
+      if (traceInput !== null && review.passed !== true) review.trace = await traceFor(editor.value, traceInput);
+      return { exercise: aiExercise, code: editor.value, attempt: exercise ? practiceAttempts.get(exercise.id) || 1 : 1, review };
+    });
     async function start() {
       busy(true); showTab("output");
       try {
@@ -699,6 +715,7 @@
         output.classList.toggle("has-error", Boolean(result.error));
         if (result.error) coach(practiceCheck.diagnostic(result.error), exercise ? practiceCheck.hints(exercise, editor.value, result.error, practiceAttempts.get(exercise.id) || 1) : [errorLine(result.error)], "warning");
         lastReview = { passed: null, diagnostic: result.error ? practiceCheck.diagnostic(result.error) : "", error: result.error ? errorLine(result.error) : "" };
+        traceInput = inputField.value;
       } catch (error) { if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); } }
       finally { if (output.isConnected) busy(false); }
     }
@@ -730,12 +747,16 @@
           banner.textContent = fresh ? `Geschafft! Alle ${verdicts.length} Testfälle bestanden.` : `Alle ${verdicts.length} Testfälle bestanden – deine Lösung funktioniert weiterhin.`;
           main.querySelector("#practice-solved-chip").hidden = false;
           lastReview = { passed: true, diagnostic: "Alle Testfälle bestanden.", error: "" };
+          traceInput = null;
           coach("Prüfung bestanden. Dein Programm erfüllt alle überprüften Anforderungen.", ["Teste es im Reiter „Eingabe“ noch mit eigenen Werten.", "Vergleiche deine Lösung mit dem Struktogramm in der passenden Lektion."], "success");
         } else {
           banner.className = "result-banner is-retry";
           banner.textContent = `${verdicts.filter(item => item.passed).length} von ${verdicts.length} Testfällen bestanden. ${failed.message}`;
           coach("Nächster sinnvoller Schritt", [...new Set([failed.message, ...practiceCheck.hints(exercise, editor.value, failed.result.error || "", attempt)])].slice(0, 3), "warning");
-          lastReview = { passed: false, diagnostic: failed.message, error: failed.result.error ? errorLine(failed.result.error) : "" };
+          // Eingabe des fehlgeschlagenen Testfalls mitgeben: Ohne sie kann die KI den Ablauf nicht nachvollziehen.
+          const failedInput = failed.testCase.input ? `Bei Eingabe ${failed.testCase.input.split("\n").join(" · ")}: ` : "";
+          lastReview = { passed: false, diagnostic: `${failedInput}${failed.message} (${verdicts.filter(item => item.passed).length} von ${verdicts.length} Testfällen bestanden)`, error: failed.result.error ? errorLine(failed.result.error) : "" };
+          traceInput = failed.testCase.input || "";
           ai.auto();
         }
       } catch (error) {
@@ -925,13 +946,15 @@
   const aiAutoActive = () => storedValue(sessionStorage, "algolab-ai-auto-v1") === "1" && (aiSource() === "local" ? localAi.loaded() : aiCoach.consented());
   const sourceLabel = source => source === "local" ? "die lokale KI" : aiProvider;
   const aiSummary = () => aiSource() === "local" ? `lokal im Browser, ${localAi.loaded() ? "bereit" : "noch nicht geladen"}` : `${aiProvider} über Server`;
+  const sizeText = mb => mb >= 1000 ? `${(mb / 1000).toFixed(1).replace(".", ",")} GB` : `${mb} MB`;
+  const localNote = model => `Einmaliger Download von ${sizeText(model.sizeMB)} in den Browser-Cache; danach startet die KI ohne erneuten Download. Benötigt WebGPU (aktueller Chrome oder Edge) und eine leistungsfähige Grafikkarte mit etwa ${Math.round(model.vramMB / 1000)} GB Grafikspeicher – auf Geräten mit integrierter Grafik ist die KI über den Server die bessere Wahl.`;
   let aiPanelSerial = 0;
   function renderAiPanel(kind = "full") {
     const sources = aiSources();
     if (!sources.length) return kind === "full" ? '<div class="ai-panel is-unavailable"><span class="ai-symbol" aria-hidden="true">☁</span><div><strong>KI-Hilfe nicht verfügbar</strong><small>Dein Browser unterstützt kein WebGPU und es ist kein KI-Server eingerichtet. Der lokale Lerncoach funktioniert vollständig.</small></div></div>' : "";
     const id = ++aiPanelSerial, source = aiSource(), model = localAi.models.find(item => item.id === aiModel());
-    const sourceChoice = `<fieldset class="ai-source"><legend>KI-Quelle</legend>${sources.includes("local") ? `<label><input type="radio" name="ai-source-${id}" value="local" data-ai-source ${source === "local" ? "checked" : ""}> <span><strong>Lokal im Browser</strong><small>keine Datenübertragung · einmaliger Download</small></span></label>` : ""}${sources.includes("server") ? `<label><input type="radio" name="ai-source-${id}" value="server" data-ai-source ${source === "server" ? "checked" : ""}> <span><strong>${esc(aiProvider)} über Server</strong><small>nur nach Zustimmung</small></span></label>` : ""}</fieldset>`;
-    const localControls = sources.includes("local") ? `<div class="ai-local" data-ai-local ${source === "local" ? "" : "hidden"}><div class="ai-local-row" ${localAi.loaded() ? "hidden" : ""} data-ai-local-load><label>Modell <select data-ai-model>${localAi.models.map(item => `<option value="${item.id}" ${item.id === model.id ? "selected" : ""}>${esc(item.label)} (${item.sizeMB} MB)</option>`).join("")}</select></label><button type="button" data-ai-load>⤓ Lokale KI laden</button></div><progress data-ai-progress max="1" value="0" hidden></progress><small class="ai-local-status" data-ai-local-status>${localAi.loaded() ? `Lokale KI bereit (${esc(localAi.loadedModel())}).` : `Beim ersten Laden speichert der Browser ${model.sizeMB} MB im Cache; danach startet die KI ohne erneuten Download. Benötigt WebGPU (aktueller Chrome oder Edge).`}</small></div>` : "";
+    const sourceChoice = `<fieldset class="ai-source"><legend>KI-Quelle</legend>${sources.includes("local") ? `<label><input type="radio" name="ai-source-${id}" value="local" data-ai-source ${source === "local" ? "checked" : ""}> <span><strong>Lokal im Browser</strong><small>keine Datenübertragung · starke Grafikkarte nötig</small></span></label>` : ""}${sources.includes("server") ? `<label><input type="radio" name="ai-source-${id}" value="server" data-ai-source ${source === "server" ? "checked" : ""}> <span><strong>${esc(aiProvider)} über Server</strong><small>nur nach Zustimmung</small></span></label>` : ""}</fieldset>`;
+    const localControls = sources.includes("local") ? `<div class="ai-local" data-ai-local ${source === "local" ? "" : "hidden"}><div class="ai-local-row" ${localAi.loaded() ? "hidden" : ""} data-ai-local-load>${localAi.models.length > 1 ? `<label>Modell <select data-ai-model>${localAi.models.map(item => `<option value="${item.id}" ${item.id === model.id ? "selected" : ""}>${esc(item.label)} (${sizeText(item.sizeMB)})</option>`).join("")}</select></label>` : `<span class="ai-model-name">Modell: ${esc(model.label)} · ${sizeText(model.sizeMB)}</span>`}<button type="button" data-ai-load>⤓ Lokale KI laden</button></div><progress data-ai-progress max="1" value="0" hidden></progress><small class="ai-local-status" data-ai-local-status>${localAi.loaded() ? `Lokale KI bereit (${esc(localAi.loadedModel())}).` : localNote(model)}</small></div>` : "";
     const settings = (sources.length > 1 ? sourceChoice : "") + localControls;
     if (kind === "compact") return `<div class="ai-panel compact" data-ai-panel>${settings ? `<details class="ai-settings"><summary>KI-Einstellungen · <span data-ai-summary>${esc(aiSummary())}</span></summary>${settings}</details>` : ""}<div class="code-actions"><button type="button" data-ai-ask>✨ KI-Hinweis zu meinem Code</button></div><div class="ai-answer" data-ai-answer aria-live="polite" hidden></div></div>`;
     const active = aiAutoActive();
@@ -941,7 +964,7 @@
     const feedback = result.feedback;
     box.hidden = false;
     box.className = "ai-answer";
-    box.innerHTML = `<span class="ai-label">✨ KI-Hinweis · ${result.local ? `lokal im Browser (${esc(result.model.replace(/-q4f16_1-MLC$/, ""))})` : esc(aiProvider)}${result.cached ? " · bereits abgefragt" : ""}</span>${feedback.summary ? `<p>${esc(feedback.summary)}</p>` : ""}${feedback.strengths.length ? `<p class="ai-strength"><strong>Das gelingt schon:</strong> ${esc(feedback.strengths[0])}</p>` : ""}${feedback.nextSteps.length ? `<strong>Nächste Schritte</strong><ol>${feedback.nextSteps.map(step => `<li>${esc(step)}</li>`).join("")}</ol>` : ""}${feedback.hint ? `<p class="ai-hint"><strong>Denkimpuls:</strong> ${esc(feedback.hint)}</p>` : ""}${feedback.question ? `<p class="ai-question"><strong>Frage an dich:</strong> ${esc(feedback.question)}</p>` : ""}<small>Die KI kann sich irren und verrät keine fertige Lösung. Maßgeblich ist immer die automatische Prüfung.</small>`;
+    box.innerHTML = `<span class="ai-label">✨ KI-Hinweis · ${result.local ? `lokal im Browser (${esc(result.model.replace(/-q4f16_1-MLC$/, ""))})` : esc(aiProvider)}${result.cached ? " · bereits abgefragt" : ""}</span>${feedback.summary ? `<p>${esc(feedback.summary)}</p>` : ""}${feedback.cause ? `<p class="ai-cause"><strong>Wo es hakt:</strong> ${esc(feedback.cause)}</p>` : ""}${feedback.strengths.length ? `<p class="ai-strength"><strong>Das gelingt schon:</strong> ${esc(feedback.strengths[0])}</p>` : ""}${feedback.nextSteps.length ? `<strong>Nächste Schritte</strong><ol>${feedback.nextSteps.map(step => `<li>${esc(step)}</li>`).join("")}</ol>` : ""}${feedback.hint ? `<p class="ai-hint"><strong>Denkimpuls:</strong> ${esc(feedback.hint)}</p>` : ""}${feedback.question ? `<p class="ai-question"><strong>Frage an dich:</strong> ${esc(feedback.question)}</p>` : ""}<small>Die KI kann sich irren und verrät keine fertige Lösung. Maßgeblich ist immer die automatische Prüfung.</small>`;
   }
   async function loadLocalAi(panel) {
     const button = panel.querySelector("[data-ai-load]"), bar = panel.querySelector("[data-ai-progress]"), status = panel.querySelector("[data-ai-local-status]");
@@ -969,7 +992,7 @@
     } else if (!localAi.loaded()) {
       if (!manual) return;
       box.hidden = false; box.className = "ai-answer is-error";
-      box.textContent = `Lade zuerst die lokale KI (einmalig ${localAi.models.find(item => item.id === aiModel()).sizeMB} MB) – oder wähle die KI über den Server.`;
+      box.textContent = `Lade zuerst die lokale KI (einmalig ${sizeText(localAi.models.find(item => item.id === aiModel()).sizeMB)}) – oder wähle die KI über den Server.`;
       const settings = panel.querySelector(".ai-settings");
       if (settings) settings.open = true;
       panel.querySelector("[data-ai-load]")?.focus();
@@ -977,9 +1000,9 @@
     }
     const buttons = panel.querySelectorAll("[data-ai-ask], [data-ai-deep]");
     buttons.forEach(button => { button.disabled = true; });
-    box.hidden = false; box.className = "ai-answer is-loading"; box.textContent = source === "local" ? "Die lokale KI denkt nach – das kann einige Sekunden dauern …" : depth === "deep" ? "Die KI bereitet eine ausführlichere Erklärung vor …" : "Die KI sieht sich deinen Code an …";
+    box.hidden = false; box.className = "ai-answer is-loading"; box.textContent = source === "local" ? "Die lokale KI denkt nach – das kann bis zu einer Minute dauern …" : depth === "deep" ? "Die KI bereitet eine ausführlichere Erklärung vor …" : "Die KI sieht sich deinen Code an …";
     try {
-      const input = { ...context(), depth };
+      const input = { ...(await context()), depth };
       const result = source === "local" ? await localAi.request(aiCoach.buildPayload(input)) : await aiCoach.request(input);
       if (!box.isConnected) return;
       renderAiAnswer(box, result);
@@ -988,6 +1011,12 @@
     } catch (error) {
       if (!box.isConnected) return;
       box.className = "ai-answer is-error"; box.textContent = error.message;
+      if (source === "local" && !localAi.loaded()) {
+        // Der Grafiktreiber hat das Modell beendet: Laden wieder anbieten (Dateien liegen noch im Cache).
+        const row = panel.querySelector("[data-ai-local-load]"), status = panel.querySelector("[data-ai-local-status]");
+        if (row) row.hidden = false;
+        if (status) status.textContent = "Lokale KI nicht geladen. Erneutes Laden nutzt den Browser-Cache.";
+      }
     } finally { buttons.forEach(button => { if (button.isConnected) button.disabled = false; }); }
   }
   function setupAiPanel(panel, context) {
@@ -1008,7 +1037,7 @@
     };
     panel.addEventListener("change", event => {
       if (event.target.matches("[data-ai-source]")) { storeValue(localStorage, "algolab-ai-source-v1", event.target.value); update(); }
-      if (event.target.matches("[data-ai-model]")) { storeValue(localStorage, "algolab-ai-model-v1", event.target.value); const model = localAi.models.find(item => item.id === event.target.value); panel.querySelector("[data-ai-local-status]").textContent = `Beim ersten Laden speichert der Browser ${model.sizeMB} MB im Cache.`; }
+      if (event.target.matches("[data-ai-model]")) { storeValue(localStorage, "algolab-ai-model-v1", event.target.value); const model = localAi.models.find(item => item.id === event.target.value); panel.querySelector("[data-ai-local-status]").textContent = localNote(model); }
     });
     panel.addEventListener("click", async event => {
       if (event.target.closest("[data-ai-load]")) { await loadLocalAi(panel); update(); }
@@ -1191,7 +1220,7 @@
     const local = panel.querySelector("[data-ai-local]");
     if (local) local.hidden = source !== "local";
     if (localAi.loaded()) { const load = panel.querySelector("[data-ai-local-load]"); if (load) load.hidden = true; panel.querySelector("[data-ai-local-status]").textContent = `Lokale KI bereit (${localAi.loadedModel()}). Dein Code bleibt auf diesem Gerät.`; }
-    else if (panel.querySelector("[data-ai-local-status]")) panel.querySelector("[data-ai-local-status]").textContent = `Beim ersten Laden speichert der Browser ${localAi.models.find(item => item.id === aiModel()).sizeMB} MB im Cache.`;
+    else if (panel.querySelector("[data-ai-local-status]")) panel.querySelector("[data-ai-local-status]").textContent = localNote(localAi.models.find(item => item.id === aiModel()));
     const summary = panel.querySelector("[data-ai-summary]");
     if (summary) summary.textContent = aiSummary();
   });
