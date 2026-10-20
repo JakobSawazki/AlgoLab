@@ -558,3 +558,4 @@ tests/class-overview.test.cjs inkl. manipulierter Datei), Syntax, Diff.
 Browser: Lückenaufgabe mit falschem und richtigem Baustein, Ordnen per
 Pfeiltasten, Klassenübersicht mit zwei Testdateien und einer fremden Datei,
 375 px ohne Überlauf.
+Online-Abnahme 1.5.0 (63c59e2): Version 1.5.0, Struktogramm-Training (Tauschen) live gelöst, class-overview.js Status 200, Klassenübersicht und Fußzeilenlink vorhanden, keine Konsolenfehler. KI-Worker am 20.10. erneut HTTP 502.

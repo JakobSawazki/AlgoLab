@@ -36,7 +36,7 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.5.0** (Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar). Offen bei Jakob: AI-02 (Gemini-Verbindung), CLASS-01. Offen: CLASS-01 (Erprobung, Jakob).
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.5.0** (Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar), als 63c59e2 veröffentlicht und online abgenommen. Offen bei Jakob: AI-02 (Gemini-Verbindung), CLASS-01. Offen: CLASS-01 (Erprobung, Jakob).
 Derzeit keine Dateireservierung.
 Prüfungen: `node --test tests/*.test.cjs` (100/100), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
