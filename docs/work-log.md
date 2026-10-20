@@ -646,4 +646,4 @@ Bearbeiter: Claude, im Auftrag von Jakob („Optimiere alles entsprechend … Kl
 - 114/114 Tests.
 - Browser über einen Desktop-Tab und Edge-Vollbildschirmfotos (1280 px hell und dunkel, 375 px), ohne Konsolenfehler und ohne horizontales Überlaufen.
 - Funktion geprüft: Teilpunkte, Markierungen, Erwartungshorizont mit Selbsteinschätzung, Neuladen, echter Pyodide-Test (findet > statt >= 30), Prüfungsmodus von Start bis Abgabe mit Bilanz, Operatoren-Training, Lernstand, Klassenübersicht mit Testdatei.
-
+Online-Abnahme 1.8.0 (728db1c, Actions Build/Deploy erfolgreich): Version 1.8.0, exam.js/app.js/design.css/progress.js/class-overview.js/icons Status 200, Navigation „Klausurvorbereitung“, vier Karten, Übungsklausur A mit 9 Teilaufgaben, Auswertung live (1.3: 2/2 BE), keine Konsolenfehler.
