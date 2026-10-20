@@ -898,6 +898,10 @@
     term("Algorithmen", "Determiniertheit", "Gleiche Eingaben führen immer zum gleichen Ergebnis.", ["L2.1"]),
     term("Algorithmen", "Determinismus", "Zu jedem Zeitpunkt gibt es höchstens eine Möglichkeit, wie der Algorithmus fortgesetzt wird.", ["L2.1"]),
     term("Algorithmen", "Struktogramm", "Grafische Darstellung eines Algorithmus nach Nassi-Shneiderman mit Anweisungen, Verzweigungen und Schleifen; in Baden-Württemberg mit den Formulierungen der Operatorenliste.", ["L1.3", "L1.4", "L2.1", "L2.2"], ["Nassi-Shneiderman", "Operatorenliste"]),
+    term("Algorithmen", "Operator (Aufgabenstellung)", "Handlungsleitendes Verb am Anfang einer Prüfungsaufgabe wie nennen, dokumentieren, erläutern oder begründen. Er legt fest, was die Lösung enthalten muss.", ["L2.1"], ["Operatoren", "Aufgabenstellung"]),
+    term("Algorithmen", "Anforderungsbereich", "Stufe einer Prüfungsaufgabe: AFB I Wiedergeben und Beschreiben, AFB II Anwenden und Übertragen, AFB III Beurteilen und neue Lösungen entwickeln.", ["L2.1"], ["AFB"]),
+    term("Algorithmen", "Bewertungseinheit", "Punkt in der Abiturbewertung (BE). Die schriftliche Informatikprüfung umfasst 80 BE in 210 Minuten – gut zweieinhalb Minuten je BE.", ["L2.1"], ["BE"]),
+    term("Sortieren", "Vertauschung", "Tausch zweier Nachbarelemente bei Bubble Sort. In Prüfungen wird oft nach jeder Vertauschung eine neue Tabellenzeile verlangt und ihre Anzahl bestimmt.", ["L2.2", "L2.4"], ["Tausch"]),
     term("Algorithmen", "Best Case / Worst Case", "Günstigster und ungünstigster Fall eines Algorithmus, etwa gemessen an der Zahl der Vergleiche.", ["L2.2", "L2.5"], ["bester Fall", "schlechtester Fall"]),
     term("Sortieren", "Bubble Sort", "Vergleicht benachbarte Elemente und tauscht sie, wenn das linke größer ist. Nach jeder Bubble-Phase steht das größte unsortierte Element am Ende.", ["L2.2", "L2.4"]),
     term("Sortieren", "Bubble-Phase", "Ein vollständiger Durchlauf von Nachbarvergleichen. Ohne Optimierung braucht Bubble Sort Länge − 1 Phasen.", ["L2.2"]),
@@ -1011,7 +1015,7 @@
   };
   // Gliederung der Dokumente: Überschrift 1 „Lernfortschritt n – …“, darunter Überschrift 2 „Aufgabe x“.
   const resultSections = unit => unit.sourceRefs.map(ref => `Lernfortschritt ${ref.match(/^L(\d+)_/)[1]} → Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "1.7.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
-  if (typeof module !== "undefined" && module.exports) { data.practice = require("./practice.js"); module.exports = data; }
+  const data = { version: "1.8.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
+  if (typeof module !== "undefined" && module.exports) { data.practice = require("./practice.js"); data.exam = require("./exam.js"); module.exports = data; }
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

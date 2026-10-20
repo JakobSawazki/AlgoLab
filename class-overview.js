@@ -7,6 +7,9 @@
     const units = content.units;
     const practice = content.practice || { exercises: [], structograms: [] };
     const selfcheckItems = (content.selfcheck || []).flatMap(group => group.items.map(item => ({ ...item, module: group.module })));
+    // Übungsklausuren der Klausurvorbereitung: erreichte BE (ohne Operatoren-Training).
+    const examKeys = new Set((content.exam?.exams || []).flatMap(exam => exam.tasks.map(task => `${exam.id}.${task.id}`)));
+    const examMax = (content.exam?.exams || []).reduce((sum, exam) => sum + content.exam.examMax(exam), 0);
 
     function readFile(text, fileName = "") {
       let data;
@@ -29,6 +32,7 @@
           nagold: nagold.total(state),
           programs: practice.exercises.filter(item => solved[item.id]).length,
           structograms: practice.structograms.filter(item => solved[item.id]).length,
+          exam: Object.entries(state.exam?.scores || {}).filter(([key]) => examKeys.has(key)).reduce((sum, [, points]) => sum + points, 0),
           extras: Object.values(state.extras || {}).reduce((sum, unit) => sum + Object.keys(unit).length, 0),
           selfcheck: { sure: ratings.filter(level => level === 3).length, ok: ratings.filter(level => level === 2).length, notYet: ratings.filter(level => level === 1).length },
           selfcheckRatings: { ...(state.selfcheck || {}) },
@@ -58,13 +62,13 @@
     }
 
     function toCsv(rows) {
-      const header = ["Kürzel", "Klasse", "Abgeschlossene Einheiten", "Aktuelle Einheit", "Lernpunkte", "NAGOLD", "Programmieraufgaben", "Struktogramm-Training", "Zusatzaufgaben", "Ich kann sicher", "Ich kann", "Noch nicht", "Sicherung vom"];
+      const header = ["Kürzel", "Klasse", "Abgeschlossene Einheiten", "Aktuelle Einheit", "Lernpunkte", "NAGOLD", "Programmieraufgaben", "Struktogramm-Training", "Übungsklausuren (BE)", "Zusatzaufgaben", "Ich kann sicher", "Ich kann", "Noch nicht", "Sicherung vom"];
       const cell = value => { const text = String(value ?? ""); return /[;"\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text; };
-      const lines = rows.map(row => [row.name, row.className, `${row.completed}/${units.length}`, row.current, row.points, row.nagold, `${row.programs}/${practice.exercises.length}`, `${row.structograms}/${practice.structograms.length}`, row.extras, row.selfcheck.sure, row.selfcheck.ok, row.selfcheck.notYet, row.exportedAt.slice(0, 10)].map(cell).join(";"));
+      const lines = rows.map(row => [row.name, row.className, `${row.completed}/${units.length}`, row.current, row.points, row.nagold, `${row.programs}/${practice.exercises.length}`, `${row.structograms}/${practice.structograms.length}`, `${row.exam}/${examMax}`, row.extras, row.selfcheck.sure, row.selfcheck.ok, row.selfcheck.notYet, row.exportedAt.slice(0, 10)].map(cell).join(";"));
       return `﻿${[header.join(";"), ...lines].join("\r\n")}\r\n`;
     }
 
-    return { readFile, merge, aggregate, toCsv };
+    return { readFile, merge, aggregate, toCsv, examMax };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createClassOverview;
   else root.createAlgoLabClassOverview = createClassOverview;

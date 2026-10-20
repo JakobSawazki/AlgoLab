@@ -57,3 +57,16 @@ test("CSV export uses semicolons, quotes special characters and starts with a BO
   assert.ok(csv.startsWith("﻿Kürzel;Klasse;"));
   assert.match(csv, /"x;y";"J2 ""INF1""";1\/19;L1\.2;100;5;0\/17;0\/9/);
 });
+
+test("Practice exam BE are part of the backup and shown in the class overview", () => {
+  const state = engine.empty();
+  state.profile = { name: "kl.aus", className: "J2 INF1" };
+  assert.ok(engine.saveExam(state, "arrays.ausgabe", "{}", 3));
+  assert.ok(engine.saveExam(state, "sortieren.bubble-phasen", "{}", 2));
+  assert.ok(engine.saveExam(state, "operatoren.nennen", "{}", 1));
+  assert.equal(engine.saveExam(state, "arrays.ausgabe", "{}", 4), false, "Mehr BE als möglich werden abgelehnt");
+  const row = overview.readFile(JSON.stringify(engine.payload(state))).row;
+  assert.equal(row.exam, 5, "Das Operatoren-Training zählt nicht zu den Klausur-BE");
+  assert.equal(overview.examMax, 90);
+  assert.match(overview.toCsv([row]), /;5\/90;/);
+});

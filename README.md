@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 20. Oktober 2026. Version **1.7.0 – Lokale KI mit Ablaufprotokoll, Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar**.
+Stand: 20. Oktober 2026. Version **1.8.0 – Klausurvorbereitung, lokale KI mit Ablaufprotokoll, Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar**.
 Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
 (Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
 Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
@@ -127,6 +127,12 @@ Operatorenliste Baden-Württemberg (Lücken füllen, Bausteine ordnen). Für
 Lehrkräfte gibt es eine **Klassenübersicht** (Link in der Fußzeile), die die
 JSON-Sicherungen einer Klasse lokal im Browser zusammenführt – mit Fortschritt
 je Einheit, häufigsten Unsicherheiten und CSV-Export, ohne Datenübertragung.
+
+Die **Klausurvorbereitung** bereitet auf die BPE-7-Anteile der schriftlichen
+Abiturprüfung vor. Sie enthält drei Übungsklausuren zu je 30 BE mit Operator,
+Anforderungsbereich und Erwartungshorizont, einen Prüfungsmodus mit Zeit und
+Notenpunkt-Orientierung sowie ein Operatoren-Training. Zusammengestellt ist sie
+aus der Auswertung der Abiturprüfungen 2021–2026 (`docs/abitur-bpe7-analyse.md`).
 
 Wie in PythonLab gibt es einen optionalen **KI-Lerncoach** (Google Gemini über
 einen abgesicherten Cloudflare-Worker): Nach ausdrücklicher Zustimmung für die

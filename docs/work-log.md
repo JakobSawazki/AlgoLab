@@ -625,3 +625,25 @@ aus Kapitel 7 als Markdown abgeschrieben (Themenwahl-Tabelle mit Namen
 ausgelassen). Am Notizbuch wurde nichts geändert; ein Fehlklick auf „Kopieren“
 legte nur einen Anhang in die Zwischenablage.
 
+## 20. Oktober 2026 – Klausurvorbereitung (1.8.0, EXAM-01)
+
+Bearbeiter: Claude, im Auftrag von Jakob („Optimiere alles entsprechend … Klausurvorbereitung als eigenen Abschnitt“).
+
+**Auswertung:**
+
+- BPE-7-Anteile der Prüfungen 2021–2026 und der Musterprüfung mit kommentiertem Erwartungshorizont, per PDF-Textauszug bzw. gerenderten Seiten. 2025-26 und die Operatorenliste AFB liegen nur als Bild vor; gerendert über eine temporäre pdf.js-Seite und Edge, danach entfernt.
+- Kernbefund: Im schriftlichen Abitur wird Programmierung nicht quellcodeorientiert geprüft – Struktogramme, Handsimulation und Datenstrukturen stehen im Zentrum.
+- Ergebnis in docs/abitur-bpe7-analyse.md.
+
+**Umsetzung:**
+
+- `exam.js`: Daten, Prüflogik, Simulationen, Notenschlüssel.
+- `app.js`: Seiten `#klausur`, `#klausur/<id>`, `#klausur/operatoren`, Prüfungsmodus mit Countdown, Python-Test über den vorhandenen Runner.
+- `progress.js`: `state.exam` mit Validierung; `class-overview.js`: Spalte und CSV; Glossar, Einheitenhinweise, CSS.
+
+**Prüfstand:**
+
+- 114/114 Tests.
+- Browser über einen Desktop-Tab und Edge-Vollbildschirmfotos (1280 px hell und dunkel, 375 px), ohne Konsolenfehler und ohne horizontales Überlaufen.
+- Funktion geprüft: Teilpunkte, Markierungen, Erwartungshorizont mit Selbsteinschätzung, Neuladen, echter Pyodide-Test (findet > statt >= 30), Prüfungsmodus von Start bis Abgabe mit Bilanz, Operatoren-Training, Lernstand, Klassenübersicht mit Testdatei.
+

@@ -2,7 +2,7 @@
 
 Stand: 20. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.7.0 – Lokale KI mit Ablaufprotokoll** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.8.0 – Klausurvorbereitung** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -437,6 +437,32 @@ Sicherungen derselben Person zählt die jüngste. Anzeige: Kennzahlen,
 Fortschritt je Einheit, häufigste Einschätzungen „noch nicht“ aus den
 Ich-kann-Listen, sortier- und filterbare Tabelle, CSV-Export für Excel.
 100 Tests.
+
+### 1.8.0 – 20. Oktober 2026
+
+Neuer Bereich **Klausurvorbereitung** (`#klausur`, Daten und Auswertung in `exam.js`). Grundlage ist die Auswertung der Abiturprüfungen Informatik 2021–2026 und der Musterprüfung ab 2024 ([abitur-bpe7-analyse.md](abitur-bpe7-analyse.md)):
+
+- **Startseite:** Prüfungsrahmen (210 min, 2 aus 3, PC ohne KI, Programmieren im Struktogramm), Strategie, Struktogramm-Bausteine nach Operatorenliste 2.2, Operatoren des Bildungsplans mit AFB und BPE-7-Beispiel sowie typische Aufgaben aus den Abiturprüfungen mit Übungs- und Wiederholungslinks.
+- **Drei Übungsklausuren zu je 30 BE:** A Arrays und Struktogramme, B Sortieren und Suchen, C Dynamische Datenstrukturen. Alle Aufgaben sind eigens formuliert und tragen Nummer, Operator, AFB und BE.
+- **Aufgabenformate mit automatischer Prüfung:**
+  - Ausgaben nennen und Werte dokumentieren (Tabelle, Punkte je Zeile);
+  - Bubble-Phasen und Vertauschungstabelle (eine zusätzliche Zeile kostet einen Punkt);
+  - Belegung entwerfen (per Simulation geprüft);
+  - Warteschlange und Stapel (Befehlsfolge simuliert);
+  - verkettete Liste mit Zeigertabelle, Reihenfolge von Schritten, Binärbaum-Eigenschaften.
+- **Offene Aufgaben** (erstellen, entwickeln, erläutern, begründen, Stellung nehmen) werden mit dem Erwartungshorizont abgeglichen: Musterstruktogramm oder Mustertext, Kriterien mit BE zum Abhaken. Zu Struktogramm-Aufgaben gibt es einen Python-Test mit Testdaten, wie an der Entwicklungsumgebung im Abitur.
+- **Prüfungsmodus:**
+  - Countdown nach Richtzeit, Auswertung und Lösungen erst nach der Abgabe, keine KI;
+  - danach Bilanz in BE, Prozent und AFB, Orientierung am linearen Abiturschlüssel (Notenpunkte);
+  - Hinweis auf noch ausstehende Selbsteinschätzungen und gezielte Wiederholungslinks.
+- **Operatoren-Training:** 10 Aufgabenformulierungen, je mit passender Erwartung und Begründung aus der Operatorenliste.
+- **Speicherung:** Ergebnisse liegen in `state.exam` (Punkte und Eingaben je Teilaufgabe, beim Laden geprüft). Sie stehen in der JSON-Sicherung, im Lernstand und in der Klassenübersicht (Spalte „Übungsklausuren“, CSV). Für Punkte und Freischaltung zählen sie nicht.
+- **Optimierung bestehender Inhalte:**
+  - jede passende Einheit zeigt „So kommt das im Abitur vor“;
+  - neue Glossarbegriffe Operator, Anforderungsbereich, Bewertungseinheit, Vertauschung;
+  - der Struktogramm-Renderer kennt alle Einlese- und Deklarationsbausteine der Operatorenliste;
+  - lange Seitentitel brechen mobil sauber um.
+- **Tests:** 114, neu `tests/exam.test.cjs`. Alle Musterlösungen werden durch Simulation der Algorithmen bestätigt.
 
 ### 1.7.0 – 20. Oktober 2026
 

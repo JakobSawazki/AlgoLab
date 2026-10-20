@@ -4,7 +4,9 @@
     const units = content.units;
     const nagold = typeof module !== "undefined" && module.exports ? require("./nagold.js")(content) : root.ALGOLAB_NAGOLD;
     const byId = id => units.find(unit => unit.id === id);
-    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {}, practice: { solved: {}, drafts: {} } });
+    const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {}, practice: { solved: {}, drafts: {} }, exam: { scores: {}, answers: {} } });
+    // Klausurvorbereitung: Punkte (BE) und Eingaben je Teilaufgabe, geprüft gegen exam.js.
+    const examMax = new Map((content.exam?.taskKeys?.() || []).map(entry => [entry.key, entry.max]));
     // Bereich „Programmieren“: gelöste Aufgaben und Entwürfe, unabhängig von Punkten und Freischaltung.
     const practiceIds = new Set([...(content.practice?.exercises || []), ...(content.practice?.structograms || [])].map(exercise => exercise.id));
     // Selbsteinschätzung (Ich-kann-Listen) und freiwillige Zusatzaufgaben zählen nicht für die Freischaltung.
@@ -69,6 +71,12 @@
       for (const [id, draft] of Object.entries(raw?.practice?.drafts && typeof raw.practice.drafts === "object" ? raw.practice.drafts : {})) {
         if ((practiceIds.has(id) || id === "werkstatt" || id === "werkstatt-eingabe") && typeof draft === "string" && draft.length <= 20000) state.practice.drafts[id] = draft;
       }
+      for (const [key, points] of Object.entries(raw?.exam?.scores && typeof raw.exam.scores === "object" ? raw.exam.scores : {})) {
+        if (examMax.has(key) && Number.isInteger(points) && points >= 0 && points <= examMax.get(key)) state.exam.scores[key] = points;
+      }
+      for (const [key, value] of Object.entries(raw?.exam?.answers && typeof raw.exam.answers === "object" ? raw.exam.answers : {})) {
+        if (examMax.has(key) && typeof value === "string" && value.length <= 20000) state.exam.answers[key] = value;
+      }
       state.nagoldEntries = nagold.entriesFor(Object.hasOwn(raw || {}, "nagoldEntries") ? { nagoldEntries: raw.nagoldEntries } : { completed: state.completed });
       return state;
     }
@@ -116,6 +124,19 @@
       state.practice.drafts[id] = code;
       return true;
     }
+    function saveExam(state, key, answer, points) {
+      if (!examMax.has(key) || typeof answer !== "string" || answer.length > 20000) return false;
+      state.exam ??= { scores: {}, answers: {} };
+      state.exam.answers[key] = answer;
+      if (points === null) delete state.exam.scores[key];
+      else if (Number.isInteger(points) && points >= 0 && points <= examMax.get(key)) state.exam.scores[key] = points;
+      else return false;
+      return true;
+    }
+    function resetExam(state, prefix) {
+      state.exam ??= { scores: {}, answers: {} };
+      for (const area of ["scores", "answers"]) for (const key of Object.keys(state.exam[area])) if (key.startsWith(`${prefix}.`)) delete state.exam[area][key];
+    }
     function completeExtra(state, id, taskId, passedCheck) {
       if (!unlocked(state, id) || !extraTask(id, taskId) || passedCheck !== true) return false;
       state.extras ??= {};
@@ -141,7 +162,7 @@
       }
       return normalize(raw);
     }
-    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, rateSelfcheck, completeExtra, completePractice, savePracticeDraft, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
+    return { empty, byId, earned, passed, unlocked, accessible, normalize, payload, readPayload, answer, completeCode, finish, rateSelfcheck, completeExtra, completePractice, savePracticeDraft, saveExam, resetExam, total: state => units.reduce((sum, unit) => sum + earned(state, unit.id), 0), prerequisite: id => units[units.findIndex(unit => unit.id === id) - 1] };
   }
   if (typeof module !== "undefined" && module.exports) module.exports = createEngine;
   else root.createAlgoLabProgress = createEngine;

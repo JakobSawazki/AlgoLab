@@ -79,7 +79,7 @@
     try { sessionStorage.setItem(developerKey, developerMode ? "active" : "inactive"); } catch { /* In-memory mode remains available. */ }
     render();
   });
-  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.7.0#${name}"/></svg>`;
+  const icon = name => `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.8.0#${name}"/></svg>`;
   let sidebarCollapsed = false;
   let pathExpanded = false;
   try { sidebarCollapsed = localStorage.getItem("algolab-sidebar-v1") === "collapsed"; } catch { /* Session defaults remain usable. */ }
@@ -151,7 +151,7 @@
     document.querySelector("#page-title").textContent = "Übersicht";
     const next = content.units.find(unit => !state.completed.includes(unit.id));
     const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
-    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><a class="hero-secondary" href="#programmieren">${icon("code")} Selbst programmieren</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice">${content.units.every(unit => unit.ready) ? `<strong>So arbeitest du mit AlgoLab:</strong> Jede der ${content.units.length} Einheiten führt dich vom Verstehen über ein interaktives Modell zu eigenen Erklärungen und geprüften Aufgaben – ab L1.2 auch mit Python direkt im Browser. Sichere deinen Lernstand regelmäßig über das Diskettensymbol als Datei.` : `<strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Die übrigen Einheiten zeigen zunächst ihre Lernziele.`}</aside>`;
+    main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Ordne Daten, entdecke Muster und entwickle eigene Lösungen. Dein Weg führt dich Schritt für Schritt durch die Welt der Algorithmen und Datenstrukturen.</p><a class="primary" href="#unit/${next?.id || "L1.1"}">${state.completed.length ? "Weiterlernen" : "Mit L1.1 starten"} ${icon("arrow")}</a><a class="hero-secondary" href="#programmieren">${icon("code")} Selbst programmieren</a><a class="hero-secondary" href="#klausur">${icon("exam")} Klausur vorbereiten</a><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students.webp" width="1672" height="941" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>${icon("spark")} Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Du startest bei L1.1.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map.webp" width="1672" height="941" loading="lazy" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice">${content.units.every(unit => unit.ready) ? `<strong>So arbeitest du mit AlgoLab:</strong> Jede der ${content.units.length} Einheiten führt dich vom Verstehen über ein interaktives Modell zu eigenen Erklärungen und geprüften Aufgaben – ab L1.2 auch mit Python direkt im Browser. Sichere deinen Lernstand regelmäßig über das Diskettensymbol als Datei.` : `<strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Die übrigen Einheiten zeigen zunächst ihre Lernziele.`}</aside>`;
     setupMap();
   }
   function setupMap() {
@@ -211,6 +211,7 @@
   }
   function renderMissing() { document.querySelector("#page-title").textContent = "Seite nicht gefunden"; main.innerHTML = `<section class="empty-state"><h2>Diese Seite gibt es nicht.</h2><a class="primary" href="#path">Zum Lernpfad</a></section>`; }
   let pythonRunner = null;
+  let examTimer = null;
   const workValue = (unitId, fieldId, fallback = "") => state.work[unitId]?.[fieldId] ?? fallback;
   function renderCodeTask(unit, task) {
     const solved = task.optional ? state.extras?.[unit.id]?.[task.id] === true : state.answers[unit.id]?.[task.id] === true;
@@ -265,7 +266,7 @@
       const answer = state.answers[id]?.[task.id]; const solved = answer === task.correct;
       return `<form class="task" data-unit="${id}" data-task="${task.id}"><fieldset ${solved ? "disabled" : ""}><legend><span class="task-number">${index + 1}</span> ${esc(task.prompt)}</legend>${task.options.map((option, choice) => `<label class="choice"><input type="radio" name="choice" value="${choice}" ${answer === choice ? "checked" : ""} required><span>${esc(option)}</span></label>`).join("")}</fieldset><div class="task-actions">${solved ? `<span class="task-success">✓ Bestanden · ${task.points} Punkte</span>` : `<button type="submit">Antwort prüfen</button>`}<p role="status" class="task-feedback">${answer !== undefined && !solved ? esc(task.hint) : ""}</p></div></form>`;
     }).join("");
-    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}${example.nsd ? renderNsd(example.nsd) : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>${esc(unit.help.text || "Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.")}</p>${(unit.help.links || [unit.help]).map(link => `<p><a href="${link.href}" target="_blank" rel="noopener noreferrer">${esc(link.label)} ↗</a></p>`).join("")}</aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section>${unit.extras?.length ? `<section class="lesson-panel extras-panel"><span class="eyebrow">VERTIEFEN</span><h3>Vertiefung und Zusatzaufgaben</h3><p>Diese Aufgaben sind freiwillig. Sie werden genauso geprüft, bringen aber keine Punkte und sind für die Freischaltung nicht nötig. Ideal, wenn du schneller fertig bist oder für die Prüfung üben möchtest.</p>${unit.extras.map(task => renderCodeTask(unit, task)).join("")}</section>` : ""}${renderPracticeLinks(unit)}${renderResults(unit)}${renderUnitSelfcheck(unit)}<section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
+    main.innerHTML = `${header}${preview ? '<aside class="notice">Entwicklervorschau: Du kannst die Inhalte ansehen und Code ausprobieren. Punkte und Abschlüsse erhältst du erst in der normalen Lernreihenfolge.</aside>' : ""}<section class="lesson-panel"><span class="eyebrow">1 · VERSTEHEN</span><h3>${esc(unit.readTitle)}</h3><p>${esc(unit.intro)}</p><div class="examples">${unit.examples.map(example => `<details><summary>${esc(example.title)}</summary><p>${esc(example.text)}</p>${example.code ? `<pre><code>${esc(example.code)}</code></pre>` : ""}${example.nsd ? renderNsd(example.nsd) : ""}</details>`).join("")}</div></section>${unit.help ? `<aside class="lesson-panel"><strong>Python auffrischen</strong><p>${esc(unit.help.text || "Wenn dir Listen noch nicht vertraut sind, hilft dir diese Grundlagenlektion.")}</p>${(unit.help.links || [unit.help]).map(link => `<p><a href="${link.href}" target="_blank" rel="noopener noreferrer">${esc(link.label)} ↗</a></p>`).join("")}</aside>` : ""}${unit.explorer ? renderArrayLab(unit) : ""}${reflections ? `<section class="lesson-panel"><span class="eyebrow">2 · IN EIGENEN WORTEN</span><h3>Deine Erklärungen festhalten</h3><p>Diese Notizen helfen dir beim Gespräch mit deiner Lehrkraft. Sie werden gespeichert; es gibt dafür keine automatische Bewertung oder zusätzlichen Punkte.</p>${reflections}</section>` : ""}<section class="lesson-panel"><span class="eyebrow">SELBST ÜBERPRÜFEN</span><h3>${esc(unit.checkTitle)}</h3><p>Die Punkte stehen bei jeder Aufgabe. Du kannst erneut versuchen. Bereits erreichte Punkte bleiben erhalten.</p>${tasks}</section>${unit.extras?.length ? `<section class="lesson-panel extras-panel"><span class="eyebrow">VERTIEFEN</span><h3>Vertiefung und Zusatzaufgaben</h3><p>Diese Aufgaben sind freiwillig. Sie werden genauso geprüft, bringen aber keine Punkte und sind für die Freischaltung nicht nötig. Ideal, wenn du schneller fertig bist oder für die Prüfung üben möchtest.</p>${unit.extras.map(task => renderCodeTask(unit, task)).join("")}</section>` : ""}${renderPracticeLinks(unit)}${renderExamLinks(unit)}${renderResults(unit)}${renderUnitSelfcheck(unit)}<section class="lesson-panel completion"><span class="eyebrow">ABSCHLIESSEN</span><h3>${complete ? `${id} ist abgeschlossen.` : "Bereit für den nächsten Schritt?"}</h3><p>${complete ? `Du hast ${unit.points} Punkte erreicht.` : `Bestehe alle ${unit.tasks.length} Pflichtaufgaben und erreiche ${unit.points} Punkte. Danach kannst du ${id} abschließen${next ? ` und ${next.id} freischalten` : ""}.`}</p>${complete ? (next ? `<a class="primary" href="#unit/${next.id}">Weiter zu ${next.id} →</a>` : '<a class="primary" href="#progress">Zu deinem Lernstand</a>') : `<button class="primary" data-finish="${id}" ${engine.passed(state, id) && !preview ? "" : "disabled"}>Einheit abschließen · ${unit.points} Punkte</button>`}</section>`;
     if (unit.loopExplorer) {
       const panel = document.createElement("section");
       panel.className = "lesson-panel loop-lab";
@@ -429,7 +430,7 @@
   function renderNsd(nsd, line = null, slot = null) {
     const text = value => {
       if (value && typeof value === "object" && value.slot) return slot ? slot(value.slot) : '<span class="nsd-gap">…</span>';
-      const match = /^(Zuweisung|Deklaration und Initialisierung|Aufruf|Einlesen|Ausgabe|Rückgabe): (.*)$/.exec(value);
+      const match = /^(Zuweisung|Deklaration und Initialisierung|Deklaration und Einlesen|Deklaration|Initialisierung|Aufruf|Einlesen|Ausgabe|Rückgabe): (.*)$/.exec(value);
       return match ? `<span class="nsd-op">${esc(match[1])}:</span> ${esc(match[2])}` : esc(value);
     };
     const current = block => block.l?.includes(line) ? " is-current" : "";
@@ -889,13 +890,13 @@
     if (!box) return;
     const rows = classData.rows.filter(row => !classData.filter || row.className === classData.filter);
     const summary = classOverview.aggregate(rows);
-    const columns = [["name", "Kürzel"], ["className", "Klasse"], ["completed", "Einheiten"], ["current", "Aktuell"], ["points", "Lernpunkte"], ["nagold", "NAGOLD"], ["programs", "Programmieren"], ["structograms", "Struktogramme"], ["notYet", "Ich-kann ☐"], ["exportedAt", "Sicherung"]];
+    const columns = [["name", "Kürzel"], ["className", "Klasse"], ["completed", "Einheiten"], ["current", "Aktuell"], ["points", "Lernpunkte"], ["nagold", "NAGOLD"], ["programs", "Programmieren"], ["structograms", "Struktogramme"], ["exam", "Übungsklausuren"], ["notYet", "Ich-kann ☐"], ["exportedAt", "Sicherung"]];
     const value = (row, key) => key === "notYet" ? row.selfcheck.notYet : row[key];
     const sorted = [...rows].sort((a, b) => { const x = value(a, classData.sort), y = value(b, classData.sort); const order = typeof x === "number" ? x - y : String(x).localeCompare(String(y), "de"); return classData.descending ? -order : order; });
     const errors = classData.errors.length ? `<div class="notice class-errors"><strong>${classData.errors.length} Datei${classData.errors.length === 1 ? "" : "en"} nicht übernommen:</strong><ul>${classData.errors.map(item => `<li>${esc(item.fileName || "Datei")}: ${esc(item.error)}</li>`).join("")}</ul></div>` : "";
     if (!classData.rows.length) { box.innerHTML = `${errors}<p class="notice">Noch keine Dateien geladen.</p>`; return; }
     const total = content.units.length, maxDone = Math.max(1, summary.count);
-    box.innerHTML = `${errors}<div class="class-toolbar"><label>Klasse <select id="class-filter"><option value="">Alle Klassen</option>${classOverview.aggregate(classData.rows).classes.map(name => `<option ${classData.filter === name ? "selected" : ""}>${esc(name)}</option>`).join("")}</select></label><button type="button" id="class-csv">Als CSV speichern</button><button type="button" id="class-clear">Liste leeren</button></div><div class="class-stats"><div><small>Lernende</small><strong>${summary.count}</strong></div><div><small>Ø abgeschlossene Einheiten</small><strong>${String(summary.averageCompleted).replace(".", ",")} / ${total}</strong></div><div><small>Ø Lernpunkte</small><strong>${String(summary.averagePoints).replace(".", ",")}</strong></div><div><small>Ø NAGOLD</small><strong>${String(summary.averageNagold).replace(".", ",")}</strong></div></div><div class="class-grid"><section class="lesson-panel"><span class="eyebrow">FORTSCHRITT JE EINHEIT</span><h3>Wie viele haben abgeschlossen?</h3><ul class="class-bars">${summary.unitProgress.map(unit => `<li><span class="code">${unit.id}</span><span class="class-bar" aria-hidden="true"><i style="width:${Math.round(unit.done / maxDone * 100)}%"></i></span><span>${unit.done}/${summary.count}</span></li>`).join("")}</ul></section><section class="lesson-panel"><span class="eyebrow">ICH-KANN-LISTEN</span><h3>Häufigste Unsicherheiten</h3>${summary.uncertain.length ? `<ol class="class-uncertain">${summary.uncertain.map(item => `<li><strong>${item.notYet}×</strong> ☐ <span>${esc(item.module)} ${esc(item.number)}: ${esc(item.text)}</span></li>`).join("")}</ol>` : "<p>Noch keine Einschätzung „noch nicht“ in den geladenen Dateien.</p>"}</section></div><div class="analysis-table-wrap" role="region" aria-label="Lernstände der Klasse" tabindex="0"><table class="analysis-table class-table"><thead><tr>${columns.map(([key, label]) => `<th scope="col" aria-sort="${classData.sort === key ? (classData.descending ? "descending" : "ascending") : "none"}"><button type="button" data-sort="${key}">${esc(label)}${classData.sort === key ? (classData.descending ? " ↓" : " ↑") : ""}</button></th>`).join("")}</tr></thead><tbody>${sorted.map(row => `<tr><th scope="row">${esc(row.name)}</th><td>${esc(row.className)}</td><td>${row.completed}/${total}</td><td>${esc(row.current)}</td><td>${row.points}</td><td>${row.nagold}</td><td>${row.programs}/${content.practice.exercises.length}</td><td>${row.structograms}/${content.practice.structograms.length}</td><td>${row.selfcheck.notYet}</td><td>${esc(row.exportedAt.slice(0, 10))}</td></tr>`).join("")}</tbody></table></div>`;
+    box.innerHTML = `${errors}<div class="class-toolbar"><label>Klasse <select id="class-filter"><option value="">Alle Klassen</option>${classOverview.aggregate(classData.rows).classes.map(name => `<option ${classData.filter === name ? "selected" : ""}>${esc(name)}</option>`).join("")}</select></label><button type="button" id="class-csv">Als CSV speichern</button><button type="button" id="class-clear">Liste leeren</button></div><div class="class-stats"><div><small>Lernende</small><strong>${summary.count}</strong></div><div><small>Ø abgeschlossene Einheiten</small><strong>${String(summary.averageCompleted).replace(".", ",")} / ${total}</strong></div><div><small>Ø Lernpunkte</small><strong>${String(summary.averagePoints).replace(".", ",")}</strong></div><div><small>Ø NAGOLD</small><strong>${String(summary.averageNagold).replace(".", ",")}</strong></div></div><div class="class-grid"><section class="lesson-panel"><span class="eyebrow">FORTSCHRITT JE EINHEIT</span><h3>Wie viele haben abgeschlossen?</h3><ul class="class-bars">${summary.unitProgress.map(unit => `<li><span class="code">${unit.id}</span><span class="class-bar" aria-hidden="true"><i style="width:${Math.round(unit.done / maxDone * 100)}%"></i></span><span>${unit.done}/${summary.count}</span></li>`).join("")}</ul></section><section class="lesson-panel"><span class="eyebrow">ICH-KANN-LISTEN</span><h3>Häufigste Unsicherheiten</h3>${summary.uncertain.length ? `<ol class="class-uncertain">${summary.uncertain.map(item => `<li><strong>${item.notYet}×</strong> ☐ <span>${esc(item.module)} ${esc(item.number)}: ${esc(item.text)}</span></li>`).join("")}</ol>` : "<p>Noch keine Einschätzung „noch nicht“ in den geladenen Dateien.</p>"}</section></div><div class="analysis-table-wrap" role="region" aria-label="Lernstände der Klasse" tabindex="0"><table class="analysis-table class-table"><thead><tr>${columns.map(([key, label]) => `<th scope="col" aria-sort="${classData.sort === key ? (classData.descending ? "descending" : "ascending") : "none"}"><button type="button" data-sort="${key}">${esc(label)}${classData.sort === key ? (classData.descending ? " ↓" : " ↑") : ""}</button></th>`).join("")}</tr></thead><tbody>${sorted.map(row => `<tr><th scope="row">${esc(row.name)}</th><td>${esc(row.className)}</td><td>${row.completed}/${total}</td><td>${esc(row.current)}</td><td>${row.points}</td><td>${row.nagold}</td><td>${row.programs}/${content.practice.exercises.length}</td><td>${row.structograms}/${content.practice.structograms.length}</td><td>${row.exam}/${classOverview.examMax} BE</td><td>${row.selfcheck.notYet}</td><td>${esc(row.exportedAt.slice(0, 10))}</td></tr>`).join("")}</tbody></table></div>`;
     box.querySelector("#class-filter").addEventListener("change", event => { classData.filter = event.target.value; drawClassResult(); });
     box.querySelectorAll("[data-sort]").forEach(button => button.addEventListener("click", () => { classData.descending = classData.sort === button.dataset.sort ? !classData.descending : false; classData.sort = button.dataset.sort; drawClassResult(); }));
     box.querySelector("#class-clear").addEventListener("click", () => { classData.rows = []; classData.errors = []; classData.filter = ""; drawClassResult(); });
@@ -906,10 +907,289 @@
       document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
   }
+  // ——— Klausurvorbereitung: abiturnahe Übungsklausuren (Daten und Auswertung in exam.js) ———
+  const examData = content.exam;
+  const examStarts = new Map();
+  const examKey = (examId, taskId) => `${examId}.${taskId}`;
+  const examAnswer = key => { try { return JSON.parse(state.exam?.answers?.[key] || "{}"); } catch { return {}; } };
+  const examScore = key => state.exam?.scores?.[key];
+  const storeExam = (key, answer, points) => { if (engine.saveExam(state, key, JSON.stringify(answer), points)) save(); };
+  // Der Prüfungsmodus gilt nur für diesen Tab (Startzeit in sessionStorage, sonst im Speicher).
+  const examStart = id => { try { return Number(sessionStorage.getItem(`algolab-exam-start-${id}`)) || 0; } catch { return examStarts.get(id) || 0; } };
+  function setExamStart(id, value) {
+    examStarts.set(id, value);
+    try { if (value) sessionStorage.setItem(`algolab-exam-start-${id}`, String(value)); else sessionStorage.removeItem(`algolab-exam-start-${id}`); } catch { /* bleibt im Speicher */ }
+  }
+  function examTotals(item) {
+    const scores = item.tasks.map(task => examScore(examKey(item.id, task.id)));
+    return { points: scores.reduce((sum, value) => sum + (value ?? 0), 0), max: examData.examMax(item), done: scores.filter(value => value !== undefined).length };
+  }
+  const afbBar = (share, max) => `<span class="afb-bar" role="img" aria-label="Anforderungsbereiche: ${share.map(part => `AFB ${part.level} ${Math.round(part.be / max * 100)} Prozent`).join(", ")}">${share.filter(part => part.be).map(part => `<span class="afb-${part.level.toLowerCase()}" style="flex: ${part.be}" title="AFB ${part.level}: ${part.be} BE">${part.level} · ${part.be}</span>`).join("")}</span>`;
+  const unitLink = id => { const unit = engine.byId(id); return unit ? (accessible(unit.id) ? `<a href="#unit/${unit.id}">${unit.id} · ${esc(unit.title)}</a>` : `<span>${unit.id} · ${esc(unit.title)}</span>`) : ""; };
+  function examCard(item) {
+    const totals = examTotals(item);
+    return `<a class="practice-card exam-card ${totals.done === item.tasks.length ? "is-solved" : ""}" href="#klausur/${item.id}"><span class="practice-state">${totals.points}/${totals.max}</span><span class="practice-topic">${esc(item.subtitle)}</span><h3>${esc(item.title)}</h3><p>${esc(item.intro)}</p><span class="practice-meta"><span>${item.minutes} min</span><span>${totals.max} BE</span><span>${totals.done} von ${item.tasks.length} bearbeitet</span></span>${afbBar(examData.afbShare(item), totals.max)}</a>`;
+  }
+  function renderExamHome() {
+    document.querySelector("#page-title").textContent = "Klausur­vorbereitung";
+    const totals = examData.exams.map(examTotals), points = totals.reduce((sum, item) => sum + item.points, 0), max = totals.reduce((sum, item) => sum + item.max, 0);
+    const quizDone = examData.operatorQuiz.filter(item => examScore(`operatoren.${item.id}`) === 1).length;
+    main.innerHTML = `<section class="practice-lead"><div><span class="eyebrow">KLAUSUR UND ABITUR</span><h2>Klausurvorbereitung</h2><p>Abiturnahe Aufgaben zu BPE 7 – mit Operator, Anforderungsbereich (AFB) und Bewertungseinheiten (BE) wie in der schriftlichen Prüfung. Eindeutige Antworten prüft AlgoLab sofort; offene Aufgaben vergleichst du mit dem Erwartungshorizont.</p></div><div class="practice-progress"><small>In den Übungsklausuren erreicht</small><strong>${points} / ${max}</strong><span>BE · Operatoren-Training ${quizDone} / ${examData.operatorQuiz.length}</span></div></section>
+      <section class="exam-format" aria-label="Prüfungsrahmen">${examData.format.map(item => `<div><span class="eyebrow">${esc(item.label.toUpperCase())}</span><strong>${esc(item.value)}</strong><p>${esc(item.text)}</p></div>`).join("")}</section>
+      <h3 class="exam-section-title">Übungsklausuren</h3><div class="practice-grid">${examData.exams.map(examCard).join("")}<a class="practice-card exam-card" href="#klausur/operatoren"><span class="practice-state">${quizDone}/${examData.operatorQuiz.length}</span><span class="practice-topic">Training</span><h3>Operatoren verstehen</h3><p>Nennen, dokumentieren, erläutern, begründen … – erkenne, was eine Aufgabe verlangt und wofür es BE gibt.</p><span class="practice-meta"><span>${examData.operatorQuiz.length} Formulierungen</span><span>ohne Zeitdruck</span></span></a></div>
+      <div class="exam-columns"><section class="lesson-panel"><span class="eyebrow">SO GEHST DU VOR</span><h3>Strategie für die Prüfung</h3><ol class="exam-strategy">${examData.strategy.map(step => `<li>${esc(step)}</li>`).join("")}</ol></section>
+      <section class="lesson-panel"><span class="eyebrow">STRUKTOGRAMME NACH OPERATORENLISTE 2.2</span><h3>Bausteine auf einen Blick</h3>${renderNsd(examData.nsdReference)}<ul class="exam-notes">${examData.nsdNotes.map(note => `<li>${esc(note)}</li>`).join("")}</ul></section></div>
+      <section class="lesson-panel"><span class="eyebrow">OPERATOREN DES BILDUNGSPLANS</span><h3>Was der Operator verlangt</h3><div class="table-wrap"><table class="exam-operator-table"><thead><tr><th scope="col">Operator</th><th scope="col">AFB</th><th scope="col">Erwartung</th><th scope="col">Beispiel aus BPE 7</th></tr></thead><tbody>${examData.operators.map(item => `<tr><th scope="row">${esc(item.name)}</th><td>${esc(item.afb)}</td><td>${esc(item.meaning)}</td><td><em>${esc(item.example)}</em></td></tr>`).join("")}</tbody></table></div><p class="practice-note">AFB I: Wiedergeben und Beschreiben · AFB II: Anwenden und Übertragen · AFB III: Beurteilen und neue Lösungen entwickeln. Eine Abituraufgabe verteilt sich etwa zu 20 % auf AFB I, 55 % auf AFB II und 25 % auf AFB III.</p></section>
+      <section class="lesson-panel"><span class="eyebrow">AUS DEN ABITURPRÜFUNGEN 2021–2026</span><h3>Typische Aufgaben zu BPE 7</h3><div class="table-wrap"><table class="exam-operator-table"><thead><tr><th scope="col">Aufgabentyp</th><th scope="col">Operatoren</th><th scope="col">Üben</th><th scope="col">Wiederholen</th></tr></thead><tbody>${examData.taskTypes.map(item => `<tr><th scope="row">${esc(item.title)}</th><td>${esc(item.ops)}</td><td>${item.train.map(([label, href]) => `<a href="${href}">${esc(label)}</a>`).join("<br>")}</td><td>${item.units.map(unitLink).join("<br>")}</td></tr>`).join("")}</tbody></table></div></section>
+      <p class="practice-note exam-source">Alle Aufgaben sind eigens für AlgoLab formuliert und orientieren sich an Aufbau, Operatoren und Bewertung der Abiturprüfungen am Beruflichen Gymnasium. Die Notenpunkte sind eine Orientierung am linearen Abiturschlüssel; maßgeblich ist die Bewertung deiner Lehrkraft.</p>`;
+  }
+  function highlightOperator(task) {
+    const index = task.prompt.toLocaleLowerCase("de-DE").indexOf(task.op.toLocaleLowerCase("de-DE"));
+    if (index < 0) return esc(task.prompt);
+    return `${esc(task.prompt.slice(0, index))}<strong class="exam-op-word">${esc(task.prompt.slice(index, index + task.op.length))}</strong>${esc(task.prompt.slice(index + task.op.length))}`;
+  }
+  const examPython = (python, answer) => `<details class="exam-python" ${answer.code ? "open" : ""}><summary>${icon("code")} Idee in Python testen – wie an der Entwicklungsumgebung im Abitur</summary><textarea class="code-editor" rows="8" data-exam-field="code" spellcheck="false" autocapitalize="off" aria-label="Python-Code">${esc(answer.code ?? python.starter)}</textarea><div class="code-actions"><button type="button" data-exam-python>▶ Mit ${python.check.cases.length} Testdaten prüfen</button><span class="exam-python-status" data-exam-python-status role="status"></span></div><ul class="practice-cases" data-exam-python-cases aria-label="Testfälle"></ul></details>`;
+  function renderExamAnswer(task, answer) {
+    const spec = task.answer;
+    const field = (name, label, value, attributes = "") => `<label class="exam-field"><span>${esc(label)}</span><input type="text" data-exam-field="${name}" value="${esc(value ?? "")}" autocomplete="off" spellcheck="false" ${attributes}></label>`;
+    if (spec.type === "fields") return `<div class="exam-fields">${spec.fields.map(item => item.kind === "choice"
+      ? `<label class="exam-field"><span>${esc(item.label)}</span><select data-exam-field="${item.id}"><option value="">–</option>${item.options.map(option => `<option ${answer[item.id] === option ? "selected" : ""}>${esc(option)}</option>`).join("")}</select></label>`
+      : field(item.id, item.label, answer[item.id])).join("")}</div>`;
+    if (spec.type === "table") return `<div class="table-wrap"><table class="exam-table"><thead><tr>${spec.columns.map(column => `<th scope="col">${esc(column)}</th>`).join("")}</tr></thead><tbody>${spec.solution.map((row, r) => `<tr>${row.map((cell, c) => spec.given?.includes(c) ? `<td class="is-given">${esc(cell)}</td>` : `<td><input type="text" data-exam-cell="${r}-${c}" aria-label="${esc(spec.columns[c])} in Zeile ${r + 1}" value="${esc(answer.cells?.[r]?.[c] ?? "")}" autocomplete="off" spellcheck="false"></td>`).join("")}</tr>`).join("")}</tbody></table></div>${(spec.fields || []).length ? `<div class="exam-fields">${spec.fields.map(item => field(item.id, item.label, answer[item.id])).join("")}</div>` : ""}`;
+    if (spec.type === "rows") return `<div class="exam-fields exam-rows">${Array.from({ length: spec.slots || spec.solution.length }, (_, index) => field(`row${index}`, spec.labels?.[index] || `${spec.labelPrefix || "Zeile"} ${index + 1}`, answer.rows?.[index], 'placeholder="Elemente, durch Kommas getrennt"')).join("")}</div>${spec.slots ? '<p class="exam-hint-line">Nutze nur so viele Zeilen, wie du brauchst – leere Zeilen werden nicht gewertet.</p>' : ""}`;
+    if (spec.type === "choice") return `<fieldset class="exam-choice"><legend class="sr-only">Antwort wählen</legend>${spec.options.map((option, index) => `<label><input type="radio" name="choice-${task.id}" value="${index}" data-exam-choice ${answer.choice === index ? "checked" : ""}> <span>${esc(option)}</span></label>`).join("")}</fieldset>`;
+    if (spec.type === "order") {
+      const order = Array.isArray(answer.order) && answer.order.length === spec.steps.length ? answer.order : spec.start;
+      return `<ol class="order-list exam-order">${order.map((stepId, index) => { const step = spec.steps.find(entry => entry.id === stepId); return `<li class="order-block"><span class="order-number">${index + 1}</span><span class="order-text">${esc(step.text)}</span><span class="order-controls"><button type="button" class="icon-button" data-exam-move="up" data-step="${step.id}" aria-label="${esc(step.text)} nach oben" ${index === 0 ? "disabled" : ""}>↑</button><button type="button" class="icon-button" data-exam-move="down" data-step="${step.id}" aria-label="${esc(step.text)} nach unten" ${index === order.length - 1 ? "disabled" : ""}>↓</button></span></li>`; }).join("")}</ol>`;
+    }
+    if (spec.type === "custom") return `<label class="exam-field exam-wide"><span>${esc(spec.label)}</span><textarea rows="${spec.check === "stackPops" ? 5 : 2}" data-exam-field="value" spellcheck="false" autocapitalize="off">${esc(answer.value ?? "")}</textarea></label>`;
+    return `<label class="exam-field exam-wide"><span>${esc(spec.draft)}</span><textarea rows="6" data-exam-field="text" spellcheck="${typeof spec.model === "object" ? "false" : "true"}">${esc(answer.text ?? "")}</textarea></label>${spec.python ? examPython(spec.python, answer) : ""}<div class="exam-horizon" data-exam-horizon ${answer.revealed ? "" : "hidden"}><span class="eyebrow">ERWARTUNGSHORIZONT</span>${typeof spec.model === "object" ? renderNsd(spec.model) : `<p>${esc(spec.model)}</p>`}<fieldset class="exam-criteria"><legend>Vergleiche ehrlich und hake ab, was deine Lösung erfüllt:</legend>${spec.criteria.map((criterion, index) => `<label><input type="checkbox" data-exam-criterion="${index}" ${answer.criteria?.includes(index) ? "checked" : ""}> <span>${esc(criterion.text)}</span><b>${criterion.be} BE</b></label>`).join("")}</fieldset></div>`;
+  }
+  function renderExamTask(item, task) {
+    const answer = examAnswer(examKey(item.id, task.id)), unit = engine.byId(task.unit);
+    const material = [task.nsd ? renderNsd(task.nsd) : "", task.tree ? `<div class="exam-tree">${renderTreeSvg(task.tree)}</div>` : "",
+      task.table ? `<div class="table-wrap"><table class="exam-table is-static"><thead><tr>${task.table.columns.map(column => `<th scope="col">${esc(column)}</th>`).join("")}</tr></thead><tbody>${task.table.rows.map(row => `<tr>${row.map(cell => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : "",
+      task.events ? `<div class="table-wrap"><table class="exam-table is-static exam-events"><thead><tr><th scope="col">Uhrzeit</th><th scope="col">Operation</th></tr></thead><tbody>${task.events.map(([time, command]) => `<tr><td>${esc(time)}</td><td><code>${esc(command)}</code></td></tr>`).join("")}</tbody></table></div>` : ""].join("");
+    return `<article class="lesson-panel exam-task" data-exam-task="${task.id}" id="aufgabe-${task.id}"><header class="exam-task-head"><span class="exam-no">${esc(task.no)}</span><span class="exam-op">${esc(task.op)}</span><span class="exam-afb afb-${task.afb.toLowerCase()}">AFB ${task.afb}</span><span class="exam-be">${task.be} BE</span><span class="exam-score" data-exam-score></span></header><p class="exam-prompt">${highlightOperator(task)}</p>${material}<div class="exam-answer">${renderExamAnswer(task, answer)}</div><div class="exam-actions">${task.answer.type === "open" ? `<button type="button" data-exam-reveal ${answer.revealed ? "hidden" : ""}>Erwartungshorizont anzeigen</button>` : '<button type="button" data-exam-check>Auswerten</button>'}${unit ? `<span class="exam-unit">${icon("route")} ${unitLink(unit.id)}</span>` : ""}</div><div class="exam-feedback" data-exam-feedback role="status"></div></article>`;
+  }
+  function renderExam(id) {
+    const item = examData.exams.find(entry => entry.id === id);
+    if (!item) { renderMissing(); return; }
+    document.querySelector("#page-title").textContent = `Klausur­vorbereitung · ${item.title}`;
+    const max = examData.examMax(item), running = Boolean(examStart(item.id));
+    main.innerHTML = `<div class="exam-page ${running ? "is-exam" : ""}"><div class="breadcrumb"><a href="#klausur">Klausurvorbereitung</a><span aria-hidden="true">/</span><span>${esc(item.subtitle)}</span></div><section class="lesson-heading exam-heading"><span class="eyebrow">${esc(item.subtitle.toUpperCase())} · BPE 7</span><h2>${esc(item.title)}</h2><p>${esc(item.intro)}</p><ul class="lesson-meta"><li>${icon("check")} ${max} BE</li><li>${icon("notes")} ${item.tasks.length} Teilaufgaben</li><li>${icon("spark")} Richtzeit ${item.minutes} min</li><li>${icon("lock")} keine KI-Hilfe – wie im Abitur</li></ul>${afbBar(examData.afbShare(item), max)}<div class="exam-mode">${running ? '<span class="exam-timer" id="exam-timer" role="timer"></span><button type="button" class="primary" data-exam-submit>Klausur abgeben und auswerten</button><button type="button" data-exam-cancel>Prüfungsmodus abbrechen</button>' : '<button type="button" class="primary" data-exam-start>Als Prüfung schreiben (mit Zeit)</button><button type="button" data-exam-reset>Antworten zurücksetzen</button>'}</div><p class="exam-mode-note">${running ? "Prüfungsmodus: Die Zeit läuft, Auswertung und Lösungen erscheinen erst nach der Abgabe. Python-Tests sind erlaubt – wie an der Entwicklungsumgebung im Abitur." : "Übungsmodus: Werte jede Teilaufgabe direkt aus oder öffne den Erwartungshorizont. Für einen Probelauf unter Prüfungsbedingungen starte den Prüfungsmodus."}</p></section><div class="exam-tasks">${item.tasks.map(task => renderExamTask(item, task)).join("")}</div>${running ? '<div class="exam-submit"><button type="button" class="primary" data-exam-submit>Klausur abgeben und auswerten</button></div>' : ""}<section class="lesson-panel exam-summary" id="exam-summary" aria-live="polite"></section></div>`;
+    setupExam(item);
+  }
+  function setupExam(item) {
+    const page = main.querySelector(".exam-page"), running = () => Boolean(examStart(item.id));
+    const taskOf = article => item.tasks.find(task => task.id === article.dataset.examTask);
+    const keyOf = task => examKey(item.id, task.id);
+    function collect(task, article) {
+      const spec = task.answer, answer = examAnswer(keyOf(task));
+      const value = name => article.querySelector(`[data-exam-field="${name}"]`)?.value ?? "";
+      if (spec.type === "fields") spec.fields.forEach(field => { answer[field.id] = value(field.id); });
+      if (spec.type === "table") { answer.cells = spec.solution.map((row, r) => row.map((cell, c) => article.querySelector(`[data-exam-cell="${r}-${c}"]`)?.value ?? "")); (spec.fields || []).forEach(field => { answer[field.id] = value(field.id); }); }
+      if (spec.type === "rows") answer.rows = Array.from({ length: spec.slots || spec.solution.length }, (_, index) => value(`row${index}`));
+      if (spec.type === "choice") { const checked = article.querySelector("[data-exam-choice]:checked"); answer.choice = checked ? Number(checked.value) : null; }
+      if (spec.type === "custom") answer.value = value("value");
+      if (spec.type === "open") { answer.text = value("text"); if (spec.python) answer.code = value("code"); answer.criteria = [...article.querySelectorAll("[data-exam-criterion]:checked")].map(box => Number(box.dataset.examCriterion)); }
+      return answer;
+    }
+    function mark(element, ok) { if (!element) return; element.classList.toggle("is-right", ok === true); element.classList.toggle("is-wrong", ok === false); }
+    function show(task, article, result) {
+      const spec = task.answer;
+      article.querySelectorAll(".is-right, .is-wrong").forEach(element => element.classList.remove("is-right", "is-wrong"));
+      const label = article.querySelector("[data-exam-score]"), feedback = article.querySelector("[data-exam-feedback]");
+      if (!result) { label.textContent = ""; feedback.innerHTML = ""; return; }
+      label.textContent = `${result.points} / ${task.be} BE`;
+      label.className = `exam-score ${result.points === task.be ? "is-full" : result.points ? "is-part" : "is-none"}`;
+      (result.parts || []).forEach(part => mark(article.querySelector(`[data-exam-field="${part.id}"]`), part.ok));
+      if (spec.type === "table") result.cells.forEach((row, r) => row.forEach((ok, c) => { if (ok !== null) mark(article.querySelector(`[data-exam-cell="${r}-${c}"]`), ok); }));
+      if (spec.type === "rows") result.rows.forEach((ok, index) => mark(article.querySelector(`[data-exam-field="row${index}"]`), ok));
+      if (spec.type === "choice") mark(article.querySelector("[data-exam-choice]:checked")?.closest("label"), result.ok);
+      if (spec.type === "order") mark(article.querySelector(".exam-order"), result.ok);
+      if (spec.type === "custom") mark(article.querySelector('[data-exam-field="value"]'), result.ok);
+      const lead = result.selfAssessed ? `Deine Selbsteinschätzung: ${result.points} von ${task.be} BE.` : result.points === task.be ? `Volle Punktzahl: ${task.be} von ${task.be} BE.` : `${result.points} von ${task.be} BE.${result.extra ? " Eine Zeile zu viel kostet einen Punkt." : ""}`;
+      feedback.innerHTML = `<p class="${result.points === task.be ? "is-success" : "is-retry"}"><strong>${esc(lead)}</strong>${result.message ? ` ${esc(result.message)}` : ""}</p>${task.explanation && !running() ? `<p class="exam-explanation">${esc(task.explanation)}</p>` : ""}`;
+    }
+    function evaluate(task, article) {
+      const answer = collect(task, article), result = examData.checkTask(task, answer);
+      storeExam(keyOf(task), answer, result.points);
+      show(task, article, result);
+      return result;
+    }
+    function summary() {
+      const box = main.querySelector("#exam-summary"), totals = examTotals(item), percent = Math.round(totals.points / totals.max * 1000) / 10;
+      if (running()) { box.innerHTML = '<span class="eyebrow">AUSWERTUNG</span><p>Die Auswertung erscheint nach der Abgabe.</p>'; return; }
+      if (!totals.done) { box.innerHTML = '<span class="eyebrow">AUSWERTUNG</span><p>Werte Teilaufgaben aus oder schreibe die Klausur im Prüfungsmodus – hier erscheint dann deine Bilanz.</p>'; return; }
+      const levels = examData.afbShare(item).filter(part => part.be).map(part => ({ ...part, points: item.tasks.filter(task => task.afb === part.level).reduce((sum, task) => sum + (examScore(keyOf(task)) ?? 0), 0) }));
+      const weak = [...new Set(item.tasks.filter(task => examScore(keyOf(task)) !== undefined && examScore(keyOf(task)) < task.be).map(task => task.unit))];
+      // Offene Aufgaben zählen erst, wenn die Lernenden ihre Lösung mit dem Erwartungshorizont abgeglichen haben.
+      const pending = item.tasks.filter(task => task.answer.type === "open" && !examAnswer(keyOf(task)).criteria?.length);
+      box.innerHTML = `<span class="eyebrow">AUSWERTUNG</span><h3>${totals.points} von ${totals.max} BE (${String(percent).replace(".", ",")} %)</h3><p>${totals.done === item.tasks.length ? `Orientierung am linearen Abiturschlüssel: <strong>${examData.notenpunkte(percent)} Notenpunkte</strong>${pending.length ? " (vorläufig)" : ""}.` : `${item.tasks.length - totals.done} Teilaufgaben sind noch nicht ausgewertet – die Bilanz ist vorläufig.`}</p>${pending.length ? `<p class="exam-pending">Noch ohne Selbsteinschätzung: ${pending.map(task => `<a href="#aufgabe-${task.id}" data-exam-jump="${task.id}">${esc(task.no)}</a>`).join(", ")} (${pending.reduce((sum, task) => sum + task.be, 0)} BE). Hake dort ab, was deine Lösung erfüllt.</p>` : ""}<div class="exam-levels">${levels.map(level => `<div><span>AFB ${level.level}</span><strong>${level.points} / ${level.be}</strong><progress max="${level.be}" value="${level.points}"></progress></div>`).join("")}</div>${weak.length ? `<p>Wiederhole gezielt: ${weak.map(unitLink).join(" · ")}</p>` : totals.done === item.tasks.length ? "<p>Alle Teilaufgaben mit voller Punktzahl – stark!</p>" : "<p>Bisher alles mit voller Punktzahl – weiter so!</p>"}`;
+    }
+    // Gespeicherte Auswertungen wiederherstellen (auch nach dem Neuladen).
+    for (const task of item.tasks) {
+      const article = main.querySelector(`[data-exam-task="${task.id}"]`), answer = examAnswer(keyOf(task));
+      if (examScore(keyOf(task)) !== undefined && !running()) show(task, article, examData.checkTask(task, answer));
+    }
+    page.addEventListener("input", event => {
+      const article = event.target.closest("[data-exam-task]");
+      if (!article || event.target.matches("[data-exam-criterion]")) return;
+      const task = taskOf(article), answer = collect(task, article);
+      if (task.answer.type === "open") storeExam(keyOf(task), answer, answer.revealed ? examData.checkTask(task, answer).points : null);
+      else { storeExam(keyOf(task), answer, null); show(task, article, null); }
+      summary();
+    });
+    page.addEventListener("change", event => {
+      const article = event.target.closest("[data-exam-task]");
+      if (!article) return;
+      const task = taskOf(article), answer = collect(task, article);
+      if (event.target.matches("[data-exam-criterion]")) { storeExam(keyOf(task), answer, examData.checkTask(task, answer).points); show(task, article, examData.checkTask(task, answer)); }
+      else if (event.target.matches("[data-exam-choice], select")) { storeExam(keyOf(task), answer, null); show(task, article, null); }
+      summary();
+    });
+    page.addEventListener("click", async event => {
+      const article = event.target.closest("[data-exam-task]"), task = article && taskOf(article);
+      if (event.target.closest("[data-exam-check]")) { evaluate(task, article); summary(); return; }
+      if (event.target.closest("[data-exam-reveal]")) {
+        const answer = collect(task, article);
+        answer.revealed = true;
+        storeExam(keyOf(task), answer, examData.checkTask(task, answer).points);
+        article.querySelector("[data-exam-horizon]").hidden = false;
+        event.target.closest("[data-exam-reveal]").hidden = true;
+        show(task, article, examData.checkTask(task, answer));
+        summary();
+        article.querySelector("[data-exam-horizon]").scrollIntoView({ block: "nearest", behavior: "smooth" });
+        return;
+      }
+      const move = event.target.closest("[data-exam-move]");
+      if (move) {
+        const answer = collect(task, article), spec = task.answer;
+        const order = Array.isArray(answer.order) && answer.order.length === spec.steps.length ? [...answer.order] : [...spec.start];
+        const index = order.indexOf(move.dataset.step), target = index + (move.dataset.examMove === "up" ? -1 : 1);
+        [order[index], order[target]] = [order[target], order[index]];
+        answer.order = order;
+        storeExam(keyOf(task), answer, null);
+        article.querySelector(".exam-answer").innerHTML = renderExamAnswer(task, answer);
+        show(task, article, null);
+        article.querySelector(`[data-exam-move="${move.dataset.examMove}"][data-step="${move.dataset.step}"]:not(:disabled)`)?.focus() || article.querySelector(`[data-step="${move.dataset.step}"]:not(:disabled)`)?.focus();
+        summary();
+        return;
+      }
+      const jump = event.target.closest("[data-exam-jump]");
+      if (jump) { event.preventDefault(); main.querySelector(`#aufgabe-${jump.dataset.examJump}`)?.scrollIntoView({ block: "start", behavior: "smooth" }); return; }
+      if (event.target.closest("[data-exam-python]")) { await runExamPython(task, article); return; }
+      if (event.target.closest("[data-exam-start]")) {
+        const touched = item.tasks.some(entry => state.exam?.answers?.[keyOf(entry)]);
+        if (touched && !window.confirm("Für den Prüfungsmodus werden deine bisherigen Antworten dieser Übungsklausur zurückgesetzt. Fortfahren?")) return;
+        engine.resetExam(state, item.id); save();
+        setExamStart(item.id, Date.now());
+        renderExam(item.id);
+        main.querySelector("#exam-timer")?.focus();
+        return;
+      }
+      if (event.target.closest("[data-exam-cancel]")) { setExamStart(item.id, 0); renderExam(item.id); return; }
+      if (event.target.closest("[data-exam-reset]")) {
+        if (!window.confirm("Alle Antworten und Punkte dieser Übungsklausur löschen?")) return;
+        engine.resetExam(state, item.id); save(); renderExam(item.id); return;
+      }
+      if (event.target.closest("[data-exam-submit]")) {
+        for (const entry of item.tasks) {
+          const node = main.querySelector(`[data-exam-task="${entry.id}"]`), answer = collect(entry, node);
+          if (entry.answer.type === "open") { answer.revealed = true; storeExam(keyOf(entry), answer, examData.checkTask(entry, answer).points); }
+          else storeExam(keyOf(entry), answer, examData.checkTask(entry, answer).points);
+        }
+        const used = Math.round((Date.now() - examStart(item.id)) / 60000);
+        setExamStart(item.id, 0);
+        renderExam(item.id);
+        const box = main.querySelector("#exam-summary");
+        box.insertAdjacentHTML("afterbegin", `<p class="exam-done">Abgegeben nach ${used} Minuten. Eindeutige Antworten sind ausgewertet. Bei den offenen Aufgaben siehst du jetzt den Erwartungshorizont – hake ehrlich ab, was deine Lösung erfüllt.</p>`);
+        box.scrollIntoView({ block: "start" });
+      }
+    });
+    // Countdown im Prüfungsmodus; bei Ablauf wird nur gewarnt, die Abgabe bleibt bei dir.
+    const timer = main.querySelector("#exam-timer");
+    if (timer) {
+      timer.tabIndex = -1;
+      const tick = () => {
+        if (!timer.isConnected) { clearInterval(examTimer); return; }
+        const left = Math.round(item.minutes * 60 - (Date.now() - examStart(item.id)) / 1000), abs = Math.abs(left);
+        const text = `${Math.floor(abs / 60)}:${String(abs % 60).padStart(2, "0")}`;
+        timer.textContent = left >= 0 ? `Noch ${text} min` : `Zeit um seit ${text} min – bitte abgeben`;
+        timer.classList.toggle("is-over", left < 0);
+        timer.classList.toggle("is-close", left >= 0 && left < 600);
+      };
+      tick();
+      clearInterval(examTimer);
+      examTimer = setInterval(tick, 1000);
+    }
+    summary();
+  }
+  async function runExamPython(task, article) {
+    const python = task.answer.python, list = article.querySelector("[data-exam-python-cases]"), status = article.querySelector("[data-exam-python-status]");
+    const button = article.querySelector("[data-exam-python]"), code = article.querySelector('[data-exam-field="code"]').value;
+    button.disabled = true; list.innerHTML = "";
+    pythonRunner ??= window.createAlgoLabPythonRunner({ onStatus: message => { const target = main.querySelector("[data-exam-python-status].is-active"); if (target && message) target.textContent = message; } });
+    main.querySelectorAll("[data-exam-python-status]").forEach(item => item.classList.toggle("is-active", item === status));
+    let passed = 0;
+    try {
+      for (const [index, testCase] of python.check.cases.entries()) {
+        const result = await pythonRunner.run(code, [], { inputs: testCase.input });
+        if (!list.isConnected) return;
+        const verdict = practiceCheck.evaluateCase(python.check, testCase, result);
+        if (verdict.passed) passed++;
+        list.insertAdjacentHTML("beforeend", `<li class="${verdict.passed ? "passed" : "retry"}"><strong>${verdict.passed ? "✓" : "✗"} Testdaten ${index + 1}</strong><span>Eingabe: ${esc(testCase.input)}</span>${verdict.passed ? "" : `<span>${esc(verdict.message)}</span>`}</li>`);
+      }
+      status.textContent = passed === python.check.cases.length ? "Alle Testdaten passen – übertrage deine Idee jetzt ins Struktogramm." : `${passed} von ${python.check.cases.length} Testdaten passen.`;
+    } catch (error) { if (status.isConnected) status.textContent = error.message; }
+    finally { if (button.isConnected) button.disabled = false; }
+  }
+  function renderOperatorTraining() {
+    document.querySelector("#page-title").textContent = "Klausur­vorbereitung · Operatoren";
+    const items = examData.operatorQuiz;
+    main.innerHTML = `<div class="breadcrumb"><a href="#klausur">Klausurvorbereitung</a><span aria-hidden="true">/</span><span>Operatoren verstehen</span></div><section class="lesson-heading"><span class="eyebrow">OPERATOREN-TRAINING</span><h2>Was verlangt die Aufgabe?</h2><p>Der Operator am Anfang jeder Teilaufgabe legt fest, was du liefern musst – und wofür es Bewertungseinheiten gibt. Wähle zu jeder Formulierung die passende Erwartung.</p></section><div class="exam-tasks">${items.map((item, number) => { const answer = examAnswer(`operatoren.${item.id}`); return `<article class="lesson-panel exam-task" data-operator="${item.id}"><header class="exam-task-head"><span class="exam-no">${number + 1}</span><span class="exam-op">${esc(examData.operators.find(entry => item.sentence.toLocaleLowerCase("de-DE").includes(entry.name.split(" ")[0].toLocaleLowerCase("de-DE")))?.name || "")}</span><span class="exam-score" data-exam-score></span></header><p class="exam-prompt"><em>„${esc(item.sentence)}“</em></p><fieldset class="exam-choice"><legend class="sr-only">Erwartung wählen</legend>${item.options.map((option, index) => `<label><input type="radio" name="op-${item.id}" value="${index}" ${answer.choice === index ? "checked" : ""}> <span>${esc(option)}</span></label>`).join("")}</fieldset><div class="exam-feedback" data-exam-feedback role="status"></div></article>`; }).join("")}</div><section class="lesson-panel exam-summary" id="operator-summary" aria-live="polite"></section>`;
+    const update = () => {
+      const right = items.filter(item => examScore(`operatoren.${item.id}`) === 1).length;
+      main.querySelector("#operator-summary").innerHTML = `<span class="eyebrow">STAND</span><h3>${right} von ${items.length} Erwartungen richtig erkannt</h3><p>${right === items.length ? "Du liest Operatoren wie eine Prüferin oder ein Prüfer. Weiter mit einer Übungsklausur!" : "Lies bei falschen Antworten die Begründung – sie stammt aus der Operatorenliste des Bildungsplans."}</p><a class="primary" href="#klausur">Zur Klausurvorbereitung</a>`;
+    };
+    const show = (article, item, choice) => {
+      const feedback = article.querySelector("[data-exam-feedback]"), label = article.querySelector("[data-exam-score]");
+      if (choice === undefined || choice === null) { feedback.innerHTML = ""; label.textContent = ""; return; }
+      const ok = choice === item.correct;
+      article.querySelectorAll("label").forEach(entry => entry.classList.remove("is-right", "is-wrong"));
+      article.querySelector(`input[value="${choice}"]`)?.closest("label").classList.add(ok ? "is-right" : "is-wrong");
+      label.textContent = ok ? "richtig" : "noch nicht";
+      label.className = `exam-score ${ok ? "is-full" : "is-none"}`;
+      feedback.innerHTML = `<p class="${ok ? "is-success" : "is-retry"}">${ok ? "Richtig." : `Gemeint ist: ${esc(item.options[item.correct])}`} ${esc(item.why)}</p>`;
+    };
+    main.querySelectorAll("[data-operator]").forEach(article => {
+      const item = items.find(entry => entry.id === article.dataset.operator);
+      show(article, item, examAnswer(`operatoren.${item.id}`).choice);
+      article.addEventListener("change", event => {
+        const choice = Number(event.target.value);
+        storeExam(`operatoren.${item.id}`, { choice }, choice === item.correct ? 1 : 0);
+        show(article, item, choice);
+        update();
+      });
+    });
+    update();
+  }
+  function renderKlausur(id) {
+    if (!id) renderExamHome();
+    else if (id === "operatoren") renderOperatorTraining();
+    else renderExam(id);
+  }
   function renderPractice(id) {
     if (!id) renderPracticeCatalog();
     else if (id === "werkstatt") renderWorkshop();
     else renderPracticeExercise(id);
+  }
+  // Bezug zum Abitur: typische Prüfungsaufgaben zur Einheit mit Link in die Klausurvorbereitung.
+  function renderExamLinks(unit) {
+    const types = content.exam.taskTypes.filter(type => type.units.includes(unit.id));
+    if (!types.length) return "";
+    return `<aside class="lesson-panel practice-links exam-links"><strong>${icon("exam")} So kommt das im Abitur vor</strong><p>Zu ${unit.id} gibt es in den schriftlichen Abiturprüfungen wiederkehrende Aufgaben. Übe sie mit Operator und Bewertungseinheiten:</p><ul>${types.map(type => `<li><span>${esc(type.title)} <small>(${esc(type.ops)})</small></span> ${type.train.map(([label, href]) => `<a href="${href}">${esc(label)}</a>`).join(" · ")}</li>`).join("")}</ul></aside>`;
   }
   function renderPracticeLinks(unit) {
     const items = practice.exercises.filter(exercise => exercise.unit === unit.id);
@@ -1059,10 +1339,11 @@
   }
   function renderProgress() {
     document.querySelector("#page-title").textContent = "Mein Lernstand";
-    main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div>`;
+    main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div><section class="lesson-panel exam-progress"><span class="eyebrow">KLAUSURVORBEREITUNG</span><h3>Übungsklausuren</h3><div class="progress-list">${examData.exams.map(item => { const totals = examTotals(item); return `<div><span><a href="#klausur/${item.id}"><strong>${esc(item.subtitle)}</strong> ${esc(item.title)}</a></span><span>${totals.points} / ${totals.max} BE · ${totals.done} von ${item.tasks.length} ausgewertet</span></div>`; }).join("")}</div><p class="practice-note">Die Übungsklausuren zählen nicht für Punkte oder Freischaltungen. Sie sind Teil deiner Lernstand-Datei.</p></section>`;
   }
   function render(focus = false) {
     pythonRunner?.stop(); pythonRunner = null;
+    clearInterval(examTimer); examTimer = null;
     mapListenerController.abort(); mapListenerController = new AbortController();
     const [page, id] = location.hash.slice(1).split("/");
     if (!page || page === "home") renderHome();
@@ -1073,6 +1354,7 @@
     else if (page === "glossar") renderGlossary(id);
     else if (page === "programmieren") renderPractice(id);
     else if (page === "struktogramme") { if (id) renderStructogramExercise(id); else renderStructogramCatalog(); }
+    else if (page === "klausur") renderKlausur(id);
     else if (page === "klassenuebersicht") renderClassOverview();
     else renderMissing();
     const total = engine.total(state);
@@ -1150,7 +1432,7 @@
     const editor = event.target.closest?.("textarea.code-editor");
     if (!editor) return;
     if (event.key === "Escape") { editorEscaped = true; return; }
-    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") { event.preventDefault(); editor.closest(".code-task, .practice-editor")?.querySelector("[data-run-code]:not(:disabled), [data-practice-run]:not(:disabled)")?.click(); return; }
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") { event.preventDefault(); editor.closest(".code-task, .practice-editor, .exam-python")?.querySelector("[data-run-code]:not(:disabled), [data-practice-run]:not(:disabled), [data-exam-python]:not(:disabled)")?.click(); return; }
     const { selectionStart: start, selectionEnd: end, value } = editor;
     const lineStart = value.lastIndexOf("\n", start - 1) + 1;
     const replace = (from, to, text, caretStart, caretEnd = caretStart) => {
