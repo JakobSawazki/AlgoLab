@@ -609,3 +609,19 @@ Konsolenfehler. Echter Ende-zu-Ende-Test (localhost, Qwen3.5 4B, NVIDIA):
 Laden aus Cache 10 s, Hinweis 17 s, vertiefende Hilfe 18 s, Ursache (Zeile 11
 überschreibt gefunden) richtig erkannt, keine fertige Lösung.
 Online-Abnahme 1.7.0 (0c07ced, Actions Build/Deploy erfolgreich): Version 1.7.0, alle 18 Skripte Status 200, KI-Bereich zeigt „Modell: Qwen3.5 4B · 2,3 GB“, Ablaufprotokoll live mit Pyodide („Z.1: nummer = '1018' (Text)“), keine Konsolenfehler. Der Modelltest lief mit identischem Code auf localhost (Modell-Cache ist je Ursprung getrennt; kein zweiter Download). Edge-Testprofil mit den Modellen danach gelöscht.
+
+## 20. Oktober 2026 – Material aus OneNote „Lernfelder“ (RES-01)
+
+Bearbeiter: Claude, im Auftrag von Jakob (OneNote im internen Browser angemeldet).
+Inventur in Jakobs Chrome (nur lesend), Download im internen Browser im
+Lesemodus (action=view, Kontextmenü „Speichern unter“; landet als .tmp in
+D:\Downloads und wurde sofort mit sprechendem Namen nach
+resources/onenote-lernfelder/ verschoben; Dateiart je Download geprüft).
+Ergebnis: 31 Dateien, 66 MB, Übersicht in resources/onenote-lernfelder/README.md.
+Doppelte Anhänge (Anlage 3 = Prüfungsanforderungen, Operatorenliste v2.2 schon
+vorhanden) nur einmal abgelegt. Ausgelassen: Korrekturen, Notenlisten,
+Prüflingslisten, Passwortdatei, mündliches Abitur, SQL-Dateien. Projektseiten
+aus Kapitel 7 als Markdown abgeschrieben (Themenwahl-Tabelle mit Namen
+ausgelassen). Am Notizbuch wurde nichts geändert; ein Fehlklick auf „Kopieren“
+legte nur einen Anhang in die Zwischenablage.
+
