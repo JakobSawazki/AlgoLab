@@ -559,3 +559,25 @@ Browser: Lückenaufgabe mit falschem und richtigem Baustein, Ordnen per
 Pfeiltasten, Klassenübersicht mit zwei Testdateien und einer fremden Datei,
 375 px ohne Überlauf.
 Online-Abnahme 1.5.0 (63c59e2): Version 1.5.0, Struktogramm-Training (Tauschen) live gelöst, class-overview.js Status 200, Klassenübersicht und Fußzeilenlink vorhanden, keine Konsolenfehler. KI-Worker am 20.10. erneut HTTP 502.
+
+## 20. Oktober 2026 – Lokale KI im Browser (1.6.0)
+
+Bearbeiter: Claude, autark. Anlass: Die KI-Hilfe war wegen AI-02 (Gemini
+502) nicht nutzbar. Lösung ohne Jakobs Zutun: zweite KI-Quelle, die ganz im
+Browser läuft.
+- ai-local.js: createLocalAi (WebLLM 0.2.85 per dynamischem Import, Modelle
+  Qwen2.5 1.5B/0.5B q4f16_1, Fortschritt, Single-Flight-Laden, Fehlertexte für
+  fehlendes WebGPU und zu wenig Grafikspeicher, Systemprompt mit den Regeln des
+  Workers, JSON-Ausgabe erzwungen, parseAnswer/cleanFeedback, Cache).
+- app.js: Quellenwahl (localStorage algolab-ai-source-v1/-model-v1),
+  KI-Modus je Sitzung (algolab-ai-auto-v1) für beide Quellen, Laden nur auf
+  Knopfdruck, Antwortkarte nennt die Quelle; Lektionsfelder mit eingeklappten
+  KI-Einstellungen, die für alle Felder der Seite gemeinsam gelten.
+Prüfstand: 103/103 Tests, Syntax, Diff. Browser mit temporärer Testseite und
+simulierter WebLLM: Hinweis ohne geladenes Modell, Laden mit Fortschritt über
+den KI-Modus, Anfrage (nur Aufgabe, Code, Versuch, Prüfung), vertiefende Hilfe
+(700 Token), automatische Anfrage nach fehlgeschlagener Prüfung, Wechsel auf
+Gemini mit Zustimmungsdialog, Lektionsfelder (Modellwahl synchron, Laden,
+Hinweis, Quellenwechsel). Echte Bibliothek geladen: CreateMLCEngine vorhanden,
+beide Modell-IDs im Katalog (1630/945 MB Grafikspeicher). Keine
+Konsolenfehler. Testseite wieder entfernt.

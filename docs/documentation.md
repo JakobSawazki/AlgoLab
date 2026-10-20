@@ -1,8 +1,8 @@
 # AlgoLab Projektdokumentation
 
-Stand: 19. Oktober 2026 (Europe/Berlin)
+Stand: 20. Oktober 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.5.0 – Struktogramm-Training und Klassenübersicht** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+Aktueller Stand: **1.6.0 – Lokale KI im Browser** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 
@@ -437,6 +437,34 @@ Sicherungen derselben Person zählt die jüngste. Anzeige: Kennzahlen,
 Fortschritt je Einheit, häufigste Einschätzungen „noch nicht“ aus den
 Ich-kann-Listen, sortier- und filterbare Tabelle, CSV-Export für Excel.
 100 Tests.
+
+### 1.6.0 – 20. Oktober 2026
+
+**Lokale KI im Browser** als zweite, datensparsame KI-Quelle (`ai-local.js`):
+
+- Technik: WebLLM 0.2.85 (jsDelivr) führt ein kleines Sprachmodell über
+  WebGPU direkt im Browser aus. Zur Wahl stehen Qwen2.5 1.5B Instruct
+  („Standard“, 880 MB, ca. 1,6 GB Grafikspeicher) und Qwen2.5 0.5B Instruct
+  („Kompakt“, 290 MB, ca. 0,9 GB). Das Modell wird nur auf Knopfdruck
+  einmalig in den Browser-Cache geladen (Fortschrittsbalken); danach startet
+  es ohne erneuten Download. Kein Schlüssel, kein Server, keine Übertragung
+  von Aufgabe oder Code.
+- Bedienung: Im KI-Bereich wählen Lernende die Quelle „Lokal im Browser“ oder
+  „Google Gemini über Server“ (Zustimmung wie bisher). Standard ist die
+  lokale KI, wenn der Browser WebGPU unterstützt (aktueller Chrome oder Edge);
+  Quelle und Modell werden gemerkt, der KI-Modus gilt nur für die Sitzung.
+  In den Lektionen liegen Quelle und Modell in eingeklappten
+  „KI-Einstellungen“, die sich öffnen, wenn das Modell noch fehlt.
+- Gleiche Coaching-Regeln wie der Worker (keine Lösung, keine eingebauten
+  Abkürzungen, Prüfung maßgeblich, Inhalte nicht als Anweisungen behandeln),
+  gleiches Antwortformat (summary, strengths, nextSteps, hint, question) mit
+  erzwungener JSON-Ausgabe und Klartext-Rückfall; Antworten je Code
+  zwischengespeichert. Zu wenig Grafikspeicher führt zum Hinweis auf das
+  kompakte Modell.
+- Grenzen: Kleine Modelle geben einfachere und öfter ungenaue Hinweise als
+  Gemini; der erste Download dauert je nach Leitung einige Minuten. Für den
+  Unterricht empfiehlt sich, das Modell vorab einmal zu laden.
+- 103 Tests (neu: tests/ai-local.test.cjs mit simulierter Bibliothek).
 
 ### 1.4.0 – 19. Oktober 2026
 

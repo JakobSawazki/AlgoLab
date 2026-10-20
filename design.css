@@ -616,6 +616,25 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .ai-answer.is-error { border-color: var(--state-changed); background: color-mix(in srgb, var(--state-changed) 10%, var(--panel)); }
 @keyframes ai-spin { to { transform: rotate(360deg); } }
 .ai-privacy { margin: 0; color: var(--muted); font-size: .76rem; }
+.ai-source { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; border: 0; }
+.ai-source legend { margin-bottom: 6px; padding: 0; color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+.ai-source label { display: flex; flex: 1 1 220px; align-items: flex-start; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); cursor: pointer; }
+.ai-source label:has(input:checked) { border-color: var(--state-compare); background: color-mix(in srgb, var(--state-compare) 10%, var(--panel-2)); }
+.ai-source input { margin-top: 3px; accent-color: var(--state-compare); }
+.ai-source strong { display: block; font-size: .88rem; }
+.ai-source small { display: block; color: var(--muted); font-size: .76rem; }
+.ai-settings { display: grid; gap: 10px; }
+.ai-settings summary { width: fit-content; color: var(--muted); font-size: .8rem; font-weight: 700; cursor: pointer; }
+.ai-settings summary:hover, .ai-settings[open] summary { color: var(--text); }
+.ai-settings[open] { padding: 10px 12px 12px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--panel-2) 60%, transparent); }
+.ai-settings[open] > summary { margin-bottom: 8px; }
+.ai-local { display: grid; gap: 8px; }
+.ai-local[hidden], .ai-local-row[hidden], .ai-local progress[hidden] { display: none; }
+.ai-local-row { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.ai-local-row label { display: grid; gap: 4px; color: var(--muted); font-size: .76rem; font-weight: 700; }
+.ai-local-row select { min-width: 0; max-width: 100%; padding: 9px 12px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; font: inherit; }
+.ai-local progress { width: 100%; height: 8px; accent-color: var(--state-compare); }
+.ai-local-status { color: var(--muted); font-size: .76rem; overflow-wrap: anywhere; }
 .text-link { display: inline; padding: 0; border: 0; background: none; box-shadow: none; color: var(--accent); font-size: inherit; font-weight: 650; text-decoration: underline; }
 .dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 18px; }
 #ai-consent-dialog { max-width: 560px; }

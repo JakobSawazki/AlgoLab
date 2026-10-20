@@ -1,6 +1,6 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
-Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
+Stand: 20. Oktober 2026. Bearbeiter dieses Updates: Claude.
 
 | ID | Status | Bearbeiter | Aufgabe / Ergebnis |
 | --- | --- | --- | --- |
@@ -29,6 +29,7 @@ Stand: 19. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | AI-02 | OPEN | Jakob | Gemini-Verbindung reparieren: Worker pythonlab-ai-feedback liefert für jede Anfrage 502 (Gemini-Fehler). In Cloudflare-Logs und Google AI Studio Schlüssel, Kontingent und Modell prüfen (betrifft auch PythonLab). Optional eigenen Worker aus services/ai-coach-worker/ einrichten. Vor Schülereinsatz Datenschutzfreigabe und Tarif klären. |
 | NSD-02 | DONE | Claude | 20.10.2026: 1.5.0 – Struktogramm-Training (#struktogramme) nach Vorbild PythonLab-Struktogramm-Labor: 8 Lückenaufgaben (Tauschen, Maximum, Einfügen, Entfernen, Bubble Sort, Selection Sort, lineare und binäre Suche) und 1 Ordnungsaufgabe (Kfz-Steuer, Eingaben in beliebiger Reihenfolge). Rückmeldung je Baustein mit Hinweis, Entwürfe und Lösungen im Lernstand. |
 | TEACH-01 | DONE | Claude | 20.10.2026: 1.5.0 – Klassenübersicht (#klassenuebersicht, Link in der Fußzeile): JSON-Sicherungen lokal zusammenführen (gleiche Validierung wie beim Laden, Punkte neu berechnet), Tabelle sortier- und filterbar, Fortschritt je Einheit, häufigste Ich-kann-Unsicherheiten, CSV-Export (Excel). Keine Übertragung, keine Speicherung. |
+| AI-03 | DOING | Claude | 20.10.2026: 1.6.0 – Lokale KI im Browser als zweite Quelle (ai-local.js, WebLLM 0.2.85 über WebGPU, Qwen2.5 1.5B mit 880 MB oder 0.5B mit 290 MB, einmaliger Download in den Browser-Cache, keine Datenübertragung, kein Schlüssel). Quelle wählbar (lokal/Gemini), Laden nur auf Knopfdruck mit Fortschritt, KI-Modus, Vertiefung und Lektionsfelder (eingeklappte KI-Einstellungen) mit beiden Quellen. Gleiche Coaching-Regeln und gleiches Antwortformat, JSON-Ausgabe erzwungen, Klartext-Rückfall. 103/103 Tests, Browser mit simulierter WebLLM, echte Bibliothek und Modell-IDs geprüft. Offen: echter Modelltest (Download freigeben). |
 
 ## Übergabe
 
@@ -36,9 +37,9 @@ Konkreter Einstieg für Claude: [docs/claude-handoff.md](docs/claude-handoff.md)
 Die Datei ist eine Momentaufnahme; diese Aufgabenliste bleibt der aktuelle Stand.
 
 Jakob hat Claude am 19.10.2026 beauftragt, autark weiterzuarbeiten und geeignete Stände selbst zu veröffentlichen.
-Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.5.0** (Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar), als 63c59e2 veröffentlicht und online abgenommen. Offen bei Jakob: AI-02 (Gemini-Verbindung), CLASS-01. Offen: CLASS-01 (Erprobung, Jakob).
+Aktueller Stand: **1.0.1** – alle 19 Einheiten ausgearbeitet, als 944f7f1 veröffentlicht und online abgenommen. Aktuell **1.6.0** (lokale Browser-KI als zweite KI-Quelle; davor 1.5.0 mit Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar). Offen bei Jakob: AI-02 (Gemini-Verbindung), CLASS-01. Offen: CLASS-01 (Erprobung, Jakob).
 Derzeit keine Dateireservierung.
-Prüfungen: `node --test tests/*.test.cjs` (100/100), Syntax aller JS-Dateien,
+Prüfungen: `node --test tests/*.test.cjs` (103/103), Syntax aller JS-Dateien,
 `git diff --check`; Browser-Dateirundlauf in `.tmp/check-profile.cjs` und
 Screenshots `.tmp/profile-desktop.png`, `.tmp/profile-mobile.png`,
 `.tmp/nagold-mobile.png`. Das Skript nutzt die gebündelte lokale
