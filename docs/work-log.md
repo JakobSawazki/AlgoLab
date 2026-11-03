@@ -770,3 +770,18 @@ ungültiger Import und Abbruch. Keine realen Schülerdaten verwendet.
 Keine Änderung fremder ungetrackter Arbeiten. Commit d99d332 veröffentlicht,
 Actions 41596699861 erfolgreich. Anschließend derselbe vollständige
 Browser-Dateirundlauf online bei 1365/375/320 px bestanden.
+
+## 3. November 2026 – Kompaktes Profilfenster
+
+UI-04: Auf Jakobs Wunsch Profil auf 500px Fensterbreite begrenzt, Kürzel
+und Klasse nebeneinander, kürzere Texte, kompakte EP-Karte und Jahresziel.
+Dateiaktionen als bestehende Metall-Icons, nativer Dateiinput verborgen.
+Scrollleiste verborgen, Overflow bei kleinen Höhen weiterhin per Touch/
+Tastatur erreichbar. Keine abgeschnittenen Inhalte durch overflow:hidden.
+Profil-/Importlogik und Dateiformat erhalten, Cachekennungen erneuert.
+117/117 Tests, Syntax/Diff erfolgreich. Browser 1365×768, 1024×600,
+375×667, 320×568 ohne Scrollbedarf auch nach Übernehmen; 640×360 mit
+benutzbarem internem Scrollen. Dunkel/Hell visuell geprüft. Profilübernahme,
+EP-Tabelle, echter JSON-Download und -Import mit EP/Entwürfen, ungültiger
+Import, Schließen und Reload erfolgreich. Fremde ungetrackte Arbeiten
+unverändert. Veröffentlichung folgt.

@@ -2,6 +2,16 @@
 
 Stand: 3. November 2026 (Europe/Berlin)
 
+## Kompaktes Profilfenster
+
+Kürzel und Klasse stehen nebeneinander. EP-Karte, Jahresziel und kurzer
+Hinweis zur fehlenden Notenwirkung ersetzen lange Erklärungstexte. Diskette
+und Ordner speichern/laden im Profil die komplette Sicherung. Native
+Dateiauswahl ist hinter dem Ordnersymbol erreichbar. Auf üblichen Desktop-
+und Mobilhöhen passt das Fenster ohne Scrollen; bei kleinen Höhen und Zoom
+bleibt es scrollbar, die Scrollleiste ist verborgen. Tastaturbedienung,
+Formularvalidierung und Dateiformat bleiben erhalten.
+
 ## Direktes Speichern und Laden
 
 Diskette in der oberen Leiste: JSON-Datei direkt herunterladen. Ordner:

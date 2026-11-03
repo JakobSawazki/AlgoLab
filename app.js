@@ -45,7 +45,7 @@
     document.querySelector("#nagold-goal-text").textContent = `${total} / 100 EP`;
     document.querySelector(".profile-copy").firstChild.textContent = state.profile.name || "Dein Profil";
     document.querySelector(".avatar").textContent = state.profile.name ? state.profile.name[0].toUpperCase() : "A";
-    document.querySelector("#profile-summary").textContent = `${engine.total(state)} Punkte · ${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen`;
+    document.querySelector("#profile-summary").textContent = `${engine.total(state)} Lernpunkte · ${state.completed.length}/${content.units.length} Einheiten`;
     developerButton.hidden = !developerControlRevealed;
     developerButton.setAttribute("aria-pressed", String(developerMode));
     developerButton.classList.toggle("is-active", developerMode);
@@ -1583,6 +1583,7 @@
     if (!dialog.open) dialog.showModal();
     importProfile(event);
   });
+  document.querySelector("#profile-load").addEventListener("click", () => document.querySelector("#import-profile").click());
   document.querySelector("#import-profile").addEventListener("change", importProfile);
   window.addEventListener("hashchange", () => render(true));
   document.querySelector(".skip-link").addEventListener("click", event => {

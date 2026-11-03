@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0a1424">
   <title>AlgoLab · BPE7</title>
   <link rel="stylesheet" href="styles.css?v=1.9.1">
-  <link rel="stylesheet" href="design.css?v=1.9.1-files">
+  <link rel="stylesheet" href="design.css?v=1.9.1-profile">
   <link rel="icon" type="image/png" href="assets/algolab-favicon-32.png" sizes="32x32">
   <script defer src="learning-path.js?v=1.9.1"></script>
   <script defer src="practice.js?v=1.9.1"></script>
@@ -24,7 +24,7 @@
   <script defer src="ai-coach.js?v=1.9.1"></script>
   <script defer src="ai-local.js?v=1.9.1"></script>
   <script defer src="class-overview.js?v=1.9.1"></script>
-  <script defer src="app.js?v=1.9.1-files"></script>
+  <script defer src="app.js?v=1.9.1-profile"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt</a>
@@ -53,25 +53,21 @@
   </div>
   <dialog id="profile-dialog" aria-labelledby="profile-title">
     <h2 id="profile-title">Dein Profil</h2>
-    <p id="profile-summary"></p>
+    <p id="profile-summary" title="Lernpunkte zum Freischalten der nächsten Einheiten."></p>
     <form id="profile-edit-form" class="profile-edit-form">
-      <label for="profile-name">Dein Kürzel</label>
-      <input id="profile-name" type="text" maxlength="7" pattern="[a-zäöüß]{3}\.[a-zäöüß]{3}" placeholder="z. B. jak.saw" autocomplete="username" autocapitalize="none" spellcheck="false" required aria-describedby="profile-hint">
-      <label for="profile-class">Klasse</label>
-      <input id="profile-class" type="text" minlength="3" maxlength="32" placeholder="z. B. J2 INF1" required>
-      <small id="profile-hint">Je drei Buchstaben von Vor- und Nachname mit Punkt, wie in Excel-Lab. Dein Profil bleibt in diesem Browser.</small>
-      <button type="submit">Profildaten übernehmen</button>
+      <div class="profile-field"><label for="profile-name">Kürzel</label><input id="profile-name" type="text" maxlength="7" pattern="[a-zäöüß]{3}\.[a-zäöüß]{3}" placeholder="jak.saw" autocomplete="username" autocapitalize="none" spellcheck="false" required aria-describedby="profile-hint"></div>
+      <div class="profile-field"><label for="profile-class">Klasse</label><input id="profile-class" type="text" minlength="3" maxlength="32" placeholder="J2 INF1" required></div>
+      <small id="profile-hint">Je 3 Buchstaben von Vor- und Nachname: jak.saw</small>
+      <button type="submit">Übernehmen</button>
     </form>
     <p id="profile-message" role="status"></p>
-    <button type="button" id="nagold-open" class="nagold-total" aria-haspopup="dialog" aria-controls="nagold-dialog"><span>Deine EP · Erfahrungspunkte</span><strong id="nagold-total">0 EP</strong><span>Tabelle öffnen und bearbeiten</span></button>
-    <label for="nagold-goal">Jahresziel <span id="nagold-goal-text">0 / 100 EP</span></label>
+    <button type="button" id="nagold-open" class="nagold-total" aria-haspopup="dialog" aria-controls="nagold-dialog"><span>EP · Erfahrungspunkte</span><strong id="nagold-total">0 EP</strong><span>Tabelle öffnen ›</span></button>
+    <label class="profile-goal-label" for="nagold-goal">Jahresziel <span id="nagold-goal-text">0 / 100 EP</span></label>
     <progress id="nagold-goal" max="100" value="0"></progress>
-    <p class="hint">EP sind Erfahrungspunkte zur Motivation. Sie haben keinen Einfluss auf Fachnoten. Die Lernpunkte zum Freischalten der nächsten Einheit bleiben davon getrennt.</p>
-    <div class="profile-actions"><button type="button" class="primary" data-export-profile>Profil als JSON speichern</button><label class="import-label" for="import-profile">Profil laden<input id="import-profile" type="file" accept=".json,application/json"></label></div>
-    <p>Die Datei enthält Profil, EP, Lernstand, Notizen und Codeentwürfe. Gültige EP-Zeilen werden automatisch im Browser gespeichert.</p>
+    <p class="profile-note">EP motivieren und haben keinen Einfluss auf deine Noten.</p>
+    <div class="profile-actions"><button type="button" class="icon-button" data-export-profile aria-label="Profil und Lernstand als JSON speichern" title="Profil und Lernstand speichern"><img class="toolbar-metal-icon" src="assets/toolbar-save.webp" width="28" height="28" alt="" aria-hidden="true"></button><button type="button" class="icon-button" id="profile-load" aria-label="Profil und Lernstand aus JSON laden" title="Profil und Lernstand laden"><img class="toolbar-metal-icon" src="assets/toolbar-folder.webp" width="28" height="28" alt="" aria-hidden="true"></button><input id="import-profile" type="file" accept=".json,application/json" aria-label="AlgoLab-Profil auswählen" hidden><form method="dialog"><button id="profile-close">Schließen</button></form></div>
     <button type="button" id="developer-toggle" aria-pressed="false" hidden>Entwicklermodus</button>
     <p id="developer-status" role="status" hidden></p>
-    <form method="dialog"><button id="profile-close">Schließen</button></form>
   </dialog>
   <dialog id="backup-dialog" aria-labelledby="backup-title"><h2 id="backup-title">Deinen Lernstand mitnehmen</h2><p>Speichere deinen Lernstand als JSON-Datei oder lade eine vorhandene Sicherung.</p><div class="backup-actions"><button type="button" id="export-progress" class="backup-action"><img class="toolbar-metal-icon" src="assets/toolbar-save.webp" width="28" height="28" alt="" aria-hidden="true"><span>Speichern<small>JSON-Datei herunterladen</small></span></button><button type="button" class="backup-action" data-load-progress><img class="toolbar-metal-icon" src="assets/toolbar-folder.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async"><span>Laden<small>JSON-Datei öffnen</small></span></button></div><p class="backup-hint">Die Datei landet im Downloadordner deines Browsers, normalerweise „Downloads“.</p><input id="import-progress" type="file" accept=".json,application/json" aria-label="AlgoLab-Sicherung auswählen" hidden><p id="backup-message" role="status"></p><form method="dialog"><button>Schließen</button></form></dialog>
   <noscript>Bitte aktiviere JavaScript, um den AlgoLab-Lernpfad zu verwenden.</noscript>

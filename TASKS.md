@@ -1,5 +1,17 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Kompaktes Profil am 3. November 2026
+
+**UI-04 – DONE – Codex:** Profilfenster vereinfachen, Text kürzen,
+Kürzel/Klasse nebeneinander, kompakte EP-Karte und Datei-Icons.
+Dateien: index.html, design.css, app.js (Cachekennung) und Dokumentation.
+Ziel: alles auf üblichen Displays sichtbar, keine sichtbare Scrollleiste;
+bei kleinen Höhen weiter per Tastatur/Touch erreichbar. Browser 1365×768,
+1024×600, 375×667, 320×568 und 640×360 geprüft: reguläre Höhen ohne
+Scrollbedarf (auch nach Speichern), kleine Höhe scrollbar ohne sichtbare
+Leiste. Profil speichern, EP-Tabelle, echter JSON-Rundlauf, Fehler, Reload
+und Schließen erfolgreich. 117/117 Tests. Veröffentlichung folgt.
+
 ## Direkt speichern und laden am 3. November 2026
 
 **UI-03 – DONE – Codex:** Diskette lädt direkt die JSON-Sicherung

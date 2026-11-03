@@ -814,3 +814,36 @@ footer a { color: var(--accent); }
 .backup-action .toolbar-metal-icon { width: 38px; height: 38px; flex-shrink: 0; }
 .backup-action small { display: block; font-size: .72rem; font-weight: 400; margin-top: 3px; }
 .backup-hint { font-size: .78rem; }
+
+/* Compact profile window; scrolling remains available at small viewport heights. */
+#profile-dialog { width: min(500px, calc(100% - 24px)); max-width: 500px; max-height: calc(100dvh - 24px); padding: 24px; scrollbar-width: none; }
+#profile-dialog::-webkit-scrollbar { display: none; }
+#profile-dialog h2 { margin: 0 0 6px; font-size: 1.6rem; }
+#profile-summary { margin: 0 0 18px; font-size: .83rem; color: var(--muted); }
+#profile-dialog .profile-edit-form { grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 0; }
+.profile-field { display: grid; gap: 5px; min-width: 0; }
+.profile-field label { font-size: .85rem; }
+#profile-dialog .profile-edit-form small { grid-column: 1 / -1; font-size: .72rem; }
+#profile-dialog .profile-edit-form button { grid-column: 1 / -1; padding: 8px 16px; margin-top: 3px; }
+#profile-message { font-size: .8rem; margin: 10px 0 0; }
+#profile-message:empty { display: none; }
+#profile-dialog .nagold-total { grid-template-columns: 1fr auto; align-items: center; gap: 2px 12px; margin: 16px 0 12px; padding: 13px 16px; }
+#profile-dialog .nagold-total strong { grid-column: 2; grid-row: 1 / 3; font-size: 1.65rem; }
+#profile-dialog .nagold-total span:last-child { font-size: .75rem; }
+#profile-dialog .profile-goal-label { display: flex; justify-content: space-between; gap: 8px; font-size: .8rem; }
+#profile-dialog #nagold-goal-text { float: none; display: inline; font-size: .8rem; }
+#profile-dialog #nagold-goal { display: block; width: 100%; margin: 7px 0 0; height: 8px; }
+.profile-note { font-size: .72rem; margin: 9px 0 0; color: var(--muted); }
+#profile-dialog .profile-actions { flex-wrap: nowrap; margin-top: 18px; gap: 10px; }
+#profile-dialog .profile-actions form { margin: 0 0 0 auto; }
+#profile-dialog .profile-actions form button { padding: 9px 15px; }
+@media (max-width: 480px), (max-height: 600px) {
+  #profile-dialog { padding: 16px; }
+  #profile-dialog h2 { font-size: 1.4rem; }
+  #profile-dialog .profile-edit-form input { padding: 8px 10px; }
+  #profile-dialog .nagold-total { font-size: .85rem; padding: 11px 13px; }
+  #profile-dialog .profile-note { margin-top: 7px; }
+  #profile-summary { margin-bottom: 12px; }
+  #profile-dialog .nagold-total { margin-top: 12px; }
+  #profile-dialog .profile-actions { margin-top: 12px; }
+}
