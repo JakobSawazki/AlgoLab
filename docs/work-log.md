@@ -797,4 +797,6 @@ bleibt blau hervorgehoben. Cachekennungen erneuert. Browser bei
 320/375/768/1024/1365/1920 px: gleiche Kanten und Abmessungen, keine
 Überläufe, alle drei Zielseiten erreichbar, keine Seitenfehler. Desktop-/
 Mobilansicht visuell geprüft. 117/117 Tests, Syntax/Diff erfolgreich.
-Keine Änderungen fremder ungetrackter Arbeiten. Veröffentlichung folgt.
+Keine Änderungen fremder ungetrackter Arbeiten. Commit d113700 veröffentlicht;
+Actions 41597676698 erfolgreich. Anschließend gleiche Abmessungen/Abstände
+und alle drei Zielseiten bei denselben sechs Breiten online bestätigt.

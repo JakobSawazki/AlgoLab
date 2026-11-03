@@ -8,7 +8,9 @@ Dateien: app.js, design.css, index.html (Cache), TASKS.md, docs/work-log.md.
 Gemeinsame Gruppe, gleiche Breite und 48px Höhe, 10px Abstand; Hauptaktion
 farblich hervorgehoben. Browser 320/375/768/1024/1365/1920 px: gleiche
 Kanten/Abmessungen, keine Überläufe, alle drei Zielseiten erreichbar.
-117/117 Tests, Syntax/Diff erfolgreich. Veröffentlichung folgt.
+117/117 Tests, Syntax/Diff erfolgreich. Commit d113700 veröffentlicht;
+Actions 41597676698 erfolgreich. Dieselben sechs Fensterbreiten und
+Zielseiten online geprüft. Keine Dateireservierung.
 
 ## Kompaktes Profil am 3. November 2026
 
