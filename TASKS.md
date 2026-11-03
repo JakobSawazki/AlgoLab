@@ -2,12 +2,14 @@
 
 ## Ladezeit am 3. November 2026
 
-**PERF-01 – IN_PROGRESS – Codex:** Auf Jakobs Auftrag Ladezeit der Live-Seite
-messen, Ursache zwischen Hosting und Startdateien eingrenzen und belegte
-Optimierungen umsetzen. Bereich: Startressourcen/HTML und bei Bedarf Asset-
-Auslieferung, gezielte Browsermessung und Dokumentation. EP-Änderungen der
-lokalen 1.9.0 und fremde Struktogramm-Arbeit erhalten. Live ist zunächst 1.8.0;
-lokale Optimierung und Veröffentlichung werden getrennt dokumentiert.
+**PERF-01 – DONE – Codex:** Live-Seite gemessen, zu großes Logo/Favicon und
+Bildgrößen optimiert. Version **1.9.1 einschließlich EP veröffentlicht**:
+Commit `0f7a9bf`, Actions-Lauf `41594789176` erfolgreich. Online drei neue
+Kontexte geprüft: LCP 188–716 ms, richtige responsive Bilder, keine
+Seitenfehler/fehlgeschlagenen Requests. Simuliert langsam: Ressourcen
+4,139 → 0,982 MB, Median load 14,340 → 5,639 s. 117 Tests und EP-Dateirundlauf
+bestanden. Fremde NSD-Erprobung nicht mitveröffentlicht oder geändert.
+Keine Dateireservierung. Details in Dokumentation und Arbeitslog.
 
 ## EP in AlgoLab am 3. November 2026
 
@@ -22,7 +24,8 @@ getrackten Bestands samt neuer EP-Tests grün; vollständiger lokaler Glob:
 Echter JSON-Dateirundlauf, lokale Altprofil-Kompatibilität, EP-Eintrag und
 Klassen-CSV im Browser geprüft, Desktop/Mobil visuell abgenommen. Keine
 Bearbeitung fremder Struktogrammdateien oder Änderungen an Excel-Lab/StartLab.
-Keine Dateireservierung nach Abschluss. Commit/Push/Onlineabnahme offen.
+Keine Dateireservierung nach Abschluss. EP ist inzwischen mit 1.9.1 veröffentlicht
+und online im Profil und Tabellenfenster geprüft (siehe PERF-01).
 Der frühere Status „EP-Migration in AlgoLab offen“ weiter unten ist für diese
 explizit gewünschte kompatible Bezeichnungsumstellung überholt. Andere
 Vergaberegeln und projektübergreifende Konten bleiben eigene Themen.

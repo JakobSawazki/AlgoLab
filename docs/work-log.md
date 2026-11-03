@@ -715,3 +715,18 @@ Releasestand umfasst die vorher lokal vorbereiteten EP (Erfahrungspunkte).
 Fremde NSD-Dateien, deren Tests und tools/ bleiben ungetrackt und unangetastet;
 die drei dortigen Fehler gehören nicht zum veröffentlichten Testbestand.
 Nächster Schritt: gezielter Versionscommit, Push und tatsächliche Onlineabnahme.
+
+## 3. November 2026 – 1.9.1 veröffentlicht und online abgenommen
+
+Commit 0f7a9bf gezielt mit EP-Umstellung, kleineren Startbildern und
+Kompatibilitätstests gepusht; fremde ungetrackte NSD-/tools-Arbeiten erhalten.
+GitHub Actions 41594789176: Build und Pages-Deployment erfolgreich.
+Drei frische Edge-Kontexte auf der Live-Seite: erste Antwort 43–167 ms,
+LCP 188–716 ms (Median 204 ms), load 147–526 ms, richtige kleinen Bilddateien,
+keine Seitenfehler oder fehlgeschlagenen Requests. Profil und Tabelle zeigen
+EP · Erfahrungspunkte. Die vorher lokal geprüfte EP-Kompatibilität ist im
+veröffentlichten Code enthalten. Keine realen Schülerdaten zum Testen verwendet.
+
+TASKS.md und Dokumentation halten den aktuellen Online-Stand fest. Ältere
+Einträge „noch nicht veröffentlicht“ beschreiben den Vorzustand. Keine
+Änderungen an StartLab oder Excel-Lab in dieser Veröffentlichungsrunde.

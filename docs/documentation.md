@@ -4,6 +4,15 @@ Stand: 3. November 2026 (Europe/Berlin)
 
 ## Version 1.9.1 – schnellerer Start
 
+**Veröffentlicht und online geprüft am 3. November 2026.** Commit `0f7a9bf`,
+[Actions-Lauf 41594789176](https://github.com/JakobSawazki/AlgoLab/actions/runs/41594789176)
+mit Build/Deployment erfolgreich. Anschließend drei frische Live-Kontexte:
+LCP 188–716 ms (Median 204 ms), vollständiges Laden 147–526 ms, richtige
+responsive Bilddateien, keine Seitenfehler oder fehlgeschlagenen Requests.
+EP-Bezeichnung im veröffentlichten Profil und Tabellenfenster zusätzlich
+geprüft. Die lokale Vorbereitung und bisherigen Statusangaben weiter unten
+sind als zeitlicher Verlauf zu lesen, nicht als noch offenes Deployment.
+
 PERF-01: Drei frische Browserkontexte auf der veröffentlichten 1.8.0 gemessen.
 Erste Serverantwort 41–59 ms, Hauptbild (LCP) 388–764 ms. In diesen Messungen
 kein dauerhaft langsamer GitHub-Server; abweichende Schul-/Mobilnetze oder
@@ -23,9 +32,9 @@ Kontexte, Cache aus, 150 ms Latenz, 200.000 Bytes/s Download und CPU-Faktor 4:
 
 | Messwert | Vorher | Nachher |
 | --- | --- | --- |
-| Übertragene Ressourcen einschließlich Favicon | 4.139 MB | 0.982 MB |
-| Median vollständiges Laden | 14.340 s | 5.639 s |
-| Median größter sichtbarer Inhalt (LCP) | 8.088 s | 4.780 s |
+| Übertragene Ressourcen einschließlich Favicon | 4,139 MB | 0,982 MB |
+| Median vollständiges Laden | 14,340 s | 5,639 s |
+| Median größter sichtbarer Inhalt (LCP) | 8,088 s | 4,780 s |
 
 Dies sind simulierte langsame Verbindungen auf demselben lokalen Server,
 keine Garantie für jede reale Verbindung und keine Live-Vorher-/Nachherwerte.
@@ -38,8 +47,8 @@ keine Seitenfehler. EP-JSON-Rundlauf und Klassen-CSV erneut bestanden.
 Getrackter Testbestand plus neue EP-Prüfungen wird separat geprüft; die bereits
 dokumentierten drei Fehler der fremden ungetrackten NSD-Erprobung bleiben
 außerhalb des veröffentlichten Standes. Originalbilddateien unverändert.
-Veröffentlichung 1.9.1 einschließlich EP-Umstellung wird nach erfolgreichem
-Abschluss der Prüfungen durchgeführt; Onlineabnahme wird im Arbeitslog ergänzt.
+Veröffentlichung 1.9.1 einschließlich EP-Umstellung ist nach 117/117
+bestandenen Tests erfolgt; Onlineabnahme siehe oben und im Arbeitslog.
 
 ## Lokale Version 1.9.0 – EP im Profil
 
