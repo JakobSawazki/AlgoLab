@@ -784,4 +784,6 @@ Profil-/Importlogik und Dateiformat erhalten, Cachekennungen erneuert.
 benutzbarem internem Scrollen. Dunkel/Hell visuell geprüft. Profilübernahme,
 EP-Tabelle, echter JSON-Download und -Import mit EP/Entwürfen, ungültiger
 Import, Schließen und Reload erfolgreich. Fremde ungetrackte Arbeiten
-unverändert. Veröffentlichung folgt.
+unverändert. Commit 8426424 veröffentlicht; Actions 41597362704 erfolgreich.
+Anschließend denselben Browser-Dateirundlauf auf der Live-Seite mit allen
+fünf Fenstergrößen bestanden.

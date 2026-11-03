@@ -10,7 +10,9 @@ bei kleinen Höhen weiter per Tastatur/Touch erreichbar. Browser 1365×768,
 1024×600, 375×667, 320×568 und 640×360 geprüft: reguläre Höhen ohne
 Scrollbedarf (auch nach Speichern), kleine Höhe scrollbar ohne sichtbare
 Leiste. Profil speichern, EP-Tabelle, echter JSON-Rundlauf, Fehler, Reload
-und Schließen erfolgreich. 117/117 Tests. Veröffentlichung folgt.
+und Schließen erfolgreich. 117/117 Tests. Commit 8426424 veröffentlicht;
+Actions 41597362704 erfolgreich. Derselbe Browser-Dateirundlauf mit allen
+fünf Fenstergrößen online bestanden. Keine Dateireservierung.
 
 ## Direkt speichern und laden am 3. November 2026
 
