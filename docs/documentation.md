@@ -2,6 +2,18 @@
 
 Stand: 3. November 2026 (Europe/Berlin)
 
+## Direktes Speichern und Laden
+
+Diskette in der oberen Leiste: JSON-Datei direkt herunterladen. Ordner:
+vorhandene JSON-Sicherung auswählen; nach Bestätigung wird sie geladen.
+Der Browser bestimmt das Downloadziel (normalerweise Downloads); ein
+konfigurierter Speichern-Dialog bleibt eine Browsereinstellung. Der
+Sicherungsdialog bietet dieselben zwei Aktionen mit Icons. Der Dateiinput
+ist dort ausgeblendet, bleibt programmatisch über den Ordner erreichbar.
+Profilimport und Dateiformat bleiben kompatibel. Fehler und Erfolg werden
+im Sicherungsdialog angezeigt, der vorhandene Stand bleibt bei Fehlern
+oder Abbruch erhalten.
+
 ## Version 1.9.1 – schnellerer Start
 
 **Veröffentlicht und online geprüft am 3. November 2026.** Commit `0f7a9bf`,

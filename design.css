@@ -808,3 +808,9 @@ footer a { color: var(--accent); }
 /* Small transparent metallic toolbar artwork, 96px source for crisp HiDPI. */
 .toolbar-metal-icon { display: block; width: 28px; height: 28px; object-fit: contain; pointer-events: none; filter: drop-shadow(0 1px 1px #02081766); }
 @media (max-width: 780px) { .toolbar-metal-icon { width: 26px; height: 26px; } }
+
+.backup-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 22px 0 14px; }
+.backup-action { display: flex; align-items: center; gap: 14px; flex: 1 1 180px; padding: 16px; text-align: left; }
+.backup-action .toolbar-metal-icon { width: 38px; height: 38px; flex-shrink: 0; }
+.backup-action small { display: block; font-size: .72rem; font-weight: 400; margin-top: 3px; }
+.backup-hint { font-size: .78rem; }

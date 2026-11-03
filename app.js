@@ -1551,11 +1551,13 @@
     const theme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     setTheme(theme); try { localStorage.setItem("algolab-theme-v1", theme); } catch { /* Theme still works for this session. */ }
   });
-  document.querySelector("#backup-open").addEventListener("click", () => document.querySelector("#backup-dialog").showModal());
+  document.querySelector("#backup-open").addEventListener("click", exportProfile);
+  document.querySelectorAll("[data-load-progress]").forEach(button => button.addEventListener("click", () => document.querySelector("#import-progress").click()));
   function exportProfile() {
     const payload = engine.payload(state);
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
-    const link = document.createElement("a"); link.href = url; link.download = `algolab-lernstand-${new Date().toISOString().slice(0, 10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const link = document.createElement("a"); link.href = url; link.download = `algolab-lernstand-${new Date().toISOString().slice(0, 10)}.json`; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    document.querySelector("#file-status").textContent = "JSON-Download gestartet.";
   }
   document.querySelector("#export-progress").addEventListener("click", exportProfile);
   document.querySelector("[data-export-profile]").addEventListener("click", exportProfile);
@@ -1575,7 +1577,12 @@
     } catch (error) { message.textContent = `Die Datei wurde nicht geladen. ${error.message}`; }
     finally { event.target.value = ""; }
   }
-  document.querySelector("#import-progress").addEventListener("change", importProfile);
+  document.querySelector("#import-progress").addEventListener("change", event => {
+    if (!event.target.files.length) return;
+    const dialog = document.querySelector("#backup-dialog");
+    if (!dialog.open) dialog.showModal();
+    importProfile(event);
+  });
   document.querySelector("#import-profile").addEventListener("change", importProfile);
   window.addEventListener("hashchange", () => render(true));
   document.querySelector(".skip-link").addEventListener("click", event => {

@@ -16,7 +16,15 @@ C:/Users/PC/.codex/generated_images/01a153c3-aa30-7a10-b8ab-42d138b88cea/:
 - Diskette: exec-603610af-7ac2-48e0-be27-e50fed189a6a.png
 - Mond: exec-5537ddd8-9991-4b2f-9824-9724b0e8f145.png
 
+Ergänzung UI-03: Ordner unter `assets/toolbar-folder.webp`, 96 × 96 Pixel,
+transparent, 2758 Bytes. PNG-Original im selben lokalen Generierungsordner:
+`exec-a30738ef-acf9-4dc7-a343-a5e02152a67b.png`.
+
 ## Vollständige Generierungsprompts
+
+### Ordner
+
+Create ONE isolated small UI toolbar OPEN FILE icon: an unmistakable OPEN FOLDER, a thick silver folder with a tab on upper left and front flap angled gently forward, empty, no papers. Sculpted brushed titanium and polished silver chrome with subtle cool blue edge reflections. Photorealistic premium 3D product render, strong simple silhouette readable at 28px, mostly front-facing shallow perspective, soft studio lighting upper left, realistic metallic highlights and dark recesses. Centered fills 82% of square canvas. No text, no surrounding button or frame, no extra objects, no cast shadow outside object. Truly transparent background. Match brushed silver user bust, sun, crescent moon and floppy disk toolbar icons in the dark navy AlgoLab educational app.
 
 ### Profil
 

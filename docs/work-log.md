@@ -755,3 +755,16 @@ docs/toolbar-icons.md. Fremde Arbeiten unverändert. Mit Commit 803cd3b
 veröffentlicht; Actions 41596231223 erfolgreich. Anschließend dieselbe
 Browserprüfung auf der Live-Seite bei 1365 und 375 px bestanden,
 einschließlich Dialogen, Bilddecodierung und gespeichertem Theme.
+
+## 3. November 2026 – Direkte Dateiaktionen
+
+UI-03: Toolbar-Diskette exportiert ohne vorgeschalteten Dialog direkt JSON.
+Neuer metallischer Ordner öffnet die Dateiauswahl. Der Sicherungsdialog hat
+ebenfalls zwei Icon-Aktionen; der native Dateiinput ist dort verborgen.
+Browser bestimmt das Downloadziel, normalerweise Downloads. Importprüfung,
+Ersetzungsbestätigung, Fehleranzeige und Kompatibilität bleiben erhalten.
+Ordner mit eingebautem Imagegen erzeugt, transparentes 96px-WebP 2758 Bytes.
+117/117 Tests, Syntax/Diff und echter Browser-Dateirundlauf auf 1365/375/320px
+bestanden: JSON-Download, Dateiauswahl, EP, Fortschritt, Entwürfe, Reload,
+ungültiger Import und Abbruch. Keine realen Schülerdaten verwendet.
+Keine Änderung fremder ungetrackter Arbeiten. Veröffentlichung folgt.

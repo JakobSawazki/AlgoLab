@@ -1,5 +1,16 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Direkt speichern und laden am 3. November 2026
+
+**UI-03 – DONE – Codex:** Diskette lädt direkt die JSON-Sicherung
+herunter; separates metallisches Ordnersymbol öffnet die Dateiauswahl.
+Sicherungsdialog ebenfalls mit Icon-Aktionen statt sichtbarem Dateiinput.
+Dateien: app.js, index.html, design.css, neues Ordnerasset und Dokumentation.
+117/117 Tests sowie Syntax/Diff erfolgreich. Echter JSON-Download und
+Dateiauswahl bei 1365/375/320 px geprüft: EP, Fortschritt, Entwürfe, Reload,
+ungültiger und abgebrochener Import erhalten den erwarteten Stand.
+Ordner-WebP 2758 Bytes. Veröffentlichung folgt.
+
 ## Metallische Toolbar-Icons am 3. November 2026
 
 **UI-02 – DONE – Codex:** Fotorealistische metallische Icons für
