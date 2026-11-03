@@ -9,7 +9,9 @@ Dateien: app.js, index.html, design.css, neues Ordnerasset und Dokumentation.
 117/117 Tests sowie Syntax/Diff erfolgreich. Echter JSON-Download und
 Dateiauswahl bei 1365/375/320 px geprüft: EP, Fortschritt, Entwürfe, Reload,
 ungültiger und abgebrochener Import erhalten den erwarteten Stand.
-Ordner-WebP 2758 Bytes. Veröffentlichung folgt.
+Ordner-WebP 2758 Bytes. Commit d99d332 veröffentlicht, Actions 41596699861
+erfolgreich. Derselbe vollständige Browser-Dateirundlauf online bei allen
+drei Breiten bestanden. Keine Dateireservierung.
 
 ## Metallische Toolbar-Icons am 3. November 2026
 

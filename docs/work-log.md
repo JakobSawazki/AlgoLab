@@ -767,4 +767,6 @@ Ordner mit eingebautem Imagegen erzeugt, transparentes 96px-WebP 2758 Bytes.
 117/117 Tests, Syntax/Diff und echter Browser-Dateirundlauf auf 1365/375/320px
 bestanden: JSON-Download, Dateiauswahl, EP, Fortschritt, Entwürfe, Reload,
 ungültiger Import und Abbruch. Keine realen Schülerdaten verwendet.
-Keine Änderung fremder ungetrackter Arbeiten. Veröffentlichung folgt.
+Keine Änderung fremder ungetrackter Arbeiten. Commit d99d332 veröffentlicht,
+Actions 41596699861 erfolgreich. Anschließend derselbe vollständige
+Browser-Dateirundlauf online bei 1365/375/320 px bestanden.
