@@ -62,7 +62,7 @@
     }
 
     function toCsv(rows) {
-      const header = ["Kürzel", "Klasse", "Abgeschlossene Einheiten", "Aktuelle Einheit", "Lernpunkte", "NAGOLD", "Programmieraufgaben", "Struktogramm-Training", "Übungsklausuren (BE)", "Zusatzaufgaben", "Ich kann sicher", "Ich kann", "Noch nicht", "Sicherung vom"];
+      const header = ["Kürzel", "Klasse", "Abgeschlossene Einheiten", "Aktuelle Einheit", "Lernpunkte", "EP", "Programmieraufgaben", "Struktogramm-Training", "Übungsklausuren (BE)", "Zusatzaufgaben", "Ich kann sicher", "Ich kann", "Noch nicht", "Sicherung vom"];
       const cell = value => { const text = String(value ?? ""); return /[;"\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text; };
       const lines = rows.map(row => [row.name, row.className, `${row.completed}/${units.length}`, row.current, row.points, row.nagold, `${row.programs}/${practice.exercises.length}`, `${row.structograms}/${practice.structograms.length}`, `${row.exam}/${examMax}`, row.extras, row.selfcheck.sure, row.selfcheck.ok, row.selfcheck.notYet, row.exportedAt.slice(0, 10)].map(cell).join(";"));
       return `﻿${[header.join(";"), ...lines].join("\r\n")}\r\n`;

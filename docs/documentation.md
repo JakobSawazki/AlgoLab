@@ -1,8 +1,84 @@
 # AlgoLab Projektdokumentation
 
-Stand: 20. Oktober 2026 (Europe/Berlin)
+Stand: 3. November 2026 (Europe/Berlin)
 
-Aktueller Stand: **1.8.0 – Klausurvorbereitung** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
+## Version 1.9.1 – schnellerer Start
+
+PERF-01: Drei frische Browserkontexte auf der veröffentlichten 1.8.0 gemessen.
+Erste Serverantwort 41–59 ms, Hauptbild (LCP) 388–764 ms. In diesen Messungen
+kein dauerhaft langsamer GitHub-Server; abweichende Schul-/Mobilnetze oder
+sporadische Störungen werden dadurch nicht ausgeschlossen.
+
+Größter vermeidbarer Startdownload: 1.375.568 Bytes für das 48-Pixel-Logo und
+dasselbe große PNG als Favicon. Nun 96-Pixel-Logo (13.185 Bytes) und separates
+32-Pixel-Favicon (2.067 Bytes). Beide transparent, ohne Änderung des Motivs.
+Startfoto erhält 480-/960-Pixel-WebP-Varianten und srcset/sizes, Lernkarte
+640-/1280-Pixel-Varianten. Große Originale bleiben für hochauflösende Displays
+und als Quellen erhalten. Bildabmessungen bleiben fest gegen Layoutsprünge;
+Hauptbild weiterhin hoch priorisiert, Karte lazy/low, Decodierung asynchron.
+Python und KI-Modelle werden nachweislich nicht beim Seitenstart geladen.
+
+Kontrollierter Vorher-/Nachher-Vergleich auf localhost, jeweils drei frische
+Kontexte, Cache aus, 150 ms Latenz, 200.000 Bytes/s Download und CPU-Faktor 4:
+
+| Messwert | Vorher | Nachher |
+| --- | --- | --- |
+| Übertragene Ressourcen einschließlich Favicon | 4.139 MB | 0.982 MB |
+| Median vollständiges Laden | 14.340 s | 5.639 s |
+| Median größter sichtbarer Inhalt (LCP) | 8.088 s | 4.780 s |
+
+Dies sind simulierte langsame Verbindungen auf demselben lokalen Server,
+keine Garantie für jede reale Verbindung und keine Live-Vorher-/Nachherwerte.
+Der lokale Python-Server komprimiert JavaScript anders als GitHub Pages.
+Messdaten/Skripte in `.tmp/2026-11-03 …`, nicht im öffentlichen Paket.
+
+Browserprüfung Desktop/Mobil: richtige responsive Dateien geladen, großes Logo
+nicht angefordert, Lektions-Direktlink und Rückkehr zur Startseite fehlerfrei,
+keine Seitenfehler. EP-JSON-Rundlauf und Klassen-CSV erneut bestanden.
+Getrackter Testbestand plus neue EP-Prüfungen wird separat geprüft; die bereits
+dokumentierten drei Fehler der fremden ungetrackten NSD-Erprobung bleiben
+außerhalb des veröffentlichten Standes. Originalbilddateien unverändert.
+Veröffentlichung 1.9.1 einschließlich EP-Umstellung wird nach erfolgreichem
+Abschluss der Prüfungen durchgeführt; Onlineabnahme wird im Arbeitslog ergänzt.
+
+## Lokale Version 1.9.0 – EP im Profil
+
+Auf Jakobs ausdrücklichen Auftrag heißt die Punktetabelle jetzt wie im aktuellen
+Excel-Lab **EP · Erfahrungspunkte**. Profil, Jahressumme, Tabelle, Beschriftungen
+für assistive Technik, Importmeldungen, Klassenübersicht, CSV und KI-Datenschutzhinweis
+verwenden EP. EP haben keine Notenwirkung; die Lernpunkte für die Freischaltung
+bleiben unabhängig davon. Für AlgoLab ist damit die von Jakob jetzt gewünschte
+Bezeichnung „Erfahrungspunkte“ maßgeblich, nicht die ältere Konzeptbezeichnung
+„Engagement-Punkte“ aus der projektübergreifenden StartLab-Übergabe.
+
+Die Referenzimplementierung in Excel-Lab behält ihr internes `nagoldEntries`
+und Dateiformat 1 bei. Nach direktem Abgleich übernimmt AlgoLab denselben Weg:
+keine Umrechnung oder Neubewertung alter Einträge, kein Umbenennen von
+Speicherschlüsseln oder Klassenübersicht-internen Feldern. Bestehende Regeln
+und Einträge bleiben kompatibel; Profil, Notizen, Code, Programmierentwürfe,
+Selbsteinschätzung und Klausurstand werden unverändert gesichert. Neue
+Vergaberegeln oder ein gemeinsames Konto mehrerer Labs wurden nicht eingeführt.
+
+Prüfstand: 117/117 Tests des getrackten Bestands einschließlich drei neuer
+EP-Kompatibilitätstests bestanden. Der vollständige lokale Glob umfasst
+zusätzlich die bereits vorhandene ungetrackte `tests/nsd-run.test.cjs`:
+123 Tests, 120 bestanden, drei Fehler der getrennten Struktogramm-Erprobung
+(nicht erkannte Arraydeklaration, Windows-Zeilenumbruch, leere Programmausgabe).
+Diese fremden Dateien wurden nicht geändert. Kein vollständig grüner
+Gesamtlauf behauptet.
+
+Browserprüfung mit fiktiven Daten in isolierten Edge-Kontexten: alte Datei
+laden, unveränderten Lernstand/Entwürfe/Einträge vergleichen, neuen EP-Eintrag
+speichern, echte JSON-Datei herunterladen, in frischem Kontext laden und neu
+öffnen; Klassenübersicht und CSV mit EP, ungültiger Import ohne Datenverlust.
+Desktop 1440 und Mobil 375 Pixel visuell geprüft, mobile Tabelle ohne
+horizontalen Überlauf, keine Seitenfehler oder externen Requests. Prüfskript
+und Bilder unter `.tmp/2026-11-03 EP …` (lokal, ignoriert).
+
+Noch nicht committed, gepusht oder veröffentlicht. Die folgenden Versions-
+und Onlineangaben bis 1.8.0 dokumentieren den bisherigen Stand.
+
+Bisher veröffentlichter Stand: **1.8.0 – Klausurvorbereitung** (alle 19 Einheiten, Programmierbereich mit optionaler KI-Hilfe lokal oder über Gemini, Struktogramme, Ich-kann-Listen, Vertiefung, Glossar). Lokal zusätzlich 1.9.0 wie oben beschrieben. Bildungsplanabgleich: [bildungsplan-abgleich.md](bildungsplan-abgleich.md).
 Gemeinsame Übergabe für Jakob, Codex und Claude: [TASKS.md](../TASKS.md).
 0.7.0 wurde am 19. Oktober mit Commit 349053b veröffentlicht und online geprüft.
 

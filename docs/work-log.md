@@ -647,3 +647,71 @@ Bearbeiter: Claude, im Auftrag von Jakob („Optimiere alles entsprechend … Kl
 - Browser über einen Desktop-Tab und Edge-Vollbildschirmfotos (1280 px hell und dunkel, 375 px), ohne Konsolenfehler und ohne horizontales Überlaufen.
 - Funktion geprüft: Teilpunkte, Markierungen, Erwartungshorizont mit Selbsteinschätzung, Neuladen, echter Pyodide-Test (findet > statt >= 30), Prüfungsmodus von Start bis Abgabe mit Bilanz, Operatoren-Training, Lernstand, Klassenübersicht mit Testdatei.
 Online-Abnahme 1.8.0 (728db1c, Actions Build/Deploy erfolgreich): Version 1.8.0, exam.js/app.js/design.css/progress.js/class-overview.js/icons Status 200, Navigation „Klausurvorbereitung“, vier Karten, Übungsklausur A mit 9 Teilaufgaben, Auswertung live (1.3: 2/2 BE), keine Konsolenfehler.
+
+## 3. November 2026 – StartLab-Inhalte autark fortgesetzt
+
+Codex auf Jakobs Auftrag: START-BEW-02 im primären StartLab-Projekt lokal
+abgeschlossen (0.3.0). EP ohne Notenwirkung, aktive Zusammenarbeit/Regeln und
+W1EC1-Klassenfassung 2.2 samt Matrix und Übergang konsistent dargestellt;
+BS-Schlüssel 17 % = 5,1 ergänzt. 77 Tests, Syntax-/Buildprüfung, bestehender
+Browserlauf und neuer gezielter Prüfstand für Desktop/375/320 px, Suche und
+Druck bestanden. Zwei A4-Druckseiten gerendert und visuell geprüft.
+
+StartLab Docs/tasks.md, VERIFICATION.md und codex2claude.md halten Stand und
+Prüfgrenzen fest. Kein Commit/Push/Deployment. AlgoLab-Anwendung, fremde
+Struktogrammdateien, Schülerprofile, Freischaltpunkte und Sicherungsdateien
+nicht geändert; technische EP-Migration weiter offen. Kein Kontakt zu Claude
+oder Schule. Diese Notiz ersetzt ältere Angaben zur noch offenen Inhaltsarbeit.
+
+## 3. November 2026 – EP statt NAGOLD wie in Excel-Lab (lokal 1.9.0)
+
+Codex auf Jakobs ausdrücklichen Auftrag: aktuelles Excel-Lab gesichtet.
+Dort heißt die Tabelle „EP · Erfahrungspunkte“, während Feld nagoldEntries
+und Format 1 unverändert bleiben. Diesen kompatiblen Ansatz in AlgoLab
+übernommen: Profil, Tabelle, Status-/Importtexte, Beschriftungen, Klassenübersicht,
+CSV und KI-Datenschutzhinweis heißen EP. Explizit keine Notenwirkung und keine
+Vermischung mit Lernpunkten/Freischaltung. Alte Einträge werden nicht umgerechnet,
+Vergaberegeln in diesem Schritt nicht neu gestaltet. Bestehende negative
+Korrekturen und historische Einträge bleiben lesbar.
+
+Prüfstand: getrackter Testbestand plus neue EP-Tests 117/117 bestanden.
+Vollständiger lokaler Testglob 123 Tests, 120 bestanden, drei Fehler in der
+bereits vorhandenen ungetrackten Struktogramm-Arbeit: Arraydeklaration nicht
+übersetzt, CPython-Zeilenende CRLF statt LF und leere Ausgabe. Betroffene
+Dateien nsd-run.js, nsd-library.js, tests/nsd-run.test.cjs und fremde tools/
+nicht geändert. Keine pauschale Aussage eines grünen Gesamt-Testlaufs.
+
+Browser mit fiktiver Altdatei: Profil und Daten unverändert übernommen,
+100 Lernpunkte und L1.2-Freischaltung erhalten; neuer EP-Eintrag gespeichert,
+JSON tatsächlich heruntergeladen und im neuen Kontext wieder geladen,
+Neuladen, Notizen und Codeentwürfe, Klassenübersicht und CSV geprüft.
+Ungültige Datei überschreibt den Stand nicht. Desktop 1440 und Mobil 375
+visuell geprüft, kein Tabellenüberlauf, keine Seitenfehler oder externen
+Requests. Prüfskript/Bilder .tmp/2026-11-03 EP … (ignoriert).
+
+Aufgabenstand und README/Dokumentation aktualisiert. Kein Commit/Push oder
+Deployment. Kein Eingriff in Excel-Lab, StartLab oder reale Schülerprofile.
+
+## 3. November 2026 – Ladezeit optimiert (1.9.1, Veröffentlichung vorbereitet)
+
+Codex auf Jakobs Auftrag: Live-Seite in drei frischen Edge-Kontexten geprüft.
+Serverantwort 41–59 ms, LCP 388–764 ms; keine dauerhafte GitHub-Latenz in
+unseren Messungen. Großes Logo (1.375.568 Bytes trotz 48-Pixel-Anzeige) und
+identisches Favicon waren ein unnötiger Download. Neue transparente PNG-
+Auslieferungsdateien mit 96/32 Pixeln, responsive WebP-Varianten für Startfoto
+und Lernkarte, feste Abmessungen, asynchrone Decodierung und Prioritäten.
+Originalbilder unverändert, kleines Logo 13.185 Bytes, Favicon 2.067 Bytes.
+
+Kontrollierter Vergleich auf localhost, je drei frische Kontexte, Cache aus,
+150 ms Latenz, 200 kB/s, CPU-Faktor 4: Ressourcen 4,139 → 0,982 MB;
+Median load 14,340 → 5,639 s, Median LCP 8,088 → 4,780 s. Simulation,
+keine Garantie für reale Netze oder direkte GitHub-Nachhermessung.
+117/117 Tests des veröffentlichten Bestands samt EP-Tests bestanden,
+Syntax/Diff geprüft. Desktop/Mobil: neue Bilder korrekt gewählt/dekodiert,
+Original-Logo nicht geladen, kein Python-/KI-Modell beim Start. Lektions-
+Direktlink und EP-Dateirundlauf erneut bestanden. Keine Seitenfehler.
+
+Releasestand umfasst die vorher lokal vorbereiteten EP (Erfahrungspunkte).
+Fremde NSD-Dateien, deren Tests und tools/ bleiben ungetrackt und unangetastet;
+die drei dortigen Fehler gehören nicht zum veröffentlichten Testbestand.
+Nächster Schritt: gezielter Versionscommit, Push und tatsächliche Onlineabnahme.

@@ -154,11 +154,11 @@
       if (data?.app !== "AlgoLab" || data.formatVersion !== 1 || !object(raw) || !object(raw.answers) || !Array.isArray(raw.completed)) throw new Error("Bitte wähle eine gültige AlgoLab-Datei.");
       if (Object.hasOwn(raw, "profile") && (!object(raw.profile) || typeof raw.profile.name !== "string" || typeof raw.profile.className !== "string" || raw.profile.name.length > 40 || raw.profile.className.length > 32)) throw new Error("Das Profil ist nicht lesbar. Der bisherige Stand bleibt erhalten.");
       if (Object.hasOwn(raw, "nagoldEntries")) {
-        if (!Array.isArray(raw.nagoldEntries) || raw.nagoldEntries.length > nagold.maxEntries || nagold.normalizeEntries(raw.nagoldEntries).length !== raw.nagoldEntries.length || raw.nagoldEntries.some(row => row.purpose.length > 160)) throw new Error("Die NAGOLD-Tabelle enthält ungültige Einträge. Keine Daten übernommen.");
+        if (!Array.isArray(raw.nagoldEntries) || raw.nagoldEntries.length > nagold.maxEntries || nagold.normalizeEntries(raw.nagoldEntries).length !== raw.nagoldEntries.length || raw.nagoldEntries.some(row => row.purpose.length > 160)) throw new Error("Die EP-Tabelle enthält ungültige Einträge. Keine Daten übernommen.");
         const entries = nagold.normalizeEntries(raw.nagoldEntries);
         if (entries.some((row, index) => nagold.isStartCapital(row.purpose) && nagold.startCapitalTaken(entries.slice(0, index), row.date))) throw new Error("Die Datei enthält mehrfaches Startkapital im selben Schuljahr.");
         const lessonIds = entries.filter(row => row.lessonId).map(row => row.lessonId);
-        if (new Set(lessonIds).size !== lessonIds.length) throw new Error("Die Datei enthält doppelte NAGOLD-Buchungen für eine Lerneinheit.");
+        if (new Set(lessonIds).size !== lessonIds.length) throw new Error("Die Datei enthält doppelte EP-Buchungen für eine Lerneinheit.");
       }
       return normalize(raw);
     }

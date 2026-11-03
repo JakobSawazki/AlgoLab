@@ -2,7 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 20. Oktober 2026. Version **1.8.0 – Klausurvorbereitung, lokale KI mit Ablaufprotokoll, Struktogramm-Training, Klassenübersicht, KI-Lerncoach, Programmieren, Ich-kann-Listen, Glossar**.
+Stand: 3. November 2026. Version **1.9.1 – EP und schnellerer Start**.
+Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Die bestehenden Bereiche Klausurvorbereitung, lokale KI, Struktogramm-Training,
+Klassenübersicht, Programmieren, Ich-kann-Listen und Glossar bleiben enthalten.
+
+Kleine Logo-/Favicon-Dateien und responsive Varianten von Startmotiv und
+Lernkarte reduzieren den Startdownload. Die Originalbilder bleiben erhalten.
 Alle drei Lernfortschritte sind vollständig ausgearbeitet: L1 Daten organisieren
 (Arrays, Durchlaufen, Auswerten, Tauschen, Einfügen, Entfernen), L2 Sortieren und
 Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suche,
@@ -82,22 +88,26 @@ Die Python-Prüfung ist eine Lernhilfe und kein manipulationssicherer Nachweis.
 [Arbeitsprotokoll](docs/work-log.md), [Materialmatrix](docs/material-matrix.md)
 und [Fotomotive mit Prompts](docs/lesson-images.md) dokumentieren den Ausbau.
 
-## Profil und NAGOLD
+## Profil und EP
 
 Im Profil Kürzel (z. B. `jak.saw`) und Klasse eintragen und übernehmen.
-Die NAGOLD-Karte öffnet eine bearbeitbare Tabelle mit Datum, Uhrzeit, Anlass
+Die Karte „EP · Erfahrungspunkte“ öffnet eine bearbeitbare Tabelle mit Datum, Uhrzeit, Anlass
 und ganzen Punkten von −10 bis 5, ohne 0. Gültige Änderungen und Löschungen
 werden sofort gespeichert; unvollständige Korrekturen behalten den letzten
-gültigen Stand. Anwesenheit schlägt 2 NAGOLD vor, Startkapital einmal je
-Schuljahr 5. Abgeschlossene Einheiten buchen einmalig 5 NAGOLD. Das
-Jahresziel beträgt 100; verbindlich bleibt die Bewertung der Lehrkraft.
+gültigen Stand. Anwesenheit schlägt wie bisher 2 EP vor, Startkapital einmal je
+Schuljahr 5. Abgeschlossene Einheiten buchen einmalig 5 EP. Das
+Jahresziel beträgt 100. EP dienen ausschließlich der Motivation und haben
+keine Notenwirkung; Lernpunkte für Freischaltungen bleiben separat.
 Lernpunkte und Freischaltung werden davon unabhängig berechnet.
 
-„Profil als JSON speichern“ sichert Profildaten, NAGOLD, Lernstand, Notizen
+„Profil als JSON speichern“ sichert Profildaten, EP, Lernstand, Notizen
 und Codeentwürfe gemeinsam. „Profil laden“ stellt diese Daten nach Bestätigung
 wieder her. Auch das bisherige Diskettensymbol verwendet denselben Dateistand.
-Alte AlgoLab-Dateien bleiben ladbar; bei fehlender NAGOLD-Tabelle werden
-bekannte Abschlüsse mit je 5 NAGOLD und unbekanntem Datum übernommen.
+Alte AlgoLab-Dateien bleiben ohne Umrechnung ladbar. Wie in Excel-Lab bleibt
+das historische Speicherfeld `nagoldEntries` aus Kompatibilitätsgründen
+erhalten. Einträge, einschließlich früherer Korrekturen, werden nicht
+umgeschrieben. Bei fehlender Tabelle werden wie bisher bekannte Abschlüsse
+mit je 5 Punkten und unbekanntem Datum übernommen.
 Excel-Lab-Dateien gehören weiterhin zu Excel-Lab.
 
 ## Lokal starten und prüfen
