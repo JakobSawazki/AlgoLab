@@ -787,3 +787,14 @@ Import, Schließen und Reload erfolgreich. Fremde ungetrackte Arbeiten
 unverändert. Commit 8426424 veröffentlicht; Actions 41597362704 erfolgreich.
 Anschließend denselben Browser-Dateirundlauf auf der Live-Seite mit allen
 fünf Fenstergrößen bestanden.
+
+## 3. November 2026 – Einstiegsbuttons geordnet
+
+UI-05: Drei Startaktionen in eigene beschriftete Gruppe gefasst. Alle
+untereinander mit gleicher Breite (maximal 380px), gleicher Höhe 48px und
+10px Abstand; individuelle linke Margins überschrieben. Primäre Lernaktion
+bleibt blau hervorgehoben. Cachekennungen erneuert. Browser bei
+320/375/768/1024/1365/1920 px: gleiche Kanten und Abmessungen, keine
+Überläufe, alle drei Zielseiten erreichbar, keine Seitenfehler. Desktop-/
+Mobilansicht visuell geprüft. 117/117 Tests, Syntax/Diff erfolgreich.
+Keine Änderungen fremder ungetrackter Arbeiten. Veröffentlichung folgt.
