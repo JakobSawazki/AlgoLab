@@ -132,7 +132,7 @@
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     const toggle = document.querySelector("#theme-toggle");
-    toggle.innerHTML = icon(theme === "light" ? "moon" : "sun");
+    toggle.innerHTML = `<img class="toolbar-metal-icon" src="assets/toolbar-${theme === "light" ? "moon" : "sun"}.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async">`;
     toggle.setAttribute("aria-label", theme === "light" ? "Dunkle Darstellung aktivieren" : "Helle Darstellung aktivieren");
   }
   try { setTheme(localStorage.getItem("algolab-theme-v1") === "light" ? "light" : "dark"); } catch { setTheme("dark"); }

@@ -1,5 +1,15 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Metallische Toolbar-Icons am 3. November 2026
+
+**UI-02 – DONE – Codex:** Fotorealistische metallische Icons für
+Profil, Hell-/Dunkelmodus und Speichern. Dateien: neue assets/toolbar-*.webp,
+app.js, index.html, design.css und Dokumentation. Kleine transparente Assets;
+Beschriftungen und Bedienung erhalten. 117/117 Tests, Syntax/Diff sowie
+Browserprüfung 1365/375 px in Hell/Dunkel bestanden: Profil-/Sicherungsdialog
+und Theme-Speicherung funktionieren. Vier transparente 96px-WebP zusammen
+15.258 Bytes; Originale lokal erhalten. Veröffentlichung folgt.
+
 ## Bildunterschrift am 3. November 2026
 
 **UI-01 – DONE – Codex:** Auf Jakobs Wunsch das Sternsymbol vor

@@ -804,3 +804,7 @@ footer a { color: var(--accent); }
 .exam-links ul { display: grid; gap: 8px; margin: 10px 0 0; padding-left: 18px; font-size: .86rem; }
 .exam-links li small { color: var(--muted); }
 .exam-links strong { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Small transparent metallic toolbar artwork, 96px source for crisp HiDPI. */
+.toolbar-metal-icon { display: block; width: 28px; height: 28px; object-fit: contain; pointer-events: none; filter: drop-shadow(0 1px 1px #02081766); }
+@media (max-width: 780px) { .toolbar-metal-icon { width: 26px; height: 26px; } }

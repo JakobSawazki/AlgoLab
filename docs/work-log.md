@@ -740,3 +740,15 @@ Bildunterschrift, 117/117 getrackte Tests, Syntax und Diff erfolgreich.
 Fremde ungetrackte Arbeiten unverändert. Commit 93ccbce veröffentlicht;
 Actions 41595381866 erfolgreich. Anschließend Live-Bildunterschrift im
 Browser ohne Stern bestätigt.
+
+## 3. November 2026 – Metallische Toolbar-Icons
+
+UI-02: Auf Jakobs Wunsch vier neue fotorealistische Silber/Titan-Icons mit
+blauen Reflexen für Profil, Sonne, Mond und Diskette mit dem eingebauten
+Imagegen-Werkzeug erzeugt. Transparente WebP-Auslieferung 96 × 96 px,
+Anzeige 28 px (mobil 26), zusammen 15.258 Bytes. Beschriftungen,
+Tastaturbedienung und Dialoglogik erhalten. Cachekennungen erneuert.
+117/117 Tests sowie Syntax/Diff erfolgreich. Browser 1365/375 px, Hell/Dunkel,
+Profil-/Sicherungsdialog und persistenter Darstellungswechsel geprüft; keine
+Seitenfehler oder horizontales Überlaufen. Generierungsprompts und Pfade:
+docs/toolbar-icons.md. Fremde Arbeiten unverändert. Veröffentlichung folgt.
