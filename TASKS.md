@@ -1,5 +1,13 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Bildunterschrift am 3. November 2026
+
+**UI-01 – DONE – Codex:** Auf Jakobs Wunsch das Sternsymbol vor
+„Verstehen. Ausprobieren. Weiterdenken.“ entfernen. Dateien: app.js,
+index.html (Cachekennung), TASKS.md und docs/work-log.md.
+Browserprüfung: Text erhalten, kein SVG in der Bildunterschrift. 117/117
+Tests, Syntax und Diff geprüft. Veröffentlichung und Onlineabnahme folgen.
+
 ## Ladezeit am 3. November 2026
 
 **PERF-01 – DONE – Codex:** Live-Seite gemessen, zu großes Logo/Favicon und

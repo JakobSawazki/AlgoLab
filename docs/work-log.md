@@ -730,3 +730,11 @@ veröffentlichten Code enthalten. Keine realen Schülerdaten zum Testen verwende
 TASKS.md und Dokumentation halten den aktuellen Online-Stand fest. Ältere
 Einträge „noch nicht veröffentlicht“ beschreiben den Vorzustand. Keine
 Änderungen an StartLab oder Excel-Lab in dieser Veröffentlichungsrunde.
+
+## 3. November 2026 – Stern aus der Bildunterschrift entfernt
+
+Codex auf Jakobs Wunsch: ausschließlich das dekorative Sternsymbol vor
+„Verstehen. Ausprobieren. Weiterdenken.“ entfernt. Text bleibt erhalten.
+Cachekennung von app.js erneuert. Browserprüfung ohne SVG in der
+Bildunterschrift, 117/117 getrackte Tests, Syntax und Diff erfolgreich.
+Fremde ungetrackte Arbeiten unverändert. Veröffentlichung folgt.
