@@ -751,4 +751,7 @@ Tastaturbedienung und Dialoglogik erhalten. Cachekennungen erneuert.
 117/117 Tests sowie Syntax/Diff erfolgreich. Browser 1365/375 px, Hell/Dunkel,
 Profil-/Sicherungsdialog und persistenter Darstellungswechsel geprüft; keine
 Seitenfehler oder horizontales Überlaufen. Generierungsprompts und Pfade:
-docs/toolbar-icons.md. Fremde Arbeiten unverändert. Veröffentlichung folgt.
+docs/toolbar-icons.md. Fremde Arbeiten unverändert. Mit Commit 803cd3b
+veröffentlicht; Actions 41596231223 erfolgreich. Anschließend dieselbe
+Browserprüfung auf der Live-Seite bei 1365 und 375 px bestanden,
+einschließlich Dialogen, Bilddecodierung und gespeichertem Theme.

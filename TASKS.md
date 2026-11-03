@@ -8,7 +8,9 @@ app.js, index.html, design.css und Dokumentation. Kleine transparente Assets;
 Beschriftungen und Bedienung erhalten. 117/117 Tests, Syntax/Diff sowie
 Browserprüfung 1365/375 px in Hell/Dunkel bestanden: Profil-/Sicherungsdialog
 und Theme-Speicherung funktionieren. Vier transparente 96px-WebP zusammen
-15.258 Bytes; Originale lokal erhalten. Veröffentlichung folgt.
+15.258 Bytes; Originale lokal erhalten. Commit 803cd3b veröffentlicht,
+Actions 41596231223 erfolgreich. Dieselbe Desktop-/Mobil-Browserprüfung
+online bestanden. Keine Dateireservierung.
 
 ## Bildunterschrift am 3. November 2026
 
