@@ -737,4 +737,6 @@ Codex auf Jakobs Wunsch: ausschließlich das dekorative Sternsymbol vor
 „Verstehen. Ausprobieren. Weiterdenken.“ entfernt. Text bleibt erhalten.
 Cachekennung von app.js erneuert. Browserprüfung ohne SVG in der
 Bildunterschrift, 117/117 getrackte Tests, Syntax und Diff erfolgreich.
-Fremde ungetrackte Arbeiten unverändert. Veröffentlichung folgt.
+Fremde ungetrackte Arbeiten unverändert. Commit 93ccbce veröffentlicht;
+Actions 41595381866 erfolgreich. Anschließend Live-Bildunterschrift im
+Browser ohne Stern bestätigt.

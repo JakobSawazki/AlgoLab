@@ -6,7 +6,9 @@
 „Verstehen. Ausprobieren. Weiterdenken.“ entfernen. Dateien: app.js,
 index.html (Cachekennung), TASKS.md und docs/work-log.md.
 Browserprüfung: Text erhalten, kein SVG in der Bildunterschrift. 117/117
-Tests, Syntax und Diff geprüft. Veröffentlichung und Onlineabnahme folgen.
+Tests, Syntax und Diff geprüft. Mit Commit 93ccbce veröffentlicht,
+Actions 41595381866 erfolgreich. Live-Bildunterschrift ohne Stern bestätigt.
+Keine Dateireservierung.
 
 ## Ladezeit am 3. November 2026
 
