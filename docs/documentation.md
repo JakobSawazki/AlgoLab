@@ -56,7 +56,7 @@ können Lernende den geladenen Stand anschließend erneut sichern. Eine
 Datei mit neuerem Format wird vor dem Ersetzen des aktuellen Lernstands
 mit einem Hinweis auf das nötige AlgoLab-Update abgewiesen.
 
-Für jedes Update mit Auswirkungen auf gespeicherte Daten gilt:
+Jedes Update mit Auswirkungen auf gespeicherte Daten folgt diesen Schritten.
 
 1. Optionale Felder und kompatible Ergänzungen behalten die Formatnummer.
    Stabile IDs für Einheiten, Aufgaben, Entwürfe und Notizseiten erhalten

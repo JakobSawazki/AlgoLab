@@ -851,4 +851,6 @@ Browser-Dateirundlauf mit synthetischen Daten bestanden. Vorhandenen
 Browserstand und JSON aus 0.2.0 übernommen, modernere Datei mit EP,
 Fortschritt, Entwürfen, Markern, Notizen und Skizzen erneut exportiert.
 Neueres Format vor Bestätigung abgelehnt und unveränderten Stand nach
-Reload geprüft. Veröffentlichung folgt.
+Reload geprüft. 119 Tests bestanden. Commit 1056674 veröffentlicht.
+Actions 42780741004 erfolgreich. Derselbe Rundlauf auf der Live-Seite
+bestanden. Die ungetrackte Struktogramm-Erprobung bleibt separat.

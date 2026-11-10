@@ -7,7 +7,9 @@ Sicherungen gegen den aktuellen Leser testen und Regeln für künftige
 Migrationen festhalten. Dateien progress.js, index.html, Tests, README
 und Dokumentation. Format 1 bleibt aktuell. Test mit historischem 0.2.0-
 Aufbau, Datei- und Browserstand, moderner Sicherung und Ablehnung eines
-neueren Formats erfolgreich. Veröffentlichung folgt.
+neueren Formats erfolgreich. 119 Tests bestanden. Commit 1056674
+veröffentlicht. Actions 42780741004 erfolgreich. Derselbe Datei- und
+Browser-Rundlauf online bestanden. Keine Dateireservierung.
 
 ## Tastenkürzel am 10. November 2026
 
