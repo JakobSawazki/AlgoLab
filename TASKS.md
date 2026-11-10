@@ -10,7 +10,9 @@ tests/practice.test.cjs, tests/class-overview.test.cjs, README.md, TASKS.md,
 docs/documentation.md und docs/work-log.md. 121 versionierte Tests, Syntax
 und Diffprüfung bestanden. Edge bei 1365 und 320 px mit echtem Pyodide,
 Neuladen und JSON-Download geprüft. Historischer Datei-Rundlauf erfolgreich.
-Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+Version 1.12.0 als `df67a16` veröffentlicht. Actions-Lauf 42864716782
+erfolgreich. Dieselben Browser- und Dateiprüfungen online bestanden.
+Keine Dateireservierung.
 
 ## Orientierung und Wiederholung am 10. November 2026
 

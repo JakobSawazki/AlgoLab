@@ -16,6 +16,10 @@ Die Übungen nutzen den vorhandenen Editor und Lerncoach. Gelöste Aufgaben
 und Entwürfe gehören zum Programmierstand und zur JSON-Sicherung. Sie
 wirken sich weder auf Lernpunkte noch auf die Freischaltung aus.
 
+Version 1.12.0 wurde als Commit `df67a16` veröffentlicht. Die Übungen
+wurden mit echtem Python bei 1365 und 320 Pixeln online geprüft.
+[GitHub-Actions-Lauf mit 121 bestandenen Tests](https://github.com/JakobSawazki/AlgoLab/actions/runs/42864716782).
+
 ## Orientierung und Wiederholung in 1.11.0
 
 Der Lernpfad zeigt nach dem Vorbild des Excel-Lab-Organizers, was Lernende

@@ -961,3 +961,6 @@ Gesamtlauf hat die drei bekannten Fehler der ungetrackten NSD-Erprobung
 reproduziert, Startcode korrigiert, alle Testfälle bestanden, Entwurf nach
 Neuladen erhalten und Format-1-JSON mit gelösten Übungen heruntergeladen.
 Der historische JSON-Dateirundlauf war ebenfalls erfolgreich.
+Version 1.12.0 als `df67a16` veröffentlicht. Actions-Lauf 42864716782
+mit 121 bestandenen Tests und erfolgreichem Deployment. Der gleiche
+Browserlauf und der historische Datei-Rundlauf sind online bestanden.
