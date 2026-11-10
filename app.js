@@ -1568,6 +1568,18 @@
   });
   document.querySelector("#backup-open").addEventListener("click", exportProfile);
   document.querySelectorAll("[data-load-progress]").forEach(button => button.addEventListener("click", () => document.querySelector("#import-progress").click()));
+  document.addEventListener("keydown", event => {
+    if (event.defaultPrevented || event.isComposing || !event.altKey || event.ctrlKey
+      || event.metaKey || event.shiftKey || event.getModifierState("AltGraph")) return;
+    const key = event.key.toLowerCase();
+    if (key !== "s" && key !== "o") return;
+    const dialog = document.querySelector("dialog[open]");
+    if (dialog && dialog.id !== "backup-dialog") return;
+    const selector = key === "s" ? (dialog ? "#export-progress" : "#backup-open") : "[data-load-progress]";
+    const button = (dialog || document).querySelector(selector);
+    event.preventDefault();
+    if (!event.repeat) button.click();
+  });
   function exportProfile() {
     const payload = engine.payload(state);
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));

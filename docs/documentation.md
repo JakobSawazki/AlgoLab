@@ -32,6 +32,9 @@ Formularvalidierung und Dateiformat bleiben erhalten.
 
 ## Direktes Speichern und Laden
 
+**Alt+S** lädt die Sicherung herunter. **Alt+O** öffnet die Dateiauswahl.
+Die Kürzel gelten, wenn die Seite oder der Sicherungsdialog aktiv ist.
+
 Diskette in der oberen Leiste: JSON-Datei direkt herunterladen. Ordner:
 vorhandene JSON-Sicherung auswählen; nach Bestätigung wird sie geladen.
 Der Browser bestimmt das Downloadziel (normalerweise Downloads); ein

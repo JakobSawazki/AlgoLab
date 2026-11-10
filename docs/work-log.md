@@ -828,3 +828,12 @@ und Ordner in der Kopfzeile erreichbar. Im Profil schließt der Button unten
 rechts den Dialog. 119 Tests und Browser-Dateirundlauf mit Notizbuch und
 Textmarkern bestanden. Commit 1066d05 veröffentlicht. Actions 42779188447
 erfolgreich. Profil ohne Datei-Icons und Dateirundlauf online bestätigt.
+
+## 10. November 2026 – Tastenkürzel für die Dateisicherung
+
+UI-08 verbindet Alt+S mit dem JSON-Download und Alt+O mit der Dateiauswahl.
+Die Kürzel verwenden dieselben Aktionen wie die Icons. Bei einem anderen
+offenen Dialog bleiben dessen Tastaturaktionen im Vordergrund. Halten der
+Taste löst keine wiederholten Dateiaktionen aus. Tooltips und zugängliche
+Tastenkürzel ergänzt. 119 Tests bestanden. Echter Browser-Dateirundlauf,
+AltGr im Profil und Wiederholung geprüft. Veröffentlichung folgt.

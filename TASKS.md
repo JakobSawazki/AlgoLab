@@ -1,5 +1,12 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Tastenkürzel am 10. November 2026
+
+**UI-08 – DONE – Codex:** Alt+S und Alt+O an die vorhandenen
+Dateiaktionen anbinden. Dateien app.js, index.html und Dokumentation.
+119 Tests und Browser-Dateirundlauf mit echten Tastendrücken, Wiederholung
+und AltGr geprüft. Veröffentlichung folgt.
+
 ## Datei-Icons im Profil am 10. November 2026
 
 **UI-07 – DONE – Codex:** Doppelte Datei-Icons im Profil entfernen.
