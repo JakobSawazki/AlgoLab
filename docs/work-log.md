@@ -826,4 +826,5 @@ auf der öffentlichen Seite mit Desktop und emuliertem Mobilgerät bestanden.
 UI-07 vereinfacht das Profilfenster. Speichern und Laden sind über Diskette
 und Ordner in der Kopfzeile erreichbar. Im Profil schließt der Button unten
 rechts den Dialog. 119 Tests und Browser-Dateirundlauf mit Notizbuch und
-Textmarkern bestanden. Veröffentlichung folgt.
+Textmarkern bestanden. Commit 1066d05 veröffentlicht. Actions 42779188447
+erfolgreich. Profil ohne Datei-Icons und Dateirundlauf online bestätigt.

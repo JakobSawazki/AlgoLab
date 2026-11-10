@@ -4,7 +4,9 @@
 
 **UI-07 – DONE – Codex:** Doppelte Datei-Icons im Profil entfernen.
 Dateien index.html, app.js, design.css und Dokumentation. 119 Tests und
-Browser-Dateirundlauf über die Kopfzeile bestanden. Veröffentlichung folgt.
+Browser-Dateirundlauf über die Kopfzeile bestanden. Commit 1066d05
+veröffentlicht und online geprüft. Actions 42779188447 erfolgreich.
+Keine Dateireservierung.
 
 ## Lernwerkzeuge am 10. November 2026
 
