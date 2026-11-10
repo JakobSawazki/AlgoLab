@@ -983,3 +983,17 @@ NSD-Erprobung.
 Version 1.13.0 als `1c52479` veröffentlicht. Actions-Lauf 42865883242
 mit 121 bestandenen Tests und erfolgreichem Deployment. Browserlauf bei
 1365 und 320 Pixeln und historischer JSON-Dateirundlauf online bestanden.
+
+## 10. November 2026 – Lerninhalte suchen in 1.14.0
+
+FIND-01 verbindet 111 öffentliche Einträge aus Einheiten, Glossar,
+Python-Aufgaben, Struktogrammen und Übungsklausuren. Das Ranking bevorzugt
+Kürzel, Titel und Synonyme. Suchbegriffe mit Umlauten oder Ersatzschreibweisen
+funktionieren. Die Treffer sind nach Art filterbar. Das URL-Fragment erhält
+das Stichwort für geteilte Links und die Zurück-Navigation.
+
+Edge bei 1365 und 320 px lokal geprüft: Suchfokus, Kürzelrang, Themen- und
+Sonderzeichentreffer, Eingabefehler, Freischaltung und passende Zielseiten.
+124 versionierte Tests sowie Syntax und Diff bestanden. Der gesamte lokale
+Testlauf meldet 127/130 mit den drei bekannten Fehlern der ungetrackten
+NSD-Erprobung.

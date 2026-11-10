@@ -523,6 +523,10 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .path-intro .module-tabs button { padding: 8px 12px; font-size: .8rem; }
 .path-intro .module-tabs button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
 .glossary-count { margin: 10px 0 0; font-size: .8rem; }
+.site-search { margin-bottom: 16px; }
+.site-search-results { display: grid; gap: 10px; max-width: 900px; padding: 0; list-style: none; }
+.site-search-results h3 { margin: 3px 0; overflow-wrap: anywhere; }
+.site-search-results p { margin: 0; overflow-wrap: anywhere; }
 .glossary-group dl { display: grid; gap: 10px; margin: 12px 0 0; }
 .glossary-term { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr); gap: 8px 18px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
 .glossary-term dt { font-weight: 750; color: var(--text); }

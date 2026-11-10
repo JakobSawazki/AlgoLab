@@ -1,5 +1,17 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Suche nach Lerninhalten am 10. November 2026
+
+**FIND-01 – DONE – Codex:** Gemeinsame, lokal ausgeführte Suche nach
+Einheiten, Begriffen, Python- und Struktogramm-Aufgaben sowie Übungsklausuren.
+Dateien: app.js, site-search.js, design.css, index.html, assets/icons.svg,
+learning-path.js, tests/site-search.test.cjs, .github/workflows/pages.yml,
+README.md, TASKS.md, docs/documentation.md und docs/work-log.md. 124
+versionierte Tests, Syntax und Diff bestanden. Edge bei 1365 und 320 px:
+Fokus, Trefferreihenfolge, Filter, gesperrte und offene Einheiten,
+Sonderzeichen, Direktlinks und Rücknavigation geprüft.
+Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+
 ## Gezielt wiederholen am 10. November 2026
 
 **LEARN-02 – DONE – Codex:** Ich-kann-Markierungen mit Lernschritten

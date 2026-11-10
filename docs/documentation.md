@@ -2,6 +2,17 @@
 
 Stand: 10. November 2026 (Europe/Berlin)
 
+## Lerninhalte suchen in 1.14.0
+
+Die Suche bündelt Einheiten, Glossarbegriffe, Python-Aufgaben, Struktogramme
+und Übungsklausuren. Kürzel, Titel und bekannte Synonyme erhalten Vorrang.
+Die Suche akzeptiert Umlaute und Ersatzschreibweisen wie „binaere Suche“.
+Die Treffer lassen sich nach Art filtern. Der Suchbegriff bleibt beim
+Zurückgehen im Browser erhalten und lässt sich als Link weitergeben.
+
+Der Suchindex wird im Browser aus öffentlichen Inhaltsdaten aufgebaut.
+Gesperrte Einheiten erscheinen mit dem erforderlichen Abschluss.
+
 ## Gezielt wiederholen in 1.13.0
 
 Mit „Noch nicht“ markierte Ich-kann-Aussagen erscheinen gesammelt als

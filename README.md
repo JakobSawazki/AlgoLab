@@ -2,8 +2,10 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 10. November 2026. Version **1.13.0 – Gezielt wiederholen**.
+Stand: 10. November 2026. Version **1.14.0 – Lerninhalte suchen**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Über **Suche** findest du Einheiten, Begriffe, Python-Aufgaben, Struktogramme
+und Übungsklausuren. Ein Kürzel wie L2.6 führt direkt zum passenden Treffer.
 Im Lernpfad zeigen Lernziele und Praxisbeispiele, wofür du die Inhalte
 brauchst. In der gemischten Wiederholungsrunde übst du bis zu fünf bereits gelöste
 Verständnisfragen aus verschiedenen Einheiten ohne Lernpunkte.

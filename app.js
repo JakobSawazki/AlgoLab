@@ -695,6 +695,51 @@
   }
   // Glossar: durchsuchbar nach Begriff, Synonym und Erklärung; Kategorien als Filter.
   const normalizeTerm = text => String(text).toLocaleLowerCase("de").normalize("NFD").replace(/[̀-ͯ]/g, "");
+  function hashTextValue(segment) {
+    try { return decodeURIComponent(segment || ""); }
+    catch { return ""; }
+  }
+  function renderSiteSearch(segment) {
+    document.querySelector("#page-title").textContent = "Lerninhalte suchen";
+    const { buildIndex, groups, search } = window.AlgoLabSearch;
+    const index = buildIndex(content);
+    main.innerHTML = `<section class="path-intro site-search"><h2>Was möchtest du finden?</h2>
+      <p>Suche nach einem Stichwort, einer Aufgabe oder einem Einheitenkürzel.</p>
+      <div role="search"><label class="glossary-search" for="site-search-query"><span>Lerninhalte suchen</span>
+      <input id="site-search-query" type="search" placeholder="z. B. binäre Suche oder L1.2" maxlength="120" autocomplete="off"></label></div>
+      <div class="module-tabs" role="group" aria-label="Trefferart filtern"><button type="button" data-search-kind="" aria-pressed="true">Alle</button>
+      ${Object.entries(groups).map(([kind, label]) => `<button type="button" data-search-kind="${kind}" aria-pressed="false">${label}</button>`).join("")}</div>
+      <p class="glossary-count" role="status"></p></section><ul class="site-search-results" aria-label="Suchergebnisse"></ul>`;
+    const input = main.querySelector("#site-search-query");
+    const results = main.querySelector(".site-search-results");
+    const status = main.querySelector(".glossary-count");
+    let group = "";
+    function update() {
+      const query = input.value.trim();
+      const matches = search(index, query, group);
+      status.textContent = !query ? "Gib einen Suchbegriff ein." : matches.length
+        ? `${matches.length} Treffer` : "Keine Treffer. Versuche ein anderes Stichwort oder wähle „Alle“.";
+      results.innerHTML = matches.map(item => {
+        const locked = item.group === "unit" && !accessible(item.unit);
+        const title = item.group === "unit" ? `${item.unit} · ${item.title}` : item.title;
+        return `<li class="notice"><small>${groups[item.group]}${item.unit && item.group !== "unit" ? ` · ${item.unit}` : ""}</small>
+          <h3>${locked ? esc(title) : `<a href="${esc(item.href)}">${esc(title)}</a>`}</h3>
+          <p>${esc(item.description)}</p>${locked ? `<small>Gesperrt bis zum Abschluss von ${engine.prerequisite(item.unit).id}</small>` : ""}</li>`;
+      }).join("");
+    }
+    input.value = hashTextValue(segment).slice(0, input.maxLength);
+    input.addEventListener("input", () => {
+      const value = input.value;
+      history.replaceState(history.state, "", value ? `#suche/${encodeURIComponent(value)}` : "#suche");
+      update();
+    });
+    main.querySelectorAll("[data-search-kind]").forEach(button => button.addEventListener("click", () => {
+      group = button.dataset.searchKind;
+      main.querySelectorAll("[data-search-kind]").forEach(other => other.setAttribute("aria-pressed", String(other === button)));
+      update();
+    }));
+    update();
+  }
   function renderGlossary(focusTerm) {
     document.querySelector("#page-title").textContent = "Glossar";
     const categories = [...new Set(content.glossary.map(item => item.category))];
@@ -723,7 +768,7 @@
       main.querySelectorAll("[data-category]").forEach(other => other.setAttribute("aria-pressed", String(other === button)));
       filter();
     }));
-    if (focusTerm) main.querySelector("#glossary-query").value = decodeURIComponent(focusTerm);
+    if (focusTerm) main.querySelector("#glossary-query").value = hashTextValue(focusTerm);
     filter();
   }
   // Bereich „Programmieren“ nach dem Vorbild von PythonLab: Katalog, Aufgabenseite und freie Werkstatt.
@@ -1558,6 +1603,7 @@
     else if (page === "progress") renderProgress();
     else if (page === "wiederholen") renderReview(id === "unsicher");
     else if (page === "selfcheck") renderSelfcheck(id);
+    else if (page === "suche") renderSiteSearch(id);
     else if (page === "glossar") renderGlossary(id);
     else if (page === "programmieren") renderPractice(id);
     else if (page === "struktogramme") { if (id) renderStructogramExercise(id); else renderStructogramCatalog(); }
@@ -1575,8 +1621,11 @@
     });
     renderSidebarPath();
     syncProfile();
-    renderMarkers(page ? [page, id].filter(Boolean).join("/") : "home");
-    if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
+    renderMarkers(page === "suche" ? page : page ? [page, id].filter(Boolean).join("/") : "home");
+    if (focus) {
+      (main.querySelector("#site-search-query") || main).focus({ preventScroll: true });
+      window.scrollTo(0, 0);
+    }
   }
   main.addEventListener("input", event => {
     const draft = event.target.closest?.("textarea[data-practice-draft]");
