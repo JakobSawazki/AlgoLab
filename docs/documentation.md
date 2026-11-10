@@ -45,6 +45,40 @@ Profilimport und Dateiformat bleiben kompatibel. Fehler und Erfolg werden
 im Sicherungsdialog angezeigt, der vorhandene Stand bleibt bei Fehlern
 oder Abbruch erhalten.
 
+## Kompatibilität von Sicherungen
+
+`formatVersion` bezeichnet das Dateiformat und ist unabhängig von
+`version`, der AlgoLab-Version zum Zeitpunkt des Exports. Seit 0.2.0
+verwenden die veröffentlichten Sicherungen Format 1. Alte Dateien werden
+beim Import ergänzt, sofern ihnen später hinzugekommene Felder fehlen.
+Das Original bleibt auf dem Gerät erhalten. Über die Diskette oder Alt+S
+können Lernende den geladenen Stand anschließend erneut sichern. Eine
+Datei mit neuerem Format wird vor dem Ersetzen des aktuellen Lernstands
+mit einem Hinweis auf das nötige AlgoLab-Update abgewiesen.
+
+Für jedes Update mit Auswirkungen auf gespeicherte Daten gilt:
+
+1. Optionale Felder und kompatible Ergänzungen behalten die Formatnummer.
+   Stabile IDs für Einheiten, Aufgaben, Entwürfe und Notizseiten erhalten
+   die Zuordnung zu bereits gespeicherten Inhalten.
+2. Bei einem inkompatiblen Wechsel den Formatstand anheben und in
+   `progress.js` für jede bisher unterstützte Version einen eindeutigen
+   Weg zum neuen Format ergänzen. Die Umwandlung erfolgt im Browser beim
+   Lesen und vor der Prüfung des neuen Schemas. Die Klassenübersicht nutzt
+   denselben Dateileser. Auch den vorhandenen Browserstand unter
+   `algolab-v1` prüfen und bei Bedarf über dieselbe Datenmigration führen.
+3. Bei Änderungen von IDs, Antwortoptionen oder Textankern einen
+   Erhaltungstest mit den bisherigen Daten ergänzen. Bei veränderten
+   Textpassagen Markierungen nur eindeutig neu zuordnen. Eine nicht
+   zuordenbare Markierung kann im Export erhalten bleiben, auch wenn
+   sie im aktualisierten Text nicht angezeigt wird.
+4. Vor Veröffentlichung synthetische Beispiele aus alten und aktuellen
+   Versionen laden, erneut sichern und wieder laden. Dabei Profil, EP,
+   Fortschritt und Freischaltungen, Entwürfe, Notizen, Skizzen und
+   Markierungen prüfen. Fehlgeschlagene oder abgebrochene Importe dürfen
+   den vorhandenen Stand nicht ersetzen. Keine Schülerdateien in Git
+   oder für Tests verwenden.
+
 ## Version 1.9.1 – schnellerer Start
 
 **Veröffentlicht und online geprüft am 3. November 2026.** Commit `0f7a9bf`,

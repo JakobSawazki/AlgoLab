@@ -17,11 +17,23 @@ test("Complete profile JSON roundtrip preserves NAGOLD, negative points, code an
 });
 
 test("Old AlgoLab exports migrate completed lessons once without invented dates", () => {
-  const state = engine.empty();
-  for (const task of content.units[0].tasks) engine.answer(state, "L1.1", task.id, task.correct);
-  engine.finish(state, "L1.1");
-  delete state.profile; delete state.nagoldEntries;
-  const restored = engine.readPayload({ app: "AlgoLab", formatVersion: 1, state });
+  // Format and task IDs from the first public backup writer (0.2.0, 3a9dace).
+  const legacy = {
+    app: "AlgoLab",
+    formatVersion: 1,
+    version: "0.2.0",
+    exportedAt: "2026-10-19T10:00:00Z",
+    state: {
+      answers: { "L1.1": { struktur: 0, stapel: 1, queue: 2, baum: 0 } },
+      completed: ["L1.1"]
+    }
+  };
+  const restored = engine.readPayload(legacy);
+  assert.deepEqual(restored.completed, ["L1.1"]);
+  assert.equal(engine.total(restored), 100);
+  assert.equal(engine.unlocked(restored, "L1.2"), true);
+  assert.deepEqual(engine.normalize(legacy.state), restored);
+  assert.equal(Object.hasOwn(legacy.state, "nagoldEntries"), false);
   assert.equal(restored.nagoldEntries.length, 1);
   assert.equal(restored.nagoldEntries[0].date, "");
   assert.equal(restored.nagoldEntries[0].lessonId, "L1.1");
@@ -44,7 +56,8 @@ test("Completion awards NAGOLD exactly once and an explicitly deleted row stays 
 
 test("Invalid imports are rejected as a whole, including damaged NAGOLD rows", () => {
   const payload = engine.payload(engine.empty());
-  for (const invalid of [null, [], { app: "Excel-Lab", state: {} }, { ...payload, formatVersion: 99 }]) assert.throws(() => engine.readPayload(invalid));
+  for (const invalid of [null, [], { app: "Excel-Lab", state: {} }, { ...payload, formatVersion: "1" }]) assert.throws(() => engine.readPayload(invalid));
+  assert.throws(() => engine.readPayload({ ...payload, formatVersion: 99 }), /neueres Dateiformat/);
   for (const changes of [{ points: 0 }, { points: 6 }, { points: -11 }, { points: 1.5 }, { date: "2026-02-30" }, { time: "24:00" }, { purpose: "" }, { purpose: "a".repeat(161) }]) {
     assert.throws(() => engine.readPayload({ ...payload, state: { ...payload.state, nagoldEntries: [row(changes)] } }));
   }

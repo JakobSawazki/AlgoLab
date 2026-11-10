@@ -55,7 +55,6 @@ test('All generated EP interface text changed while technical compatibility name
  for(const name of ['index.html','app.js','progress.js','class-overview.js','nagold-table.js']) {
   assert.doesNotMatch(read(name),/\bNAGOLD\b/,name);
  }
- assert.match(read('progress.js'),/formatVersion: 1/);
  assert.match(read('progress.js'),/nagoldEntries/);
  assert.match(read('nagold.js'),/ALGOLAB_NAGOLD/);
 });

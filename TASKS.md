@@ -1,5 +1,14 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Kompatible Sicherungen am 10. November 2026
+
+**DATA-01 – DONE – Codex:** Veröffentlichungsstand prüfen, historische
+Sicherungen gegen den aktuellen Leser testen und Regeln für künftige
+Migrationen festhalten. Dateien progress.js, index.html, Tests, README
+und Dokumentation. Format 1 bleibt aktuell. Test mit historischem 0.2.0-
+Aufbau, Datei- und Browserstand, moderner Sicherung und Ablehnung eines
+neueren Formats erfolgreich. Veröffentlichung folgt.
+
 ## Tastenkürzel am 10. November 2026
 
 **UI-08 – DONE – Codex:** Alt+S und Alt+O an die vorhandenen

@@ -838,3 +838,17 @@ Taste löst keine wiederholten Dateiaktionen aus. Tooltips und zugängliche
 Tastenkürzel ergänzt. 119 Tests bestanden. Echter Browser-Dateirundlauf,
 AltGr im Profil und Wiederholung geprüft. Commit cd74927 veröffentlicht.
 Actions 42780031235 erfolgreich. Datei-Rundlauf per Tastatur online bestätigt.
+
+## 10. November 2026 – Sicherungen und künftige Migrationen
+
+DATA-01 prüft die veröffentlichte Historie. Bereits 0.2.0 exportierte
+Format 1. Historische 0.2.0-Fixture sichert Fortschritt und EP-Ergänzung
+gegen Regressionen ab. Der Dateileser unterscheidet ein neueres Format
+von einer ungültigen Datei. Die Formatnummer bleibt bei 1. Der
+Migrationsablauf für inkompatible Updates steht in der Dokumentation.
+
+Browser-Dateirundlauf mit synthetischen Daten bestanden. Vorhandenen
+Browserstand und JSON aus 0.2.0 übernommen, modernere Datei mit EP,
+Fortschritt, Entwürfen, Markern, Notizen und Skizzen erneut exportiert.
+Neueres Format vor Bestätigung abgelehnt und unveränderten Stand nach
+Reload geprüft. Veröffentlichung folgt.

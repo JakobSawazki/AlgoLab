@@ -100,15 +100,16 @@ Jahresziel beträgt 100. EP dienen ausschließlich der Motivation und haben
 keine Notenwirkung; Lernpunkte für Freischaltungen bleiben separat.
 Lernpunkte und Freischaltung werden davon unabhängig berechnet.
 
-„Profil als JSON speichern“ sichert Profildaten, EP, Lernstand, Notizen
-und Codeentwürfe gemeinsam. „Profil laden“ stellt diese Daten nach Bestätigung
-wieder her. Auch das bisherige Diskettensymbol verwendet denselben Dateistand.
-Alte AlgoLab-Dateien bleiben ohne Umrechnung ladbar. Wie in Excel-Lab bleibt
-das historische Speicherfeld `nagoldEntries` aus Kompatibilitätsgründen
-erhalten. Einträge, einschließlich früherer Korrekturen, werden nicht
-umgeschrieben. Bei fehlender Tabelle werden wie bisher bekannte Abschlüsse
-mit je 5 Punkten und unbekanntem Datum übernommen.
-Excel-Lab-Dateien gehören weiterhin zu Excel-Lab.
+Die Diskette in der Kopfzeile oder **Alt+S** sichert Profil, EP, Lernstand,
+Textmarker, Notizen, Skizzen und Codeentwürfe gemeinsam. Der Ordner oder
+**Alt+O** lädt eine Sicherung nach Bestätigung. Die gewählte Datei bleibt
+erhalten. Bei Bedarf lässt sich danach eine neue Sicherung herunterladen.
+
+Ältere AlgoLab-Sicherungen im Format 1 sind weiter ladbar. Das historische
+Feld `nagoldEntries` enthält die EP samt früheren Korrekturen. Fehlt die
+Tabelle in einer frühen Datei, ergänzt AlgoLab einmalig 5 EP pro
+anerkanntem Abschluss ohne erfundenes Datum. Das Vorgehen bei künftigen
+Änderungen steht in der [Projektdokumentation](docs/documentation.md).
 
 ## Lokal starten und prüfen
 
