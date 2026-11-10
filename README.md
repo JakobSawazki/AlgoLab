@@ -2,8 +2,10 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 10. November 2026. Version **1.14.0 – Lerninhalte suchen**.
+Stand: 10. November 2026. Version **1.15.0 – Schreibtischtest im Python-Editor**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Mit **Schreibtischtest** kannst du im Python-Editor Codezeilen und
+Variablenänderungen für deine aktuelle Eingabe nachvollziehen.
 Über **Suche** findest du Einheiten, Begriffe, Python-Aufgaben, Struktogramme
 und Übungsklausuren. Ein Kürzel wie L2.6 führt direkt zum passenden Treffer.
 Im Lernpfad zeigen Lernziele und Praxisbeispiele, wofür du die Inhalte

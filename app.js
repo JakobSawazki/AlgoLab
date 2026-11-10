@@ -813,7 +813,7 @@
     apply();
   }
   function editorShell({ id, code, input, title = "main.py", check = false }) {
-    return `<div class="practice-editor"><div class="editor-toolbar"><strong>${esc(title)}</strong><span class="editor-hint">Tab rückt ein · Strg+Enter startet · Esc, dann Tab verlässt den Editor</span><button type="button" class="icon-button" data-practice-reset title="Startcode wiederherstellen" aria-label="Startcode wiederherstellen">↺</button></div><label class="sr-only" for="practice-code">Python-Code</label><textarea id="practice-code" class="code-editor" data-practice-draft="${esc(id)}" spellcheck="false" autocapitalize="off" maxlength="20000" rows="16">${esc(code)}</textarea><div class="runner-tabs" role="tablist" aria-label="Konsole"><button type="button" role="tab" data-runner-tab="output" aria-selected="true">Ausgabe</button><button type="button" role="tab" data-runner-tab="input" aria-selected="false">Eingabe</button></div><div class="runner-panel" data-runner-panel="output"><pre class="code-output" id="practice-output" tabindex="0" aria-live="polite">Bereit. Starte deinen Code${check ? " oder prüfe die Lösung" : ""}.</pre></div><div class="runner-panel" data-runner-panel="input" hidden><label for="practice-input">Je Zeile eine Eingabe für input()</label><textarea id="practice-input" class="input-area" ${id === "werkstatt" ? 'data-practice-draft="werkstatt-eingabe"' : ""} spellcheck="false" rows="5">${esc(input)}</textarea></div><div class="code-actions"><button type="button" data-practice-run>▶ Code starten</button>${check ? '<button type="button" class="primary" data-practice-check>✓ Code prüfen</button>' : ""}<button type="button" data-practice-stop disabled>Stoppen</button><small class="draft-status" role="status"></small></div></div>`;
+    return `<div class="practice-editor"><div class="editor-toolbar"><strong>${esc(title)}</strong><span class="editor-hint">Tab rückt ein · Strg+Enter startet · Esc, dann Tab verlässt den Editor</span><button type="button" class="icon-button" data-practice-reset title="Startcode wiederherstellen" aria-label="Startcode wiederherstellen">↺</button></div><label class="sr-only" for="practice-code">Python-Code</label><textarea id="practice-code" class="code-editor" data-practice-draft="${esc(id)}" spellcheck="false" autocapitalize="off" maxlength="20000" rows="16">${esc(code)}</textarea><div class="runner-tabs" role="tablist" aria-label="Konsole"><button type="button" role="tab" data-runner-tab="output" aria-selected="true">Ausgabe</button><button type="button" role="tab" data-runner-tab="input" aria-selected="false">Eingabe</button></div><div class="runner-panel" data-runner-panel="output"><pre class="code-output" id="practice-output" tabindex="0" aria-live="polite">Bereit. Starte deinen Code${check ? " oder prüfe die Lösung" : ""}.</pre></div><div class="runner-panel" data-runner-panel="input" hidden><label for="practice-input">Je Zeile eine Eingabe für input()</label><textarea id="practice-input" class="input-area" ${id === "werkstatt" ? 'data-practice-draft="werkstatt-eingabe"' : ""} spellcheck="false" rows="5">${esc(input)}</textarea></div><div class="code-actions"><button type="button" data-practice-run>▶ Code starten</button>${check ? '<button type="button" class="primary" data-practice-check>✓ Code prüfen</button>' : ""}<button type="button" data-practice-trace>Schreibtischtest</button><button type="button" data-practice-stop disabled>Stoppen</button><small class="draft-status" role="status"></small></div><section class="practice-trace" hidden><h3>Schreibtischtest</h3><p>Hier siehst du, welche Zeile einen Wert geändert hat. Verwendet wird die Eingabe aus dem Editor.</p><p role="status"></p><div class="analysis-table-wrap" role="region" aria-label="Ablaufprotokoll" tabindex="0" hidden><table class="analysis-table"><thead><tr><th scope="col">Zeile</th><th scope="col">Python-Code</th><th scope="col">Änderung oder Fehler</th></tr></thead><tbody></tbody></table></div></section></div>`;
   }
   function renderPracticeExercise(id) {
     const exercise = practice.exercises.find(item => item.id === id);
@@ -840,8 +840,24 @@
   }
   function setupPracticeEditor(exercise) {
     const editor = main.querySelector("#practice-code"), output = main.querySelector("#practice-output"), inputField = main.querySelector("#practice-input");
-    const buttons = () => main.querySelectorAll("[data-practice-run], [data-practice-check]");
+    const buttons = () => main.querySelectorAll("[data-practice-run], [data-practice-check], [data-practice-trace]");
     const stopButton = main.querySelector("[data-practice-stop]");
+    const tracePanel = main.querySelector(".practice-trace");
+    const traceStatus = tracePanel.querySelector("[role=status]");
+    const traceTable = tracePanel.querySelector(".analysis-table-wrap");
+    const clearTrace = () => { tracePanel.hidden = true; };
+    editor.addEventListener("input", clearTrace);
+    inputField.addEventListener("input", clearTrace);
+    function showTrace(result, code) {
+      const rows = result.trace || [];
+      const lines = code.split("\n");
+      traceStatus.textContent = rows.length
+        ? `${rows.length} ${rows.length === 1 ? "Eintrag" : "Einträge"}.${result.traceTruncated ? " Das Protokoll zeigt nur die ersten 300 Änderungen." : ""}`
+        : result.error ? "Für diesen Lauf liegt kein Ablaufprotokoll vor." : "Dieser Lauf hat keine Variablenwerte verändert.";
+      traceTable.hidden = !rows.length;
+      traceTable.querySelector("tbody").innerHTML = rows.map(([line, changes]) =>
+        `<tr><td>${line || "–"}</td><td><code>${esc(lines[line - 1]?.trimEnd() || "")}</code></td><td>${esc(changes)}</td></tr>`).join("");
+    }
     const showTab = name => {
       main.querySelectorAll("[data-runner-tab]").forEach(tab => tab.setAttribute("aria-selected", String(tab.dataset.runnerTab === name)));
       main.querySelectorAll("[data-runner-panel]").forEach(panel => { panel.hidden = panel.dataset.runnerPanel !== name; });
@@ -874,23 +890,39 @@
       if (traceInput !== null && review.passed !== true) review.trace = await traceFor(editor.value, traceInput);
       return { exercise: aiExercise, code: editor.value, attempt: exercise ? practiceAttempts.get(exercise.id) || 1 : 1, review };
     });
-    async function start() {
+    async function start(withTrace = false) {
+      const code = editor.value, inputs = inputField.value;
+      clearTrace();
+      if (withTrace) {
+        tracePanel.hidden = false;
+        traceTable.hidden = true;
+        traceStatus.textContent = "Schreibtischtest wird erstellt …";
+      }
       busy(true); showTab("output");
       try {
-        const result = await runner().run(editor.value, [], { inputs: inputField.value, echo: true });
+        const result = await runner().run(code, [], { inputs, echo: true, trace: withTrace });
         if (!output.isConnected) return;
         output.textContent = (result.output || "") + (result.truncated ? "\n[Ausgabe nach 12000 Zeichen gekürzt]" : "") + (result.error ? `${result.output ? "\n" : ""}${errorLine(result.error)}` : "") || "(Keine Ausgabe – hast du print() verwendet?)";
         output.classList.toggle("has-error", Boolean(result.error));
         if (result.error) coach(practiceCheck.diagnostic(result.error), exercise ? practiceCheck.hints(exercise, editor.value, result.error, practiceAttempts.get(exercise.id) || 1) : [errorLine(result.error)], "warning");
         lastReview = { passed: null, diagnostic: result.error ? practiceCheck.diagnostic(result.error) : "", error: result.error ? errorLine(result.error) : "" };
-        traceInput = inputField.value;
-      } catch (error) { if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); } }
+        traceInput = inputs;
+        if (withTrace && !tracePanel.hidden) {
+          showTrace(result, code);
+          if (result.trace) traces.set(JSON.stringify([code, inputs]), window.createAlgoLabAiCoach.formatTrace(result.trace));
+        }
+      } catch (error) {
+        if (output.isConnected) {
+          output.textContent = error.message; output.classList.add("has-error");
+          if (withTrace && !tracePanel.hidden) traceStatus.textContent = "Schreibtischtest unterbrochen.";
+        }
+      }
       finally { if (output.isConnected) busy(false); }
     }
     async function check() {
       const attempt = (practiceAttempts.get(exercise.id) || 0) + 1;
       practiceAttempts.set(exercise.id, attempt);
-      busy(true); showTab("output");
+      clearTrace(); busy(true); showTab("output");
       const list = main.querySelector("#practice-cases"), banner = main.querySelector("#practice-result");
       list.innerHTML = ""; banner.hidden = true;
       const verdicts = [];
@@ -931,7 +963,8 @@
         if (output.isConnected) { output.textContent = error.message; output.classList.add("has-error"); coach("Die Prüfung wurde unterbrochen.", [practiceCheck.diagnostic(error.message)], "warning"); }
       } finally { if (output.isConnected) busy(false); }
     }
-    main.querySelector("[data-practice-run]").addEventListener("click", start);
+    main.querySelector("[data-practice-run]").addEventListener("click", () => start());
+    main.querySelector("[data-practice-trace]").addEventListener("click", () => start(true));
     main.querySelector("[data-practice-check]")?.addEventListener("click", check);
     stopButton.addEventListener("click", () => { pythonRunner?.stop(); pythonRunner = null; });
     main.querySelector("[data-practice-hint]")?.addEventListener("click", () => {

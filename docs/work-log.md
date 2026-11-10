@@ -1000,3 +1000,18 @@ NSD-Erprobung.
 Version 1.14.0 als `2012a00` veröffentlicht. Actions-Lauf 42866883882
 mit 124 bestandenen Tests und erfolgreichem Deployment. Derselbe
 Browserlauf bei 1365 und 320 Pixeln ist online bestanden.
+
+## 10. November 2026 – Schreibtischtest im Python-Editor in 1.15.0
+
+TRACE-01 macht den vorhandenen Ablauftrace in Programmieraufgaben und
+Python-Werkstatt sichtbar. Das Protokoll zeigt Python-Zeile, Code,
+Variablenänderung und gegebenenfalls den Fehler. Es verwendet die
+aktuelle Eingabe und wird beim Bearbeiten verworfen. Die Trace-Erfassung
+hält Werte je Aufruf getrennt und meldet die innere Fehlerzeile.
+Für die KI-Hilfe bleibt das Format aus Zeile und Änderung erhalten.
+
+127 versionierte Tests und Syntax-/Diffprüfung bestanden. Edge bei
+1365 und 320 px mit echtem Pyodide geprüft: Indexfehler, rekursive
+Aufrufe, Eingabeänderung, reguläre Prüfung, leerer Trace und Stopp.
+Der Gesamtlauf lokal meldet 130/133 mit den drei bekannten Fehlern
+der ungetrackten NSD-Erprobung.

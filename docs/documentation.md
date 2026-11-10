@@ -2,6 +2,18 @@
 
 Stand: 10. November 2026 (Europe/Berlin)
 
+## Schreibtischtest im Python-Editor in 1.15.0
+
+In Programmieraufgaben und in der Python-Werkstatt führt **Schreibtischtest**
+den Code mit der Eingabe aus dem Editor aus. Die Tabelle zeigt die Zeile,
+den Code und die beobachtete Variablenänderung. Fehler erscheinen an der
+zugehörigen Zeile. Funktionsaufrufe behalten ihre eigenen Variablenwerte.
+Lange Läufe zeigen bis zu 300 Änderungen und gegebenenfalls den Fehler.
+
+Der Schreibtischtest läuft in der Browser-Pythonlaufzeit und ist eine
+freiwillige Analyse. Sobald Code oder Eingaben geändert werden, verschwindet
+das alte Protokoll. **Code prüfen** bewertet weiterhin die Testfälle.
+
 ## Lerninhalte suchen in 1.14.0
 
 Die Suche bündelt Einheiten, Glossarbegriffe, Python-Aufgaben, Struktogramme

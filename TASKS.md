@@ -1,5 +1,16 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Schreibtischtest im Python-Editor am 10. November 2026
+
+**TRACE-01 – DONE – Codex:** Ablauftrace für Lernende als Schreibtischtest
+zugänglich gemacht und Zeilenzuordnung bei Funktionen sowie Fehlern
+abgesichert. Dateien: app.js, design.css, python-worker.js,
+index.html, learning-path.js, tests/python-trace.test.cjs, README.md, TASKS.md,
+docs/documentation.md und docs/work-log.md. 127 versionierte Tests, Syntax
+und Diff bestanden. Edge bei 1365 und 320 px mit echtem Pyodide:
+Fehlerzeilen, Funktionsaufrufe, Eingabewechsel, reguläre Prüfung und Stopp
+geprüft. Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+
 ## Suche nach Lerninhalten am 10. November 2026
 
 **FIND-01 – DONE – Codex:** Gemeinsame, lokal ausgeführte Suche nach

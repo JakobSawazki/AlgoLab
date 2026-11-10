@@ -17,11 +17,11 @@ const inputPrelude = `def input(prompt=""):
     return value
 `;
 
-// Ablaufprotokoll (Schreibtischtest) für die KI-Hilfe: Welche Zeile ändert welche Variable?
-// Erfasst nur den Code der Lernenden (<main.py>), höchstens 300 Schritte, lange Werte gekürzt.
+// Ablaufprotokoll für den Editor und die KI-Hilfe. Höchstens 300 Änderungen
+// aus dem Programm der Lernenden, dazu gegebenenfalls die Fehlermeldung.
 const tracePrelude = `def __algolab_trace__(__source, __namespace, __limit=300):
     import sys as __sys
-    __events, __last, __prev = [], {}, [None]
+    __events, __frames, __cut = [], {}, False
     def __show(ns):
         shown = {}
         for key, value in ns.items():
@@ -36,28 +36,44 @@ const tracePrelude = `def __algolab_trace__(__source, __namespace, __limit=300):
             shown[key] = text + " (Text)" if isinstance(value, str) else text
         return shown
     def __tracer(frame, event, arg):
+        nonlocal __cut
         if frame.f_code.co_filename != "<main.py>":
             return None
+        ns = frame.f_globals if frame.f_code.co_name == "<module>" else frame.f_locals
+        if event == "call":
+            __frames[frame] = (None, __show(ns))
+            return __tracer
         if event in ("line", "return", "exception"):
-            scope = frame.f_code.co_name
-            ns = frame.f_globals if scope == "<module>" else frame.f_locals
-            changes = []
-            for key, text in __show(ns).items():
-                if __last.get((scope, key)) != text:
-                    __last[(scope, key)] = text
-                    changes.append(f"{key} = {text}")
-            if changes and __prev[0] is not None and len(__events) < __limit:
-                __events.append([__prev[0], "; ".join(changes)])
-            __prev[0] = frame.f_lineno
+            previous_line, previous_values = __frames.get(frame, (None, {}))
+            values = __show(ns)
+            changes = [f"{key} = {text}" for key, text in values.items() if previous_values.get(key) != text]
+            changes += [f"{key} entfernt" for key in previous_values if key not in values]
+            if changes and previous_line is not None:
+                if len(__events) < __limit:
+                    __events.append([previous_line, "; ".join(changes)])
+                else:
+                    __cut = True
+            if event == "return":
+                __frames.pop(frame, None)
+            else:
+                __frames[frame] = (frame.f_lineno if event == "line" else None, values)
         return __tracer
+    __error = ""
     __sys.settrace(__tracer)
     try:
         exec(compile(__source, "<main.py>", "exec"), __namespace)
     except Exception as error:
-        __events.append([__prev[0], f"{type(error).__name__}: {error}"])
+        line = error.lineno if isinstance(error, SyntaxError) else None
+        traceback = error.__traceback__
+        while traceback:
+            if traceback.tb_frame.f_code.co_filename == "<main.py>":
+                line = traceback.tb_lineno
+            traceback = traceback.tb_next
+        __error = f"{type(error).__name__}: {error}"
+        __events.append([line, __error])
     finally:
         __sys.settrace(None)
-    return __events
+    return [__events, __cut, __error]
 `;
 
 self.onmessage = async ({ data }) => {
@@ -83,10 +99,10 @@ self.onmessage = async ({ data }) => {
     if (data.trace === true) {
       python.runPython(tracePrelude, { globals });
       globals.set("__algolab_code__", data.code);
-      const events = python.runPython("__algolab_trace__(__algolab_code__, globals())", { globals });
-      const trace = events.toJs();
-      events.destroy();
-      self.postMessage({ type: "result", requestId: data.requestId, output, truncated, checks: [], trace });
+      const result = python.runPython("__algolab_trace__(__algolab_code__, globals())", { globals });
+      const [trace, traceTruncated, error] = result.toJs();
+      result.destroy();
+      self.postMessage({ type: "result", requestId: data.requestId, output, truncated, checks: [], trace, traceTruncated, error });
       return;
     }
     await python.runPythonAsync(data.code, { globals });
