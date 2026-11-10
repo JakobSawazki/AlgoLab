@@ -2,6 +2,20 @@
 
 Stand: 10. November 2026 (Europe/Berlin)
 
+## Python-Fehlersuche in 1.12.0
+
+Unter **Programmieren → Python-Fehlersuche** stehen drei Übungen mit
+fertigem Startcode. In L1.2 vergleichen Lernende Teamnummer und Index.
+In L2.6 verfolgen sie die Grenzen der binären Suche bis zum letzten Feld.
+In L3.2 prüfen sie, von welchem Ende der Stapel beim Rückgängigmachen
+entnimmt. Jede Aufgabe beginnt mit einer Testeingabe, die den Fehler
+sichtbar macht. Weitere Eingaben helfen, die Ursache einzugrenzen
+und die Korrektur zu prüfen.
+
+Die Übungen nutzen den vorhandenen Editor und Lerncoach. Gelöste Aufgaben
+und Entwürfe gehören zum Programmierstand und zur JSON-Sicherung. Sie
+wirken sich weder auf Lernpunkte noch auf die Freischaltung aus.
+
 ## Orientierung und Wiederholung in 1.11.0
 
 Der Lernpfad zeigt nach dem Vorbild des Excel-Lab-Organizers, was Lernende

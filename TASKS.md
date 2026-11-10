@@ -1,5 +1,17 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Python-Fehlersuche am 10. November 2026
+
+**DEBUG-01 – DONE – Codex:** Je eine Fehlersuche für BPE 7.1 bis 7.3
+im vorhandenen Programmierbereich umgesetzt. Die Startprogramme zeigen
+Indexfehler, einen ausgelassenen Suchtreffer und die falsche Entnahmereihenfolge.
+Dateien: practice.js, app.js, design.css, index.html, learning-path.js,
+tests/practice.test.cjs, tests/class-overview.test.cjs, README.md, TASKS.md,
+docs/documentation.md und docs/work-log.md. 121 versionierte Tests, Syntax
+und Diffprüfung bestanden. Edge bei 1365 und 320 px mit echtem Pyodide,
+Neuladen und JSON-Download geprüft. Historischer Datei-Rundlauf erfolgreich.
+Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+
 ## Orientierung und Wiederholung am 10. November 2026
 
 **LEARN-01 – DONE – Codex:** Ziel und Praxisbeispiel pro Lernfortschritt

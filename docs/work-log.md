@@ -945,3 +945,19 @@ enthält weiterhin die drei bekannten Fehler der ungetrackten NSD-Erprobung.
 Version 1.11.0 als `78bb964` veröffentlicht. Actions-Lauf 42861654209
 mit 121 bestandenen Tests und erfolgreichem Deployment. Der gleiche
 Browserlauf bei 1365 und 320 Pixeln ist online bestanden.
+
+## 10. November 2026 – Python-Fehlersuche in 1.12.0
+
+DEBUG-01 ergänzt drei freiwillige Programmieraufgaben für BPE 7.1 bis 7.3.
+Die Lernenden reproduzieren einen Indexfehler, verfolgen die Grenzen einer
+binären Suche oder prüfen das falsche Ende eines Stapels. Die Aufgaben sind
+vom Katalog und von der jeweiligen Einheit erreichbar. Die Prüfung nutzt
+den vorhandenen Python-Worker. Entwürfe und gelöste Aufgaben erscheinen
+im Programmierstand und in der Sicherung.
+
+121 versionierte Tests, Syntaxprüfung und Diffprüfung bestanden. Der lokale
+Gesamtlauf hat die drei bekannten Fehler der ungetrackten NSD-Erprobung
+(124/127). Edge bei 1365 und 320 px mit echtem Pyodide geprüft: Fehler
+reproduziert, Startcode korrigiert, alle Testfälle bestanden, Entwurf nach
+Neuladen erhalten und Format-1-JSON mit gelösten Übungen heruntergeladen.
+Der historische JSON-Dateirundlauf war ebenfalls erfolgreich.

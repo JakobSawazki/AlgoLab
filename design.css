@@ -653,7 +653,7 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 @media (prefers-reduced-motion: reduce) { .ai-toggle span { transition: none; } .ai-answer.is-loading::before { animation: none; } }
 
 /* Struktogramm-Training */
-.practice-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; max-width: 1100px; margin-bottom: 22px; }
+.practice-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; max-width: 1100px; margin-bottom: 22px; }
 .practice-features .practice-workshop { margin: 0; max-width: none; }
 .structogram-canvas { margin: 0; overflow-x: auto; }
 .structogram-canvas .nsd-box { min-width: 520px; }

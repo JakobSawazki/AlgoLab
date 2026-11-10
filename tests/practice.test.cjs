@@ -77,11 +77,18 @@ const reference = {
   "drucker-warteschlange": "while True:\n    befehl = input(\"Befehl: \")\n    if befehl == \"ENDE\":\n        break\n    if befehl.startswith(\"NEU \"):\n        warteschlange.append(befehl[4:])\n    elif befehl == \"DRUCKEN\":\n        if warteschlange:\n            print(\"Drucke\", warteschlange.pop(0))\n        else:\n            print(\"Keine Aufträge\")\nif warteschlange:\n    print(\"Wartend:\", \", \".join(warteschlange))\nelse:\n    print(\"Wartend: keine\")"
 };
 
+const debugFixes = {
+  "fehler-teamposition": ["punkte[teamnummer]", "punkte[teamnummer - 1]"],
+  "fehler-binare-suche": ["while links < rechts:", "while links <= rechts:"],
+  "fehler-stapel-undo": ["stapel.pop(0)", "stapel.pop()"]
+};
+
 test("The catalogue is complete, unique and linked to existing units", () => {
   const content = require("../learning-path.js");
   const ids = practice.exercises.map(item => item.id);
   assert.equal(new Set(ids).size, ids.length);
-  assert.deepEqual(Object.keys(reference).sort(), [...ids].sort());
+  assert.deepEqual([...Object.keys(reference), ...Object.keys(debugFixes)].sort(), [...ids].sort());
+  assert.deepEqual(practice.exercises.filter(item => item.kind === "debug").map(item => item.id).sort(), Object.keys(debugFixes).sort());
   for (const exercise of practice.exercises) {
     assert.ok(content.units.some(unit => unit.id === exercise.unit), exercise.id);
     assert.ok(practice.levels.includes(exercise.level) && practice.topics.includes(exercise.topic), exercise.id);
@@ -93,6 +100,12 @@ test("The catalogue is complete, unique and linked to existing units", () => {
 
 test("Every reference solution passes all test cases", () => {
   for (const [id, body] of Object.entries(reference)) passesAll(id, body);
+  for (const [id, [wrong, correct]] of Object.entries(debugFixes)) {
+    const exercise = byId(id);
+    const repaired = exercise.starter.replace(wrong, correct);
+    assert.notEqual(repaired, exercise.starter, id);
+    for (const result of verdicts(exercise, repaired)) assert.ok(result.passed, `${id}: ${result.message}`);
+  }
 });
 
 test("The unchanged starter code does not pass any exercise", () => {

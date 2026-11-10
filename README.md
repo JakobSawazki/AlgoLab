@@ -2,7 +2,7 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 10. November 2026. Version **1.11.0 – Orientierung und Wiederholung**.
+Stand: 10. November 2026. Version **1.12.0 – Python-Fehlersuche**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
 Im Lernpfad zeigen Lernziele und Praxisbeispiele, wofür du die Inhalte
 brauchst. In der Wiederholungsrunde übst du bis zu fünf bereits gelöste
@@ -134,12 +134,12 @@ Leistungsnachweis. Der Veröffentlichungsworkflow prüft die Freischaltung und
 überträgt ausschließlich die Laufzeitdateien und eigenen Assets der Homepage
 an GitHub Pages.
 
-Der Bereich **Programmieren** funktioniert wie der Reiter „Üben“ in PythonLab:
-17 Programmieraufgaben aus dem Unterrichtsmaterial mit Eingaben über input(),
-Editor, Konsole mit Ausgabe- und Eingabereiter, automatische Prüfung mit
-mehreren Testfällen, lokaler Lerncoach und eine freie Python-Werkstatt mit
-Vorlagen. Der Programmierstand wird gespeichert, zählt aber nicht für die
-Freischaltung der Lerneinheiten.
+Der Bereich **Programmieren** orientiert sich am Reiter „Üben“ in PythonLab.
+Er enthält 20 Programmieraufgaben mit Eingaben über input(), darunter drei
+Übungen zur Fehlersuche mit vorgegebenem Startcode. Im Editor stehen eine
+Konsole, automatische Testfälle und ein lokaler Lerncoach zur Verfügung.
+Die freie Python-Werkstatt bietet Vorlagen. Der gespeicherte Programmierstand
+ist von der Freischaltung der Lerneinheiten getrennt.
 
 Im **Struktogramm-Training** planen die Lernenden Algorithmen nach der
 Operatorenliste Baden-Württemberg (Lücken füllen, Bausteine ordnen). Für

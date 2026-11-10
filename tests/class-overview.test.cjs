@@ -55,7 +55,7 @@ test("CSV export uses semicolons, quotes special characters and starts with a BO
   const row = overview.readFile(learner("x;y", "J2 \"INF1\"", 1)).row;
   const csv = overview.toCsv([row]);
   assert.ok(csv.startsWith("﻿Kürzel;Klasse;"));
-  assert.match(csv, /"x;y";"J2 ""INF1""";1\/19;L1\.2;100;5;0\/17;0\/9/);
+  assert.match(csv, /"x;y";"J2 ""INF1""";1\/19;L1\.2;100;5;0\/20;0\/9/);
 });
 
 test("Practice exam BE are part of the backup and shown in the class overview", () => {

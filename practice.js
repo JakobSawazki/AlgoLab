@@ -168,7 +168,31 @@
       starter: "warteschlange = []\n\n# Befehle bis ENDE verarbeiten\n\n# Wartende Aufträge ausgeben\n",
       input: "NEU referat.pdf\nNEU foto.jpg\nDRUCKEN\nNEU brief.docx\nENDE",
       check: { type: "output", cases: [{ input: "NEU referat.pdf\nNEU foto.jpg\nDRUCKEN\nNEU brief.docx\nENDE", expected: "Drucke referat.pdf\nWartend: foto.jpg, brief.docx" }, { input: "DRUCKEN\nNEU a.txt\nDRUCKEN\nDRUCKEN\nENDE", expected: "Keine Aufträge\nDrucke a.txt\nKeine Aufträge\nWartend: keine" }],
-        testCode: need('__algolab_pop_index__() or __algolab_calls__("popleft")', "Entnimm vorne mit pop(0) – so arbeitet eine Warteschlange.") } }
+        testCode: need('__algolab_pop_index__() or __algolab_calls__("popleft")', "Entnimm vorne mit pop(0) – so arbeitet eine Warteschlange.") } },
+    { id: "fehler-teamposition", kind: "debug", topic: "Arrays", level: "Grundlagen", unit: "L1.2", numericInput: true,
+      title: "Das letzte Team fehlt",
+      description: "Die Anzeige stürzt beim letzten Team ab. Finde heraus, wie Teamnummer und Listenindex zusammenhängen.",
+      instructions: ["Starte den Code mit der vorbereiteten Eingabe 4. Notiere die Fehlermeldung.", "Probiere im Reiter Eingabe auch die Teamnummer 1. Erwartet werden 18 Punkte. Vergleiche das mit der Ausgabe.", "Ändere nur den Zugriff auf die Punkteliste. Klicke danach auf Code prüfen."],
+      hints: ["Die Eingabe bezeichnet ein Team. Die Nummerierung beginnt bei 1.", "Python beginnt beim Index 0. Prüfe, wo die Daten von Team 1 in der Liste liegen.", "Die letzte gültige Teamnummer ist 4, der letzte gültige Index ist 3."],
+      starter: 'punkte = [18, 12, 15, 21]\nteamnummer = int(input("Teamnummer (1 bis 4): "))\nprint(punkte[teamnummer])\n',
+      input: "4",
+      check: { type: "output", cases: [{ input: "4", expected: "21" }, { input: "1", expected: "18" }, { input: "2", expected: "12" }, { input: "3", expected: "15" }] } },
+    { id: "fehler-binare-suche", kind: "debug", topic: "Suchen", level: "Vertiefung", unit: "L2.6", numericInput: true,
+      title: "Ein Gewinnlos wird übersehen",
+      description: "Die binäre Suche übersieht manche Gewinnlose. Untersuche den Suchbereich kurz vor dem Abbruch.",
+      instructions: ["Starte mit Losnummer 55. Sie steht in der sortierten Liste und sollte gefunden werden.", "Verfolge auf Papier, wie sich links und rechts bei der Suche ändern. Prüfe, was passiert, wenn beide Grenzen auf dieselbe Position zeigen.", "Korrigiere die Abbruchbedingung. Prüfe danach auch ein Los, das nicht in der Liste steht."],
+      hints: ["Beide Grenzen gehören zum Suchbereich. Die Mitte wird aus links und rechts berechnet.", "Für Los 55 bleibt am Ende genau ein Feld übrig. Wird es noch geprüft?", "Ein Suchbereich ist erst leer, wenn die linke Grenze rechts von der rechten Grenze liegt."],
+      starter: 'gewinne = [7, 12, 21, 34, 55]\nlos = int(input("Losnummer: "))\nlinks = 0\nrechts = len(gewinne) - 1\ngefunden = False\n\nwhile links < rechts:\n    mitte = (links + rechts) // 2\n    if gewinne[mitte] == los:\n        gefunden = True\n        break\n    if gewinne[mitte] < los:\n        links = mitte + 1\n    else:\n        rechts = mitte - 1\n\nprint("Gefunden" if gefunden else "Nicht gefunden")\n',
+      input: "55",
+      check: { type: "output", cases: [{ input: "55", expected: "Gefunden" }, { input: "12", expected: "Gefunden" }, { input: "21", expected: "Gefunden" }, { input: "13", expected: "Nicht gefunden" }, { input: "90", expected: "Nicht gefunden" }] } },
+    { id: "fehler-stapel-undo", kind: "debug", topic: "Datenstrukturen", level: "Grundlagen", unit: "L3.2",
+      title: "Rückgängig löscht das falsche Wort",
+      description: "Der Editor entfernt Wörter, aber in der falschen Reihenfolge. Prüfe, welches Ende der Liste zum Stapel passt.",
+      instructions: ["Die erste Eingabe ist ein Text aus einzelnen Wörtern. Die zweite gibt an, wie oft Rückgängig gedrückt wird.", "Starte den Code. Bei „Heute lernen wir Python“ und einem Rückgängig-Schritt sollte „Heute lernen wir“ übrig bleiben.", "Korrigiere die Entnahme. Prüfe mit mehreren Schritten und mit mehr Rückgängig-Schritten als Wörtern."],
+      hints: ["Das letzte geschriebene Wort soll als Erstes verschwinden. Das ist LIFO.", "Index 0 bezeichnet den Listenanfang. Welches Ende braucht Rückgängig?", "Die Methode pop() kann ein Element am Listenende ohne Index entnehmen."],
+      starter: 'stapel = input("Text: ").split()\nschritte = int(input("Rückgängig-Schritte: "))\n\nfor _ in range(schritte):\n    if stapel:\n        stapel.pop(0)\n\nprint(" ".join(stapel) or "(leer)")\n',
+      input: "Heute lernen wir Python\n1",
+      check: { type: "output", cases: [{ input: "Heute lernen wir Python\n1", expected: "Heute lernen wir" }, { input: "Rot Grün Blau Gelb\n2", expected: "Rot Grün" }, { input: "Alles bleibt\n0", expected: "Alles bleibt" }, { input: "Allein\n3", expected: "(leer)" }] } }
   ];
   const levels = ["Grundlagen", "Vertiefung", "Anwendung"];
   const topics = ["Arrays", "Algorithmen", "Sortieren", "Suchen", "Datenstrukturen"];
