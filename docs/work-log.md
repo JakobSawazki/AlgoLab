@@ -820,3 +820,10 @@ Seitenwechsel, Maus-/Touch-Zeichnung, Radierer, Undo/Redo und echtem
 Dateirundlauf in einen frischen Browserkontext geprüft. Commit f82f58f
 veröffentlicht, Actions 42778883185 erfolgreich. Derselbe Ablauf danach
 auf der öffentlichen Seite mit Desktop und emuliertem Mobilgerät bestanden.
+
+## 10. November 2026 – Datei-Icons aus dem Profil entfernt
+
+UI-07 vereinfacht das Profilfenster. Speichern und Laden sind über Diskette
+und Ordner in der Kopfzeile erreichbar. Im Profil schließt der Button unten
+rechts den Dialog. 119 Tests und Browser-Dateirundlauf mit Notizbuch und
+Textmarkern bestanden. Veröffentlichung folgt.

@@ -1575,10 +1575,9 @@
     document.querySelector("#file-status").textContent = "JSON-Download gestartet.";
   }
   document.querySelector("#export-progress").addEventListener("click", exportProfile);
-  document.querySelector("[data-export-profile]").addEventListener("click", exportProfile);
   async function importProfile(event) {
     const file = event.target.files[0];
-    const message = document.querySelector(event.target.id === "import-profile" ? "#profile-message" : "#backup-message");
+    const message = document.querySelector("#backup-message");
     if (!file) return;
     try {
       if (file.size > maxBackupSize) throw new Error("Die Datei ist zu groß (maximal 8 MB).");
@@ -1598,8 +1597,6 @@
     if (!dialog.open) dialog.showModal();
     importProfile(event);
   });
-  document.querySelector("#profile-load").addEventListener("click", () => document.querySelector("#import-profile").click());
-  document.querySelector("#import-profile").addEventListener("change", importProfile);
   window.addEventListener("hashchange", () => render(true));
   document.querySelector(".skip-link").addEventListener("click", event => {
     event.preventDefault(); main.focus(); main.scrollIntoView();

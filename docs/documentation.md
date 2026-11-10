@@ -23,9 +23,9 @@ Sicherungen funktionieren weiter. Die Obergrenze für den Import ist 8 MB.
 ## Kompaktes Profilfenster
 
 Kürzel und Klasse stehen nebeneinander. EP-Karte, Jahresziel und kurzer
-Hinweis zur fehlenden Notenwirkung ersetzen lange Erklärungstexte. Diskette
-und Ordner speichern/laden im Profil die komplette Sicherung. Native
-Dateiauswahl ist hinter dem Ordnersymbol erreichbar. Auf üblichen Desktop-
+Hinweis zur fehlenden Notenwirkung ersetzen lange Erklärungstexte. Die
+Dateisicherung ist über Diskette und Ordner in der Kopfzeile erreichbar.
+Auf üblichen Desktop-
 und Mobilhöhen passt das Fenster ohne Scrollen; bei kleinen Höhen und Zoom
 bleibt es scrollbar, die Scrollleiste ist verborgen. Tastaturbedienung,
 Formularvalidierung und Dateiformat bleiben erhalten.

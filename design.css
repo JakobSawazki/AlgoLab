@@ -263,8 +263,6 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .profile-edit-form input { min-width: 0; width: 100%; padding: 10px 12px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; }
 .profile-edit-form small { color: var(--muted); }
 .profile-edit-form button { justify-self: start; }
-.profile-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
-.profile-actions .import-label { margin: 0; }
 .nagold-total { width: 100%; display: grid; gap: 4px; margin: 16px 0; text-align: left; justify-content: stretch; }
 .nagold-total strong { color: var(--gold); font-size: 1.7rem; }
 .nagold-total span:last-child { color: var(--muted); font-size: .85rem; }
@@ -834,9 +832,8 @@ footer a { color: var(--accent); }
 #profile-dialog #nagold-goal-text { float: none; display: inline; font-size: .8rem; }
 #profile-dialog #nagold-goal { display: block; width: 100%; margin: 7px 0 0; height: 8px; }
 .profile-note { font-size: .72rem; margin: 9px 0 0; color: var(--muted); }
-#profile-dialog .profile-actions { flex-wrap: nowrap; margin-top: 18px; gap: 10px; }
-#profile-dialog .profile-actions form { margin: 0 0 0 auto; }
-#profile-dialog .profile-actions form button { padding: 9px 15px; }
+#profile-dialog .profile-close-form { display: flex; justify-content: flex-end; margin-top: 18px; }
+#profile-dialog .profile-close-form button { padding: 9px 15px; }
 @media (max-width: 480px), (max-height: 600px) {
   #profile-dialog { padding: 16px; }
   #profile-dialog h2 { font-size: 1.4rem; }
@@ -845,7 +842,7 @@ footer a { color: var(--accent); }
   #profile-dialog .profile-note { margin-top: 7px; }
   #profile-summary { margin-bottom: 12px; }
   #profile-dialog .nagold-total { margin-top: 12px; }
-  #profile-dialog .profile-actions { margin-top: 12px; }
+  #profile-dialog .profile-close-form { margin-top: 12px; }
 }
 
 /* Home actions share one alignment, size and spacing. */

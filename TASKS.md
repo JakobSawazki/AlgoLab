@@ -1,5 +1,11 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Datei-Icons im Profil am 10. November 2026
+
+**UI-07 – DONE – Codex:** Doppelte Datei-Icons im Profil entfernen.
+Dateien index.html, app.js, design.css und Dokumentation. 119 Tests und
+Browser-Dateirundlauf über die Kopfzeile bestanden. Veröffentlichung folgt.
+
 ## Lernwerkzeuge am 10. November 2026
 
 **UI-06 – DONE – Codex:** Kürzel vor Validierung kleinschreiben,
