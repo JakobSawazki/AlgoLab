@@ -2,6 +2,40 @@
 
 Stand: 10. November 2026 (Europe/Berlin)
 
+## Einstieg in BPE 7
+
+Version **1.10.0 – Geführter Einstieg in BPE 7** verbindet die
+Einstiegsübungen mit je einem Foto für alle 19 Lernsituationen.
+Die Website lädt je nach Bildschirmbreite und Pixeldichte ein WebP
+mit 480 oder 960 Pixeln Breite. Zu den Bildern gehören beschreibende
+Alternativtexte und ein kurzer Impuls zur Aufgabe. [Motive und Prompts](lesson-images.md).
+
+Die Startseite nennt die nächste Einheit und zeigt bei der Wiederaufnahme
+den erreichten Punktestand. Auch gesperrte Direktlinks führen zum aktuell
+offenen Lernschritt zurück.
+
+In L1.1 vergleichen die Lernenden eine Warteschlange und einen Stapel anhand
+derselben drei Namenskarten. Sie sagen voraus, welche Karte zuerst an der Reihe
+ist, und erhalten einen Tipp oder eine kurze Erklärung zu FIFO bzw. LIFO.
+Die Übung funktioniert ohne Python und zählt keine Lernpunkte.
+
+L1.2 führt nach dem Arraymodell in den Python-Editor ein. Im Abschnitt
+**Python starten** können Lernende die Ausgabe eines kurzen Programms
+vorhersagen, den Index ändern und einen Indexfehler gezielt beheben.
+Das Beispiel nutzt dieselbe Browserlaufzeit wie die Pflichtaufgaben.
+Es vergibt keine Lernpunkte und speichert keinen Entwurf.
+
+L2.1 knüpft an das Vertauschen zweier Arraywerte an. An drei Zahlen
+vergleichen die Lernenden zwei Durchläufe und erkennen, warum der erste
+Durchlauf die Liste noch nicht vollständig sortiert. In L3.1 lesen sie
+eine Wiedergabeliste vom Anker aus und prüfen, welche Knoten nach einem
+Wechsel des Ankers erreichbar sind. Beide Übungen führen bei Bedarf
+zum passenden Array-Modell zurück und zählen keine Lernpunkte.
+
+Der Abschluss steht in jeder ausgearbeiteten Einheit direkt hinter den
+Pflichtaufgaben. Vertiefung, Ergebnissicherung und Ich-kann-Check bleiben
+darunter erreichbar.
+
 ## Textmarker und Notizbuch
 
 Das Profil schreibt Großbuchstaben im Kürzel schon während der Eingabe klein.
@@ -567,7 +601,7 @@ Computer-use-Skills wurden nicht doppelt installiert.
 - [x] L1.4 mit Auswertungsmodell, zwei Python-Aufgaben und Materialabgleich ausarbeiten.
 - [ ] L1.5–L1.7 mit Programmieraufgaben und Materialabgleich ausarbeiten.
 - [x] Eigene Fotomotive und Lernsituationen für L1.1 bis L1.4 ergänzen.
-- [ ] Eigene Fotomotive und Lernsituationen für die weiteren 15 Einheiten ergänzen.
+- [x] Eigene Fotomotive und Lernsituationen für die weiteren 15 Einheiten ergänzen.
 - [ ] Vollständigen Datei-Export im Browser auf einem Download-fähigen Testclient abnehmen.
 - [ ] Schreibtischtests sowie Such- und Sortiersimulationen entwickeln.
 - [ ] L2 einschließlich eigener Implementierungen und Transferaufgaben aufbauen.

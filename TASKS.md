@@ -1,5 +1,62 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Fotos für alle 19 Einheiten am 10. November 2026
+
+**PHOTO-01 – DONE – Codex:** Vorhandene vier Fotos beibehalten und 15
+Lernsituationen mit eigenen fotorealistischen Motiven ergänzt. Jedes Motiv
+ist visuell geprüft und hat Alternativtext, Bildunterschrift und WebP-Varianten
+in 480 und 960 Pixeln. Dateien: assets, app.js, learning-path.js, index.html,
+tests/lesson-images.test.cjs, README.md, TASKS.md, docs/lesson-images.md,
+docs/documentation.md und docs/work-log.md. Veröffentlichung über RELEASE-02.
+
+## Veröffentlichung 1.10.0 am 10. November 2026
+
+**RELEASE-02 – IN_PROGRESS – Codex:** START-01 bis START-03 und PHOTO-01 gemeinsam
+auf GitHub Pages veröffentlichen und die Lernwege online prüfen.
+Dateien: README.md, index.html, learning-path.js, TASKS.md,
+docs/documentation.md und docs/work-log.md.
+
+## Übergänge zu L2 und L3 am 10. November 2026
+
+**START-03 – DONE – Codex:** L2.1 nutzt zwei Sortierdurchläufe mit drei
+Werten als Einstieg in Bubble Sort. L3.1 zeigt mit einer Knotentabelle,
+wie Anker und Nachfolger die Abspielreihenfolge festlegen. Beide Einheiten
+verlinken den passenden Rückblick auf Arrays. L1.1 nutzt denselben Aufbau.
+Dateien: app.js, learning-path.js, design.css, index.html, TASKS.md,
+docs/documentation.md und docs/work-log.md. 120 versionierte Tests,
+Syntax- und Diffprüfung bestanden. Edge bei 1365 und 320 px: alle drei
+Vorhersageübungen samt Tastaturfokus, Hinweisen, Rückblicken und
+Freischaltung geprüft. Lokal abgenommen. Veröffentlichung und
+Unterrichtserprobung stehen aus. Keine Dateireservierung.
+
+## Erste Python-Ausführung in L1.2 am 10. November 2026
+
+**START-02 – DONE – Codex:** Ausführbare Vorübung zu Indexzugriff und
+Ausgabe in L1.2. Vorhersage, Indexänderung, Fehlermeldung und Rückkehr zum
+Startcode führen zur ersten Python-Pflichtaufgabe. Der wiederverwendete
+Worker meldet seinen Status an den jeweils ausführenden Editor.
+Dateien: app.js, learning-path.js, python-runner.js, index.html,
+tests/python-runner.test.cjs, TASKS.md, docs/documentation.md und docs/work-log.md.
+120 versionierte Tests und Syntax-/Diffprüfung bestanden. Echter Pyodide-Lauf
+mit Vorübung und anschließender Pflichtaufgabe bei 1365 und 320 px in Edge
+bestanden. Vollständiger lokaler Glob: 123/126, die drei bekannten Fehler
+der separaten ungetrackten NSD-Erprobung. Lokal geprüft. Veröffentlichung und
+Unterrichtserprobung stehen aus. Keine Dateireservierung.
+
+## Geführter Einstieg in BPE 7 am 10. November 2026
+
+**START-01 – DONE – Codex:** Startseite und gesperrte Direktlinks zeigen
+den nächsten Lernschritt. L1.1 hat eine Vorhersageübung zu Warteschlange
+und Stapel ohne Lernpunkte. Der Abschluss folgt direkt auf die Pflichtaufgaben.
+Dateien: app.js, learning-path.js, design.css, index.html, TASKS.md,
+docs/documentation.md und docs/work-log.md.
+119 versionierte Tests, Syntax- und Diffprüfung bestanden. Vollständiger
+Lernweg bis L1.2 in Edge bei 1365 px (dunkel) und 320 px (hell) bestanden.
+Der lokale Testlauf einschließlich ungetrackter NSD-Erprobung hat weiterhin
+die drei bekannten Fehler (122/125 bestanden). Lokal umgesetzt und geprüft.
+Veröffentlichung und Unterrichtserprobung stehen aus. Keine Dateireservierung.
+
+
 ## Kompatible Sicherungen am 10. November 2026
 
 **DATA-01 – DONE – Codex:** Veröffentlichungsstand prüfen, historische
@@ -228,7 +285,7 @@ Stand: 20. Oktober 2026. Bearbeiter dieses Updates: Claude.
 | REVIEW-01 | DONE | Claude | 19.10.2026: Bildungsplan (LPH 2/2020, S. 17/18) per eigenem PDF-Textauszug gelesen und Punkt für Punkt abgeglichen: BPE 7.1–7.3 vollständig abgedeckt, siehe docs/bildungsplan-abgleich.md. Materialmatrix für alle 19 Einheiten. |
 | RESULTS-02 | DONE | Claude | 19.10.2026: Beide OneDrive-Dokumente gegliedert: Überschrift 1 je Lernfortschritt, Überschrift 2 je Materialaufgabe (40 Aufgaben, Seitenumbrüche wie im Original; Jakobs Überschriften „Aufgabe 1/2“ erhalten). Kopfzeile INF2 korrigiert (stand auf INF1). Website-Hinweis jetzt eindeutig „Lernfortschritt n → Aufgabe x“. In Word geöffnet und geprüft; Originale in .tmp/docx-backup-2026-10-19. |
 | DESIGN-02 | DONE | Claude | 19.10.2026: 1.0.1 – Themenbanner statt fehlender Fotos (Balken für Sortieren, markiertes Feld für Suchen, Knotenkette, Stapel, Warteschlange, Baum, Ablauf für L2.1). |
-| CLASS-01 | OPEN | Jakob | Erprobung im Unterricht (J2 INF1/INF2): Zeitbedarf je Einheit gegenüber 30 h Richtwert, Schwierigkeit der Codeaufgaben, Freigabe „Bearbeiten“ der OneDrive-Links prüfen. Optional: Fotomotive für L1.5–L3.4. |
+| CLASS-01 | OPEN | Jakob | Erprobung im Unterricht (J2 INF1/INF2): Zeitbedarf je Einheit gegenüber 30 h Richtwert, Schwierigkeit der Codeaufgaben, Freigabe „Bearbeiten“ der OneDrive-Links prüfen. |
 | NSD-01 | DONE | Claude | 19.10.2026: 1.1.0 – Struktogramme nach Operatorenliste BW v2.2 für alle 13 Arraymodelle (Umschalter Python/Struktogramm, aktueller Block markiert, Auswahl gemerkt) und als Beispiele in L1.3, L1.4, L2.1. Tests sichern Notation und Abdeckung aller Modellschritte. |
 | SELF-01 | DONE | Claude | 19.10.2026: 1.1.0 – Ich-kann-Listen L1–L3 (45 Aussagen aus dem Material) als Seite „Ich-kann-Listen“ und als Ich-kann-Check je Einheit; ☐/✓/✓✓, im Lernstand und in der JSON-Sicherung, ohne Einfluss auf Punkte. |
 | EXTRA-01 | DONE | Claude | 19.10.2026: 1.1.0 – sieben freiwillige, geprüfte Aufgaben ohne Punkte: Kapitalrechner (L1_4.3), Wetterstation (L1_4.2), Gewinnziehung ohne Doppelte (L1_5), Wortverschlüsselung (L2_4.4), Mitglieder je Jahrgang (L2_4.3), Klammerprüfung mit Stapel und Baumhöhe mit Warteschlange (Transfer). |

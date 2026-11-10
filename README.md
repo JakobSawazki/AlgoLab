@@ -2,8 +2,12 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 3. November 2026. Version **1.9.1 – EP und schnellerer Start**.
+Stand: 10. November 2026. Version **1.10.0 – Geführter Einstieg in BPE 7**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Die Startseite zeigt, wo du anfangen oder weiterlernen kannst. In L1.1, L2.1
+und L3.1 probierst du ein kurzes Beispiel mit direkter Rückmeldung aus.
+In L1.2 kannst du vor der ersten Python-Pflichtaufgabe ein Programm ausführen
+und verändern. Der Abschluss steht jeweils direkt hinter den Pflichtaufgaben.
 Die bestehenden Bereiche Klausurvorbereitung, lokale KI, Struktogramm-Training,
 Klassenübersicht, Programmieren, Ich-kann-Listen und Glossar bleiben enthalten.
 
@@ -15,8 +19,9 @@ Suchen (Algorithmusbegriff, Bubble Sort, Selection Sort, lineare und binäre Suc
 Prüfen und Anwenden) und L3 Dynamische Datenstrukturen (verkettete Liste, Stapel,
 Warteschlange, Baum). Jede Einheit hat eine Lernsituation, Erklärungen, ein
 interaktives Schritt-Modell, Reflexionsfelder und geprüfte Aufgaben mit 100 Punkten.
-L1.1 bis L1.4 besitzen zusätzlich ein eigenes fotorealistisches Motiv; die übrigen
-Einheiten zeigen ein grafisches Banner.
+Jede der 19 Einheiten hat ein eigenes fotorealistisches Motiv zur
+Lernsituation. Auf schmalen Bildschirmen lädt AlgoLab eine kleinere
+Bildvariante. [Motive und Prompts](docs/lesson-images.md).
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
 Online-Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.
@@ -79,8 +84,8 @@ Sekunden. Die Codeaufgabe zählt 40 Punkte, drei Verständnisfragen je 20.
 Erst alle 100 Punkte und der ausdrückliche Abschluss öffnen L1.3. Dort ergeben
 zwei Verständnisfragen und zwei Codeaufgaben wieder 100 Punkte. Nach dem
 Abschluss ist L1.4 zugänglich. Drei Verständnisfragen sowie Sammel- und
-Analysefunktion ergeben dort 100 Punkte. Erst der Abschluss öffnet L1.5,
-dessen Inhalte als Nächstes entstehen.
+Analysefunktion ergeben dort 100 Punkte. Der Abschluss öffnet L1.5
+„Elemente vertauschen“.
 
 Eigene Erklärungen und Codeentwürfe werden lokal gespeichert und in die
 Lernstandsdatei aufgenommen. Freitext wird nicht automatisch benotet.
@@ -165,6 +170,5 @@ Verfügung, und sieben freiwillige Vertiefungsaufgaben aus dem Material bieten
 zusätzliche Übung ohne Einfluss auf Punkte und Freischaltung. Ein durchsuchbares
 Glossar erklärt 56 Fachbegriffe und verweist auf die passenden Einheiten.
 
-Nächste Schritte: Erprobung im Unterricht, Rückmeldungen der Klassen J2 INF1 und
-J2 INF2 einarbeiten, Fotomotive für L1.5 bis L3.4 und eine vollständige
-Bildungsplan- und Materialabnahme (REVIEW-01).
+Nächste Schritte: Erprobung im Unterricht und Rückmeldungen der Klassen
+J2 INF1 und J2 INF2 einarbeiten.

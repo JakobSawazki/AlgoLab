@@ -854,3 +854,65 @@ Neueres Format vor Bestätigung abgelehnt und unveränderten Stand nach
 Reload geprüft. 119 Tests bestanden. Commit 1056674 veröffentlicht.
 Actions 42780741004 erfolgreich. Derselbe Rundlauf auf der Live-Seite
 bestanden. Die ungetrackte Struktogramm-Erprobung bleibt separat.
+
+## 10. November 2026 – Geführter Einstieg in BPE 7
+
+START-01 zeigt auf der Startseite die nächste Einheit mit Titel und bei der
+Wiederaufnahme mit Lernpunkten. Ein gesperrter Direktlink verweist auf die
+erste offene Einheit. L1.1 nutzt drei Namenskarten aus der Schulfest-Situation
+für zwei Vorhersagen zu FIFO und LIFO. Ein Fehlversuch gibt einen Tipp.
+Die Pflichtaufgaben und der manuelle Abschluss stehen direkt hintereinander.
+
+Browserprüfung in Edge bei 1365 px im dunklen und 320 px im hellen Design:
+Erstbesuch, gesperrter Direktlink, Tastaturfokus für die Vorübung, falsche
+und richtige Vorhersagen, Wiederaufnahme bei 25 Punkten, Abschluss bei
+100 Punkten, Wechsel zu L1.2 und Wiederaufnahme nach Neuladen bestanden.
+119 versionierte Tests und Syntax-/Diffprüfung bestanden. Im gesamten
+lokalen Testlauf traten die drei bekannten Fehler der separaten ungetrackten
+NSD-Erprobung erneut auf. Umsetzung und Abnahme erfolgten lokal.
+
+## 10. November 2026 – Erste Python-Ausführung in L1.2
+
+START-02 ergänzt nach dem Arraymodell ein kurzes, veränderbares Programm
+mit einer Temperaturliste. Die Lernenden sagen die Ausgabe voraus, ändern
+den Index und erklären einen absichtlich ausgelösten Indexfehler. Der
+Beispielcode kann wiederhergestellt werden. Übung und Pflichtaufgabe nutzen
+denselben Worker mit getrennten Statusmeldungen. Punkte und Entwürfe werden
+nur in der Pflichtaufgabe verarbeitet.
+
+Edge mit echtem Pyodide bei 1365 und 320 px geprüft: Tastaturfokus,
+Ausgaben 18 und 24, IndexError mit Hinweis, Wiederherstellung, erneute
+Ausführung, getrennte Statusmeldungen und 40 Lernpunkte ausschließlich
+für die bestandene Pflichtaufgabe. 120 versionierte Tests sowie Syntax
+und Diff erfolgreich. Die drei bekannten Fehler der ungetrackten
+NSD-Erprobung bleiben separat. Kein Deployment in diesem Schritt.
+
+## 10. November 2026 – Übergänge zu Sortieren und dynamischen Datenstrukturen
+
+START-03 verwendet die Vorhersageübung aus L1.1 als gemeinsamen Aufbau.
+L2.1 leitet aus dem bekannten Vertauschen den ersten und zweiten
+Sortierdurchlauf ab. L3.1 trennt anhand einer Knotentabelle die
+Zeilenreihenfolge von der Reihenfolge der Nachfolger. Ein neuer Anker
+ändert, welche Songs erreichbar sind. Die Einführung zum Einfügen und
+Löschen nennt das Finden des Vorgängers als Voraussetzung.
+
+Edge bei 1365 und 320 px geprüft: Tastaturfokus, falsche und richtige
+Vorhersagen in L1.1, L2.1 und L3.1, Rückblick-Links, gleichbleibender
+Lernstand, gesperrte Folgeeinheiten und kein horizontaler Überlauf in
+den Übungen. 120 versionierte Tests, Syntaxprüfung und Diffprüfung
+bestanden. Kein Deployment in diesem Schritt.
+
+## 10. November 2026 – Fotomotive für alle Lerneinheiten
+
+PHOTO-01 ergänzt 15 mit dem eingebauten ImageGen-Werkzeug erzeugte Motive
+zu den bestehenden Lernsituationen. Die vier vorhandenen Motive und
+ihre Originaldateien bleiben erhalten. Alle 19 Bilder wurden visuell
+gesichtet und erhalten beschreibenden Alternativtext, eine Bildunterschrift
+und WebP-Dateien mit 480 und 960 Pixeln Breite. Die größte kleine Variante
+hat 30.882 Bytes, die größte große Variante 95.452 Bytes. Die ausgewählten
+Originale und Prompts sind in `docs/lesson-images.md` dokumentiert.
+
+Die Browserabnahme öffnet alle 19 Einheiten bei 1365 und 320 Pixeln
+und prüft die jeweilige Bilddatei, Beschriftung und Seitendarstellung.
+Ein neuer Test sichert die Zuordnung und Verfügbarkeit beider Varianten
+für jede ausgearbeitete Einheit. Die Änderungen gehen in Version 1.10.0 ein.

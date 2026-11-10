@@ -1,6 +1,12 @@
 (function (root) {
   "use strict";
   const unit = (id, title, description, sourceRefs, goals) => ({ id, title, description, sourceRefs, goals, points: 100, ready: false, tasks: [] });
+  const lessonPhoto = (name, alt, caption) => ({
+    src: `assets/${name}-960.webp`,
+    small: `assets/${name}-480.webp`,
+    alt,
+    caption
+  });
   const modules = [
     { id: "L1", number: "01", title: "Daten organisieren", subtitle: "Datenstrukturen kennenlernen und Arrays mit Python nutzen.", plan: "BPE7.1", color: "mint", units: [
       unit("L1.1", "Datenstrukturen kennenlernen", "Welche Struktur passt zu welcher Situation?", ["L1_1"], ["Den Begriff Datenstruktur erklären", "Array, verkettete Liste, Stapel, Warteschlange und Baum unterscheiden", "Eine passende Datenstruktur begründet auswählen"]),
@@ -46,6 +52,28 @@
   ];
   first.readTitle = "Wie organisieren wir Daten?";
   first.checkTitle = "Welche Struktur passt?";
+  first.predictionLab = {
+    title: "Welche Karte kommt zuerst heraus?",
+    intro: "Beim Schulfest kommen drei Namenskarten nacheinander an. Die Nummern zeigen die Reihenfolge. Wähle für jede Situation eine Karte.",
+    cards: { label: "Ankunftsreihenfolge", items: ["1. Mia", "2. Sam", "3. Lea"] },
+    choices: ["Mia", "Sam", "Lea"],
+    cases: [
+      {
+        id: "queue",
+        prompt: "Warteschlange: Wer ist am Einlass zuerst dran?",
+        correct: 0,
+        hint: "Schau auf die Ankunftsreihenfolge. Wer wartet schon am längsten?",
+        explanation: "Mia kam zuerst an. Wer zuerst ankommt, ist zuerst dran (FIFO)."
+      },
+      {
+        id: "stack",
+        prompt: "Stapel: Welche Karte nimmst du zuerst herunter?",
+        correct: 2,
+        hint: "Jede neue Karte kommt oben auf den Stapel. Welche wurde zuletzt aufgelegt?",
+        explanation: "Leas Karte liegt oben. Was zuletzt dazukommt, kommt zuerst wieder heraus (LIFO)."
+      }
+    ]
+  };
   first.reflections = [
     { id: "definition", title: "Deine Definition", prompt: "Erkläre in einem eigenen Satz, was eine Datenstruktur beschreibt. Nenne dabei auch den Zugriff auf die Daten.", criteria: "Deine Erklärung nennt die Organisation von Daten und passende Zugriffe oder Operationen." },
     { id: "merkmale", title: "Die fünf Modelle vergleichen", prompt: "Notiere für Array, verkettete Liste, Stapel, Warteschlange und Baum jeweils: Wie sind die Daten angeordnet und wie greifst du auf sie zu?", criteria: "Array: Indexzugriff. Verkettete Liste: Verweisen folgen. Stapel: oben, LIFO. Warteschlange: hinten einfügen, vorne entnehmen, FIFO. Baum: Eltern-Kind-Beziehungen." },
@@ -65,6 +93,9 @@
   ];
   arrays.explorer = true;
   arrays.help = { href: "https://jakobsawazki.github.io/PythonLab/#lesson/listen", label: "Python-Grundlagen zu Listen auffrischen" };
+  arrays.pythonWarmup = {
+    starter: "temperaturen = [18, 21, 24]\nprint(temperaturen[0])"
+  };
   arrays.trace = [
     { code: "punkte = [12, 8, 15, 9]", values: [12, 8, 15, 9], why: "Vier Werte werden angelegt. Die Indizes sind 0 bis 3." },
     { code: "punkte[1] = punkte[2]", values: [12, 15, 15, 9], why: "Der Wert 15 von Index 2 wird in das Feld am Index 1 kopiert. Index 2 bleibt unverändert." },
@@ -88,8 +119,8 @@
   ];
   first.situation = { title: "Ordnung für euer Schulfest", text: "Euer Team organisiert ein Schulfest. Ihr braucht eine Warteliste für Helfer, eine Übersicht der Angebote und einen Weg, Änderungen rückgängig zu machen. Welche Datenstruktur unterstützt jeweils die Operation, die ihr braucht? Begründe deine Entscheidung, statt nur den Namen zu nennen." };
   arrays.situation = { title: "Die Punkte eures Schulturniers", text: "Vier Teams treten beim Schulfest gegeneinander an. Du verwaltest ihre Punkte. Ein Ergebnis wird korrigiert und ein fünftes Team kommt dazu. Deine Aufgabe: Ändere gezielt die Liste und zeige zuverlässig den aktuellen Stand an." };
-  first.image = { src: "assets/l1-1-datenstrukturen.webp", alt: "Drei Schüler ordnen Planungskarten, Bausteine und ein Knotenmodell für ein Schulfest.", caption: "Welche Ordnung hilft eurem Team bei seiner Aufgabe?" };
-  arrays.image = { src: "assets/l1-2-arrays.webp", alt: "Zwei Schüler organisieren ein Schulturnier und arbeiten mit Laptop und fünf geordneten Punktebausteinen.", caption: "Ein Team, ein Feld: Behalte die Punkte eures Turniers im Blick." };
+  first.image = lessonPhoto("l1-1-datenstrukturen", "Drei Schüler ordnen Planungskarten, Bausteine und ein Knotenmodell für ein Schulfest.", "Welche Ordnung hilft eurem Team bei seiner Aufgabe?");
+  arrays.image = lessonPhoto("l1-2-arrays", "Zwei Schüler organisieren ein Schulturnier und arbeiten mit Laptop und geordneten Punktebausteinen.", "Ein Feld pro Team. So behältst du die Turnierpunkte im Blick.");
   const loops = modules[0].units[2];
   loops.ready = true;
   loops.goals.push("Eine Platzierung ab 1 in einen Index ab 0 umrechnen", "Ausgabefunktionen für wechselnde Listen schreiben", "Startaufstellung und Ersatzspieler zu einem Kader verbinden");
@@ -115,7 +146,7 @@
     { id: "transfer", title: "Eigene Erweiterung: Drei Ansichten", prompt: "Entwirf auf Papier oder in deinem Python-Editor die Funktionen zeige_startaufstellung(), zeige_ersatzspieler() und zeige_kader(). Sie sollen zeige_liste mit der passenden Liste aufrufen. Ergänze Überschriften. Beschreibe, welche Eingabe eine spätere Menüauswahl benötigen würde. Zusatz: Wie prüfst du einen Platz, bevor du auf das Feld zugreifst?", criteria: "Startansicht nutzt start, Ersatzansicht ersatz, Kaderansicht start + ersatz. Überschriften kommen vor dem Funktionsaufruf. Eine Menüauswahl benötigt z. B. eine Zahl von 1 bis 3. Gültige Plätze erfüllen 1 <= platz <= len(platzierungen); Platz 0 ist kein erster Platz, denn Index -1 hätte in Python eine andere Bedeutung." }
   ];
   loops.situation = { title: "Alle auf dem Spielfeld im Blick", text: "Euer Schulteam organisiert ein Volleyballturnier. Am Infotisch soll eine Anzeige einzelne Platzierungen und vollständige Mannschaftslisten zeigen. Du programmierst zwei wiederverwendbare Funktionen. Sie sollen auch funktionieren, wenn eine andere Mannschaft antritt oder die Ersatzbank leer ist." };
-  loops.image = { src: "assets/l1-3-arrays-durchlaufen.webp", alt: "Drei Schüler bereiten am Laptop neben einer Sporthalle eine Volleyball-Mannschaftsliste vor und prüfen eine Reihe blauer Spielermarken.", caption: "Eine Schleife erreicht jeden Platz: Auf eurer Mannschaftsliste fehlt niemand." };
+  loops.image = lessonPhoto("l1-3-arrays-durchlaufen", "Drei Schüler bereiten am Laptop neben einer Sporthalle eine Volleyball-Mannschaftsliste vor und prüfen eine Reihe blauer Spielermarken.", "Wie stellst du sicher, dass beim Durchlaufen kein Name fehlt?");
   loops.tasks = [
     { id: "grenze", points: 20, prompt: "namen hat vier Elemente. Welche Werte nimmt i bei for i in range(len(namen)) an?", options: ["1, 2, 3, 4", "0, 1, 2, 3", "0, 1, 2, 3, 4"], correct: 1, hint: "range startet bei 0 und stoppt vor der Grenze. Bei Länge 4 endet der letzte Index bei 3." },
     { id: "leer", points: 20, prompt: "namen = []. Wie oft läuft print(namen[i]) im Körper von for i in range(len(namen))?", options: ["Keinmal", "Einmal mit i = 0", "Unendlich oft"], correct: 0, hint: "len([]) ergibt 0. range(0) enthält keinen Index, also gibt es keinen Schleifendurchlauf." },
@@ -172,7 +203,7 @@
     { id: "auswertungtransfer", title: "Eigene Erweiterung: Weniger Wiederholung", prompt: "Du kannst mit summe = werte[0] starten und die Schleife erst bei Index 1 beginnen lassen. Beschreibe, welche beiden Codezeilen du dafür ändern musst und warum der erste Wert sonst doppelt gezählt würde. Welche Testlisten prüfen zuverlässig Anfang, Ende, gleiche Werte und eine leere Liste?", criteria: "Ändere den Summenstart und zugleich range(1, len(werte)). Minimum und Maximum starten weiterhin bei werte[0]. Mit Summe = erster Wert und Startindex 0 würdest du ihn erneut addieren. Prüfe u. a. [9], [9, 9, 9], [1, 2, 8], [8, 2, 1], [0, 0], negative Messwerte und []." }
   ];
   analysis.situation = { title: "Was sagt euer Training über euch?", text: "Beim Schulfest bietet euer Team ein Darttraining und eine kleine Sachpreisziehung an. Du sammelst die gezogenen Losnummern und programmierst eine Trainingsauswertung. Sie zeigt den besten und schwächsten Wurf sowie den Durchschnitt. Ein einzelner hoher Wurf sagt noch wenig über die ganze Serie: Deine Auswertung hilft beim Vergleichen." };
-  analysis.image = { src: "assets/l1-4-arrays-auswerten.webp", alt: "Drei Schüler vergleichen am Laptop und mit sechs Punktebausteinen ihre Trainingsergebnisse; im Hintergrund hängt eine Dartscheibe.", caption: "Erkenne eure Fortschritte: Prüfe jeden Wert und behalte die ganze Serie im Blick." };
+  analysis.image = lessonPhoto("l1-4-arrays-auswerten", "Drei Schüler vergleichen am Laptop und mit Punktebausteinen ihre Trainingsergebnisse. Im Hintergrund hängt eine Dartscheibe.", "Was verrät die ganze Wurfserie über euer Training?");
   analysis.tasks = [
     { id: "startwert", points: 10, prompt: "werte = [13, 8, 21]. Wie starten Minimum und Maximum im gezeigten Algorithmus?", options: ["Beide mit 0", "Beide mit werte[0], also 13", "Minimum mit dem Index 0, Maximum mit der Länge 3"], correct: 1, hint: "Die Merker sollen zunächst einen echten Wert aus der Liste enthalten. werte[0] liefert den ersten Wert, nicht den Index." },
     { id: "summe", points: 10, prompt: "summe startet bei 0 und die Schleife durchläuft alle Werte von [4, 10, 7]. Welche Summe steht danach fest?", options: ["21", "25", "7"], correct: 0, hint: "Addiere jeden Wert genau einmal: 0 + 4 + 10 + 7. Das Maximum allein ist keine Summe." },
@@ -223,6 +254,7 @@
     { id: "tauschanalyse", title: "Problemanalyse wie im Arbeitsauftrag", prompt: "Lege für die Funktion mannschaft_umstellen_pos() eine Variablenliste an (Bedeutung, Typ, Variable) und beschreibe die Verarbeitung in vier Sätzen. Welche Eingaben wären ungültig und wie könnte das Programm darauf reagieren?", criteria: "Variablen: position_a und position_b (Ganzzahlen, Eingabe), zwischenspeicher (Zeichenkette), spieler (Array mit Zeichenketten). Verarbeitung: sichern, überschreiben, gesicherten Wert schreiben, Aufstellung ausgeben. Ungültig sind Positionen kleiner 1 oder größer len(spieler); eine Prüfung mit if 1 <= position <= len(spieler) verhindert einen IndexError bzw. den ungewollten Zugriff mit Index -1." }
   ];
   swapUnit.situation = { title: "Taktikwechsel vor dem Aufschlag", text: "Eure Schulmannschaft spielt im Volleyballturnier. Vor dem zweiten Satz stellt die Trainerin um: Zwei Spieler sollen ihre Startpositionen tauschen. Die Turniersoftware verwaltet die Aufstellung als Array. Du programmierst den Tausch so, dass garantiert kein Name verloren geht – auch wenn die erste und die letzte Position betroffen sind." };
+  swapUnit.image = lessonPhoto("l1-5-tauschen", "Eine Trainerin zeigt zwei Volleyballspielerinnen an der Taktiktafel, welche Positionen sie tauschen sollen.", "Wie tauscht ihr zwei Startpositionen, ohne einen Namen zu verlieren?");
   swapUnit.tasks = [
     { id: "hilfsvariable", points: 15, prompt: "Wozu dient der zwischenspeicher beim Tauschen zweier Arrayelemente?", options: ["Er sichert einen Wert, bevor dessen Feld überschrieben wird.", "Er zählt, wie oft getauscht wurde.", "Er speichert die Länge des Arrays."], correct: 0, hint: "Was passiert mit dem alten Inhalt eines Feldes, wenn du ihm einen neuen Wert zuweist?" },
     { id: "positionen", points: 15, prompt: "spieler hat sechs Namen in der Reihenfolge der Startpositionen 1 bis 6. Welche Indizes tauschst du für die Positionen 2 und 4?", options: ["2 und 4", "1 und 3", "3 und 5"], correct: 1, hint: "Position 1 gehört zu Index 0. Ziehe von jeder Position 1 ab." },
@@ -268,6 +300,7 @@
     { id: "einfuegeaufwand", title: "Aufwand einschätzen", prompt: "Ein Kader hat 30 Namen. Wie viele Tauschvorgänge braucht dein Algorithmus, um einen Namen an Index 0, an Index 15 und am Ende einzufügen? Formuliere eine allgemeine Regel.", criteria: "Nach dem append hat die Liste 31 Elemente; das neue steht an Index 30. Tauschvorgänge = 30 - index: 30, 15 und 0. Allgemein: (Länge vor dem Einfügen) - index. Einfügen vorne ist am aufwendigsten." }
   ];
   insertUnit.situation = { title: "Neuzugang für das Turnier", text: "Kurz vor dem Turnier meldet sich Tom für eure Volleyballmannschaft an. Im Kader sind die Spieler nach Trikotnummern sortiert, Tom soll deshalb nicht einfach hinten stehen, sondern an einer bestimmten Stelle. Du erweiterst die Turniersoftware um eine Funktion, die einen Namen an jedem gültigen Index einfügen kann." };
+  insertUnit.image = lessonPhoto("l1-6-einfuegen", "Am Kaderplatz der Volleyballmannschaft wird eine neue Spielerkarte zwischen zwei vorhandene Karten gehalten.", "Wo gehört der Neuzugang hin, wenn die Trikotnummern geordnet bleiben sollen?");
   insertUnit.tasks = [
     { id: "append", points: 20, prompt: 'orte = ["Mannheim", "Stuttgart", "Freiburg", "Konstanz"]. An welchem Index steht "Esslingen" direkt nach orte.append("Esslingen")?', options: ["Index 2", "Index 4", "Index 5"], correct: 1, hint: "append hängt am Ende an. Die Liste hatte vier Elemente mit den Indizes 0 bis 3." },
     { id: "tauschzahl", points: 20, prompt: "Nach dem append steht ein neues Element an Index 6. Wie viele Tauschvorgänge bringen es an Index 2?", options: ["2", "4", "6"], correct: 1, hint: "Jeder Tausch bewegt das Element genau um einen Index nach vorne: 6 → 5 → 4 → …" },
@@ -305,6 +338,7 @@
     { id: "schreibtisch2", title: "Schreibtischtest 2", prompt: "arr = [5, 3, 8, 7, 9]; for i in range(0, len(arr)): if arr[i] > 5: arr[i] = 1, sonst arr[i] = 0. Protokolliere jeden Durchgang und beschreibe allgemein, was der Algorithmus leistet.", criteria: "i = 0: 5 > 5 falsch → 0; i = 1: 3 → 0; i = 2: 8 → 1; i = 3: 7 → 1; i = 4: 9 → 1. Ausgabe [0, 0, 1, 1, 1]. Jeder Wert wird durch eine Markierung ersetzt: 1, wenn er größer als 5 ist, sonst 0." }
   ];
   removeUnit.situation = { title: "Abmeldung kurz vor Spielbeginn", text: "Paul hat sich verletzt und fällt für das Turnier aus. Sein Name muss aus dem Kader verschwinden, ohne dass sich die Reihenfolge der anderen ändert und ohne dass eine leere Lücke in der Anzeige bleibt. Außerdem prüft ihr zwei fremde Programmteile der Turniersoftware mit einem Schreibtischtest." };
+  removeUnit.image = lessonPhoto("l1-7-entfernen", "Zwei Turnierhelfer arbeiten in der Sporthalle mit einer Reihe von Spielerkarten.", "Wie schließt ihr die Lücke im Kader, ohne die Reihenfolge zu ändern?");
   removeUnit.tasks = [
     { id: "nachruecken", points: 20, prompt: 'orte = ["Mannheim", "Stuttgart", "Esslingen", "Freiburg", "Konstanz"]. Index 1 wird durch Nachrücken und pop() entfernt. Welchen Inhalt hat orte danach?', options: ['["Mannheim", "Esslingen", "Freiburg", "Konstanz"]', '["Stuttgart", "Esslingen", "Freiburg", "Konstanz"]', '["Mannheim", "Stuttgart", "Freiburg", "Konstanz"]'], correct: 0, hint: "Stuttgart steht an Index 1. Alle Orte dahinter rücken einen Platz nach vorne." },
     { id: "test1", points: 20, prompt: "arr = [5, 11, 3, 1, 10]; for i in range(1, len(arr)): arr[i] = arr[i - 1] + 1. Was gibt print(arr) aus?", options: ["[5, 12, 4, 2, 11]", "[5, 6, 7, 8, 9]", "[6, 7, 8, 9, 10]"], correct: 1, hint: "Jeder Durchgang nutzt den gerade neu berechneten linken Nachbarn, nicht den ursprünglichen Wert." },
@@ -324,6 +358,29 @@
   algo.goals.push("Eine Berechnungsvorschrift als Python-Funktion umsetzen");
   algo.readTitle = "Was macht eine Anleitung zum Algorithmus?";
   algo.checkTitle = "Eigenschaften erkennen und einen Algorithmus umsetzen";
+  algo.predictionLab = {
+    title: "Zwei Vergleiche, ein Durchlauf",
+    intro: "In L1.5 hast du zwei Werte vertauscht. Jetzt legst du fest, wann ein Tausch nötig ist. Vergleiche zuerst Index 0 mit Index 1. Tausche, falls links der größere Wert steht. Vergleiche danach Index 1 mit Index 2 und nutze dieselbe Regel.",
+    cards: { label: "Ausgangswerte", items: ["Index 0: 7", "Index 1: 4", "Index 2: 2"] },
+    review: { unit: "L1.5", label: "Tauschen zweier Werte wiederholen" },
+    choices: ["[4, 2, 7]", "[2, 4, 7]", "[7, 4, 2]"],
+    cases: [
+      {
+        id: "first-pass",
+        prompt: "Wie sieht die Liste nach dem ersten Durchlauf aus?",
+        correct: 0,
+        hint: "Nach dem ersten Tausch steht 7 am Index 1. Vergleiche jetzt diesen Wert mit 2.",
+        explanation: "7 und 4 tauschen, danach 7 und 2. Die größte Zahl ist rechts. Die ersten beiden Zahlen stehen noch in der falschen Reihenfolge."
+      },
+      {
+        id: "second-pass",
+        prompt: "Beginne mit deinem Ergebnis und führe die Regel noch einmal von links nach rechts aus. Was kommt jetzt heraus?",
+        correct: 1,
+        hint: "Starte mit [4, 2, 7]. Vergleiche zuerst 4 mit 2 und danach den neuen mittleren Wert mit 7.",
+        explanation: "Nur 4 und 2 tauschen. Jetzt ist die Liste aufsteigend sortiert. In L2.2 nutzt du diese Idee für Bubble Sort."
+      }
+    ]
+  };
   algo.intro = "Routenplaner, Onlinebanking, Suchmaschinen – aber auch Spielregeln, Bedienungsanleitungen und Kochrezepte: Überall stecken Handlungsanweisungen. Ein Algorithmus ist eine Handlungsanweisung, die eindeutig den Weg zur Lösung eines gegebenen Problems beschreibt. Damit ein Computer ihn ausführen kann, muss er bestimmte Eigenschaften erfüllen.";
   algo.examples = [
     { title: "Allgemeinheit", text: "Ein Algorithmus löst nicht nur einen Einzelfall, sondern eine ganze Klasse gleichartiger Probleme. Ein Verfahren, das die Primzahlen zwischen 3 und 100 findet, muss auch für 3 bis 1000 funktionieren. Deshalb arbeiten unsere Funktionen mit Parametern statt mit festen Werten." },
@@ -345,6 +402,7 @@
     { id: "aufbau", title: "Eine Aufbauanleitung als Algorithmus", prompt: "Formuliere für einen Tisch mit einer Platte, vier Beinen, vier Filzgleitern und 16 Schrauben eine nummerierte Aufbauanleitung. Kennzeichne, wo sich Schritte wiederholen, und prüfe deine Anleitung an zwei Eigenschaften.", criteria: "Teile prüfen; Filzgleiter in jedes Bein stecken (4-mal); Platte mit der Unterseite nach oben ablegen; je Bein aufsetzen und vier Schrauben anziehen (4-mal); Tisch umdrehen. Wiederholungen entsprechen Schleifen. Eindeutig: klare Reihenfolge; terminiert: endet nach dem Umdrehen." }
   ];
   algo.situation = { title: "Ein Rechner für das Autohaus", text: "Ein Autohaus möchte Kundinnen und Kunden schon im Verkaufsgespräch die jährliche Kfz-Steuer nennen. Bisher wird mit Taschenrechner und Tabelle gerechnet – fehleranfällig. Du formulierst die Berechnungsvorschrift als Algorithmus und setzt sie als Python-Funktion um, die für jedes Fahrzeug funktioniert." };
+  algo.image = lessonPhoto("l2-1-algorithmen", "Zwei Personen vergleichen im Autohaus Fahrzeugdaten am Schreibtisch.", "Welche Rechenschritte braucht ein Programm für die Kfz-Steuer?");
   algo.tasks = [
     { id: "terminierung", points: 15, prompt: "zahl = 2; solange zahl > 0: zahl = zahl * 2. Welche Eigenschaft verletzt dieser Algorithmus?", options: ["Terminierung", "Allgemeinheit", "Ausführbarkeit"], correct: 0, hint: "Kommt der Algorithmus jemals zu einem Ende und liefert ein Ergebnis?" },
     { id: "determiniertheit", points: 15, prompt: "Ein Programm liefert bei denselben Eingabedaten an verschiedenen Tagen unterschiedliche Ergebnisse. Welche Eigenschaft fehlt?", options: ["Endlichkeit", "Determiniertheit", "Eindeutigkeit der Beschreibung"], correct: 1, hint: "Gesucht ist die Eigenschaft „gleiche Voraussetzungen – gleiches Ergebnis“." },
@@ -383,6 +441,7 @@
     { id: "optimierung", title: "Optimierung begründen", prompt: "Begründe, warum das Array sortiert sein muss, wenn eine Bubble-Phase ohne Tausch endet. Wie viele Phasen braucht der optimierte Bubble Sort für [10, 1, 2, 3, 4, 5, 6, 7, 8, 9]?", criteria: "Ohne Tausch gilt für jedes Nachbarpaar zahlen[j] <= zahlen[j + 1] – das ist genau die Definition einer aufsteigenden Sortierung. Für das Beispiel: Phase 1 tauscht (die 10 steigt auf), Phase 2 bleibt ohne Tausch → 2 Phasen statt 9." }
   ];
   bubble.situation = { title: "Ordnung in die Lottoziehung", text: "Beim Schulfest zieht ihr sechs Lottozahlen für eine Tombola. Sie werden in der Reihenfolge der Ziehung erfasst: 48, 5, 17, 32, 7, 29. Auf der Leinwand sollen sie aufsteigend erscheinen. Ihr programmiert das Sortieren selbst – und sorgt dafür, dass euer Programm bei bereits sortierten Daten keine Zeit verschwendet." };
+  bubble.image = lessonPhoto("l2-2-bubble-sort", "Zwei Jugendliche ordnen Lotteriekugeln neben einer Lostrommel auf dem Schulfest.", "Was passiert, wenn ihr immer zwei benachbarte Kugeln vergleicht?");
   bubble.tasks = [
     { id: "phase1", points: 15, prompt: "Welchen Inhalt hat [5, 4, 9, 1, 3] nach der ersten Bubble-Phase?", options: ["[4, 5, 1, 3, 9]", "[1, 3, 4, 5, 9]", "[4, 5, 9, 1, 3]"], correct: 0, hint: "Vergleiche nacheinander die Paare (5,4), (5,9), (9,1), (9,3) und tausche, wenn links größer ist." },
     { id: "phasenzahl", points: 15, prompt: "Wie viele Bubble-Phasen durchläuft der nicht optimierte Bubble Sort bei einem Array mit 10 Elementen?", options: ["10", "9", "45"], correct: 1, hint: "Nach jeder Phase steht ein weiteres Element endgültig. Für das letzte verbliebene Element ist keine eigene Phase nötig." },
@@ -427,6 +486,7 @@
     { id: "selectionvergleich", title: "Welches Verfahren wann?", prompt: "Ein Array ist bis auf ein einziges Element bereits sortiert. Begründe, ob der optimierte Bubble Sort oder Selection Sort weniger Vergleiche braucht. Welches Verfahren tauscht bei einem absteigend sortierten Array seltener?", criteria: "Fast sortiert: Der optimierte Bubble Sort kann nach wenigen Phasen abbrechen, Selection Sort vergleicht immer n · (n − 1) / 2-mal. Absteigend sortiert: Selection Sort tauscht höchstens n − 1-mal, Bubble Sort tauscht bei jedem Vergleich." }
   ];
   selection.situation = { title: "Bestenliste beim Sporttag", text: "Beim Sporttag eurer Schule werden Weitsprungergebnisse und Namen in der Reihenfolge der Anmeldung erfasst. Für die Siegerehrung braucht ihr eine absteigende Bestenliste, für die Urkunden eine alphabetische Namensliste. Ihr setzt Selection Sort ein – einmal für Zahlen, einmal für Texte." };
+  selection.image = lessonPhoto("l2-3-selection-sort", "Am Rand der Weitsprunganlage bereiten Jugendliche die Ergebnisliste vor.", "Wie findet ihr aus den übrigen Ergebnissen jeweils den nächsten Platz?");
   selection.tasks = [
     { id: "prinzip", points: 15, prompt: "Was passiert in einem Durchgang des aufsteigenden Selection Sort?", options: ["Der kleinste Wert des unsortierten Bereichs wird an dessen Anfang getauscht.", "Benachbarte Werte werden verglichen und bei Bedarf getauscht.", "Der Bereich wird halbiert und die Mitte geprüft."], correct: 0, hint: "Der Name „Selection“ verrät es: Ein Element wird ausgewählt." },
     { id: "zweidurchgaenge", points: 15, prompt: "Wie sieht [48, 5, 17, 32, 7, 29] nach den ersten zwei Durchgängen des Selection Sort aus?", options: ["[5, 7, 17, 32, 48, 29]", "[5, 17, 7, 32, 29, 48]", "[5, 7, 17, 29, 32, 48]"], correct: 0, hint: "Durchgang 1 holt die 5 nach Index 0. Durchgang 2 sucht den kleinsten Wert ab Index 1." },
@@ -469,6 +529,7 @@
     { id: "testplan", title: "Dein Testplan", prompt: "Lege für eine eigene Sortierfunktion eine Tabelle mit sechs Testfällen an: Eingabe, erwartete Ausgabe, was der Fall prüft.", criteria: "Z. B. [] → [] (leer), [7] → [7] (ein Element), [1, 2, 3] → unverändert (Best Case), [3, 2, 1] → [1, 2, 3] (Worst Case), [2, 1, 2] → [1, 2, 2] (Duplikate), [0, -5, 3] → [-5, 0, 3] (negative Zahlen)." }
   ];
   sortCheck.situation = { title: "Qualitätskontrolle für die Vereinssoftware", text: "Ein Sportverein nutzt eine selbstgeschriebene Software für Lotterie, Mannschaftsaufstellung und Ergebnislisten. Einige Funktionen liefern falsche Reihenfolgen. Ihr übernehmt die Qualitätskontrolle: Algorithmen erkennen, Fehler finden, korrigieren und den Kader alphabetisch ausgeben." };
+  sortCheck.image = lessonPhoto("l2-4-sortierverfahren", "Ein Team im Vereinsheim vergleicht eine Papierliste mit den Ergebnissen am Laptop.", "Mit welchen Testdaten findet ihr Fehler in der Reihenfolge?");
   sortCheck.tasks = [
     { id: "erkennen", points: 15, prompt: "Ein Algorithmus merkt sich in jedem Durchgang den Index des kleinsten Werts und tauscht ihn am Ende des Durchgangs nach vorne. Um welches Verfahren handelt es sich?", options: ["Bubble Sort", "Selection Sort", "Lineare Suche"], correct: 1, hint: "Bei welchem Verfahren gibt es pro Durchgang höchstens einen Tausch?" },
     { id: "ergebnis", points: 15, prompt: 'Welches Ergebnis liefert der Selection-Sort-Algorithmus für a = ["B", "F", "A", "D", "C", "E"]?', options: ['["A", "B", "C", "D", "E", "F"]', '["F", "E", "D", "C", "B", "A"]', '["B", "F", "A", "D", "C", "E"]'], correct: 0, hint: "Zeichenketten werden alphabetisch verglichen: \"A\" < \"B\"." },
@@ -510,6 +571,7 @@
     { id: "lineartransfer", title: "Wann lohnt sich die lineare Suche?", prompt: "Nenne zwei Situationen, in denen die lineare Suche sinnvoll ist, und eine, in der sie zu langsam wird. Begründe mit der Anzahl der Vergleiche.", criteria: "Sinnvoll bei kleinen oder unsortierten Daten und wenn nur selten gesucht wird. Zu langsam bei sehr großen Datenbeständen mit vielen Suchanfragen (z. B. Millionen Kundennummern) – dort lohnt es sich, einmal zu sortieren und binär zu suchen." }
   ];
   linear.situation = { title: "Einlasskontrolle im Sportverein", text: "Beim Vereinsabend dürfen nur Mitglieder in den Saal. Am Eingang wird die Mitgliedsnummer eingegeben, die Software prüft sie gegen die Mitgliederliste. Außerdem möchte die Jugendabteilung eine einfache Geheimschrift für ihre Schnitzeljagd. Beide Aufgaben löst ihr mit der linearen Suche." };
+  linear.image = lessonPhoto("l2-5-lineare-suche", "Am Eingang zum Vereinsabend gleicht ein Team einen Mitgliedsausweis mit einer Liste ab.", "Wie prüft ihr eine Mitgliedsnummer, wenn die Liste unsortiert ist?");
   linear.tasks = [
     { id: "vergleiche", points: 20, prompt: "Nach wie vielen Vergleichen findet die lineare Suche die Zahl 2 in [10, 12, 8, 11, 3, 15, 5, 1, 2]?", options: ["2", "9", "5"], correct: 1, hint: "Die lineare Suche beginnt bei Index 0. An welchem Index steht die 2?" },
     { id: "sortiert", points: 20, prompt: "Muss ein Array für die lineare Suche sortiert sein?", options: ["Ja, sonst findet sie nichts.", "Nein, sie prüft jedes Element der Reihe nach.", "Nur bei Zahlen, nicht bei Texten."], correct: 1, hint: "Die lineare Suche überspringt kein Element." },
@@ -552,6 +614,7 @@
     { id: "binaerwachstum", title: "Wie schnell wächst der Aufwand?", prompt: "Wie viele Vergleiche braucht die binäre Suche höchstens bei 15, 31, 1023 und 1 000 000 Elementen? Erkläre das Muster.", criteria: "15 → 4, 31 → 5, 1023 → 10, 1 000 000 → 20. Jeder Vergleich halbiert den Bereich; verdoppelt sich die Datenmenge, kommt nur ein Vergleich hinzu (logarithmisches Wachstum)." }
   ];
   binary.situation = { title: "Habe ich gewonnen?", text: "Bei der großen Tombola des Vereins gibt es zehn Gewinnlose, aufsteigend sortiert ausgehängt. Hunderte Gäste wollen gleichzeitig wissen, ob ihr Los dabei ist. Eure App soll blitzschnell antworten – auch dann, wenn es später tausende Gewinnlose gibt." };
+  binary.image = lessonPhoto("l2-6-binaere-suche", "Zwei Gäste mit Losen schauen beim Vereinsfest auf eine ausgehängte Gewinnliste.", "Wie hilft euch die sortierte Liste, ein Gewinnlos schneller zu finden?");
   binary.tasks = [
     { id: "voraussetzung", points: 15, prompt: "Welche Voraussetzung muss ein Array für die binäre Suche erfüllen?", options: ["Es muss sortiert sein.", "Es darf keine doppelten Werte enthalten.", "Es muss eine gerade Anzahl an Elementen haben."], correct: 0, hint: "Die Entscheidung „links oder rechts weitersuchen“ funktioniert nur unter einer Bedingung." },
     { id: "mitte", points: 15, prompt: "index_anfang = 5 und index_ende = 9. Welchen Wert hat index_mitte = (index_anfang + index_ende) // 2?", options: ["7", "7.5", "4"], correct: 0, hint: "(5 + 9) // 2 = 14 // 2. Die ganzzahlige Division liefert keinen Nachkommaanteil." },
@@ -589,6 +652,7 @@
     { id: "moduloschreibtisch", title: "Schreibtischtest mit Modulo", prompt: "Protokolliere für zahlen = [80, 81, …, 90] in jeder Zeile zaehler, zahlen[zaehler], rest und das Array teilbar.", criteria: "Rest 0 bei 81, 84, 87 und 90; die anderen Reste sind 1 oder 2. teilbar wächst: [81] → [81, 84] → [81, 84, 87] → [81, 84, 87, 90]." }
   ];
   searchCheck.situation = { title: "Welche Suche für welches System?", text: "Die Schülerzeitung plant eine Online-Bibliothek, die Mensa ein Bestellsystem und die SV eine Wahl-App. Jedes System muss Daten durchsuchen – aber unter ganz verschiedenen Bedingungen. Ihr ermittelt mit Messungen, welche Suche jeweils passt, und prüft vorhandene Programmteile auf Fehler." };
+  searchCheck.image = lessonPhoto("l2-7-suchverfahren", "Drei Jugendliche planen in der Schulbibliothek Suchfunktionen für verschiedene Projekte.", "Welche Suchmethode passt zu den Daten der Bibliothek, der Mensa oder der Schülervertretung?");
   searchCheck.tasks = [
     { id: "binaer101", points: 15, prompt: "Wie viele Vergleiche braucht die binäre Suche für 101 in [1, 10, 12, 58, 87, 89, 101]?", options: ["1", "3", "7"], correct: 1, hint: "Mitte Index 3 (58), dann Index 5 (89), dann Index 6." },
     { id: "linearbesser", points: 15, prompt: "Für welchen Suchwert in [1, 10, 12, 58, 87, 89, 101] braucht die lineare Suche weniger Vergleiche als die binäre?", options: ["1", "58", "101"], correct: 0, hint: "Die lineare Suche beginnt vorne, die binäre Suche in der Mitte." },
@@ -630,6 +694,7 @@
     { id: "jahrgaenge", title: "Mitglieder je Jahrgang", prompt: "Ein Array enthält die Geburtsjahrgänge aller Mitglieder (2000 bis 2010). Beschreibe einen Algorithmus, der für jeden Jahrgang die Anzahl der Mitglieder als Tabelle ausgibt. Welche zwei Schleifen brauchst du?", criteria: "Zuerst den größten Jahrgang ermitteln (wie Maximum in L1.4). Äußere Schleife über die Jahre 2000 bis max_jahrgang, innere Schleife über alle Mitglieder: bei Gleichheit anzahl erhöhen. Nach jeder inneren Schleife Jahr und Anzahl ausgeben und anzahl auf 0 zurücksetzen." }
   ];
   apply.situation = { title: "Die Trainer-App", text: "Die Trainerin der Volleyballmannschaft möchte ihre Mannschaft per App verwalten – ohne Indizes zu kennen. Sie tippt Namen ein: tauschen, entfernen, auswerten. Gleichzeitig wünscht sich die Dartabteilung eine Trainingsstatistik. Ihr kombiniert eure Algorithmen aus L1 und L2 zu einer kleinen, robusten Vereinssoftware." };
+  apply.image = lessonPhoto("l2-8-trainer-app", "Eine Volleyballtrainerin zeigt zwei Jugendlichen in der Sporthalle etwas auf einem Tablet.", "Was soll die Trainerin mit einem Namen in der App erledigen können?");
   apply.tasks = [
     { id: "zielindex", points: 15, prompt: 'kader = ["Milan", "Dennis", "Emin", "Armin"]. Tom soll nach "Dennis" eingefügt werden. An welchem Index steht Tom danach?', options: ["1", "2", "3"], correct: 1, hint: "Dennis steht an Index 1. Tom soll direkt dahinter." },
     { id: "nichtgefunden", points: 15, prompt: 'Was soll entferne_name(kader, "Zoe") tun, wenn "Zoe" nicht im Kader steht?', options: ["Den letzten Spieler entfernen", "Den Kader unverändert lassen und das melden", "Den ersten Spieler entfernen"], correct: 1, hint: "Eine Funktion darf bei unbekannten Namen keine Daten zerstören." },
@@ -660,7 +725,39 @@
   linked.goals.push("Eine verkettete Liste über ihre Zeiger durchlaufen", "Array und verkettete Liste anhand des Aufwands vergleichen");
   linked.readTitle = "Daten, die aufeinander zeigen";
   linked.checkTitle = "Verkettete Listen modellieren";
-  linked.intro = "Ein Array liegt als zusammenhängender Block im Speicher – wer in der Mitte einfügt, muss alle folgenden Elemente verschieben (L1.6). Eine verkettete Liste ist dagegen eine dynamische Datenstruktur: Jeder Knoten speichert seine Daten und einen Zeiger auf den nächsten Knoten. Die Liste kann beliebig wachsen und schrumpfen. Einfügen und Löschen bedeutet nur noch: Zeiger umbiegen.";
+  linked.intro = "Beim Einfügen ins Arraymodell hast du Werte verschoben, um Platz zu schaffen (L1.6). In einer verketteten Liste speichert jeder Knoten einen Wert und einen Verweis auf seinen Nachfolger. Beim Durchlaufen folgst du den Verweisen. Sobald du den Vorgänger der gewünschten Stelle gefunden hast, kannst du dort durch Ändern der Verweise einfügen oder löschen.";
+  linked.predictionLab = {
+    title: "Welcher Song kommt als Nächstes?",
+    intro: "Beim Array findest du Werte über ihre Position. Hier zeigt der Anker auf den ersten Knoten. Danach folgst du jeweils dem Verweis in der Spalte Nachfolger. NULL bedeutet, dass es keinen weiteren Knoten gibt.",
+    table: {
+      label: "Wiedergabeliste mit Anker K2",
+      columns: ["Knoten", "Song", "Nachfolger"],
+      rows: [
+        ["K3", "Refrain", "NULL"],
+        ["K1", "Zwischenspiel", "K3"],
+        ["K2", "Auftakt", "K1"]
+      ]
+    },
+    review: { unit: "L1.2", label: "Indexzugriff im Array wiederholen" },
+    choices: ["Auftakt → Zwischenspiel → Refrain", "Refrain → Zwischenspiel → Auftakt", "Zwischenspiel → Refrain → Auftakt"],
+    cases: [
+      {
+        id: "follow-links",
+        prompt: "In welcher Reihenfolge werden die Songs abgespielt?",
+        correct: 0,
+        hint: "Beginne beim Anker K2. Schau in dieser Zeile nach, welcher Knoten auf K2 folgt.",
+        explanation: "K2 ist der Start. Von K2 geht es zu K1, dann zu K3. Bei NULL endet die Wiedergabe."
+      },
+      {
+        id: "change-anchor",
+        prompt: "Der Anker wird auf K1 gesetzt. Alle Nachfolger bleiben gleich. Welche Songs hörst du jetzt?",
+        choices: ["Auftakt → Zwischenspiel", "Zwischenspiel → Refrain", "Zwischenspiel → Refrain → Auftakt"],
+        correct: 1,
+        hint: "Starte diesmal bei K1 und folge seinem Nachfolger. Prüfe danach, ob es weitergeht.",
+        explanation: "Von K1 geht es zu K3 und dann endet die Liste. K2 ist vom neuen Anker aus nicht erreichbar."
+      }
+    ]
+  };
   linked.examples = [
     { title: "Anker, Knoten, Daten, Zeiger", text: "Der Anker enthält die Adresse des ersten Knotens, des Listenkopfs. Jeder Knoten besteht aus Daten und einem Zeiger auf den nächsten Knoten. Der Zeiger des letzten Knotens zeigt auf die Endmarke NULL. Listen können unterschiedliche Datentypen speichern." },
     { title: "Einfügen am Anfang, in der Mitte, am Ende", text: "Anfang: neuen Knoten erstellen, sein Zeiger erhält die Adresse des bisherigen Listenkopfs, dann erhält der Anker die Adresse des neuen Knotens. Mitte (zwischen K2 und K3): neuer Knoten zeigt auf K3, dann zeigt K2 auf den neuen Knoten. Ende: neuer Knoten zeigt auf NULL, der bisherige letzte Knoten zeigt auf den neuen." },
@@ -682,6 +779,7 @@
     { id: "routine", title: "Eine Morgenroutine umbauen", prompt: "Modelliere eine Morgenroutine (Wasser trinken, Gymnastik, Duschen, Zähne putzen, Anziehen, Kaffee trinken, Losgehen) als verkettete Liste. Später wird „Kaffee trinken“ durch „Tee trinken“ ersetzt und „Duschen“ auf den Vorabend verschoben. Beschreibe die Zeigeränderungen in der richtigen Reihenfolge.", criteria: "Tee: neuen Knoten erstellen, sein Zeiger erhält die Adresse des Nachfolgers von „Kaffee trinken“, dann zeigt der Vorgänger von „Kaffee trinken“ auf „Tee trinken“. Duschen: Der Vorgänger von „Duschen“ zeigt auf den Nachfolger von „Duschen“; danach wird „Duschen“ an der neuen Stelle eingefügt – neuer Zeiger zuerst." }
   ];
   linked.situation = { title: "Die Wiedergabeliste der Schulparty", text: "Für die Abiparty stellt ihr eine Wiedergabeliste zusammen. Ständig kommen Wünsche dazu, Titel werden gestrichen oder sollen direkt nach einem bestimmten Song laufen. Eine Liste, in der bei jeder Änderung hunderte Einträge verschoben werden müssen, ist zu langsam. Ihr modelliert die Wiedergabeliste deshalb als verkettete Liste." };
+  linked.image = lessonPhoto("l3-1-verkettete-listen", "Zwei Jugendliche bereiten am Mischpult die Musik für eine Schulparty vor.", "Wie fügt ihr einen Wunschsong ein, ohne den nächsten Titel aus der Folge zu verlieren?");
   linked.tasks = [
     { id: "bestandteile", points: 15, prompt: "Woraus besteht ein Knoten einer verketteten Liste?", options: ["Aus Daten und einem Zeiger auf den nächsten Knoten", "Aus einem Index und einem Wert", "Aus dem Anker und der Endmarke NULL"], correct: 0, hint: "Jeder Knoten muss wissen, wo es weitergeht." },
     { id: "reihenfolge", points: 15, prompt: "Ein neuer Knoten Kneu soll zwischen K2 und K3 eingefügt werden. Was passiert zuerst?", options: ["Der Zeiger von K2 erhält die Adresse von Kneu.", "Der Zeiger von Kneu erhält die Adresse von K3.", "Der Anker erhält die Adresse von Kneu."], correct: 1, hint: "Welche Adresse wäre verloren, wenn du zuerst den Zeiger von K2 überschreibst?" },
@@ -724,6 +822,7 @@
     { id: "anwendung", title: "Stapel im Alltag der Informatik", prompt: "Nenne drei Anwendungen von Stapelspeichern und erkläre bei einer davon genau, wann PUSH und wann POP ausgeführt wird.", criteria: "Z. B. Zurück im Browser (Seite öffnen = PUSH, Zurück = POP), Rückgängig im Editor (Aktion = PUSH, Strg+Z = POP), Rücksprungadressen bei Funktionsaufrufen (Aufruf = PUSH, return = POP), Klammerprüfung (öffnende Klammer = PUSH, schließende = POP)." }
   ];
   stackUnit.situation = { title: "Rückgängig für den Schülerzeitungs-Editor", text: "Die Schülerzeitung entwickelt einen kleinen Online-Editor. Wichtigste Funktion für die Redaktion: Backspace und Rückgängig müssen zuverlässig funktionieren. Ihr untersucht, welche Datenstruktur dafür passt, und programmiert das Verhalten der Backspace-Taste." };
+  stackUnit.image = lessonPhoto("l3-2-stapelspeicher", "Zwei Mitglieder der Schülerzeitung überarbeiten einen Text am Laptop.", "Welche Änderung muss Rückgängig zuerst zurücknehmen?");
   stackUnit.tasks = [
     { id: "lifo", points: 15, prompt: "Welches Prinzip beschreibt einen Stapelspeicher?", options: ["FIFO – First In, First Out", "LIFO – Last In, First Out", "Sortiert nach Größe"], correct: 1, hint: "Bei einem Tellerstapel nimmst du den Teller, den du zuletzt abgelegt hast." },
     { id: "hallo", points: 15, prompt: 'PUSH("Hallo"), PUSH("Ich"), PUSH("bin"), PUSH("Tom"), POP(). Welches Element liegt danach oben?', options: ['"Tom"', '"bin"', '"Hallo"'], correct: 1, hint: "POP entfernt das oberste Element. Was lag direkt darunter?" },
@@ -760,6 +859,7 @@
     { id: "taxiwarte", title: "Wer stand schon da?", prompt: "Am 01.08. fährt T021 um 08:00 ein, T085 um 08:05 und T432 um 08:08 aus, T021 erst um 08:10. Wie viele Taxis standen vor T021 im Taxistand? Begründe mit dem FIFO-Prinzip. Ein Fahrgast möchte ab 08:01 nur mit T021 fahren: Wann fährt er ab und wie viele Fahrgäste lässt er vor?", criteria: "Alle Taxis, die vor T021 ausfahren, müssen vor ihm eingefahren sein: T085 und T432, also zwei Taxis. Der Fahrgast fährt um 08:10 ab und lässt zwei Fahrgäste (für T085 und T432) vor." }
   ];
   queueUnit.situation = { title: "Taxistand am Flughafen", text: "Am Flughafen gibt es einen Taxistand mit zehn Stellplätzen. Wenden ist nicht möglich: Nur das vorderste Taxi darf Fahrgäste aufnehmen. Ein elektronisches System protokolliert Ein- und Ausfahrten – doch manchmal liefert es unplausible Daten. Ihr modelliert den Taxistand und entwickelt eine automatische Plausibilitätsprüfung." };
+  queueUnit.image = lessonPhoto("l3-3-warteschlange", "Am Flughafenterminal stehen mehrere Taxis hintereinander. Am vordersten Taxi steigt ein Fahrgast ein.", "Welches Taxi darf den nächsten Fahrgast mitnehmen?");
   queueUnit.tasks = [
     { id: "fifo", points: 15, prompt: "Welches Prinzip beschreibt eine Warteschlange?", options: ["FIFO – First In, First Out", "LIFO – Last In, First Out", "Das größte Element zuerst"], correct: 0, hint: "An der Supermarktkasse wird zuerst bedient, wer zuerst da war." },
     { id: "vorne", points: 15, prompt: 'ENQUEUE("Hallo"), ENQUEUE("Ich"), ENQUEUE("bin"), ENQUEUE("Tom"), DEQUEUE(). Welches Element steht danach vorne?', options: ['"Hallo"', '"Ich"', '"Tom"'], correct: 1, hint: "DEQUEUE entnimmt das Element, das am längsten wartet." },
@@ -805,6 +905,7 @@
     { id: "binaerumbau", title: "Einen Baum in einen Binärbaum überführen", prompt: "Ein Knoten „Musikstil“ hat die drei Kinder Elektro, Rock und Hip Hop. Wie kannst du daraus einen Binärbaum machen, ohne Informationen zu verlieren? Beschreibe eine Möglichkeit.", criteria: "Z. B. einen Zwischenknoten einführen: Musikstil → Elektro und „Weitere“; „Weitere“ → Rock und Hip Hop. Alternativ das linke Kind als ersten Nachfolger und das rechte Kind als nächsten Geschwisterknoten deuten. Es gibt mehrere richtige Lösungen." }
   ];
   treeUnit.situation = { title: "Navigation für die Schulwebsite", text: "Die neue Schulwebsite bekommt ein Navigationsmenü: Startseite, darunter Schule und Privat bzw. Profile, AGs und Termine – jede Ebene mit Unterpunkten. Ihr modelliert die Seitenstruktur als Baum, beschreibt sie tabellarisch und prüft automatisch, welche Seiten Endpunkte (Blätter) sind." };
+  treeUnit.image = lessonPhoto("l3-4-binaerbaeume", "Jugendliche legen mit Karten und Verbindungen die Navigation einer Schulwebsite aus.", "Welche Seiten erreicht ihr von der Startseite und wo endet ein Pfad?");
   treeUnit.tasks = [
     { id: "kreis", points: 15, prompt: "A ist mit B und C verbunden, B und C jeweils mit D. Ist das ein Baum?", options: ["Ja, weil alle Knoten verbunden sind", "Nein, weil es von A nach D zwei Wege gibt", "Ja, weil A die Wurzel ist"], correct: 1, hint: "Prüfe die Bedingung: genau ein Weg zwischen zwei beliebigen Knoten." },
     { id: "begriffe", points: 15, prompt: "Wie heißt ein Knoten ohne Kinder?", options: ["Wurzel", "Blatt", "Teilbaum"], correct: 1, hint: "Im Bild eines Baums sitzen sie ganz außen an den Zweigen." },
@@ -1015,7 +1116,7 @@
   };
   // Gliederung der Dokumente: Überschrift 1 „Lernfortschritt n – …“, darunter Überschrift 2 „Aufgabe x“.
   const resultSections = unit => unit.sourceRefs.map(ref => `Lernfortschritt ${ref.match(/^L(\d+)_/)[1]} → Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "1.9.1", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
+  const data = { version: "1.10.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
   if (typeof module !== "undefined" && module.exports) { data.practice = require("./practice.js"); data.exam = require("./exam.js"); module.exports = data; }
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

@@ -32,6 +32,22 @@ test("Stopping terminates computation and a new run creates a fresh worker", asy
   const next = runner.run("print(3)"); const stopped = assert.rejects(next, /gestoppt/);
   assert.equal(workers.length, 2); runner.stop(); await stopped;
 });
+test("A reused worker reports status to the editor that started the current run", async () => {
+  const firstStatus = [], secondStatus = [];
+  const { runner, workers } = fixture({ onStatus: message => firstStatus.push(message) });
+  const first = runner.run("print(1)");
+  const worker = workers[0];
+  worker.send({ type: "ready" });
+  worker.send({ type: "result", requestId: worker.sent[0].requestId, output: "1" });
+  await first;
+  assert.equal(firstStatus.length, 2);
+  const second = runner.run("print(2)", [], { onStatus: message => secondStatus.push(message) });
+  worker.send({ type: "result", requestId: worker.sent[1].requestId, output: "2" });
+  await second;
+  assert.equal(firstStatus.length, 2);
+  assert.deepEqual(secondStatus, ["Dein Programm läuft …"]);
+  runner.stop();
+});
 test("Late messages from a stopped worker cannot execute code on its replacement", async () => {
   const { runner, workers } = fixture();
   const first = runner.run("print('old')"); const rejected = assert.rejects(first, /gestoppt/);
