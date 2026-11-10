@@ -817,4 +817,6 @@ Markierungen und Vektorstrichen. Importgrenze wegen zusätzlicher Inhalte auf
 119 Tests bestanden. Edge-Desktop und emuliertes Mobilgerät mit Großschreibung,
 Auswahl vor Öffnen der Palette, Markierung über Absätze, Teilentfernung,
 Seitenwechsel, Maus-/Touch-Zeichnung, Radierer, Undo/Redo und echtem
-Dateirundlauf in einen frischen Browserkontext geprüft. Veröffentlichung folgt.
+Dateirundlauf in einen frischen Browserkontext geprüft. Commit f82f58f
+veröffentlicht, Actions 42778883185 erfolgreich. Derselbe Ablauf danach
+auf der öffentlichen Seite mit Desktop und emuliertem Mobilgerät bestanden.

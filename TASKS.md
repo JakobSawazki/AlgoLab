@@ -7,7 +7,9 @@ Textmarker für Lerninhalte und Notizbuch mit Text/Skizzen pro Einheit.
 Dateien: index.html, app.js, study.js, progress.js, design.css,
 Veröffentlichungsworkflow und Dokumentation. 119 Tests sowie Desktop- und
 Mobilbrowser mit Kürzel, absatzübergreifenden Markern, Touch-Zeichnung und
-echtem JSON-Dateirundlauf bestanden. Veröffentlichung folgt.
+echtem JSON-Dateirundlauf bestanden. Commit f82f58f veröffentlicht.
+Actions 42778883185 erfolgreich. Derselbe Browserlauf online bestanden.
+Keine Dateireservierung.
 
 ## Einstiegsbuttons am 3. November 2026
 
