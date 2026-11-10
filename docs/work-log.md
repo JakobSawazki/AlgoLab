@@ -836,4 +836,5 @@ Die Kürzel verwenden dieselben Aktionen wie die Icons. Bei einem anderen
 offenen Dialog bleiben dessen Tastaturaktionen im Vordergrund. Halten der
 Taste löst keine wiederholten Dateiaktionen aus. Tooltips und zugängliche
 Tastenkürzel ergänzt. 119 Tests bestanden. Echter Browser-Dateirundlauf,
-AltGr im Profil und Wiederholung geprüft. Veröffentlichung folgt.
+AltGr im Profil und Wiederholung geprüft. Commit cd74927 veröffentlicht.
+Actions 42780031235 erfolgreich. Datei-Rundlauf per Tastatur online bestätigt.

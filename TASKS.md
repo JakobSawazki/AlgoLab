@@ -5,7 +5,8 @@
 **UI-08 – DONE – Codex:** Alt+S und Alt+O an die vorhandenen
 Dateiaktionen anbinden. Dateien app.js, index.html und Dokumentation.
 119 Tests und Browser-Dateirundlauf mit echten Tastendrücken, Wiederholung
-und AltGr geprüft. Veröffentlichung folgt.
+und AltGr geprüft. Commit cd74927 veröffentlicht. Actions 42780031235
+erfolgreich. Derselbe Browserlauf online bestanden. Keine Dateireservierung.
 
 ## Datei-Icons im Profil am 10. November 2026
 
