@@ -13,6 +13,10 @@ Zurückgehen im Browser erhalten und lässt sich als Link weitergeben.
 Der Suchindex wird im Browser aus öffentlichen Inhaltsdaten aufgebaut.
 Gesperrte Einheiten erscheinen mit dem erforderlichen Abschluss.
 
+Version 1.14.0 wurde als Commit `2012a00` veröffentlicht. Suche,
+Filter, Freischaltung und Zielseiten wurden bei 1365 und 320 Pixeln online
+geprüft. [GitHub-Actions-Lauf mit 124 bestandenen Tests](https://github.com/JakobSawazki/AlgoLab/actions/runs/42866883882).
+
 ## Gezielt wiederholen in 1.13.0
 
 Mit „Noch nicht“ markierte Ich-kann-Aussagen erscheinen gesammelt als

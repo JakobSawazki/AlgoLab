@@ -10,7 +10,8 @@ README.md, TASKS.md, docs/documentation.md und docs/work-log.md. 124
 versionierte Tests, Syntax und Diff bestanden. Edge bei 1365 und 320 px:
 Fokus, Trefferreihenfolge, Filter, gesperrte und offene Einheiten,
 Sonderzeichen, Direktlinks und Rücknavigation geprüft.
-Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+Version 1.14.0 als `2012a00` veröffentlicht. Actions-Lauf 42866883882
+erfolgreich. Derselbe Browserlauf online bestanden. Keine Dateireservierung.
 
 ## Gezielt wiederholen am 10. November 2026
 

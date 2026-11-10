@@ -997,3 +997,6 @@ Sonderzeichentreffer, Eingabefehler, Freischaltung und passende Zielseiten.
 124 versionierte Tests sowie Syntax und Diff bestanden. Der gesamte lokale
 Testlauf meldet 127/130 mit den drei bekannten Fehlern der ungetrackten
 NSD-Erprobung.
+Version 1.14.0 als `2012a00` veröffentlicht. Actions-Lauf 42866883882
+mit 124 bestandenen Tests und erfolgreichem Deployment. Derselbe
+Browserlauf bei 1365 und 320 Pixeln ist online bestanden.
