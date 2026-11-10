@@ -9,7 +9,9 @@ docs/documentation.md und docs/work-log.md. 121 versionierte Tests,
 Syntax- und Diffprüfung bestanden. Edge bei 1365 und 320 px:
 Tastaturfokus, Freischaltung, Lernlinks, beide Wiederholungsmodi und
 Fragepriorität bestanden. Historischer JSON-Dateirundlauf erfolgreich.
-Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+Version 1.13.0 als `1c52479` veröffentlicht. Actions-Lauf 42865883242
+erfolgreich. Derselbe Browser- und Datei-Rundlauf online bestanden.
+Keine Dateireservierung.
 
 ## Python-Fehlersuche am 10. November 2026
 

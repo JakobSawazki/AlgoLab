@@ -14,6 +14,10 @@ Einheiten zum Zug. Falsche und offene Antworten haben Vorrang, wobei die
 Runde möglichst verschiedene Einheiten abdeckt. Die gemischte Runde bleibt
 über einen eigenen Reiter erreichbar. Beide Runden zählen keine Lernpunkte.
 
+Version 1.13.0 wurde als Commit `1c52479` veröffentlicht. Beide Runden
+und die Ich-kann-Markierungen wurden bei 1365 und 320 Pixeln online geprüft.
+[GitHub-Actions-Lauf mit 121 bestandenen Tests](https://github.com/JakobSawazki/AlgoLab/actions/runs/42865883242).
+
 ## Python-Fehlersuche in 1.12.0
 
 Unter **Programmieren → Python-Fehlersuche** stehen drei Übungen mit

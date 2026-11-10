@@ -980,3 +980,6 @@ unveränderter Lernstand. Überschrift bricht auf schmalen Bildschirmen um.
 121 versionierte Tests und historischer JSON-Dateirundlauf bestanden.
 Gesamtlauf lokal 124/127 mit den drei bekannten Fehlern der ungetrackten
 NSD-Erprobung.
+Version 1.13.0 als `1c52479` veröffentlicht. Actions-Lauf 42865883242
+mit 121 bestandenen Tests und erfolgreichem Deployment. Browserlauf bei
+1365 und 320 Pixeln und historischer JSON-Dateirundlauf online bestanden.
