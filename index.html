@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0a1424">
   <title>AlgoLab · BPE7</title>
   <link rel="stylesheet" href="styles.css?v=1.9.1">
-  <link rel="stylesheet" href="design.css?v=1.9.1-actions">
+  <link rel="stylesheet" href="design.css?v=1.9.1-study">
   <link rel="icon" type="image/png" href="assets/algolab-favicon-32.png" sizes="32x32">
   <script defer src="learning-path.js?v=1.9.1"></script>
   <script defer src="practice.js?v=1.9.1"></script>
@@ -14,7 +14,8 @@
   <script defer src="exam.js?v=1.9.1"></script>
   <script defer src="nagold.js?v=1.9.1"></script>
   <script defer src="nagold-table.js?v=1.9.1"></script>
-  <script defer src="progress.js?v=1.9.1"></script>
+  <script defer src="study.js?v=1.9.1-study"></script>
+  <script defer src="progress.js?v=1.9.1-study"></script>
   <script defer src="python-runner.js?v=1.9.1"></script>
   <script defer src="loop-model.js?v=1.9.1"></script>
   <script defer src="analysis-model.js?v=1.9.1"></script>
@@ -24,7 +25,7 @@
   <script defer src="ai-coach.js?v=1.9.1"></script>
   <script defer src="ai-local.js?v=1.9.1"></script>
   <script defer src="class-overview.js?v=1.9.1"></script>
-  <script defer src="app.js?v=1.9.1-actions"></script>
+  <script defer src="app.js?v=1.9.1-study"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt</a>
@@ -48,14 +49,53 @@
   <div class="workspace">
     <header class="topbar"><button id="sidebar-toggle" class="icon-button" aria-label="Seitenleiste einklappen" aria-expanded="true" aria-controls="main-navigation" title="Seitenleiste ein- oder ausklappen"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg?v=1.9.1#panel"/></svg></button><div class="heading-copy"><span class="eyebrow">BPE7 · ALGORITHMEN UND DATENSTRUKTUREN</span><h1 id="page-title">Übersicht</h1></div><div class="toolbar"><span id="developer-indicator" class="developer-indicator" hidden>Entwicklermodus</span><button type="button" class="icon-button" data-profile-open aria-label="Profil öffnen" aria-haspopup="dialog" title="Profil öffnen"><img class="toolbar-metal-icon" src="assets/toolbar-profile.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async"></button><button id="theme-toggle" class="icon-button" aria-label="Helle Darstellung aktivieren" title="Darstellung wechseln"></button><button id="backup-open" class="icon-button" aria-label="Lernstand als JSON speichern" title="Lernstand als JSON speichern"><img class="toolbar-metal-icon" src="assets/toolbar-save.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async"></button><button type="button" class="icon-button" data-load-progress aria-label="Lernstand aus JSON laden" title="Lernstand aus JSON laden"><img class="toolbar-metal-icon" src="assets/toolbar-folder.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async"></button><span id="file-status" class="sr-only" role="status"></span><span class="points-chip" id="total-points">0 Punkte</span></div></header>
     <p id="storage-warning" class="notice" role="alert" hidden></p>
+    <div class="study-tools" role="group" aria-label="Lernwerkzeuge">
+      <button id="marker-toggle" type="button" aria-controls="marker-tools" aria-expanded="false">Textmarker</button>
+      <button id="notebook-open" type="button" aria-haspopup="dialog" aria-controls="notebook-dialog">Notizbuch</button>
+      <div id="marker-tools" hidden>
+        <span class="marker-instruction">Text auswählen, dann Farbe wählen</span>
+        <div class="marker-colors" role="group" aria-label="Markerfarben">
+          <button type="button" data-marker="yellow" aria-label="Gelb markieren" title="Gelb markieren"></button>
+          <button type="button" data-marker="mint" aria-label="Mint markieren" title="Mint markieren"></button>
+          <button type="button" data-marker="coral" aria-label="Koralle markieren" title="Koralle markieren"></button>
+          <button type="button" data-marker="green" aria-label="Grün markieren" title="Grün markieren"></button>
+          <button type="button" data-marker="erase">Entfernen</button>
+        </div>
+        <span id="marker-status" role="status"></span>
+      </div>
+    </div>
     <main id="main" tabindex="-1"></main>
     <footer><span>AlgoLab · 1.9.1 · <a href="#klassenuebersicht">Für Lehrkräfte: Klassenübersicht</a></span> <span>Designed by Sawazki Electronics</span></footer>
   </div>
+  <dialog id="notebook-dialog" aria-labelledby="notebook-title">
+    <header class="notebook-header">
+      <h2 id="notebook-title">Mein Notizbuch</h2>
+      <form method="dialog"><button>Schließen</button></form>
+    </header>
+    <label for="notebook-page">Seite</label>
+    <select id="notebook-page"><option value="general">Allgemeine Notizen</option></select>
+    <div class="notebook-views" role="group" aria-label="Notizansicht">
+      <button type="button" data-notebook-view="text" aria-pressed="true" aria-controls="notebook-text">Notizen</button>
+      <button type="button" data-notebook-view="sketch" aria-pressed="false" aria-controls="notebook-sketch">Skizze</button>
+    </div>
+    <textarea id="notebook-text" aria-label="Notizen zu dieser Seite" maxlength="12000" placeholder="Was möchtest du festhalten?"></textarea>
+    <div id="notebook-sketch" hidden>
+      <div class="sketch-tools" role="group" aria-label="Zeichenwerkzeuge">
+        <label>Werkzeug <select id="notebook-tool"><option value="pen">Stift</option><option value="erase">Radierer</option></select></label>
+        <label>Farbe <select id="notebook-color"><option value="#192f49">Dunkel</option><option value="#235fa1">Blau</option><option value="#14745c">Grün</option><option value="#a23c3c">Rot</option></select></label>
+        <label>Strich <select id="notebook-width"><option value="3">Fein</option><option value="7" selected>Mittel</option><option value="14">Breit</option></select></label>
+        <button type="button" id="notebook-undo">Rückgängig</button>
+        <button type="button" id="notebook-redo">Wiederholen</button>
+      </div>
+      <canvas id="notebook-canvas" width="900" height="540" aria-label="Zeichenfläche. Zeichne mit Maus, Touch oder Stift.">Zeichenfläche für deine Skizze</canvas>
+    </div>
+    <p id="notebook-status" role="status"></p>
+  </dialog>
   <dialog id="profile-dialog" aria-labelledby="profile-title">
     <h2 id="profile-title">Dein Profil</h2>
     <p id="profile-summary" title="Lernpunkte zum Freischalten der nächsten Einheiten."></p>
     <form id="profile-edit-form" class="profile-edit-form">
-      <div class="profile-field"><label for="profile-name">Kürzel</label><input id="profile-name" type="text" maxlength="7" pattern="[a-zäöüß]{3}\.[a-zäöüß]{3}" placeholder="jak.saw" autocomplete="username" autocapitalize="none" spellcheck="false" required aria-describedby="profile-hint"></div>
+      <div class="profile-field"><label for="profile-name">Kürzel</label><input id="profile-name" type="text" maxlength="7" pattern="[a-zA-ZäöüÄÖÜßẞ]{3}\.[a-zA-ZäöüÄÖÜßẞ]{3}" placeholder="jak.saw" autocomplete="username" autocapitalize="none" spellcheck="false" required aria-describedby="profile-hint"></div>
       <div class="profile-field"><label for="profile-class">Klasse</label><input id="profile-class" type="text" minlength="3" maxlength="32" placeholder="J2 INF1" required></div>
       <small id="profile-hint">Je 3 Buchstaben von Vor- und Nachname: jak.saw</small>
       <button type="submit">Übernehmen</button>

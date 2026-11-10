@@ -853,3 +853,73 @@ footer a { color: var(--accent); }
 .hero-actions > a { display: flex; align-items: center; justify-content: flex-start; gap: 12px; width: 100%; min-height: 48px; margin: 0; padding: 12px 18px; font-size: .9rem; line-height: 1.3; border-radius: 9px; }
 .hero-actions > .primary { justify-content: space-between; }
 .hero-actions .icon { flex-shrink: 0; width: 20px; height: 20px; }
+
+/* Lernwerkzeuge stehen auf jeder Inhaltsansicht zur Verfügung. */
+.study-tools {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px clamp(12px, 3vw, 36px);
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.study-tools button, .notebook-views button, .sketch-tools button { padding: 7px 11px; font-size: .8rem; }
+#marker-tools, .marker-colors, .notebook-header, .notebook-views, .sketch-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+#marker-tools[hidden], #notebook-dialog [hidden] { display: none; }
+#marker-tools { flex: 1 1 390px; }
+.marker-instruction, #marker-status { font-size: .73rem; color: var(--muted); }
+#marker-status:empty, #notebook-status:empty { display: none; }
+[data-marker="yellow"], [data-study-mark="yellow"] { --marker-ink: #ffdf75; }
+[data-marker="mint"], [data-study-mark="mint"] { --marker-ink: #95e4da; }
+[data-marker="coral"], [data-study-mark="coral"] { --marker-ink: #ffaca0; }
+[data-marker="green"], [data-study-mark="green"] { --marker-ink: #c1e68e; }
+.marker-colors button:not([data-marker="erase"]) {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: var(--marker-ink);
+  border-color: transparent;
+}
+mark[data-study-mark] { background: var(--marker-ink); color: #192334; border-radius: 2px; }
+#marker-toggle[aria-expanded="true"], .notebook-views button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+
+#notebook-dialog { max-width: 790px; max-height: calc(100dvh - 24px); padding: clamp(16px, 3vw, 28px); }
+.notebook-header { justify-content: space-between; margin-bottom: 14px; }
+.notebook-header h2 { margin: 0; }
+.notebook-header button { padding: 7px 12px; }
+#notebook-dialog label { font-size: .85rem; font-weight: 650; }
+#notebook-dialog select, #notebook-text {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+#notebook-page { width: 100%; margin: 5px 0 12px; }
+.notebook-views { margin-bottom: 12px; }
+#notebook-text { display: block; width: 100%; min-height: 170px; height: min(35vh, 360px); resize: vertical; }
+.sketch-tools { margin-bottom: 10px; }
+.sketch-tools label { display: flex; align-items: center; gap: 5px; }
+#notebook-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background-color: #f8fbff;
+  background-image: linear-gradient(#dae4ee 1px, transparent 1px), linear-gradient(90deg, #dae4ee 1px, transparent 1px);
+  background-size: 20px 20px;
+  touch-action: none;
+  cursor: crosshair;
+}
+#notebook-status { margin: 8px 0 0; font-size: .8rem; }

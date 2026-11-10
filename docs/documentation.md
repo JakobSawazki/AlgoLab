@@ -1,6 +1,24 @@
 # AlgoLab Projektdokumentation
 
-Stand: 3. November 2026 (Europe/Berlin)
+Stand: 10. November 2026 (Europe/Berlin)
+
+## Textmarker und Notizbuch
+
+Das Profil schreibt Großbuchstaben im Kürzel schon während der Eingabe klein.
+Über **Textmarker** in der Lernwerkzeugleiste lassen sich ausgewählte Texte in
+vier Farben hervorheben oder abschnittsweise wieder freigeben. Markierungen
+gehören zur jeweiligen Ansicht und erscheinen erneut, wenn die markierte
+Textstelle noch unverändert vorhanden ist.
+
+Das **Notizbuch** hat eine allgemeine Seite und eine Seite pro Lerneinheit.
+Beim Öffnen in einer Lerneinheit ist ihre Seite vorausgewählt. Zu jeder Seite
+gehören Textnotizen und eine Skizze. Die Zeichenfläche unterstützt Maus, Touch
+und Stift, verschiedene Farben und Strichstärken, Radierer sowie Rückgängig
+und Wiederholen während der Bearbeitung.
+
+Notizen, Skizzen und Markierungen werden zusammen mit dem Lernstand im Browser
+gespeichert und über die bestehenden JSON-Aktionen mitgesichert. Ältere
+Sicherungen funktionieren weiter. Die Obergrenze für den Import ist 8 MB.
 
 ## Kompaktes Profilfenster
 

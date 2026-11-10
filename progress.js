@@ -3,6 +3,8 @@
   function createEngine(content) {
     const units = content.units;
     const nagold = typeof module !== "undefined" && module.exports ? require("./nagold.js")(content) : root.ALGOLAB_NAGOLD;
+    const study = typeof module !== "undefined" && module.exports ? require("./study.js") : root.AlgoLabStudy;
+    const unitIds = units.map(unit => unit.id);
     const byId = id => units.find(unit => unit.id === id);
     const empty = () => ({ answers: {}, completed: [], work: {}, profile: { name: "", className: "" }, nagoldEntries: [], selfcheck: {}, extras: {}, practice: { solved: {}, drafts: {} }, exam: { scores: {}, answers: {} } });
     // Klausurvorbereitung: Punkte (BE) und Eingaben je Teilaufgabe, geprüft gegen exam.js.
@@ -77,6 +79,8 @@
       for (const [key, value] of Object.entries(raw?.exam?.answers && typeof raw.exam.answers === "object" ? raw.exam.answers : {})) {
         if (examMax.has(key) && typeof value === "string" && value.length <= 20000) state.exam.answers[key] = value;
       }
+      const studyData = study.normalize(raw?.study, unitIds);
+      if (Object.keys(studyData.highlights).length || Object.keys(studyData.notes).length) state.study = studyData;
       state.nagoldEntries = nagold.entriesFor(Object.hasOwn(raw || {}, "nagoldEntries") ? { nagoldEntries: raw.nagoldEntries } : { completed: state.completed });
       return state;
     }

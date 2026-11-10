@@ -800,3 +800,21 @@ Mobilansicht visuell geprüft. 117/117 Tests, Syntax/Diff erfolgreich.
 Keine Änderungen fremder ungetrackter Arbeiten. Commit d113700 veröffentlicht;
 Actions 41597676698 erfolgreich. Anschließend gleiche Abmessungen/Abstände
 und alle drei Zielseiten bei denselben sechs Breiten online bestätigt.
+
+## 10. November 2026 – Lernwerkzeuge und Kürzel
+
+UI-06 übernimmt das Prinzip der Textmarker aus Excel-Lab und der Seiten
+mit Text und Skizze aus WorkbenchLab. Kürzel werden vor der Formularprüfung
+kleingeschrieben. Markierungen für Lerninhalte sind pro Ansicht gespeichert,
+mit Textprüfung beim Wiederanzeigen. Das Notizbuch bietet allgemeine und
+einheitsspezifische Seiten, Stift und Radierer sowie Rückgängig/Wiederholen.
+
+JSON-Format 1 um optionale Lernwerkzeuge ergänzt, mit geprüftem Import von
+Markierungen und Vektorstrichen. Importgrenze wegen zusätzlicher Inhalte auf
+8 MB angepasst. Ältere Sicherungen behalten ihre bisherige Struktur. Die
+öffentliche Dateiliste enthält das neue Skript.
+
+119 Tests bestanden. Edge-Desktop und emuliertes Mobilgerät mit Großschreibung,
+Auswahl vor Öffnen der Palette, Markierung über Absätze, Teilentfernung,
+Seitenwechsel, Maus-/Touch-Zeichnung, Radierer, Undo/Redo und echtem
+Dateirundlauf in einen frischen Browserkontext geprüft. Veröffentlichung folgt.

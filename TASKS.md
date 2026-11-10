@@ -1,5 +1,14 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Lernwerkzeuge am 10. November 2026
+
+**UI-06 – DONE – Codex:** Kürzel vor Validierung kleinschreiben,
+Textmarker für Lerninhalte und Notizbuch mit Text/Skizzen pro Einheit.
+Dateien: index.html, app.js, study.js, progress.js, design.css,
+Veröffentlichungsworkflow und Dokumentation. 119 Tests sowie Desktop- und
+Mobilbrowser mit Kürzel, absatzübergreifenden Markern, Touch-Zeichnung und
+echtem JSON-Dateirundlauf bestanden. Veröffentlichung folgt.
+
 ## Einstiegsbuttons am 3. November 2026
 
 **UI-05 – DONE – Codex:** Drei Hero-Aktionen als gemeinsame,

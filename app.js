@@ -4,6 +4,7 @@
   const engine = window.createAlgoLabProgress(content);
   const main = document.querySelector("#main");
   const key = "algolab-v1";
+  const maxBackupSize = 8 * 1024 * 1024;
   const esc = text => String(text).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
   let state = engine.empty();
   const developerKey = "algolab-developer-v1";
@@ -114,10 +115,23 @@
     try { localStorage.setItem(key, JSON.stringify(state)); return true; }
     catch { storageWarning("Dein Browser kann den Lernstand gerade nicht speichern. Sichere ihn als Datei, bevor du die Seite schließt."); return false; }
   }
+  const profileName = document.querySelector("#profile-name");
+  profileName.addEventListener("input", event => {
+    if (event.isComposing) return;
+    const lower = profileName.value.toLocaleLowerCase("de");
+    if (lower === profileName.value) return;
+    const { selectionStart, selectionEnd } = profileName;
+    profileName.value = lower;
+    profileName.setSelectionRange(selectionStart, selectionEnd);
+  });
+  const studyState = () => state.study ??= { highlights: {}, notes: {} };
+  const renderMarkers = window.AlgoLabStudy.mountMarkers(main, content.units.map(unit => unit.id), studyState, save);
+  window.AlgoLabStudy.mountNotebook(content.units, studyState, save);
   document.querySelector("#profile-edit-form").addEventListener("submit", event => {
     event.preventDefault();
     state.profile = { name: document.querySelector("#profile-name").value.trim().toLocaleLowerCase("de"), className: document.querySelector("#profile-class").value.trim().toLocaleUpperCase("de") };
     const stored = save(); syncProfile();
+    profileName.value = state.profile.name;
     document.querySelector("#profile-class").value = state.profile.className;
     document.querySelector("#profile-message").textContent = stored ? "Deine Profildaten sind auf diesem Gerät gespeichert." : "Profildaten übernommen. Bitte sichere sie als JSON-Datei.";
   });
@@ -872,7 +886,7 @@
     const input = main.querySelector("#class-files"), drop = main.querySelector("#class-drop");
     const load = async files => {
       for (const file of files) {
-        if (file.size > 2 * 1024 * 1024) { classData.errors.push({ fileName: file.name, error: "Die Datei ist zu groß (maximal 2 MB)." }); continue; }
+        if (file.size > maxBackupSize) { classData.errors.push({ fileName: file.name, error: "Die Datei ist zu groß (maximal 8 MB)." }); continue; }
         const result = classOverview.readFile(await file.text(), file.name);
         if (result.ok) classData.rows.push(result.row); else classData.errors.push(result);
       }
@@ -1368,6 +1382,7 @@
     });
     renderSidebarPath();
     syncProfile();
+    renderMarkers(page ? [page, id].filter(Boolean).join("/") : "home");
     if (focus) { main.focus({ preventScroll: true }); window.scrollTo(0, 0); }
   }
   main.addEventListener("input", event => {
@@ -1566,7 +1581,7 @@
     const message = document.querySelector(event.target.id === "import-profile" ? "#profile-message" : "#backup-message");
     if (!file) return;
     try {
-      if (file.size > 2 * 1024 * 1024) throw new Error("Die Datei ist zu groß (maximal 2 MB).");
+      if (file.size > maxBackupSize) throw new Error("Die Datei ist zu groß (maximal 8 MB).");
       const payload = JSON.parse(await file.text());
       const restored = engine.readPayload(payload);
       if (!window.confirm("Den aktuellen Lernstand durch die gewählte Datei ersetzen? Sichere deinen bisherigen Stand, wenn du ihn behalten möchtest.")) return;
