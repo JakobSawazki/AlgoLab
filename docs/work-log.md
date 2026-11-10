@@ -916,3 +916,15 @@ Die Browserabnahme öffnet alle 19 Einheiten bei 1365 und 320 Pixeln
 und prüft die jeweilige Bilddatei, Beschriftung und Seitendarstellung.
 Ein neuer Test sichert die Zuordnung und Verfügbarkeit beider Varianten
 für jede ausgearbeitete Einheit. Die Änderungen gehen in Version 1.10.0 ein.
+
+## 10. November 2026 – Version 1.10.0 veröffentlicht und online abgenommen
+
+RELEASE-02 bündelt START-01 bis START-03 und PHOTO-01. Commit `7826661`
+auf main gepusht. GitHub Actions 42860267654 hat alle 121 Tests bestanden
+und das Pages-Paket veröffentlicht. Edge online bei 1365 und 320 Pixeln:
+Erstbesuch und Wiederaufnahme bis L1.2, drei Vorhersageübungen, echte
+Python-Vorübung mit anschließend bestandener Pflichtaufgabe, Fotos und
+Varianten aller 19 Einheiten sowie zehn weitere Ansichten geprüft.
+Der Online-Dateirundlauf hat historische und aktuelle Lernstände
+übernommen, unverändert erneut exportiert und neueres Format abgelehnt.
+Die Unterrichtserprobung mit J2 INF1 und J2 INF2 bleibt CLASS-01.

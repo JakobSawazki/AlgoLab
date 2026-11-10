@@ -10,6 +10,11 @@ Die Website lädt je nach Bildschirmbreite und Pixeldichte ein WebP
 mit 480 oder 960 Pixeln Breite. Zu den Bildern gehören beschreibende
 Alternativtexte und ein kurzer Impuls zur Aufgabe. [Motive und Prompts](lesson-images.md).
 
+Veröffentlicht am 10. November 2026 als Commit `7826661`. Die öffentliche
+Seite wurde bei 1365 und 320 Pixeln mit allen 19 Fotos, den Vorübungen
+und echtem Python geprüft. Alte und aktuelle Lernstandsdateien ließen sich
+online laden und erneut sichern. [GitHub-Actions-Lauf mit 121 bestandenen Tests](https://github.com/JakobSawazki/AlgoLab/actions/runs/42860267654).
+
 Die Startseite nennt die nächste Einheit und zeigt bei der Wiederaufnahme
 den erreichten Punktestand. Auch gesperrte Direktlinks führen zum aktuell
 offenen Lernschritt zurück.

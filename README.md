@@ -20,8 +20,8 @@ Prüfen und Anwenden) und L3 Dynamische Datenstrukturen (verkettete Liste, Stape
 Warteschlange, Baum). Jede Einheit hat eine Lernsituation, Erklärungen, ein
 interaktives Schritt-Modell, Reflexionsfelder und geprüfte Aufgaben mit 100 Punkten.
 Jede der 19 Einheiten hat ein eigenes fotorealistisches Motiv zur
-Lernsituation. Auf schmalen Bildschirmen lädt AlgoLab eine kleinere
-Bildvariante. [Motive und Prompts](docs/lesson-images.md).
+Lernsituation. AlgoLab wählt die Bildvariante nach Bildschirmbreite und
+Pixeldichte. [Motive und Prompts](docs/lesson-images.md).
 
 Repository: <https://github.com/JakobSawazki/AlgoLab>.
 Online-Vorschau: <https://jakobsawazki.github.io/AlgoLab/>.

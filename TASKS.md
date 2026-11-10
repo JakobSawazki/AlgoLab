@@ -11,10 +11,16 @@ docs/documentation.md und docs/work-log.md. Veröffentlichung über RELEASE-02.
 
 ## Veröffentlichung 1.10.0 am 10. November 2026
 
-**RELEASE-02 – IN_PROGRESS – Codex:** START-01 bis START-03 und PHOTO-01 gemeinsam
-auf GitHub Pages veröffentlichen und die Lernwege online prüfen.
-Dateien: README.md, index.html, learning-path.js, TASKS.md,
-docs/documentation.md und docs/work-log.md.
+**RELEASE-02 – DONE – Codex:** START-01 bis START-03 und PHOTO-01 als
+Version 1.10.0 auf GitHub Pages veröffentlicht. Commit `7826661`,
+[Actions-Lauf 42860267654](https://github.com/JakobSawazki/AlgoLab/actions/runs/42860267654)
+mit 121 bestandenen Tests und erfolgreichem Deployment.
+Online geprüft bei 1365 und 320 px: alle 19 Einheiten samt Bildvariante,
+Einstieg und Wiederaufnahme, Vorhersageübungen, echter Python-Lauf und
+Übergang zu L1.2. Import und erneuter Export alter und aktueller JSON-Dateien
+ebenfalls online bestanden. Lokal 124/127 im Gesamtglob mit den drei
+bekannten Fehlern der separaten ungetrackten NSD-Erprobung. Unterrichtserprobung
+steht unter CLASS-01 aus. Keine Dateireservierung.
 
 ## Übergänge zu L2 und L3 am 10. November 2026
 
@@ -26,8 +32,8 @@ Dateien: app.js, learning-path.js, design.css, index.html, TASKS.md,
 docs/documentation.md und docs/work-log.md. 120 versionierte Tests,
 Syntax- und Diffprüfung bestanden. Edge bei 1365 und 320 px: alle drei
 Vorhersageübungen samt Tastaturfokus, Hinweisen, Rückblicken und
-Freischaltung geprüft. Lokal abgenommen. Veröffentlichung und
-Unterrichtserprobung stehen aus. Keine Dateireservierung.
+Freischaltung geprüft. Veröffentlichung und Onlineabnahme siehe RELEASE-02.
+Keine Dateireservierung.
 
 ## Erste Python-Ausführung in L1.2 am 10. November 2026
 
@@ -40,8 +46,8 @@ tests/python-runner.test.cjs, TASKS.md, docs/documentation.md und docs/work-log.
 120 versionierte Tests und Syntax-/Diffprüfung bestanden. Echter Pyodide-Lauf
 mit Vorübung und anschließender Pflichtaufgabe bei 1365 und 320 px in Edge
 bestanden. Vollständiger lokaler Glob: 123/126, die drei bekannten Fehler
-der separaten ungetrackten NSD-Erprobung. Lokal geprüft. Veröffentlichung und
-Unterrichtserprobung stehen aus. Keine Dateireservierung.
+der separaten ungetrackten NSD-Erprobung. Veröffentlichung und
+Onlineabnahme siehe RELEASE-02. Keine Dateireservierung.
 
 ## Geführter Einstieg in BPE 7 am 10. November 2026
 
@@ -53,8 +59,8 @@ docs/documentation.md und docs/work-log.md.
 119 versionierte Tests, Syntax- und Diffprüfung bestanden. Vollständiger
 Lernweg bis L1.2 in Edge bei 1365 px (dunkel) und 320 px (hell) bestanden.
 Der lokale Testlauf einschließlich ungetrackter NSD-Erprobung hat weiterhin
-die drei bekannten Fehler (122/125 bestanden). Lokal umgesetzt und geprüft.
-Veröffentlichung und Unterrichtserprobung stehen aus. Keine Dateireservierung.
+die drei bekannten Fehler (122/125 bestanden). Veröffentlichung und
+Onlineabnahme siehe RELEASE-02. Keine Dateireservierung.
 
 
 ## Kompatible Sicherungen am 10. November 2026
