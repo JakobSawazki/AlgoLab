@@ -1,5 +1,16 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Gezielt wiederholen am 10. November 2026
+
+**LEARN-02 – DONE – Codex:** Ich-kann-Markierungen mit Lernschritten
+und einer gezielten Wiederholungsrunde verbunden. Dateien:
+app.js, design.css, index.html, learning-path.js, README.md, TASKS.md,
+docs/documentation.md und docs/work-log.md. 121 versionierte Tests,
+Syntax- und Diffprüfung bestanden. Edge bei 1365 und 320 px:
+Tastaturfokus, Freischaltung, Lernlinks, beide Wiederholungsmodi und
+Fragepriorität bestanden. Historischer JSON-Dateirundlauf erfolgreich.
+Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+
 ## Python-Fehlersuche am 10. November 2026
 
 **DEBUG-01 – DONE – Codex:** Je eine Fehlersuche für BPE 7.1 bis 7.3

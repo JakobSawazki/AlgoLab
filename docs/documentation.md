@@ -2,6 +2,18 @@
 
 Stand: 10. November 2026 (Europe/Berlin)
 
+## Gezielt wiederholen in 1.13.0
+
+Mit „Noch nicht“ markierte Ich-kann-Aussagen erscheinen gesammelt als
+passende freigeschaltete Einheiten. Der Bereich **Gezielt wiederholen**
+verlinkt die Erklärungen und, wo vorhanden, eine passende Programmieraufgabe.
+Mehrere Aussagen zur selben Einheit ergeben einen Eintrag.
+
+In der gezielten Runde kommen bis zu fünf Verständnisfragen aus diesen
+Einheiten zum Zug. Falsche und offene Antworten haben Vorrang, wobei die
+Runde möglichst verschiedene Einheiten abdeckt. Die gemischte Runde bleibt
+über einen eigenen Reiter erreichbar. Beide Runden zählen keine Lernpunkte.
+
 ## Python-Fehlersuche in 1.12.0
 
 Unter **Programmieren → Python-Fehlersuche** stehen drei Übungen mit

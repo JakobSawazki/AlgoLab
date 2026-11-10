@@ -496,6 +496,9 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .can-units { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .can-units a, .can-units span { padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; font: 700 .7rem Consolas, monospace; color: var(--muted); }
 .can-units a { color: var(--accent); }
+.review-suggestions small { display: block; }
+.review-panel h2 { overflow-wrap: anywhere; hyphens: auto; }
+.review-modes { margin-bottom: 16px; }
 .rating { display: inline-flex; gap: 4px; }
 .rating button { min-width: 42px; padding: 6px 8px; border-radius: 8px; box-shadow: none; font-size: .82rem; color: var(--muted); background: var(--bg); }
 .rating button[aria-pressed="true"].rate-1 { border-color: var(--state-error); color: var(--text); background: color-mix(in srgb, var(--state-error) 22%, var(--bg)); }

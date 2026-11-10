@@ -964,3 +964,19 @@ Der historische JSON-Dateirundlauf war ebenfalls erfolgreich.
 Version 1.12.0 als `df67a16` veröffentlicht. Actions-Lauf 42864716782
 mit 121 bestandenen Tests und erfolgreichem Deployment. Der gleiche
 Browserlauf und der historische Datei-Rundlauf sind online bestanden.
+
+## 10. November 2026 – Gezielt wiederholen in 1.13.0
+
+LEARN-02 bündelt in der Ich-kann-Liste freigeschaltete Einheiten zu
+„Noch nicht“ und schlägt passende Übungen vor. Die gezielte Runde zieht
+bis zu fünf Fragen aus diesen Einheiten. Sie verteilt die Fragen möglichst
+auf mehrere Einheiten und bevorzugt falsche sowie offene Antworten.
+Die gemischte Runde verwendet weiterhin bereits gelöste Fragen.
+
+Edge bei 1365 und 320 px lokal geprüft: leere Liste, nur gesperrte
+Einheit, zwei Markierungen derselben Einheit, passende Übung,
+Fragepriorität und Verteilung, gemischte Runde, Tastaturfokus und
+unveränderter Lernstand. Überschrift bricht auf schmalen Bildschirmen um.
+121 versionierte Tests und historischer JSON-Dateirundlauf bestanden.
+Gesamtlauf lokal 124/127 mit den drei bekannten Fehlern der ungetrackten
+NSD-Erprobung.

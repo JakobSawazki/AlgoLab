@@ -650,6 +650,25 @@
   }
   // Ich-kann-Listen: Selbsteinschätzung je Aussage (☐ / ✓ / ✓✓), unabhängig von Punkten.
   const selfcheckItems = () => content.selfcheck.flatMap(group => group.items.map(item => ({ ...item, module: group.module })));
+  function selfcheckReviewUnits() {
+    const marked = new Set(selfcheckItems().filter(item => state.selfcheck?.[item.id] === 1).flatMap(item => item.units));
+    return content.units.filter(unit => marked.has(unit.id) && engine.unlocked(state, unit.id));
+  }
+  function renderReviewSuggestions() {
+    const units = selfcheckReviewUnits();
+    const hint = Object.values(state.selfcheck || {}).includes(1)
+      ? "Sobald eine passende Einheit freigeschaltet ist, findest du hier Übungen dazu."
+      : "Markiere in deinen Ich-kann-Listen eine Aussage mit „Noch nicht“. Hier findest du dann passende Lernschritte.";
+    return `<section class="lesson-panel review-suggestions" aria-labelledby="review-suggestions-title">
+      <h3 id="review-suggestions-title">Gezielt wiederholen</h3>
+      ${units.length ? `<p>${units.length === 1 ? "Eine freigeschaltete Einheit passt" : `${units.length} freigeschaltete Einheiten passen`} zu deinen Markierungen mit „Noch nicht“.</p>
+        <ul>${units.map(unit => {
+          const exercises = practice.exercises.filter(exercise => exercise.unit === unit.id);
+          const exercise = exercises.find(item => item.kind === "debug") || exercises[0];
+          return `<li><a href="#unit/${unit.id}">${unit.id} · ${esc(unit.title)}</a>${exercise ? `<small>Übung <a href="#programmieren/${exercise.id}">${esc(exercise.title)}</a></small>` : ""}</li>`;
+        }).join("")}</ul><a class="primary" href="#wiederholen/unsicher">Gezielte Runde starten</a>` : `<p>${hint}</p>`}
+    </section>`;
+  }
   function renderRating(item) {
     const level = state.selfcheck?.[item.id] || 0;
     return `<div class="rating" role="group" aria-label="Selbsteinschätzung ${esc(item.module)} ${esc(item.number)}">${content.selfcheckLevels.map(option => `<button type="button" class="rate-${option.value}" data-rate="${item.id}" data-level="${option.value}" aria-pressed="${level === option.value}" title="${esc(option.label)}"><span aria-hidden="true">${option.symbol}</span><span class="sr-only">${esc(option.label)}</span></button>`).join("")}</div>`;
@@ -667,6 +686,7 @@
     const groups = moduleId ? content.selfcheck.filter(group => group.module === moduleId) : content.selfcheck;
     if (!groups.length) { renderMissing(); return; }
     main.innerHTML = `<div class="path-intro"><span class="eyebrow">SELBSTEINSCHÄTZUNG</span><h2>Was kann ich schon?</h2><p>Schätze dich zu jeder Aussage ehrlich ein: ☐ noch nicht, ✓ ich kann das, ✓✓ ich kann das sicher. Die Einschätzung bringt keine Punkte und ändert keine Freischaltung. Sie hilft dir, gezielt zu wiederholen, und gehört zu deiner Lernstandsdatei.</p><div class="module-tabs"><a href="#selfcheck" ${moduleId ? "" : 'aria-current="page"'}>Alle</a>${content.selfcheck.map(group => `<a href="#selfcheck/${group.module}" ${moduleId === group.module ? 'aria-current="page"' : ""}>${group.module} · ${esc(content.modules.find(module => module.id === group.module).title)}</a>`).join("")}</div></div>${groups.map(group => { const module = content.modules.find(item => item.id === group.module); const items = group.items.map(item => ({ ...item, module: group.module })); return `<section class="lesson-panel can-list ${module.color}"><span class="eyebrow">ICH-KANN-LISTE · LERNFORTSCHRITT ${module.number}</span><h3>${esc(module.title)}</h3>${selfcheckSummary(items)}<ol>${items.map(item => renderSelfcheckItem(item)).join("")}</ol></section>`; }).join("")}`;
+    main.querySelector(".path-intro").insertAdjacentHTML("afterend", renderReviewSuggestions());
   }
   function renderUnitSelfcheck(unit) {
     const items = selfcheckItems().filter(item => item.units.includes(unit.id));
@@ -1440,13 +1460,22 @@
     update();
     return { auto() { if (aiAutoActive()) askAi(panel, context, { manual: false }); } };
   }
-  function reviewQuestions() {
-    const groups = content.units.filter(unit => engine.unlocked(state, unit.id)).map(unit =>
-      shuffled(unit.tasks.filter(task => task.type !== "code" && state.answers[unit.id]?.[task.id] === task.correct))
-        .map(task => ({ unit, task }))
-    ).filter(group => group.length);
+  function reviewQuestions(targeted) {
+    const units = targeted ? selfcheckReviewUnits() : content.units.filter(unit => engine.unlocked(state, unit.id));
+    const groups = units.map(unit => {
+      const tasks = shuffled(unit.tasks.filter(task => task.type !== "code")).map(task => {
+        const answer = state.answers[unit.id]?.[task.id];
+        return { unit, task, priority: answer === task.correct ? 2 : answer === undefined ? 1 : 0 };
+      });
+      return targeted ? tasks.sort((a, b) => a.priority - b.priority) : tasks.filter(item => item.priority === 2);
+    }).filter(group => group.length);
     const ordered = shuffled(groups);
-    return [...ordered.map(group => group[0]), ...shuffled(ordered.flatMap(group => group.slice(1)))].slice(0, 5);
+    const remaining = shuffled(ordered.flatMap(group => group.slice(1)));
+    if (targeted) {
+      ordered.sort((a, b) => a[0].priority - b[0].priority);
+      remaining.sort((a, b) => a.priority - b.priority);
+    }
+    return [...ordered.map(group => group[0]), ...remaining].slice(0, 5);
   }
   function shuffled(items) {
     const result = [...items];
@@ -1456,15 +1485,20 @@
     }
     return result;
   }
-  function renderReview() {
+  function renderReview(targeted = false) {
     document.querySelector("#page-title").textContent = "Wiederholen";
-    const questions = reviewQuestions();
+    const questions = reviewQuestions(targeted);
+    const modes = `<nav class="module-tabs review-modes" aria-label="Art der Wiederholung"><a href="#wiederholen" ${targeted ? "" : 'aria-current="page"'}>Gemischte Runde</a><a href="#wiederholen/unsicher" ${targeted ? 'aria-current="page"' : ""}>Gezielt wiederholen</a></nav>`;
     if (!questions.length) {
       const next = nextLearningUnit();
-      main.innerHTML = `<section class="lesson-panel"><h2>Wiederholungsrunde</h2><p>Sobald du eine Verständnisfrage richtig beantwortet hast, kannst du sie hier erneut üben.</p><a class="primary" href="${next ? `#unit/${next.id}` : "#path"}">${next ? `Zu ${next.id}` : "Zum Lernpfad"}</a></section>`;
+      const empty = targeted
+        ? '<p>Markiere in deinen Ich-kann-Listen „Noch nicht“ bei einer freigeschalteten Einheit, um Fragen dazu zu üben.</p><a class="primary" href="#selfcheck">Zu den Ich-kann-Listen</a>'
+        : `<p>Sobald du eine Verständnisfrage richtig beantwortet hast, kannst du sie hier erneut üben.</p><a class="primary" href="${next ? `#unit/${next.id}` : "#path"}">${next ? `Zu ${next.id}` : "Zum Lernpfad"}</a>`;
+      main.innerHTML = `<section class="lesson-panel review-panel"><h2>Wiederholungsrunde</h2>${modes}${empty}</section>`;
       return;
     }
-    main.innerHTML = `<section class="lesson-panel"><h2>Wiederholungsrunde</h2><p>Übe bereits gelöste Fragen aus dem Lernpfad. Du kannst es erneut versuchen und bekommst keine Lernpunkte.</p><div id="review-question"></div></section>`;
+    const intro = targeted ? "Übe Fragen aus den freigeschalteten Einheiten zu deinen Markierungen mit „Noch nicht“." : "Übe bereits gelöste Fragen aus dem Lernpfad.";
+    main.innerHTML = `<section class="lesson-panel review-panel"><h2>Wiederholungsrunde</h2>${modes}<p>${intro} Du kannst es erneut versuchen und bekommst keine Lernpunkte.</p><div id="review-question"></div></section>`;
     const panel = main.querySelector("#review-question");
     let index = 0, firstTry = 0;
     function showQuestion(moveFocus = false) {
@@ -1499,7 +1533,7 @@
           panel.innerHTML = `<h3 tabindex="-1">Runde geschafft</h3><p>Beim ersten Versuch richtig: ${firstTry} von ${questions.length}.</p><div class="code-actions"><button type="button">Neue Runde</button><a href="#progress">Zu deinem Lernstand</a></div>`;
           panel.querySelector("h3").focus();
           panel.querySelector("button").addEventListener("click", () => {
-            renderReview();
+            renderReview(targeted);
             const heading = main.querySelector("h2");
             heading.tabIndex = -1;
             heading.focus();
@@ -1522,7 +1556,7 @@
     else if (page === "path") renderPath(id);
     else if (page === "unit") renderUnit(id);
     else if (page === "progress") renderProgress();
-    else if (page === "wiederholen") renderReview();
+    else if (page === "wiederholen") renderReview(id === "unsicher");
     else if (page === "selfcheck") renderSelfcheck(id);
     else if (page === "glossar") renderGlossary(id);
     else if (page === "programmieren") renderPractice(id);
@@ -1719,6 +1753,8 @@
       const items = [...list.querySelectorAll("[data-can]")].map(row => ({ id: row.dataset.can }));
       if (summary) summary.outerHTML = selfcheckSummary(items);
     });
+    const suggestions = main.querySelector(".review-suggestions");
+    if (suggestions) suggestions.outerHTML = renderReviewSuggestions();
   });
   main.addEventListener("click", event => {
     const run = event.target.closest("[data-run-code]");

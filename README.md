@@ -2,11 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 10. November 2026. Version **1.12.0 – Python-Fehlersuche**.
+Stand: 10. November 2026. Version **1.13.0 – Gezielt wiederholen**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
 Im Lernpfad zeigen Lernziele und Praxisbeispiele, wofür du die Inhalte
-brauchst. In der Wiederholungsrunde übst du bis zu fünf bereits gelöste
+brauchst. In der gemischten Wiederholungsrunde übst du bis zu fünf bereits gelöste
 Verständnisfragen aus verschiedenen Einheiten ohne Lernpunkte.
+Markiere in der Ich-kann-Liste „Noch nicht“, um passende Erklärungen und
+Übungen sowie eine gezielte Runde aus den freigeschalteten Einheiten zu finden.
 Die Startseite zeigt, wo du anfangen oder weiterlernen kannst. In L1.1, L2.1
 und L3.1 probierst du ein kurzes Beispiel mit direkter Rückmeldung aus.
 In L1.2 kannst du vor der ersten Python-Pflichtaufgabe ein Programm ausführen
