@@ -942,3 +942,6 @@ geben Rückmeldung. Lernpunkte und Dateiformat bleiben unverändert.
 Lokal bei 1365 und 320 Pixeln in Edge geprüft. 121 versionierte Tests,
 JavaScript-Syntax und Diffprüfung bestanden. Der gesamte lokale Glob
 enthält weiterhin die drei bekannten Fehler der ungetrackten NSD-Erprobung.
+Version 1.11.0 als `78bb964` veröffentlicht. Actions-Lauf 42861654209
+mit 121 bestandenen Tests und erfolgreichem Deployment. Der gleiche
+Browserlauf bei 1365 und 320 Pixeln ist online bestanden.

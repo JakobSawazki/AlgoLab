@@ -9,7 +9,8 @@ TASKS.md, docs/documentation.md und docs/work-log.md. 121 versionierte
 Tests sowie Syntax und Diff bestanden. Edge bei 1365 und 320 px:
 Lernpfad, leere, einzelne und volle Runde, verteilte Auswahl, Hinweise,
 Erstversuchszähler, Tastaturfokus und unveränderter Lernstand geprüft.
-Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+Version 1.11.0 als `78bb964` veröffentlicht. Actions-Lauf 42861654209
+erfolgreich. Derselbe Browserlauf online bestanden. Keine Dateireservierung.
 
 ## Fotos für alle 19 Einheiten am 10. November 2026
 

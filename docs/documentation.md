@@ -16,6 +16,10 @@ Hinweis. Am Ende sieht man, wie viele Fragen beim ersten Versuch richtig
 waren. Die Runde vergibt keine Punkte und wird nicht in die
 Lernstandsdatei geschrieben.
 
+Version 1.11.0 wurde als Commit `78bb964` veröffentlicht. Der Lernpfad
+und die Wiederholungsrunde wurden online bei 1365 und 320 Pixeln geprüft.
+[GitHub-Actions-Lauf mit 121 bestandenen Tests](https://github.com/JakobSawazki/AlgoLab/actions/runs/42861654209).
+
 ## Einstieg in BPE 7
 
 Version **1.10.0 – Geführter Einstieg in BPE 7** verbindet die
