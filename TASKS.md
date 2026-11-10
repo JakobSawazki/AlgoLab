@@ -1,5 +1,16 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Orientierung und Wiederholung am 10. November 2026
+
+**LEARN-01 – DONE – Codex:** Ziel und Praxisbeispiel pro Lernfortschritt
+nach Excel-Lab und eine freiwillige Wiederholungsrunde nach WorkbenchLab.
+Dateien: app.js, learning-path.js, design.css, index.html, README.md,
+TASKS.md, docs/documentation.md und docs/work-log.md. 121 versionierte
+Tests sowie Syntax und Diff bestanden. Edge bei 1365 und 320 px:
+Lernpfad, leere, einzelne und volle Runde, verteilte Auswahl, Hinweise,
+Erstversuchszähler, Tastaturfokus und unveränderter Lernstand geprüft.
+Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+
 ## Fotos für alle 19 Einheiten am 10. November 2026
 
 **PHOTO-01 – DONE – Codex:** Vorhandene vier Fotos beibehalten und 15

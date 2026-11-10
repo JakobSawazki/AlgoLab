@@ -2,8 +2,11 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 10. November 2026. Version **1.10.0 – Geführter Einstieg in BPE 7**.
+Stand: 10. November 2026. Version **1.11.0 – Orientierung und Wiederholung**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Im Lernpfad zeigen Lernziele und Praxisbeispiele, wofür du die Inhalte
+brauchst. In der Wiederholungsrunde übst du bis zu fünf bereits gelöste
+Verständnisfragen aus verschiedenen Einheiten ohne Lernpunkte.
 Die Startseite zeigt, wo du anfangen oder weiterlernen kannst. In L1.1, L2.1
 und L3.1 probierst du ein kurzes Beispiel mit direkter Rückmeldung aus.
 In L1.2 kannst du vor der ersten Python-Pflichtaufgabe ein Programm ausführen

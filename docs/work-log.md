@@ -928,3 +928,17 @@ Varianten aller 19 Einheiten sowie zehn weitere Ansichten geprüft.
 Der Online-Dateirundlauf hat historische und aktuelle Lernstände
 übernommen, unverändert erneut exportiert und neueres Format abgelehnt.
 Die Unterrichtserprobung mit J2 INF1 und J2 INF2 bleibt CLASS-01.
+
+## 10. November 2026 – Orientierung und Wiederholung in 1.11.0
+
+LEARN-01 überträgt das Prinzip des Excel-Lab-Organizers auf den Lernpfad.
+Jeder Lernfortschritt hat ein greifbares Ziel und ein Praxisbeispiel.
+Das Beispiel führt zur Einheit, sobald sie zugänglich ist.
+Nach WorkbenchLab ergänzt eine Wiederholungsrunde die Übersicht und den
+Lernstand. Sie zieht bis zu fünf bereits richtig beantwortete Fragen,
+bevorzugt aus unterschiedlichen Einheiten. Hinweise und Erstversuchszähler
+geben Rückmeldung. Lernpunkte und Dateiformat bleiben unverändert.
+
+Lokal bei 1365 und 320 Pixeln in Edge geprüft. 121 versionierte Tests,
+JavaScript-Syntax und Diffprüfung bestanden. Der gesamte lokale Glob
+enthält weiterhin die drei bekannten Fehler der ungetrackten NSD-Erprobung.

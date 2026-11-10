@@ -178,6 +178,7 @@
     }
     const positions = [{ x: 18, y: 72 }, { x: 53, y: 51 }, { x: 84, y: 32 }];
     main.innerHTML = `<section class="hero"><div class="hero-copy"><span class="eyebrow">DEIN EINSTIEG IN BPE7</span><h2>Deine Ideen.<br>Deine Algorithmen.</h2><p>Entscheide, wie du Daten am besten ordnest. Dann lernst du, sie zu durchsuchen, zu sortieren und mit Python zu bearbeiten.</p><p class="hero-next">${nextSummary}</p><div class="hero-actions" role="group" aria-label="Dein Einstieg"><a class="primary" href="${next ? `#unit/${next.id}` : "#progress"}">${nextAction} ${icon("arrow")}</a><a class="hero-secondary" href="#programmieren">${icon("code")} Selbst programmieren</a><a class="hero-secondary" href="#klausur">${icon("exam")} Klausur vorbereiten</a></div><div class="hero-tags"><span>${icon("layers")} 3 Lernfortschritte</span><span>${icon("route")} ${content.units.length} Lerneinheiten</span></div></div><figure class="hero-photo"><img src="assets/algolab-students-960.webp" srcset="assets/algolab-students-480.webp 480w, assets/algolab-students-960.webp 960w, assets/algolab-students.webp 1672w" sizes="(max-width: 780px) calc(100vw - 40px), (max-width: 1100px) 45vw, 560px" width="1672" height="941" decoding="async" fetchpriority="high" alt="Drei Schüler arbeiten gemeinsam am Laptop, ordnen blaue und silberne Sortierbausteine und untersuchen ein Knotenmodell."><figcaption>Verstehen. Ausprobieren. Weiterdenken.</figcaption></figure></section><div class="section-heading"><div><span class="eyebrow">DEIN WEG DURCH BPE7</span><h2>Entdecke deine Lernkarte</h2></div><a class="map-list-link" href="#path">Alle Lerneinheiten ${icon("arrow")}</a></div><p class="map-instruction">Fahre mit der Maus über eine Station oder klicke sie an, um ihre Lerneinheiten zu sehen. Die Karte zeigt dir, welche Einheiten bereits offen sind.</p><section class="learning-map" aria-label="Lernkarte mit drei Lernfortschritten"><div class="map-stage"><img class="map-photo" src="assets/bpe7-learning-map-1280.webp" srcset="assets/bpe7-learning-map-640.webp 640w, assets/bpe7-learning-map-1280.webp 1280w, assets/bpe7-learning-map.webp 1672w" sizes="(max-width: 780px) calc(100vw - 40px), (max-width: 1100px) calc(100vw - 263px), 1100px" width="1672" height="941" loading="lazy" decoding="async" fetchpriority="low" alt="Drei Forschungsstationen an einem Bergsee, verbunden durch einen Weg von links unten nach rechts oben.">${content.modules.map((module, index) => `<div class="map-station" style="--x:${positions[index].x}%;--y:${positions[index].y}%" data-station="${module.id}"><button class="map-pin ${accessible(module.units[0].id) ? "" : "is-locked"}" data-map-toggle="${module.id}" aria-expanded="false" aria-controls="map-menu-${module.id}" aria-label="${module.id} · ${module.title}: Lerneinheiten anzeigen"><span class="pin-code">${module.id}</span><span class="pin-title">${module.title}</span>${icon("chevron")}</button></div>`).join("")}</div><div class="map-popovers">${content.modules.map((module, index) => `<section class="map-menu map-menu-${module.id}" id="map-menu-${module.id}" data-map-menu="${module.id}" hidden aria-label="Lerneinheiten in ${module.id}"><div class="map-menu-heading"><span class="eyebrow">LERNFORTSCHRITT ${module.number}</span><h3>${module.title}</h3><a href="#path/${module.id}">Übersicht ${icon("arrow")}</a></div><div class="map-units">${module.units.map(unit => accessible(unit.id) ? `<a class="map-unit available" href="#unit/${unit.id}"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>${status(unit)} · ${engine.earned(state, unit.id)}/${unit.points} Punkte</small></span>${icon(state.completed.includes(unit.id) ? "check" : "arrow")}</a>` : `<div class="map-unit locked"><span class="map-unit-code">${unit.id}</span><span>${esc(unit.title)}<small>Zuerst ${engine.prerequisite(unit.id).id} abschließen</small></span>${icon("lock")}</div>`).join("")}</div></section>`).join("")}</div></section><div class="map-key">${content.modules.map(module => `<button data-map-show="${module.id}"><span>${module.id}</span>${module.title}${icon("chevron")}</button>`).join("")}</div><aside class="notice">${content.units.every(unit => unit.ready) ? `<strong>So arbeitest du mit AlgoLab:</strong> Jede der ${content.units.length} Einheiten führt dich vom Verstehen über ein interaktives Modell zu eigenen Erklärungen und geprüften Aufgaben – ab L1.2 auch mit Python direkt im Browser. Sichere deinen Lernstand regelmäßig über das Diskettensymbol als Datei.` : `<strong>Wir bauen AlgoLab Schritt für Schritt auf.</strong> ${content.units.filter(unit => unit.ready).length} von ${content.units.length} Einheiten enthalten bereits Erklärungen, interaktive Modelle und Aufgaben. Die übrigen Einheiten zeigen zunächst ihre Lernziele.`}</aside>`;
+    main.insertAdjacentHTML("beforeend", '<p class="notice review-teaser"><a href="#wiederholen">Wiederholungsrunde</a> · Übe bis zu fünf bereits gelöste Fragen.</p>');
     setupMap();
   }
   function setupMap() {
@@ -229,11 +230,15 @@
     document.addEventListener("click", event => { if (!event.target.closest(".learning-map, .map-key")) close(); }, { signal: mapListenerController.signal });
   }
   let mapListenerController = new AbortController();
+  function renderModuleOverview({ outcome, exampleUnit, example }) {
+    return `<aside class="notice module-overview"><p><strong>Das kannst du danach</strong> ${esc(outcome)}</p>
+      <p><strong>Praxisbeispiel</strong> ${esc(example)} ${accessible(exampleUnit) ? `<a href="#unit/${exampleUnit}">Zu ${exampleUnit}</a>` : `<span>(${exampleUnit})</span>`}</p></aside>`;
+  }
   function renderPath(moduleId) {
     document.querySelector("#page-title").textContent = "Lernpfad";
     const modules = moduleId ? content.modules.filter(module => module.id === moduleId) : content.modules;
     if (!modules.length) { renderMissing(); return; }
-    main.innerHTML = `<div class="path-intro"><p>Arbeite die Lerneinheiten in Reihenfolge durch. Bestehe alle Pflichtaufgaben einer Einheit und sammle ihre ${content.units[0].points} Punkte. Nach dem Abschluss öffnet sich die nächste Einheit.</p><div class="module-tabs">${content.modules.map(module => `<a href="#path/${module.id}" ${moduleId === module.id ? 'aria-current="page"' : ""}>${module.id} · ${module.title}</a>`).join("")}</div></div>${modules.map(module => `<section class="module ${module.color}" id="${module.id}"><div class="section-heading"><div><span class="eyebrow">LERNFORTSCHRITT ${module.number} · ${module.plan}</span><h2>${module.title}</h2><p>${module.subtitle}</p></div><span class="module-completed">${module.units.filter(unit => state.completed.includes(unit.id)).length} / ${module.units.length} abgeschlossen</span></div><div class="unit-grid">${module.units.map(card).join("")}</div></section>`).join("")}`;
+    main.innerHTML = `<div class="path-intro"><p>Arbeite die Lerneinheiten in Reihenfolge durch. Bestehe alle Pflichtaufgaben einer Einheit und sammle ihre ${content.units[0].points} Punkte. Nach dem Abschluss öffnet sich die nächste Einheit.</p><div class="module-tabs">${content.modules.map(module => `<a href="#path/${module.id}" ${moduleId === module.id ? 'aria-current="page"' : ""}>${module.id} · ${module.title}</a>`).join("")}</div></div>${modules.map(module => `<section class="module ${module.color}" id="${module.id}"><div class="section-heading"><div><span class="eyebrow">LERNFORTSCHRITT ${module.number} · ${module.plan}</span><h2>${module.title}</h2><p>${module.subtitle}</p></div><span class="module-completed">${module.units.filter(unit => state.completed.includes(unit.id)).length} / ${module.units.length} abgeschlossen</span></div>${renderModuleOverview(module.overview)}<div class="unit-grid">${module.units.map(card).join("")}</div></section>`).join("")}`;
   }
   function renderMissing() { document.querySelector("#page-title").textContent = "Seite nicht gefunden"; main.innerHTML = `<section class="empty-state"><h2>Diese Seite gibt es nicht.</h2><a class="primary" href="#path">Zum Lernpfad</a></section>`; }
   let pythonRunner = null;
@@ -1425,9 +1430,78 @@
     update();
     return { auto() { if (aiAutoActive()) askAi(panel, context, { manual: false }); } };
   }
+  function reviewQuestions() {
+    const groups = content.units.filter(unit => engine.unlocked(state, unit.id)).map(unit =>
+      shuffled(unit.tasks.filter(task => task.type !== "code" && state.answers[unit.id]?.[task.id] === task.correct))
+        .map(task => ({ unit, task }))
+    ).filter(group => group.length);
+    const ordered = shuffled(groups);
+    return [...ordered.map(group => group[0]), ...shuffled(ordered.flatMap(group => group.slice(1)))].slice(0, 5);
+  }
+  function shuffled(items) {
+    const result = [...items];
+    for (let index = result.length - 1; index > 0; index--) {
+      const other = Math.floor(Math.random() * (index + 1));
+      [result[index], result[other]] = [result[other], result[index]];
+    }
+    return result;
+  }
+  function renderReview() {
+    document.querySelector("#page-title").textContent = "Wiederholen";
+    const questions = reviewQuestions();
+    if (!questions.length) {
+      const next = nextLearningUnit();
+      main.innerHTML = `<section class="lesson-panel"><h2>Wiederholungsrunde</h2><p>Sobald du eine Verständnisfrage richtig beantwortet hast, kannst du sie hier erneut üben.</p><a class="primary" href="${next ? `#unit/${next.id}` : "#path"}">${next ? `Zu ${next.id}` : "Zum Lernpfad"}</a></section>`;
+      return;
+    }
+    main.innerHTML = `<section class="lesson-panel"><h2>Wiederholungsrunde</h2><p>Übe bereits gelöste Fragen aus dem Lernpfad. Du kannst es erneut versuchen und bekommst keine Lernpunkte.</p><div id="review-question"></div></section>`;
+    const panel = main.querySelector("#review-question");
+    let index = 0, firstTry = 0;
+    function showQuestion(moveFocus = false) {
+      const { unit, task } = questions[index];
+      const options = shuffled(task.options.map((label, value) => ({ label, value })));
+      panel.innerHTML = `<h3 tabindex="-1">Frage ${index + 1} von ${questions.length}</h3><p><a href="#unit/${unit.id}">${unit.id} · ${esc(unit.title)}</a></p>
+        <form class="task"><fieldset><legend>${esc(task.prompt)}</legend>
+          ${options.map(({ label, value }) => `<label class="choice"><input type="radio" name="review-choice" value="${value}" required><span>${esc(label)}</span></label>`).join("")}
+        </fieldset><button type="submit">Antwort prüfen</button><p class="task-feedback" role="status"></p></form>`;
+      if (moveFocus) panel.querySelector("h3").focus();
+      const form = panel.querySelector("form");
+      let hadMistake = false;
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const answer = new FormData(form).get("review-choice");
+        if (answer === null) return;
+        const feedback = form.querySelector(".task-feedback");
+        if (Number(answer) !== task.correct) {
+          hadMistake = true;
+          feedback.textContent = task.hint;
+          return;
+        }
+        if (!hadMistake) firstTry++;
+        feedback.textContent = "Richtig!";
+        form.querySelector("fieldset").disabled = true;
+        const next = form.querySelector("button");
+        next.type = "button";
+        next.textContent = index + 1 === questions.length ? "Runde abschließen" : "Nächste Frage";
+        next.addEventListener("click", () => {
+          index++;
+          if (index < questions.length) { showQuestion(true); return; }
+          panel.innerHTML = `<h3 tabindex="-1">Runde geschafft</h3><p>Beim ersten Versuch richtig: ${firstTry} von ${questions.length}.</p><div class="code-actions"><button type="button">Neue Runde</button><a href="#progress">Zu deinem Lernstand</a></div>`;
+          panel.querySelector("h3").focus();
+          panel.querySelector("button").addEventListener("click", () => {
+            renderReview();
+            const heading = main.querySelector("h2");
+            heading.tabIndex = -1;
+            heading.focus();
+          });
+        }, { once: true });
+      });
+    }
+    showQuestion();
+  }
   function renderProgress() {
     document.querySelector("#page-title").textContent = "Mein Lernstand";
-    main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><button class="primary" data-backup>Lernstand sichern oder laden</button></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div><section class="lesson-panel exam-progress"><span class="eyebrow">KLAUSURVORBEREITUNG</span><h3>Übungsklausuren</h3><div class="progress-list">${examData.exams.map(item => { const totals = examTotals(item); return `<div><span><a href="#klausur/${item.id}"><strong>${esc(item.subtitle)}</strong> ${esc(item.title)}</a></span><span>${totals.points} / ${totals.max} BE · ${totals.done} von ${item.tasks.length} ausgewertet</span></div>`; }).join("")}</div><p class="practice-note">Die Übungsklausuren zählen nicht für Punkte oder Freischaltungen. Sie sind Teil deiner Lernstand-Datei.</p></section>`;
+    main.innerHTML = `<section class="lesson-panel"><span class="eyebrow">DEIN FORTSCHRITT</span><h2>${engine.total(state)} Punkte erreicht</h2><p>${state.completed.length} von ${content.units.length} Lerneinheiten abgeschlossen.</p><p>Die nächste Einheit öffnet sich, wenn du alle Pflichtaufgaben der vorherigen Einheit bestanden, ihre Punkte erreicht und sie abgeschlossen hast. Die Freischaltung gilt auch für direkte Links.</p><div class="code-actions"><button class="primary" data-backup>Lernstand sichern oder laden</button><a href="#wiederholen">Wiederholungsrunde starten</a></div></section><div class="progress-list">${content.units.map(unit => `<div><span><strong>${unit.id}</strong> ${unit.title}</span><span>${engine.earned(state, unit.id)} / ${unit.points} · ${status(unit)}</span></div>`).join("")}</div><section class="lesson-panel exam-progress"><span class="eyebrow">KLAUSURVORBEREITUNG</span><h3>Übungsklausuren</h3><div class="progress-list">${examData.exams.map(item => { const totals = examTotals(item); return `<div><span><a href="#klausur/${item.id}"><strong>${esc(item.subtitle)}</strong> ${esc(item.title)}</a></span><span>${totals.points} / ${totals.max} BE · ${totals.done} von ${item.tasks.length} ausgewertet</span></div>`; }).join("")}</div><p class="practice-note">Die Übungsklausuren zählen nicht für Punkte oder Freischaltungen. Sie sind Teil deiner Lernstand-Datei.</p></section>`;
   }
   function render(focus = false) {
     pythonRunner?.stop(); pythonRunner = null;
@@ -1438,6 +1512,7 @@
     else if (page === "path") renderPath(id);
     else if (page === "unit") renderUnit(id);
     else if (page === "progress") renderProgress();
+    else if (page === "wiederholen") renderReview();
     else if (page === "selfcheck") renderSelfcheck(id);
     else if (page === "glossar") renderGlossary(id);
     else if (page === "programmieren") renderPractice(id);
@@ -1451,7 +1526,7 @@
     document.querySelector("#sidebar-progress").value = total;
     document.querySelector("#sidebar-progress").max = content.units.reduce((sum, unit) => sum + unit.points, 0);
     document.querySelectorAll("[data-nav]").forEach(link => {
-      const active = link.dataset.nav === (page === "unit" ? "path" : page === "struktogramme" ? "programmieren" : page || "home");
+      const active = link.dataset.nav === (page === "unit" ? "path" : page === "struktogramme" ? "programmieren" : page === "wiederholen" ? "progress" : page || "home");
       if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
     });
     renderSidebarPath();

@@ -34,6 +34,21 @@
       unit("L3.4", "Bäume und Binärbäume", "Hierarchien aufbauen und ihre Eigenschaften untersuchen.", ["L3_4.1", "L3_4.2"], ["Wurzel, Knoten und Beziehungen beschreiben", "Geordnet, voll und vollständig unterscheiden", "Bäume situationsgerecht modellieren"])
     ] }
   ];
+  modules[0].overview = {
+    outcome: "Du speicherst Daten in Arrays und kannst einzelne Werte lesen, ändern oder die ganze Liste auswerten.",
+    exampleUnit: "L1.2",
+    example: "Beim Schulturnier korrigierst du die Punkte eines Teams und ergänzt ein neu angemeldetes Team."
+  };
+  modules[1].overview = {
+    outcome: "Du sortierst und durchsuchst Listen. Du kannst erklären, wann ein Verfahren passt und mit welchen Daten du es prüfst.",
+    exampleUnit: "L2.6",
+    example: "Bei der Tombola findest du ein Gewinnlos in einer sortierten Liste, indem du den Suchbereich immer wieder halbierst."
+  };
+  modules[2].overview = {
+    outcome: "Du modellierst Verweise, Stapel, Warteschlangen und Bäume und entscheidest, welche Struktur zur Aufgabe passt.",
+    exampleUnit: "L3.1",
+    example: "Für die Schulparty fügst du einen Wunschsong in die Wiedergabeliste ein, indem du zwei Verweise anpasst."
+  };
   const first = modules[0].units[0];
   first.ready = true;
   first.intro = "Eine Datenstruktur beschreibt, wie Daten organisiert sind und wie du mit ihnen arbeiten kannst. Die passende Struktur hängt davon ab, was dein Programm tun soll.";
@@ -1116,7 +1131,7 @@
   };
   // Gliederung der Dokumente: Überschrift 1 „Lernfortschritt n – …“, darunter Überschrift 2 „Aufgabe x“.
   const resultSections = unit => unit.sourceRefs.map(ref => `Lernfortschritt ${ref.match(/^L(\d+)_/)[1]} → Aufgabe ${ref.replace(/^L\d+_/, "")}`);
-  const data = { version: "1.10.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
+  const data = { version: "1.11.0", modules, units: modules.flatMap(m => m.units), results, resultDocuments, resultSections, selfcheck, selfcheckLevels, glossary };
   if (typeof module !== "undefined" && module.exports) { data.practice = require("./practice.js"); data.exam = require("./exam.js"); module.exports = data; }
   else root.ALGOLAB_CONTENT = data;
 })(typeof window !== "undefined" ? window : globalThis);

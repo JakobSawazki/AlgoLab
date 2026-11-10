@@ -2,6 +2,20 @@
 
 Stand: 10. November 2026 (Europe/Berlin)
 
+## Orientierung und Wiederholung in 1.11.0
+
+Der Lernpfad zeigt nach dem Vorbild des Excel-Lab-Organizers, was Lernende
+am Ende jedes Lernfortschritts können und wo sie das anwenden. Das Beispiel
+verlinkt die zugehörige Einheit, sobald sie zugänglich ist.
+
+Die Wiederholungsrunde orientiert sich an WorkbenchLab. Sie startet über
+die Übersicht oder den Lernstand und verwendet bis zu fünf bereits
+bestandene Verständnisfragen. Zuerst kommen möglichst viele verschiedene
+Einheiten zum Zug. Bei einer falschen Antwort erscheint der bekannte
+Hinweis. Am Ende sieht man, wie viele Fragen beim ersten Versuch richtig
+waren. Die Runde vergibt keine Punkte und wird nicht in die
+Lernstandsdatei geschrieben.
+
 ## Einstieg in BPE 7
 
 Version **1.10.0 – Geführter Einstieg in BPE 7** verbindet die
