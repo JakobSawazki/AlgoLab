@@ -1015,3 +1015,6 @@ Für die KI-Hilfe bleibt das Format aus Zeile und Änderung erhalten.
 Aufrufe, Eingabeänderung, reguläre Prüfung, leerer Trace und Stopp.
 Der Gesamtlauf lokal meldet 130/133 mit den drei bekannten Fehlern
 der ungetrackten NSD-Erprobung.
+Version 1.15.0 als `af46f48` veröffentlicht. Actions-Lauf 42868149575
+mit 127 bestandenen Tests und erfolgreichem Deployment. Derselbe
+Browserlauf mit echtem Pyodide ist online bestanden.

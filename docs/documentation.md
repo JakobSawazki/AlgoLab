@@ -14,6 +14,10 @@ Der Schreibtischtest läuft in der Browser-Pythonlaufzeit und ist eine
 freiwillige Analyse. Sobald Code oder Eingaben geändert werden, verschwindet
 das alte Protokoll. **Code prüfen** bewertet weiterhin die Testfälle.
 
+Version 1.15.0 wurde als Commit `af46f48` veröffentlicht und mit echtem
+Python bei 1365 und 320 Pixeln online geprüft.
+[GitHub-Actions-Lauf mit 127 bestandenen Tests](https://github.com/JakobSawazki/AlgoLab/actions/runs/42868149575).
+
 ## Lerninhalte suchen in 1.14.0
 
 Die Suche bündelt Einheiten, Glossarbegriffe, Python-Aufgaben, Struktogramme

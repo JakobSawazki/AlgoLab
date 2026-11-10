@@ -9,7 +9,8 @@ index.html, learning-path.js, tests/python-trace.test.cjs, README.md, TASKS.md,
 docs/documentation.md und docs/work-log.md. 127 versionierte Tests, Syntax
 und Diff bestanden. Edge bei 1365 und 320 px mit echtem Pyodide:
 Fehlerzeilen, Funktionsaufrufe, Eingabewechsel, reguläre Prüfung und Stopp
-geprüft. Veröffentlichung und Onlineabnahme folgen. Keine Dateireservierung.
+geprüft. Version 1.15.0 als `af46f48` veröffentlicht. Actions-Lauf 42868149575
+erfolgreich. Derselbe Browserlauf online bestanden. Keine Dateireservierung.
 
 ## Suche nach Lerninhalten am 10. November 2026
 
