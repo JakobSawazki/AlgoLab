@@ -1043,3 +1043,8 @@ Erfolgsmeldung den neuen Import nicht vorzeitig bestätigt. Datei-Rundlauf
 mit 0.2.0 sowie Profil, EP, Fortschritt, Entwürfen, Markierungen, Notizen
 und Skizzen bestanden. Neuere unbekannte Formate werden weiter vor dem
 Ersetzen abgewiesen.
+
+Version 1.16.0 als 54e7640 veröffentlicht. Actions-Lauf 44950300462 mit
+erfolgreichen Tests und Deployment. Testfallprüfung bei 1365/320 px mit
+echtem Pyodide sowie historischer JSON-Rundlauf online bestanden.
+Keine Dateireservierung nach Abschluss.

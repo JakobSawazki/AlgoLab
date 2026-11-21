@@ -10,8 +10,10 @@ TASKS.md, docs/documentation.md und docs/work-log.md.
 mit echtem Pyodide geprüft. Testfalleingabe, Fokus, Stände während laufender
 Prüfung, anschließende reguläre Bewertung und freie Werkstatt erfolgreich.
 Historischer Datei-Rundlauf samt Notizen/Skizzen erfolgreich.
-Lademeldung bei wiederholtem Import korrigiert. Version 1.16.0 zur
-Veröffentlichung vorbereitet.
+Lademeldung bei wiederholtem Import korrigiert. Version 1.16.0 als
+54e7640 veröffentlicht, Actions 44950300462 erfolgreich. Dieselben
+Testfallprüfungen bei 1365/320 px und historischer JSON-Rundlauf online
+bestanden. Keine Dateireservierung.
 
 ## Schreibtischtest im Python-Editor am 10. November 2026
 
