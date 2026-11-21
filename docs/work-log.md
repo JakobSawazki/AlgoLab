@@ -1101,3 +1101,8 @@ Veröffentlichung vorbereitet.
 Browserlauf ist unter tests/browser/storage-tabs.cjs mit konfigurierbarem
 Playwright-Modul und Browser abgelegt und mit dem vorhandenen Chrome
 ausgeführt. Er verwendet eigene Browserkontexte und synthetische Notizen.
+
+Version 1.17.0 als e968504 veröffentlicht. Actions 44951848135 mit
+erfolgreichen Tests und Deployment. Der versionierte Browserlauf mit zwei
+Tabs bei 1365/375 px sowie historischer JSON-Rundlauf online bestanden.
+Keine Dateireservierung nach Abschluss.

@@ -9,7 +9,10 @@ design.css, learning-path.js, tests/browser/storage-tabs.cjs, README.md
 und Dokumentation. 127 versionierte Tests, Syntax und Diff bestanden. Chrome bei 1365/375 px: neueren Stand erhalten, beide JSON-Fassungen
 exportiert, Abbruch und bestätigtes Laden samt Skizze geprüft. Auch
 beschädigte/gelöschte Daten und ausstehendes storage-Ereignis geprüft.
-Historischer Datei-Rundlauf bestanden. Version 1.17.0 vorbereitet.
+Historischer Datei-Rundlauf bestanden. Version 1.17.0 als e968504
+veröffentlicht. Actions 44951848135 erfolgreich. Derselbe Browserlauf
+mit zwei Tabs und historischer JSON-Rundlauf online bestanden.
+Keine Dateireservierung.
 
 ## Aktuelle Python-Prüfungen am 21. November 2026
 
