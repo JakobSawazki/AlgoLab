@@ -2,8 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 21. November 2026. Version **1.16.1 – Aktuelle Python-Prüfergebnisse**.
+Stand: 21. November 2026. Version **1.17.0 – Sicher arbeiten mit mehreren Tabs**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Wenn ein anderer Tab den gespeicherten Lernstand geändert hat, weist AlgoLab
+darauf hin. Sichere eigene Änderungen in diesem Tab zuerst als JSON. Mit
+**Aktuellen Browserstand laden** übernimmst du anschließend nach Bestätigung
+den gespeicherten Stand und kannst wieder auf dem Gerät speichern.
+
 In Lerneinheiten und Übungsklausuren werden Prüfergebnisse nach einer
 Codeänderung verworfen. Wer während einer laufenden Prüfung editiert, führt
 den aktuellen Stand anschließend erneut aus. Bereits erreichte Punkte
@@ -143,6 +148,14 @@ Im Projektordner `python -m http.server 4175 --bind 127.0.0.1` ausführen und
 ```text
 node --test tests/*.test.cjs
 ```
+
+Der Browser-Regressionslauf für mehrere Tabs ist mit vorhandenem Playwright
+und laufender Vorschau über `node tests/browser/storage-tabs.cjs` erreichbar.
+`ALGOLAB_BROWSER=chrome` wählt das installierte Chrome. Bei extern
+bereitgestelltem Playwright kann `ALGOLAB_PLAYWRIGHT_MODULE` auf dessen
+Modulpfad zeigen. `ALGOLAB_TEST_URL` überschreibt die Vorschauadresse.
+Prüfbilder landen unter `.tmp/storage-tabs/`.
+
 
 Der Lernstand wird lokal gespeichert und kann über das Symbol in der Kopfzeile
 als JSON gesichert oder geladen werden. Er ist kein manipulationssicherer

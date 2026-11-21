@@ -1,5 +1,16 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Mehrere geöffnete Tabs am 21. November 2026
+
+**DATA-02 – DONE – Codex:** Überschreiben neuerer Browserstände aus
+einem älteren Tab erkennen. Lokalen Stand weiter als JSON sichern und
+aktuellen Browserstand bewusst laden können. Dateien app.js, index.html,
+design.css, learning-path.js, tests/browser/storage-tabs.cjs, README.md
+und Dokumentation. 127 versionierte Tests, Syntax und Diff bestanden. Chrome bei 1365/375 px: neueren Stand erhalten, beide JSON-Fassungen
+exportiert, Abbruch und bestätigtes Laden samt Skizze geprüft. Auch
+beschädigte/gelöschte Daten und ausstehendes storage-Ereignis geprüft.
+Historischer Datei-Rundlauf bestanden. Version 1.17.0 vorbereitet.
+
 ## Aktuelle Python-Prüfungen am 21. November 2026
 
 **RUN-01 – DONE – Codex:** Veraltete Ergebnisse nach Codeänderungen

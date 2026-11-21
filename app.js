@@ -109,13 +109,57 @@
     document.querySelector("#sidebar-path").innerHTML = content.modules.map(module => `<details class="sidebar-module" data-module="${module.id}" ${expanded.includes(module.id) ? "open" : ""}><summary><span>${module.id}</span> ${module.title}</summary><div>${module.units.map(unit => accessible(unit.id) ? `<a href="#unit/${unit.id}"><span>${unit.id}</span>${esc(unit.title)}</a>` : `<span class="sidebar-unit locked">${icon("lock")}<span>${unit.id} · ${esc(unit.title)}</span></span>`).join("")}</div></details>`).join("");
     updateSidebar();
   }
-  function storageWarning(message) { const warning = document.querySelector("#storage-warning"); warning.textContent = message; warning.hidden = false; }
-  try { state = engine.normalize(JSON.parse(localStorage.getItem(key) || "null")); }
+  function storageWarning(message) {
+    document.querySelector("#storage-warning-message").textContent = message;
+    document.querySelector("#storage-warning").hidden = false;
+  }
+  let storageSnapshot = null;
+  let storageConflict = false;
+  try {
+    storageSnapshot = localStorage.getItem(key);
+    state = engine.normalize(JSON.parse(storageSnapshot || "null"));
+  }
   catch { storageWarning("Dein gespeicherter Lernstand konnte nicht geladen werden. Sichere deinen neuen Stand als Datei."); }
+
+  function reportStorageConflict() {
+    storageConflict = true;
+    storageWarning("In einem anderen Tab wurde der Lernstand geändert. Änderungen in diesem Tab bleiben vorerst hier. Sichere sie über die Diskette oder Alt+S, bevor du den aktuellen Browserstand lädst.");
+    document.querySelector("#storage-reload").hidden = false;
+  }
   function save() {
-    try { localStorage.setItem(key, JSON.stringify(state)); return true; }
+    try {
+      if (storageConflict || localStorage.getItem(key) !== storageSnapshot) {
+        reportStorageConflict();
+        return false;
+      }
+      const serialized = JSON.stringify(state);
+      localStorage.setItem(key, serialized);
+      storageSnapshot = serialized;
+      return true;
+    }
     catch { storageWarning("Dein Browser kann den Lernstand gerade nicht speichern. Sichere ihn als Datei, bevor du die Seite schließt."); return false; }
   }
+  window.addEventListener("storage", event => {
+    if (event.storageArea !== localStorage || (event.key !== key && event.key !== null)) return;
+    if (localStorage.getItem(key) !== storageSnapshot) reportStorageConflict();
+  });
+  document.querySelector("#storage-reload").addEventListener("click", () => {
+    if (!window.confirm("Den Stand in diesem Tab durch den aktuellen Browserstand ersetzen? Sichere deine Änderungen vorher über die Diskette oder Alt+S.")) return;
+    try {
+      const serialized = localStorage.getItem(key);
+      if (serialized === null) throw new Error("Der Browserstand wurde entfernt. Sichere deine Änderungen als JSON-Datei.");
+      const restored = engine.readPayload({ app: "AlgoLab", formatVersion: 1, state: JSON.parse(serialized) });
+      document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
+      state = restored;
+      storageSnapshot = serialized;
+      storageConflict = false;
+      document.querySelector("#storage-warning").hidden = true;
+      document.querySelector("#storage-reload").hidden = true;
+      render(true);
+    } catch (error) {
+      storageWarning("Der Browserstand konnte nicht geladen werden. " + error.message);
+    }
+  });
   const profileName = document.querySelector("#profile-name");
   profileName.addEventListener("input", event => {
     if (event.isComposing) return;
@@ -1957,7 +2001,7 @@
       state = restored; const stored = save(); render();
       document.querySelector("#profile-name").value = state.profile.name;
       document.querySelector("#profile-class").value = state.profile.className;
-      message.textContent = stored ? "Dein Profil mit EP und Lernstand wurde geladen." : "Profil geladen. Der Browser kann es nicht dauerhaft speichern; sichere eine JSON-Datei.";
+      message.textContent = stored ? "Dein Profil mit EP und Lernstand wurde geladen." : "Profil geladen. Dieser Stand ist vorerst in diesem Tab verfügbar. Sichere eine JSON-Datei.";
     } catch (error) { message.textContent = `Die Datei wurde nicht geladen. ${error.message}`; }
     finally { event.target.value = ""; }
   }

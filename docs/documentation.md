@@ -2,6 +2,25 @@
 
 Stand: 21. November 2026 (Europe/Berlin)
 
+## Mehrere geöffnete Tabs in 1.17.0
+
+AlgoLab vergleicht vor dem Speichern den Browserstand mit der zuletzt in
+diesem Tab gelesenen oder gespeicherten Fassung. Änderungen aus einem
+anderen Tab werden zusätzlich über das Browserereignis gemeldet. Bei einer
+Abweichung erscheint ein Hinweis. Weitere Änderungen dieses Tabs bleiben
+lokal zum Exportieren verfügbar, die automatische Speicherung pausiert.
+
+Über die Diskette oder Alt+S kann dieser Tab seine eigene JSON-Sicherung
+herunterladen. **Aktuellen Browserstand laden** übernimmt nach Bestätigung
+die neueste gespeicherte Fassung. Dabei werden offene Dialoge geschlossen
+und die Ansicht aktualisiert. Anschließend funktioniert das Speichern
+wieder. Bei beschädigten oder entfernten Browserdaten bleibt die Fassung
+dieses Tabs verfügbar und kann weiterhin exportiert werden.
+
+Die Konflikterkennung ergänzt die bestehende lokale Einzelbearbeitung.
+Das Sicherungsformat bleibt bei 1. Ein Zusammenführen eigener Änderungen
+aus zwei Tabs erfolgt durch Übertragen der gewünschten Inhalte.
+
 ## Aktuelle Prüfergebnisse in 1.16.1
 
 Python-Pflichtaufgaben, Zusatzaufgaben und die Python-Tests der

@@ -1076,3 +1076,28 @@ Version 1.16.1 als 641de66 veröffentlicht. Actions 44950997123 mit
 erfolgreichen Tests und Deployment. Dieselben Browserprüfungen bei
 1365/320 px mit echtem Pyodide sowie historischer Datei-Rundlauf online
 bestanden. Keine Dateireservierung nach Abschluss.
+
+## 21. November 2026 – Konflikte zwischen Tabs erkennen in 1.17.0
+
+DATA-02 reproduziert den bisherigen Datenverlust mit zwei echten Tabs.
+Eine neuere Notiz wurde durch den älteren Tab überschrieben. Vor dem
+Speichern wird nun die zuletzt bekannte Browserfassung verglichen.
+Abweichungen und externe storage-Ereignisse aktivieren einen Hinweis und
+pausieren weitere automatische Schreibvorgänge dieses Tabs. Seine lokale
+Fassung bleibt als JSON exportierbar. Der aktuelle Browserstand lässt sich
+nach Bestätigung laden. Beschädigte oder entfernte Daten ersetzen den Stand
+im Tab nicht. Das Sicherungsformat bleibt bei 1.
+
+Chrome bei 1365/375 px mit zwei Tabs: getrennte Fassungen als echte Downloads,
+Abbruch und bestätigtes Laden, Erhalt der Skizze, wieder funktionierende
+Speicherung sowie erneuter Konflikt im anderen Tab geprüft. Beschädigte und
+entfernte Browserdaten erhalten die lokale Fassung. Unterdrücktes
+storage-Ereignis geprüft, der Vergleich vor dem Schreiben greift trotzdem.
+Änderungen anderer Speicherschlüssel lösen keinen Lernstandkonflikt aus.
+Historischer JSON-Rundlauf mit allen gespeicherten Lerninhalten bestanden.
+Veröffentlichung vorbereitet.
+
+127 versionierte Tests sowie Syntax und Diff bestanden. Der zusätzliche
+Browserlauf ist unter tests/browser/storage-tabs.cjs mit konfigurierbarem
+Playwright-Modul und Browser abgelegt und mit dem vorhandenen Chrome
+ausgeführt. Er verwendet eigene Browserkontexte und synthetische Notizen.
