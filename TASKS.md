@@ -9,7 +9,9 @@ index.html, learning-path.js, README.md und Dokumentation.
 mit echtem Pyodide: Pflicht-/Zusatzaufgaben, Editieren und Zurücksetzen
 während einer Prüfung, Erhalt erreichter Punkte und Klausurtests geprüft.
 Historischer JSON-Rundlauf mit Entwürfen, Notizen und Skizzen bestanden.
-Version 1.16.1 vorbereitet.
+Version 1.16.1 als 641de66 veröffentlicht. Actions 44950997123 erfolgreich.
+Dieselben Browserprüfungen bei 1365/320 px sowie historischer
+Datei-Rundlauf online bestanden. Keine Dateireservierung.
 
 ## Python-Testfälle nachvollziehen am 21. November 2026
 

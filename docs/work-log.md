@@ -1071,3 +1071,8 @@ aktuelle Ergebnisse. Veröffentlichung vorbereitet.
 Historischer JSON-Rundlauf erneut bestanden. Profil, EP, Fortschritt,
 Entwürfe, Marker, Notizen und Skizzen sowie Browserstand nach Reload
 erhalten. Unbekanntes neueres Dateiformat weiter vor Ersetzen abgewiesen.
+
+Version 1.16.1 als 641de66 veröffentlicht. Actions 44950997123 mit
+erfolgreichen Tests und Deployment. Dieselben Browserprüfungen bei
+1365/320 px mit echtem Pyodide sowie historischer Datei-Rundlauf online
+bestanden. Keine Dateireservierung nach Abschluss.
