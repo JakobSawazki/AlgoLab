@@ -1,5 +1,18 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Python-Testfälle nachvollziehen am 21. November 2026
+
+**TRACE-02 – DONE – Codex:** Fehlgeschlagene Testfälle direkt im
+Schreibtischtest öffnen und die Prüfung an einen Code-Stand binden.
+Dateien: app.js, design.css, index.html, learning-path.js, README.md,
+TASKS.md, docs/documentation.md und docs/work-log.md.
+127 versionierte Tests, Syntax und Diff bestanden. Chrome bei 1365/320 px
+mit echtem Pyodide geprüft. Testfalleingabe, Fokus, Stände während laufender
+Prüfung, anschließende reguläre Bewertung und freie Werkstatt erfolgreich.
+Historischer Datei-Rundlauf samt Notizen/Skizzen erfolgreich.
+Lademeldung bei wiederholtem Import korrigiert. Version 1.16.0 zur
+Veröffentlichung vorbereitet.
+
 ## Schreibtischtest im Python-Editor am 10. November 2026
 
 **TRACE-01 – DONE – Codex:** Ablauftrace für Lernende als Schreibtischtest

@@ -2,8 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 10. November 2026. Version **1.15.0 – Schreibtischtest im Python-Editor**.
+Stand: 21. November 2026. Version **1.16.0 – Testfälle im Schreibtischtest**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+Fehlgeschlagene Testfälle lassen sich nach **Code prüfen** direkt im
+**Schreibtischtest** öffnen. Das Protokoll zeigt, welche Testeingabe verwendet
+wurde. Codeänderungen verwerfen die bisherigen Prüfergebnisse. Nach Änderungen
+während eines Laufs muss der aktuelle Stand erneut geprüft werden.
+
 Mit **Schreibtischtest** kannst du im Python-Editor Codezeilen und
 Variablenänderungen für deine aktuelle Eingabe nachvollziehen.
 Über **Suche** findest du Einheiten, Begriffe, Python-Aufgaben, Struktogramme

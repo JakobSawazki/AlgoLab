@@ -813,7 +813,7 @@
     apply();
   }
   function editorShell({ id, code, input, title = "main.py", check = false }) {
-    return `<div class="practice-editor"><div class="editor-toolbar"><strong>${esc(title)}</strong><span class="editor-hint">Tab rückt ein · Strg+Enter startet · Esc, dann Tab verlässt den Editor</span><button type="button" class="icon-button" data-practice-reset title="Startcode wiederherstellen" aria-label="Startcode wiederherstellen">↺</button></div><label class="sr-only" for="practice-code">Python-Code</label><textarea id="practice-code" class="code-editor" data-practice-draft="${esc(id)}" spellcheck="false" autocapitalize="off" maxlength="20000" rows="16">${esc(code)}</textarea><div class="runner-tabs" role="tablist" aria-label="Konsole"><button type="button" role="tab" data-runner-tab="output" aria-selected="true">Ausgabe</button><button type="button" role="tab" data-runner-tab="input" aria-selected="false">Eingabe</button></div><div class="runner-panel" data-runner-panel="output"><pre class="code-output" id="practice-output" tabindex="0" aria-live="polite">Bereit. Starte deinen Code${check ? " oder prüfe die Lösung" : ""}.</pre></div><div class="runner-panel" data-runner-panel="input" hidden><label for="practice-input">Je Zeile eine Eingabe für input()</label><textarea id="practice-input" class="input-area" ${id === "werkstatt" ? 'data-practice-draft="werkstatt-eingabe"' : ""} spellcheck="false" rows="5">${esc(input)}</textarea></div><div class="code-actions"><button type="button" data-practice-run>▶ Code starten</button>${check ? '<button type="button" class="primary" data-practice-check>✓ Code prüfen</button>' : ""}<button type="button" data-practice-trace>Schreibtischtest</button><button type="button" data-practice-stop disabled>Stoppen</button><small class="draft-status" role="status"></small></div><section class="practice-trace" hidden><h3>Schreibtischtest</h3><p>Hier siehst du, welche Zeile einen Wert geändert hat. Verwendet wird die Eingabe aus dem Editor.</p><p role="status"></p><div class="analysis-table-wrap" role="region" aria-label="Ablaufprotokoll" tabindex="0" hidden><table class="analysis-table"><thead><tr><th scope="col">Zeile</th><th scope="col">Python-Code</th><th scope="col">Änderung oder Fehler</th></tr></thead><tbody></tbody></table></div></section></div>`;
+    return `<div class="practice-editor"><div class="editor-toolbar"><strong>${esc(title)}</strong><span class="editor-hint">Tab rückt ein · Strg+Enter startet · Esc, dann Tab verlässt den Editor</span><button type="button" class="icon-button" data-practice-reset title="Startcode wiederherstellen" aria-label="Startcode wiederherstellen">↺</button></div><label class="sr-only" for="practice-code">Python-Code</label><textarea id="practice-code" class="code-editor" data-practice-draft="${esc(id)}" spellcheck="false" autocapitalize="off" maxlength="20000" rows="16">${esc(code)}</textarea><div class="runner-tabs" role="tablist" aria-label="Konsole"><button type="button" role="tab" data-runner-tab="output" aria-selected="true">Ausgabe</button><button type="button" role="tab" data-runner-tab="input" aria-selected="false">Eingabe</button></div><div class="runner-panel" data-runner-panel="output"><pre class="code-output" id="practice-output" tabindex="0" aria-live="polite">Bereit. Starte deinen Code${check ? " oder prüfe die Lösung" : ""}.</pre></div><div class="runner-panel" data-runner-panel="input" hidden><label for="practice-input">Je Zeile eine Eingabe für input()</label><textarea id="practice-input" class="input-area" ${id === "werkstatt" ? 'data-practice-draft="werkstatt-eingabe"' : ""} spellcheck="false" rows="5">${esc(input)}</textarea></div><div class="code-actions"><button type="button" data-practice-run>▶ Code starten</button>${check ? '<button type="button" class="primary" data-practice-check>✓ Code prüfen</button>' : ""}<button type="button" data-practice-trace>Schreibtischtest</button><button type="button" data-practice-stop disabled>Stoppen</button><small class="draft-status" role="status"></small></div><section class="practice-trace" hidden><h3 tabindex="-1">Schreibtischtest</h3><p>Hier siehst du, welche Zeile einen Wert geändert hat.</p><p data-trace-source></p><p role="status"></p><div class="analysis-table-wrap" role="region" aria-label="Ablaufprotokoll" tabindex="0" hidden><table class="analysis-table"><thead><tr><th scope="col">Zeile</th><th scope="col">Python-Code</th><th scope="col">Änderung oder Fehler</th></tr></thead><tbody></tbody></table></div></section></div>`;
   }
   function renderPracticeExercise(id) {
     const exercise = practice.exercises.find(item => item.id === id);
@@ -840,13 +840,25 @@
   }
   function setupPracticeEditor(exercise) {
     const editor = main.querySelector("#practice-code"), output = main.querySelector("#practice-output"), inputField = main.querySelector("#practice-input");
-    const buttons = () => main.querySelectorAll("[data-practice-run], [data-practice-check], [data-practice-trace]");
+    const buttons = () => main.querySelectorAll("[data-practice-run], [data-practice-check], [data-practice-trace], [data-practice-case]");
     const stopButton = main.querySelector("[data-practice-stop]");
+    const caseList = main.querySelector("#practice-cases");
+    const resultBanner = main.querySelector("#practice-result");
+    let codeRevision = 0;
     const tracePanel = main.querySelector(".practice-trace");
+    const traceSource = tracePanel.querySelector("[data-trace-source]");
     const traceStatus = tracePanel.querySelector("[role=status]");
     const traceTable = tracePanel.querySelector(".analysis-table-wrap");
     const clearTrace = () => { tracePanel.hidden = true; };
-    editor.addEventListener("input", clearTrace);
+    editor.addEventListener("input", () => {
+      codeRevision++;
+      clearTrace();
+      caseList?.replaceChildren();
+      if (resultBanner) resultBanner.hidden = true;
+      lastReview = { passed: null, diagnostic: "", error: "" };
+      traceInput = null;
+      traces.clear();
+    });
     inputField.addEventListener("input", clearTrace);
     function showTrace(result, code) {
       const rows = result.trace || [];
@@ -886,22 +898,35 @@
       return traces.get(key);
     }
     const ai = setupAiPanel(main.querySelector("[data-ai-panel]"), async () => {
+      const code = editor.value;
       const review = { ...lastReview };
-      if (traceInput !== null && review.passed !== true) review.trace = await traceFor(editor.value, traceInput);
-      return { exercise: aiExercise, code: editor.value, attempt: exercise ? practiceAttempts.get(exercise.id) || 1 : 1, review };
+      if (traceInput !== null && review.passed !== true) review.trace = await traceFor(code, traceInput);
+      return { exercise: aiExercise, code, attempt: exercise ? practiceAttempts.get(exercise.id) || 1 : 1, review };
     });
-    async function start(withTrace = false) {
-      const code = editor.value, inputs = inputField.value;
+    async function start({ withTrace = false, caseIndex = null } = {}) {
+      const code = editor.value;
+      const revision = codeRevision;
+      const testCase = caseIndex === null ? null : exercise.check.cases[caseIndex];
+      const inputs = testCase?.input ?? inputField.value;
       clearTrace();
       if (withTrace) {
         tracePanel.hidden = false;
         traceTable.hidden = true;
+        traceSource.textContent = testCase
+          ? `Testfall ${caseIndex + 1} · Eingabe: ${inputs ? inputs.split("\n").join(" · ") : "(keine)"}`
+          : "Eingabe aus dem Reiter „Eingabe“.";
         traceStatus.textContent = "Schreibtischtest wird erstellt …";
       }
       busy(true); showTab("output");
+      if (testCase) tracePanel.querySelector("h3").focus();
       try {
         const result = await runner().run(code, [], { inputs, echo: true, trace: withTrace });
         if (!output.isConnected) return;
+        if (codeRevision !== revision) {
+          output.textContent = "Du hast den Code während des Laufs geändert. Starte den aktuellen Stand erneut.";
+          output.classList.remove("has-error");
+          return;
+        }
         output.textContent = (result.output || "") + (result.truncated ? "\n[Ausgabe nach 12000 Zeichen gekürzt]" : "") + (result.error ? `${result.output ? "\n" : ""}${errorLine(result.error)}` : "") || "(Keine Ausgabe – hast du print() verwendet?)";
         output.classList.toggle("has-error", Boolean(result.error));
         if (result.error) coach(practiceCheck.diagnostic(result.error), exercise ? practiceCheck.hints(exercise, editor.value, result.error, practiceAttempts.get(exercise.id) || 1) : [errorLine(result.error)], "warning");
@@ -920,20 +945,33 @@
       finally { if (output.isConnected) busy(false); }
     }
     async function check() {
+      const code = editor.value;
+      const revision = codeRevision;
       const attempt = (practiceAttempts.get(exercise.id) || 0) + 1;
       practiceAttempts.set(exercise.id, attempt);
       clearTrace(); busy(true); showTab("output");
-      const list = main.querySelector("#practice-cases"), banner = main.querySelector("#practice-result");
+      const list = caseList, banner = main.querySelector("#practice-result");
       list.innerHTML = ""; banner.hidden = true;
       const verdicts = [];
       try {
         for (const [index, testCase] of exercise.check.cases.entries()) {
           output.textContent = `Prüfe Testfall ${index + 1} von ${exercise.check.cases.length} …`;
-          const result = await runner().run(editor.value, [], { inputs: testCase.input, testCode: exercise.check.testCode || "" });
+          const result = await runner().run(code, [], { inputs: testCase.input, testCode: exercise.check.testCode || "" });
           if (!list.isConnected) return;
+          if (codeRevision !== revision) {
+            list.replaceChildren();
+            banner.className = "result-banner is-retry";
+            banner.textContent = "Du hast den Code während der Prüfung geändert. Prüfe den aktuellen Stand erneut.";
+            banner.hidden = false;
+            output.textContent = banner.textContent;
+            output.classList.remove("has-error");
+            lastReview = { passed: null, diagnostic: "", error: "" };
+            traceInput = null;
+            return;
+          }
           const verdict = practiceCheck.evaluateCase(exercise.check, testCase, result);
           verdicts.push({ ...verdict, result, testCase });
-          list.insertAdjacentHTML("beforeend", `<li class="${verdict.passed ? "passed" : "retry"}"><strong>${verdict.passed ? "✓" : "✗"} Testfall ${index + 1}</strong><span>Eingabe: ${esc(testCase.input ? testCase.input.split("\n").join(" · ") : "(keine)")}</span>${verdict.passed ? "" : `<span>${esc(verdict.message)}</span>`}</li>`);
+          list.insertAdjacentHTML("beforeend", `<li class="${verdict.passed ? "passed" : "retry"}"><strong>${verdict.passed ? "✓" : "✗"} Testfall ${index + 1}</strong><span>Eingabe: ${esc(testCase.input ? testCase.input.split("\n").join(" · ") : "(keine)")}</span>${verdict.passed ? "" : `<span>${esc(verdict.message)}</span><button type="button" data-practice-case="${index}" disabled>Testfall ${index + 1} im Schreibtischtest</button>`}</li>`);
         }
         const failed = verdicts.find(item => !item.passed);
         const shown = failed || verdicts.at(-1);
@@ -964,8 +1002,12 @@
       } finally { if (output.isConnected) busy(false); }
     }
     main.querySelector("[data-practice-run]").addEventListener("click", () => start());
-    main.querySelector("[data-practice-trace]").addEventListener("click", () => start(true));
+    main.querySelector("[data-practice-trace]").addEventListener("click", () => start({ withTrace: true }));
     main.querySelector("[data-practice-check]")?.addEventListener("click", check);
+    caseList?.addEventListener("click", event => {
+      const button = event.target.closest("[data-practice-case]");
+      if (button) start({ withTrace: true, caseIndex: Number(button.dataset.practiceCase) });
+    });
     stopButton.addEventListener("click", () => { pythonRunner?.stop(); pythonRunner = null; });
     main.querySelector("[data-practice-hint]")?.addEventListener("click", () => {
       const attempt = Math.max(1, practiceAttempts.get(exercise.id) || 1);
@@ -1875,6 +1917,7 @@
     const file = event.target.files[0];
     const message = document.querySelector("#backup-message");
     if (!file) return;
+    message.textContent = "Sicherung wird geladen …";
     try {
       if (file.size > maxBackupSize) throw new Error("Die Datei ist zu groß (maximal 8 MB).");
       const payload = JSON.parse(await file.text());

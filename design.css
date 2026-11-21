@@ -598,6 +598,7 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, #397ec5, #94c8f
 .practice-cases li.passed strong { color: var(--state-done); }
 .practice-cases li.retry { border-color: color-mix(in srgb, var(--state-changed) 60%, var(--line)); }
 .practice-cases li.retry strong { color: var(--state-changed); }
+.practice-cases [data-practice-case] { justify-self: start; margin-top: 4px; font-size: .8rem; text-align: left; }
 .practice-cases span { color: var(--muted); overflow-wrap: anywhere; }
 .learning-coach { margin: 0; border-left: 3px solid var(--state-active); }
 .learning-coach[data-tone="warning"] { border-left-color: var(--state-changed); }

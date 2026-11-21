@@ -1,6 +1,19 @@
 # AlgoLab Projektdokumentation
 
-Stand: 10. November 2026 (Europe/Berlin)
+Stand: 21. November 2026 (Europe/Berlin)
+
+## Testfälle im Schreibtischtest in 1.16.0
+
+Nach einer Prüfung bietet jeder fehlgeschlagene Testfall einen direkten
+Schreibtischtest an. Er läuft mit der Eingabe dieses Testfalls und zeigt die
+verwendete Eingabe oberhalb des Ablaufprotokolls. Die Überschrift erhält den
+Tastaturfokus. Eigene Eingaben im Editor bleiben verfügbar.
+
+Eine Prüfung verwendet den beim Start erfassten Code. Jede Änderung des
+Codes verwirft vorhandene Fallbuttons und Rückmeldungen. Änderungen während
+einer laufenden Prüfung führen zur Aufforderung, den aktuellen Stand erneut
+zu prüfen. Das gilt auch, wenn anschließend derselbe Text wiederhergestellt
+wird. Ein Schreibtischtest vergibt keine Aufgabenabschlüsse.
 
 ## Schreibtischtest im Python-Editor in 1.15.0
 

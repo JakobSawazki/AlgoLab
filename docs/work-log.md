@@ -1018,3 +1018,28 @@ der ungetrackten NSD-Erprobung.
 Version 1.15.0 als `af46f48` veröffentlicht. Actions-Lauf 42868149575
 mit 127 bestandenen Tests und erfolgreichem Deployment. Derselbe
 Browserlauf mit echtem Pyodide ist online bestanden.
+
+## 21. November 2026 – Fehlgeschlagene Testfälle untersuchen in 1.16.0
+
+TRACE-02 führt die bereits begonnene Arbeit weiter. Jeder fehlgeschlagene
+Testfall erhält einen direkten Schreibtischtest mit seiner eigenen Eingabe.
+Das Protokoll nennt die Quelle der Eingabe und erhält Tastaturfokus.
+Die Codeprüfung arbeitet mit einem Snapshot. Ein Änderungszähler verhindert
+die Übernahme eines Ergebnisses nach zwischenzeitlichen Änderungen, auch bei
+Rückkehr zum ursprünglichen Text. Codeänderungen entfernen veraltete
+Fallbuttons und Feedback. Der KI-Kontext erfasst denselben Code wie sein Trace.
+
+127 versionierte Tests sowie Syntax und Diff bestanden. Chrome bei 1365 und
+320 Pixeln mit echtem Pyodide geprüft. Fehlgeschlagenen Testfall geöffnet,
+Testeingabe und Fokus geprüft, eigenen Eingabeentwurf erhalten. Auslieferung
+eines echten Prüfungsergebnisses verzögert, Code geändert und zurückgesetzt,
+Ablehnung des alten Ergebnisses bestätigt. Danach aktuelle Lösung regulär
+bestanden. Freie Werkstatt und unveränderter Lernstand durch reine Analyse
+geprüft. Veröffentlichung vorbereitet.
+
+Zusätzlich die Rückmeldung beim wiederholten Import korrigiert. Sofort nach
+der Dateiauswahl erscheint „Sicherung wird geladen …“, damit eine frühere
+Erfolgsmeldung den neuen Import nicht vorzeitig bestätigt. Datei-Rundlauf
+mit 0.2.0 sowie Profil, EP, Fortschritt, Entwürfen, Markierungen, Notizen
+und Skizzen bestanden. Neuere unbekannte Formate werden weiter vor dem
+Ersetzen abgewiesen.
