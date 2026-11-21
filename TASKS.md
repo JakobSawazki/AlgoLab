@@ -1,5 +1,16 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Aktuelle Python-Prüfungen am 21. November 2026
+
+**RUN-01 – DONE – Codex:** Veraltete Ergebnisse nach Codeänderungen
+auch in Lerneinheiten und Übungsklausuren verwerfen. Dateien app.js,
+index.html, learning-path.js, README.md und Dokumentation.
+127 versionierte Tests, Syntax und Diff bestanden. Chrome bei 1365/320 px
+mit echtem Pyodide: Pflicht-/Zusatzaufgaben, Editieren und Zurücksetzen
+während einer Prüfung, Erhalt erreichter Punkte und Klausurtests geprüft.
+Historischer JSON-Rundlauf mit Entwürfen, Notizen und Skizzen bestanden.
+Version 1.16.1 vorbereitet.
+
 ## Python-Testfälle nachvollziehen am 21. November 2026
 
 **TRACE-02 – DONE – Codex:** Fehlgeschlagene Testfälle direkt im

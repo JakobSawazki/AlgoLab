@@ -2,8 +2,13 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 21. November 2026. Version **1.16.0 – Testfälle im Schreibtischtest**.
+Stand: 21. November 2026. Version **1.16.1 – Aktuelle Python-Prüfergebnisse**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
+In Lerneinheiten und Übungsklausuren werden Prüfergebnisse nach einer
+Codeänderung verworfen. Wer während einer laufenden Prüfung editiert, führt
+den aktuellen Stand anschließend erneut aus. Bereits erreichte Punkte
+bleiben im Lernstand gespeichert.
+
 Fehlgeschlagene Testfälle lassen sich nach **Code prüfen** direkt im
 **Schreibtischtest** öffnen. Das Protokoll zeigt, welche Testeingabe verwendet
 wurde. Codeänderungen verwerfen die bisherigen Prüfergebnisse. Nach Änderungen

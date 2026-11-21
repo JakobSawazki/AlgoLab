@@ -3,6 +3,7 @@
   const content = window.ALGOLAB_CONTENT;
   const engine = window.createAlgoLabProgress(content);
   const main = document.querySelector("#main");
+  const codeRevisions = new WeakMap();
   const key = "algolab-v1";
   const maxBackupSize = 8 * 1024 * 1024;
   const esc = text => String(text).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
@@ -1370,7 +1371,10 @@
   }
   async function runExamPython(task, article) {
     const python = task.answer.python, list = article.querySelector("[data-exam-python-cases]"), status = article.querySelector("[data-exam-python-status]");
-    const button = article.querySelector("[data-exam-python]"), code = article.querySelector('[data-exam-field="code"]').value;
+    const button = article.querySelector("[data-exam-python]");
+    const editor = article.querySelector('[data-exam-field="code"]');
+    const code = editor.value;
+    const revision = codeRevisions.get(editor) || 0;
     button.disabled = true; list.innerHTML = "";
     pythonRunner ??= window.createAlgoLabPythonRunner({ onStatus: message => { const target = main.querySelector("[data-exam-python-status].is-active"); if (target && message) target.textContent = message; } });
     main.querySelectorAll("[data-exam-python-status]").forEach(item => item.classList.toggle("is-active", item === status));
@@ -1379,6 +1383,11 @@
       for (const [index, testCase] of python.check.cases.entries()) {
         const result = await pythonRunner.run(code, [], { inputs: testCase.input });
         if (!list.isConnected) return;
+        if ((codeRevisions.get(editor) || 0) !== revision) {
+          list.replaceChildren();
+          status.textContent = "Du hast den Code während des Tests geändert. Teste den aktuellen Stand erneut.";
+          return;
+        }
         const verdict = practiceCheck.evaluateCase(python.check, testCase, result);
         if (verdict.passed) passed++;
         list.insertAdjacentHTML("beforeend", `<li class="${verdict.passed ? "passed" : "retry"}"><strong>${verdict.passed ? "✓" : "✗"} Testdaten ${index + 1}</strong><span>Eingabe: ${esc(testCase.input)}</span>${verdict.passed ? "" : `<span>${esc(verdict.message)}</span>`}</li>`);
@@ -1703,6 +1712,21 @@
     }
   }
   main.addEventListener("input", event => {
+    const editor = event.target.closest?.("textarea.code-editor");
+    if (!editor) return;
+    codeRevisions.set(editor, (codeRevisions.get(editor) || 0) + 1);
+    const lesson = editor.closest(".code-task");
+    if (lesson) {
+      lesson.querySelector(".code-checks")?.replaceChildren();
+      lesson.querySelector(".code-status").textContent = "Code geändert. Führe den aktuellen Stand erneut aus.";
+    }
+    const exam = editor.closest(".exam-python");
+    if (exam) {
+      exam.querySelector("[data-exam-python-cases]").replaceChildren();
+      exam.querySelector("[data-exam-python-status]").textContent = "Code geändert. Teste den aktuellen Stand erneut.";
+    }
+  });
+  main.addEventListener("input", event => {
     const draft = event.target.closest?.("textarea[data-practice-draft]");
     if (draft && engine.savePracticeDraft(state, draft.dataset.practiceDraft, draft.value)) {
       const stored = save();
@@ -1722,14 +1746,21 @@
     const unit = engine.byId(pane.dataset.codeUnit), task = lessonCodeTask(unit, pane.dataset.codeTask);
     const status = pane.querySelector(".code-status"), output = pane.querySelector(".code-output"), runButton = pane.querySelector("[data-run-code]"), stopButton = pane.querySelector("[data-stop-code]");
     const checkList = pane.querySelector(".code-checks");
+    const editor = pane.querySelector("textarea");
+    const code = editor.value;
+    const revision = codeRevisions.get(editor) || 0;
     runButton.disabled = true; stopButton.disabled = false;
     checkList?.replaceChildren(); output.textContent = "";
     pythonRunner ??= window.createAlgoLabPythonRunner();
     try {
-      const result = await pythonRunner.run(pane.querySelector("textarea").value, task.checks?.map(check => check.expression), {
+      const result = await pythonRunner.run(code, task.checks?.map(check => check.expression), {
         onStatus: message => { if (pane.isConnected) status.textContent = message; }
       });
       if (!pane.isConnected) return;
+      if ((codeRevisions.get(editor) || 0) !== revision) {
+        status.textContent = "Du hast den Code während der Ausführung geändert. Führe den aktuellen Stand erneut aus.";
+        return;
+      }
       output.textContent = result.output || "Dein Programm hat nichts ausgegeben.";
       if (result.truncated) output.textContent += "\n[Ausgabe nach 12000 Zeichen gekürzt]";
       if (result.error) {

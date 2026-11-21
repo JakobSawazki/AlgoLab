@@ -1048,3 +1048,26 @@ Version 1.16.0 als 54e7640 veröffentlicht. Actions-Lauf 44950300462 mit
 erfolgreichen Tests und Deployment. Testfallprüfung bei 1365/320 px mit
 echtem Pyodide sowie historischer JSON-Rundlauf online bestanden.
 Keine Dateireservierung nach Abschluss.
+
+## 21. November 2026 – Aktuelle Python-Prüfergebnisse in 1.16.1
+
+RUN-01 behebt die Übernahme veralteter Ergebnisse in Python-Aufgaben der
+Lerneinheiten und den Tests der Übungsklausuren. Im Browser vor der Korrektur
+reproduziert: Ein erfolgreiches Ergebnis für den alten Code vergab Punkte,
+obwohl im Editor anderer Code stand. Jeder Editor erhält nun einen
+Änderungszähler. Das Ergebnis wird nur beim unveränderten Bearbeitungsstand
+übernommen. Das gilt auch bei Rückkehr zum ursprünglichen Text.
+Codeänderungen entfernen die bisherigen Prüfkriterien aus der Anzeige.
+
+127 versionierte Tests sowie Syntax und Diff bestanden. Chrome mit echtem
+Pyodide bei 1365 und 320 px: Erfolgreiches Ergebnis verzögert, Code geändert,
+Abweisung des alten Ergebnisses für Pflicht- und Zusatzaufgabe bestätigt.
+Zurückwechseln auf den ursprünglichen Text während einer Prüfung ebenfalls
+abgewiesen. Aktuellen Code danach erfolgreich geprüft. Frühere Punkte
+bleiben beim weiteren Editieren erhalten, erneutes Prüfen vergibt dieselben
+Punkte nicht nochmals. Klausurtests verwerfen veraltete und akzeptieren
+aktuelle Ergebnisse. Veröffentlichung vorbereitet.
+
+Historischer JSON-Rundlauf erneut bestanden. Profil, EP, Fortschritt,
+Entwürfe, Marker, Notizen und Skizzen sowie Browserstand nach Reload
+erhalten. Unbekanntes neueres Dateiformat weiter vor Ersetzen abgewiesen.

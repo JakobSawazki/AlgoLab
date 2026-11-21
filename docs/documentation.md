@@ -2,6 +2,18 @@
 
 Stand: 21. November 2026 (Europe/Berlin)
 
+## Aktuelle Prüfergebnisse in 1.16.1
+
+Python-Pflichtaufgaben, Zusatzaufgaben und die Python-Tests der
+Übungsklausuren binden jeden Lauf an den gestarteten Code und seinen
+Bearbeitungsstand. Ein Ergebnis nach einer zwischenzeitlichen Änderung
+wird verworfen, auch wenn der ursprüngliche Text wiederhergestellt wurde.
+Die Rückmeldung fordert einen neuen Lauf an. Beim Bearbeiten verschwinden
+die bisherigen Prüfkriterien aus der Anzeige.
+
+Bereits erreichte Punkte und Zusatzabschlüsse bleiben gespeichert.
+Neue Punkte und Abschlüsse setzen eine Prüfung des aktuellen Codes voraus.
+
 ## Testfälle im Schreibtischtest in 1.16.0
 
 Nach einer Prüfung bietet jeder fehlgeschlagene Testfall einen direkten
