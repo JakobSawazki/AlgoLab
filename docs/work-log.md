@@ -1116,4 +1116,5 @@ und reine Skizze jeweils auf einer A4-Seite. Lange Testnotiz mit 160 Absätzen
 und Skizze auf fünf Seiten vollständig. Alle PDF-Seiten gerendert und
 visuell kontrolliert. Druckansicht und Browserstand nach Ausgabe geprüft.
 127 versionierte Tests, Syntax, Diff und historischer JSON-Rundlauf
-bestanden. Veröffentlichung vorbereitet.
+bestanden. Version 1.18.0 als b9a98d3 veröffentlicht. Actions 45029023023
+erfolgreich. Derselbe Druck- und JSON-Rundlauf auf der Live-Seite bestanden.

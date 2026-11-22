@@ -7,7 +7,8 @@ und Skizze druckbar machen. Dateien study.js, index.html, design.css,
 learning-path.js, README.md und Dokumentation. Lange Notizen und PDF
 visuell geprüft. Chrome bei 375 px, kurze und lange Texte, kombinierte
 Ausgabe und reine Skizze, 127 Tests und historischer JSON-Rundlauf bestanden.
-Version 1.18.0 zur Veröffentlichung vorbereitet.
+Version 1.18.0 als b9a98d3 veröffentlicht. Actions 45029023023 erfolgreich.
+Druck und historischer JSON-Rundlauf online geprüft. Keine Dateireservierung.
 
 ## Mehrere geöffnete Tabs am 21. November 2026
 
