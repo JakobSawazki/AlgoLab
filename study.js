@@ -277,6 +277,8 @@
     const message = dialog.querySelector("#notebook-status");
     const undo = dialog.querySelector("#notebook-undo");
     const redo = dialog.querySelector("#notebook-redo");
+    const printButton = dialog.querySelector("#notebook-print");
+    const printOutput = document.querySelector("#notebook-print-output");
     const tool = dialog.querySelector("#notebook-tool");
     const color = dialog.querySelector("#notebook-color");
     const width = dialog.querySelector("#notebook-width");
@@ -288,10 +290,15 @@
     let active = null;
     let pointer = null;
     let pointBudget = 0;
+    let originalTitle = null;
+    const updatePrintButton = () => {
+      printButton.disabled = !note.text.trim() && !note.strokes.length;
+    };
     const redraw = () => {
       draw(canvas, active ? [...note.strokes, active] : note.strokes);
       undo.disabled = !note.strokes.length;
       redo.disabled = !undone.length;
+      updatePrintButton();
     };
     function persist() {
       const notes = getStudy().notes;
@@ -324,8 +331,62 @@
     views.forEach(button => button.addEventListener("click", () => changeView(button.dataset.notebookView)));
     text.addEventListener("input", () => {
       note.text = text.value;
+      updatePrintButton();
       persist();
     });
+
+    function preparePrint() {
+      if (!dialog.open) return;
+      if (originalTitle === null) originalTitle = document.title;
+      const title = page.selectedOptions[0].textContent;
+      document.title = "AlgoLab - Notizbuch - " + page.value;
+      const brand = document.createElement("p");
+      brand.className = "notebook-print-brand";
+      brand.textContent = "AlgoLab - Mein Notizbuch";
+      const heading = document.createElement("h1");
+      heading.textContent = title;
+      printOutput.replaceChildren(brand, heading);
+
+      if (text.value.trim()) {
+        const label = document.createElement("h2");
+        label.textContent = "Notizen";
+        const notes = document.createElement("pre");
+        notes.textContent = text.value;
+        printOutput.append(label, notes);
+      }
+      if (note.strokes.length) {
+        const figure = document.createElement("figure");
+        const label = document.createElement("figcaption");
+        label.textContent = "Skizze";
+        const image = document.createElement("canvas");
+        image.width = canvas.width;
+        image.height = canvas.height;
+        image.setAttribute("role", "img");
+        image.setAttribute("aria-label", "Skizze zu " + title);
+        image.getContext("2d").drawImage(canvas, 0, 0);
+        figure.append(label, image);
+        printOutput.append(figure);
+      }
+      document.body.classList.add("notebook-printing");
+    }
+    function finishPrint() {
+      document.body.classList.remove("notebook-printing");
+      printOutput.replaceChildren();
+      if (originalTitle !== null) document.title = originalTitle;
+      originalTitle = null;
+    }
+    printButton.addEventListener("click", () => {
+      preparePrint();
+      try {
+        window.print();
+      } catch {
+        finishPrint();
+        message.textContent = "Die Druckansicht konnte nicht geöffnet werden. Versuche es über das Druckmenü deines Browsers.";
+      }
+    });
+    window.addEventListener("beforeprint", preparePrint);
+    window.addEventListener("afterprint", finishPrint);
+    dialog.addEventListener("close", finishPrint);
 
     function addPoint(event) {
       if (!active || pointer !== event.pointerId || active.points.length >= pointBudget) return;

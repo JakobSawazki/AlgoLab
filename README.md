@@ -2,12 +2,16 @@
 
 **BPE7 · Algorithmen und Datenstrukturen · Jahrgangsstufe 2**
 
-Stand: 21. November 2026. Version **1.17.0 – Sicher arbeiten mit mehreren Tabs**.
+Stand: 22. November 2026. Version **1.18.0 – Notizbuch drucken**.
 Veröffentlichungs- und Prüfstand: [Projektdokumentation](docs/documentation.md).
 Wenn ein anderer Tab den gespeicherten Lernstand geändert hat, weist AlgoLab
 darauf hin. Sichere eigene Änderungen in diesem Tab zuerst als JSON. Mit
 **Aktuellen Browserstand laden** übernimmst du anschließend nach Bestätigung
 den gespeicherten Stand und kannst wieder auf dem Gerät speichern.
+
+Über **Drucken / PDF** im Notizbuch gibst du den Text und die Skizze der
+ausgewählten Seite gemeinsam aus. Wähle im Druckdialog einen Drucker oder
+**Als PDF speichern**.
 
 In Lerneinheiten und Übungsklausuren werden Prüfergebnisse nach einer
 Codeänderung verworfen. Wer während einer laufenden Prüfung editiert, führt

@@ -1106,3 +1106,14 @@ Version 1.17.0 als e968504 veröffentlicht. Actions 44951848135 mit
 erfolgreichen Tests und Deployment. Der versionierte Browserlauf mit zwei
 Tabs bei 1365/375 px sowie historischer JSON-Rundlauf online bestanden.
 Keine Dateireservierung nach Abschluss.
+
+## 22. November 2026 – Notizbuch drucken in 1.18.0
+
+NOTE-01 ergänzt die Druckausgabe der ausgewählten Notizbuchseite. Sie übernimmt
+Text als Klartext und die Skizze aus der Zeichenfläche. Der Browser bietet
+Papier und PDF zur Auswahl. Chrome bei 375 px geprüft. Kurze Notiz mit Skizze
+und reine Skizze jeweils auf einer A4-Seite. Lange Testnotiz mit 160 Absätzen
+und Skizze auf fünf Seiten vollständig. Alle PDF-Seiten gerendert und
+visuell kontrolliert. Druckansicht und Browserstand nach Ausgabe geprüft.
+127 versionierte Tests, Syntax, Diff und historischer JSON-Rundlauf
+bestanden. Veröffentlichung vorbereitet.

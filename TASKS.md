@@ -1,5 +1,14 @@
 # Gemeinsamer Arbeitsstand – Jakob, Codex und Claude
 
+## Notizbuch drucken am 21. November 2026
+
+**NOTE-01 – DONE – Codex:** Ausgewählte Notizbuchseite mit Text
+und Skizze druckbar machen. Dateien study.js, index.html, design.css,
+learning-path.js, README.md und Dokumentation. Lange Notizen und PDF
+visuell geprüft. Chrome bei 375 px, kurze und lange Texte, kombinierte
+Ausgabe und reine Skizze, 127 Tests und historischer JSON-Rundlauf bestanden.
+Version 1.18.0 zur Veröffentlichung vorbereitet.
+
 ## Mehrere geöffnete Tabs am 21. November 2026
 
 **DATA-02 – DONE – Codex:** Überschreiben neuerer Browserstände aus

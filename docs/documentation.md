@@ -1,6 +1,15 @@
 # AlgoLab Projektdokumentation
 
-Stand: 21. November 2026 (Europe/Berlin)
+Stand: 22. November 2026 (Europe/Berlin)
+
+## Notizbuch drucken in 1.18.0
+
+**Drucken / PDF** öffnet den Druckdialog des Browsers für die ausgewählte
+Notizbuchseite. Die A4-Ausgabe enthält Text und Skizze unabhängig vom
+sichtbaren Reiter. Lange Texte werden auf mehrere Seiten verteilt.
+Leere Notizbuchseiten deaktivieren die Schaltfläche. Das Drucken greift
+auf die aktuelle Ansicht im Tab zu und schreibt keine Daten in die
+JSON-Sicherung oder den Browserstand.
 
 ## Mehrere geöffnete Tabs in 1.17.0
 

@@ -949,3 +949,66 @@ mark[data-study-mark] { background: var(--marker-ink); color: #192334; border-ra
 
 #storage-reload { display: block; margin-top: 12px; padding: 9px 14px; font-size: .83rem; }
 #storage-reload[hidden] { display: none; }
+
+#notebook-print { margin-left: auto; }
+#notebook-print-output { display: none; }
+
+@page notebook {
+  size: A4;
+  margin: 16mm;
+  @bottom-right {
+    content: counter(page) " / " counter(pages);
+    font: 8pt Arial, sans-serif;
+    color: #4c6076;
+  }
+}
+@media print {
+  body.notebook-printing {
+    display: block;
+    margin: 0;
+    background: white;
+    color: #17212b;
+  }
+  body.notebook-printing > :not(#notebook-print-output) { display: none !important; }
+  body.notebook-printing dialog::backdrop { display: none; }
+  body.notebook-printing #notebook-print-output {
+    display: block !important;
+    page: notebook;
+    font: 11pt/1.55 Arial, sans-serif;
+    text-shadow: none;
+    overflow-wrap: anywhere;
+  }
+  #notebook-print-output .notebook-print-brand {
+    margin: 0 0 4mm;
+    color: #4c6076;
+    font-size: 9pt;
+  }
+  #notebook-print-output h1 { margin: 0 0 7mm; font-size: 19pt; line-height: 1.25; color: #17212b; }
+  #notebook-print-output h2, #notebook-print-output figcaption {
+    margin: 0 0 3mm;
+    font: 700 12pt Arial, sans-serif;
+    color: #17212b;
+    break-after: avoid;
+  }
+  #notebook-print-output pre {
+    margin: 0 0 7mm;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: pre-wrap;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    overflow-wrap: anywhere;
+  }
+  #notebook-print-output figure { margin: 0; break-inside: avoid; }
+  #notebook-print-output canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #c3ceda;
+    border-radius: 3mm;
+  }
+}
